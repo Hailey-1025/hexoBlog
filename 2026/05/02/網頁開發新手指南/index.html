@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"hailey.tw","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":true,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"找到 ${hits} 個搜索結果（用時 ${time} 毫秒）","hits":"找到 ${hits} 個搜索結果"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="HTML 新手入門指南，整理 SEO 必備 Meta Tag（Title、Description、OG）、a 標籤用法與 RWD 基礎技巧，快速建立前端開發基礎。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="網頁開發新手指南">
+<meta property="og:url" content="https://hailey.tw/2026/05/02/%E7%B6%B2%E9%A0%81%E9%96%8B%E7%99%BC%E6%96%B0%E6%89%8B%E6%8C%87%E5%8D%97/index.html">
+<meta property="og:site_name" content="Hailey&#39;s Blog">
+<meta property="og:description" content="HTML 新手入門指南，整理 SEO 必備 Meta Tag（Title、Description、OG）、a 標籤用法與 RWD 基礎技巧，快速建立前端開發基礎。">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.postimg.cc/5NprL4xm/html-web-development-beginner-guide-cover.png">
+<meta property="og:image" content="https://i.postimg.cc/VvBm8xPS/html-web-development-beginner-guide-description.png">
+<meta property="og:image" content="https://i.postimg.cc/1Rp9wqnG/html-web-development-beginner-guide-title.png">
+<meta property="og:image" content="https://i.postimg.cc/kGFqm0PR/html-web-development-beginner-guide-line-Server.png">
+<meta property="article:published_time" content="2026-05-02T15:58:24.000Z">
+<meta property="article:modified_time" content="2026-05-02T17:05:13.658Z">
+<meta property="article:author" content="Hailey">
+<meta property="article:tag" content="HTML&#x2F;CSS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.postimg.cc/5NprL4xm/html-web-development-beginner-guide-cover.png">
+
+
+<link rel="canonical" href="https://hailey.tw/2026/05/02/%E7%B6%B2%E9%A0%81%E9%96%8B%E7%99%BC%E6%96%B0%E6%89%8B%E6%8C%87%E5%8D%97/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://hailey.tw/2026/05/02/%E7%B6%B2%E9%A0%81%E9%96%8B%E7%99%BC%E6%96%B0%E6%89%8B%E6%8C%87%E5%8D%97/","path":"2026/05/02/網頁開發新手指南/","title":"網頁開發新手指南"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>網頁開發新手指南 | Hailey's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8W8PTGBYMG"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-8W8PTGBYMG","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js" defer></script>
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="Hailey's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main main--recent-rail">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hailey's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Stressed spelled backwards is desserts.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜尋" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>關於</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜尋..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+    <div class="sidebar-mobile-focus">
+      <div class="site-meta site-meta--drawer">
+
+        <a href="/" class="brand" rel="start">
+          <i class="logo-line"></i>
+          <p class="site-title">Hailey's Blog</p>
+          <i class="logo-line"></i>
+        </a>
+          <p class="site-subtitle" itemprop="description">Stressed spelled backwards is desserts.</p>
+      </div>
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>關於</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+    </div>
+
+    <div class="sidebar-desktop-stack">
+
+      <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+        <ul class="sidebar-nav">
+          <li class="sidebar-nav-toc">
+            文章目錄
+          </li>
+          <li class="sidebar-nav-overview">
+            本站概要
+          </li>
+        </ul>
+
+        <div class="sidebar-panel-container">
+          <!--noindex-->
+          <div class="post-toc-wrap sidebar-panel">
+              <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AA%9E%E7%B3%BB"><span class="nav-number">2.</span> <span class="nav-text">語系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#meta-%E6%A8%99%E7%B1%A4"><span class="nav-number">3.</span> <span class="nav-text">meta 標籤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SEO-%E6%A0%B8%E5%BF%83%E6%A8%99%E7%B1%A4"><span class="nav-number">3.1.</span> <span class="nav-text">SEO 核心標籤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8A%80%E8%A1%93%E5%BF%85%E5%82%99%E6%A8%99%E7%B1%A4"><span class="nav-number">3.2.</span> <span class="nav-text">技術必備標籤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AC%A1%E8%A6%81-%E5%B7%B2%E9%81%8E%E6%99%82%E6%A8%99%E7%B1%A4"><span class="nav-number">3.3.</span> <span class="nav-text">次要 &#x2F; 已過時標籤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%93%8C-SEO-%E9%87%8D%E9%BB%9E%E6%95%B4%E7%90%86"><span class="nav-number">3.4.</span> <span class="nav-text">📌 SEO 重點整理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%A6%E9%9A%9B%E7%AF%84%E4%BE%8B%EF%BC%9A%E5%AE%8C%E6%95%B4%E7%9A%84-%E5%8D%80%E5%A1%8A"><span class="nav-number">3.5.</span> <span class="nav-text">實際範例：完整的 &lt;head&gt; 區塊</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A6%8B-HTML-%E6%A8%99%E7%B1%A4%E8%A3%9C%E5%85%85"><span class="nav-number">4.</span> <span class="nav-text">常見 HTML 標籤補充</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#a-%E6%A8%99%E7%B1%A4"><span class="nav-number">4.1.</span> <span class="nav-text">a 標籤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%96%E7%89%87%E9%9F%BF%E6%87%89%E5%BC%8F%E6%9B%B4%E6%8F%9B"><span class="nav-number">4.2.</span> <span class="nav-text">&lt;picture&gt; 圖片響應式更換</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A3%9C%E5%85%85%EF%BC%9A%E5%AF%A6%E6%88%B0%E6%8A%80%E5%B7%A7"><span class="nav-number">4.3.</span> <span class="nav-text">補充：實戰技巧</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B5%90%E8%AA%9E"><span class="nav-number">5.</span> <span class="nav-text">結語</span></a></li></ol></div>
+          </div>
+          <!--/noindex-->
+
+          <div class="site-overview-wrap sidebar-panel">
+            <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hailey"
+      src="https://i.postimg.cc/d1YJx7jW/site-author-image.png">
+  <p class="site-author-name" itemprop="name">Hailey</p>
+  <div class="site-description" itemprop="description">專注前端開發，記錄 JavaScript 與 Vite 的實戰筆記，以及從非本科轉職工程師的成長之路。</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">標籤</span>
+      </div>
+  </nav>
+</div>
+
+          </div>
+        </div>
+      </div>
+
+      
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://hailey.tw/2026/05/02/%E7%B6%B2%E9%A0%81%E9%96%8B%E7%99%BC%E6%96%B0%E6%89%8B%E6%8C%87%E5%8D%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://i.postimg.cc/d1YJx7jW/site-author-image.png">
+      <meta itemprop="name" content="Hailey">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hailey's Blog">
+      <meta itemprop="description" content="專注前端開發，記錄 JavaScript 與 Vite 的實戰筆記，以及從非本科轉職工程師的成長之路。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="網頁開發新手指南 | Hailey's Blog">
+      <meta itemprop="description" content="HTML 新手入門指南，整理 SEO 必備 Meta Tag（Title、Description、OG）、a 標籤用法與 RWD 基礎技巧，快速建立前端開發基礎。">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          網頁開發新手指南
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2026-05-02 23:58:24" itemprop="dateCreated datePublished" datetime="2026-05-02T23:58:24+08:00">2026-05-02</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新於</span>
+      <time title="修改時間：2026-05-03 01:05:13" itemprop="dateModified" datetime="2026-05-03T01:05:13+08:00">2026-05-03</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/HTML-CSS/" itemprop="url" rel="index"><span itemprop="name">HTML/CSS</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+            <div class="post-description">HTML 新手入門指南，整理 SEO 必備 Meta Tag（Title、Description、OG）、a 標籤用法與 RWD 基礎技巧，快速建立前端開發基礎。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p><img src="https://i.postimg.cc/5NprL4xm/html-web-development-beginner-guide-cover.png" alt="網頁開發新手指南"></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>如果你剛開始學習網頁開發，HTML 的基礎設定可能讓你感到困惑。這篇文章整理了最重要的 HTML 標籤使用技巧，幫助你快速掌握前端開發的核心知識。</p>
+<hr>
+<h2 id="語系"><a href="#語系" class="headerlink" title="語系"></a>語系</h2><p><code>&lt;html lang=&quot;zh-TW&quot;&gt;</code>（完整為 zh-Hant-TW，但大部分瀏覽器會去幫忙做修正）</p>
+<p>💡 <a target="_blank" rel="noopener" href="https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry">語系參考文件</a></p>
+<hr>
+<h2 id="meta-標籤"><a href="#meta-標籤" class="headerlink" title="meta 標籤"></a>meta 標籤</h2><h3 id="SEO-核心標籤"><a href="#SEO-核心標籤" class="headerlink" title="SEO 核心標籤"></a>SEO 核心標籤</h3><ul>
+<li><p><strong>title</strong>：</p>
+<p><code>&lt;title&gt;</code> 是網頁的標題，會顯示在瀏覽器分頁與搜尋結果標題上。</p>
+<p>它不是 meta tag，而是 HTML 文件的標準標籤之一。</p>
+<p>建議長度控制在約 25～30 個中文字內，避免在搜尋結果中被截斷。</p>
+</li>
+<li><p><strong>description</strong>：</p>
+<p>Meta description 是用來描述網頁內容的摘要文字，會出現在搜尋結果標題下方，幫助使用者快速理解頁面內容。</p>
+<p>建議長度控制在約 70～120 字之間（中文約 30～60 字），避免在搜尋結果中被截斷。</p>
+<p><img src="https://i.postimg.cc/VvBm8xPS/html-web-development-beginner-guide-description.png" alt=" Meta description"></p>
+<p>▲ 標題下方的灰色字，就是 Meta description 設定的。</p>
+</li>
+<li><p><strong>Meta og</strong>：</p>
+<p>Open Graph（OG）標籤用於社群平台分享時顯示的資訊，例如標題、描述與縮圖。不只 Facebook，LINE、Discord、iMessage 等平台分享連結時也都會讀取 OG 資訊。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">property</span>=<span class="string">&quot;og:title&quot;</span> <span class="attr">content</span>=<span class="string">&quot;標題&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">property</span>=<span class="string">&quot;og:description&quot;</span> <span class="attr">content</span>=<span class="string">&quot;描述&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">property</span>=<span class="string">&quot;og:image&quot;</span> <span class="attr">content</span>=<span class="string">&quot;圖片網址&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">property</span>=<span class="string">&quot;og:url&quot;</span> <span class="attr">content</span>=<span class="string">&quot;網頁網址&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>分享時所顯示的縮圖、標題和描述，都是從 meta og 進行設定的。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="技術必備標籤"><a href="#技術必備標籤" class="headerlink" title="技術必備標籤"></a>技術必備標籤</h3><ul>
+<li><p><strong>Meta charset</strong>：</p>
+<p>Meta charset 是瀏覽器顯示網站時採用的<strong>字元編碼</strong>，是每個網站必要的標籤，現在絕大多數的網站都是採用 utf-8 編碼。</p>
+<p>⚠️ 忘記設定 charset 會造成亂碼。</p>
+</li>
+<li><p><strong>Meta viewport</strong>：</p>
+<p>Meta viewport 用於控制行動裝置上的畫面縮放與寬度，是 RWD 網站的基本設定。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>width=device-width</code>：畫面寬度等於裝置寬度</li>
+<li><code>initial-scale=1.0</code>：初始縮放比例為 1</li>
+</ul>
+<p>⚠️ 忘記設定 viewport 是新手 RWD 壞掉的第一大原因。</p>
+</li>
+</ul>
+<h3 id="次要-已過時標籤"><a href="#次要-已過時標籤" class="headerlink" title="次要 &#x2F; 已過時標籤"></a>次要 &#x2F; 已過時標籤</h3><ul>
+<li><p><strong>Meta keywords</strong>：</p>
+<p>Meta keywords 曾經用於描述網頁關鍵字，但現今 Google 已不將其作為排名依據。目前 SEO 不建議依賴此標籤，過度堆疊關鍵字甚至可能被視為低品質內容。</p>
+</li>
+<li><p><strong>Meta robots</strong>：</p>
+<p>Meta robots 是給搜尋引擎的「索引指令」，用來控制頁面是否被收錄與追蹤連結。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;robots&quot;</span> <span class="attr">content</span>=<span class="string">&quot;index, follow&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>⚠️ Google、Bing 等搜尋引擎通常會遵守 robots 指令，但仍保有最終判斷權，並非強制性規則。</p>
+</blockquote>
+</li>
+<li><p><strong>Meta copyright</strong>：</p>
+<p>用於聲明網頁版權歸屬，例如：<code>&lt;meta name=&quot;copyright&quot; content=&quot;品牌名稱&quot;&gt;</code>。此標籤對 SEO 幾乎沒有影響，主要用於資訊聲明。</p>
+</li>
+</ul>
+<h3 id="📌-SEO-重點整理"><a href="#📌-SEO-重點整理" class="headerlink" title="📌 SEO 重點整理"></a>📌 SEO 重點整理</h3><table>
+<thead>
+<tr>
+<th>標籤名稱</th>
+<th>建議長度（中文）</th>
+<th>核心作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Title</td>
+<td>25～60 字</td>
+<td>網站的門面，直接影響點擊率</td>
+</tr>
+<tr>
+<td>Description</td>
+<td>30～80 字</td>
+<td>摘要網頁內容，吸引使用者進入</td>
+</tr>
+<tr>
+<td>OG</td>
+<td>—</td>
+<td>社群平台分享時的預覽資訊（不影響 SEO 排名）</td>
+</tr>
+<tr>
+<td>Keywords</td>
+<td>—</td>
+<td>Google 已不列入排名，不建議依賴</td>
+</tr>
+</tbody></table>
+<h3 id="實際範例：完整的-區塊"><a href="#實際範例：完整的-區塊" class="headerlink" title="實際範例：完整的 &lt;head&gt; 區塊"></a>實際範例：完整的 <code>&lt;head&gt;</code> 區塊</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;zh-TW&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>網頁標題 - 品牌名稱<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;description&quot;</span> <span class="attr">content</span>=<span class="string">&quot;網頁描述文字&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">property</span>=<span class="string">&quot;og:title&quot;</span> <span class="attr">content</span>=<span class="string">&quot;標題&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">property</span>=<span class="string">&quot;og:description&quot;</span> <span class="attr">content</span>=<span class="string">&quot;描述&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">property</span>=<span class="string">&quot;og:image&quot;</span> <span class="attr">content</span>=<span class="string">&quot;圖片網址&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">property</span>=<span class="string">&quot;og:url&quot;</span> <span class="attr">content</span>=<span class="string">&quot;網頁網址&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="常見-HTML-標籤補充"><a href="#常見-HTML-標籤補充" class="headerlink" title="常見 HTML 標籤補充"></a>常見 HTML 標籤補充</h2><p>前面我們已經介紹了網站的基礎設定（像是 meta 標籤與 SEO 相關內容），接下來會整理幾個「新手最常用、也是實務上一定會用到的 HTML 標籤」。</p>
+<p>這些標籤雖然看起來簡單，但幾乎每一個網站都會用到，包含連結、圖片與基本互動行為。</p>
+<h3 id="a-標籤"><a href="#a-標籤" class="headerlink" title="a 標籤"></a>a 標籤</h3><ul>
+<li><p><strong>target</strong>：</p>
+<p>在 a 標籤中加入 <code>target=&quot;_blank&quot;</code>，可在新視窗開啟連結。</p>
+<p>使用時機：若希望用戶都在固定網域內行動，則不須加 <code>target=&quot;_blank&quot;</code>。</p>
+<blockquote>
+<p>使用 <code>target=&quot;_blank&quot;</code> 時，建議補充 <code>rel=&quot;noopener noreferrer&quot;</code>，這是基於資安考量（防止惡意網頁存取原始視窗）。</p>
+</blockquote>
+</li>
+<li><p><strong>title</strong>：</p>
+<p>在 <code>&lt;a&gt;</code> 標籤中加入 <code>title</code> 屬性，可以在滑鼠移上時顯示提示文字（tooltip）。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">title</span>=<span class="string">&quot;這是XX網頁的連結&quot;</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>點我連結<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.postimg.cc/1Rp9wqnG/html-web-development-beginner-guide-title.png" alt="a標籤title設定"></p>
+<blockquote>
+<p>⚠️ 注意：這裡的 <code>title</code> 屬性與 <code>&lt;title&gt;</code>（網頁標題標籤）是不同的東西。</p>
+</blockquote>
+</li>
+<li><p><strong>連結顏色（CSS）</strong>：</p>
+<p>a 標籤的顏色會受到瀏覽器預設樣式影響（通常是藍色），可透過 CSS 讓它繼承父層顏色：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">a</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: inherit;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>href 屬性變化</strong>：</p>
+<p><code>href</code> 不限於一般網址，可以指向不同類型的連結：</p>
+<ol>
+<li><p><strong>頁面內錨點</strong></p>
+ <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#section-title&quot;</span>&gt;</span>跳轉到指定段落<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h2</span> <span class="attr">id</span>=<span class="string">&quot;section-title&quot;</span>&gt;</span>指定段落<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>電話</strong></p>
+ <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;tel:+886912345678&quot;</span>&gt;</span>撥打電話<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Email</strong></p>
+ <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;mailto:service@example.com&quot;</span>&gt;</span>聯絡我們<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>簡訊</strong></p>
+ <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;sms:+886912345678&quot;</span>&gt;</span>傳送簡訊<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>檔案下載</strong></p>
+ <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;/files/report.pdf&quot;</span> <span class="attr">download</span>&gt;</span>下載報告<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p> 加上 <code>download</code> 屬性後，點擊連結會直接下載檔案而不是開啟它。</p>
+</li>
+</ol>
+</li>
+</ul>
+<hr>
+<h3 id="圖片響應式更換"><a href="#圖片響應式更換" class="headerlink" title="&lt;picture&gt; 圖片響應式更換"></a><code>&lt;picture&gt;</code> 圖片響應式更換</h3><p>最常應用在 LOGO 上：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">picture</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- 當螢幕寬度小於 992px 時，替換圖片 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">source</span> <span class="attr">srcset</span>=<span class="string">&quot;./images/M2.png&quot;</span> <span class="attr">media</span>=<span class="string">&quot;(max-width: 992px)&quot;</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- 預設圖片，通常是桌面版本 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;./images/M1.png&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;Logo&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">picture</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>&lt;picture&gt;</code> 會依照條件載入不同圖片，瀏覽器會從上到下比對 <code>&lt;source&gt;</code> 的條件，載入第一個符合的圖片；若全部都不符合，則回退到 <code>&lt;img&gt;</code> 作為預設顯示。</p>
+<hr>
+<h3 id="補充：實戰技巧"><a href="#補充：實戰技巧" class="headerlink" title="補充：實戰技巧"></a>補充：實戰技巧</h3><p><strong>Layout 概念：</strong></p>
+<ul>
+<li><strong>容器</strong>：目的在定位，需額外拉出來做定位，原則上不寫高度。</li>
+<li><strong>內容</strong>：目的在呈現主題，用來撐開容器高度。</li>
+<li><strong>裝飾</strong>：不影響高度，背景色也是裝飾的一種，需要內容撐開，或直接設定高度。</li>
+<li>共用的 class（例如 <code>container</code>），放在自訂 class 後面，例如：<code>&lt;div class=&quot;text container&quot;&gt;</code>。</li>
+</ul>
+<p><strong>圖片行為：</strong></p>
+<ul>
+<li><code>img</code> 是 inline replaced element（行內置換元素），雖然表現很像 inline-block（可設定寬高），但本質上仍是 inline。</li>
+<li>新手常遇到圖片下方有不明間隙，原因就是 <code>img</code> 是行內元素。建議加上 <code>display: block;</code> 或 <code>vertical-align: middle;</code> 來消除間隙。</li>
+</ul>
+<p><strong>開發技巧：</strong></p>
+<ul>
+<li><p>Live server 可以利用內網在自己手機上觀看，只要手機跟電腦連同一個網路，把前面的 IP 位置改成自己的區網 IP，就可以用手機連上網頁測試。</p>
+<p><img src="https://i.postimg.cc/kGFqm0PR/html-web-development-beginner-guide-line-Server.png" alt="lineServer"></p>
+</li>
+<li><p><code>data-*</code> 屬性：<code>data-自訂名稱=&quot;值&quot;</code> 可以在 HTML 元素上埋入自訂資料，搭配 JS 使用非常方便。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">data-user-id</span>=<span class="string">&quot;123&quot;</span> <span class="attr">data-role</span>=<span class="string">&quot;admin&quot;</span>&gt;</span>...<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>JS 可以透過 <code>dataset</code> 存取：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> el = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;div&#x27;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(el.<span class="property">dataset</span>.<span class="property">userId</span>); <span class="comment">// &#x27;123&#x27;</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(el.<span class="property">dataset</span>.<span class="property">role</span>);   <span class="comment">// &#x27;admin&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>💡 屬性名稱中的 <code>-</code> 會自動轉換成 camelCase，例如 <code>data-user-id</code> → <code>dataset.userId</code>。</p>
+</blockquote>
+</li>
+</ul>
+<hr>
+<h2 id="結語"><a href="#結語" class="headerlink" title="結語"></a>結語</h2><p>HTML 看起來只是一些標籤的組合，但實際上每個標籤都有它對應的「用途與設計目的」。</p>
+<p>像是：</p>
+<ul>
+<li>meta 負責網站資訊與 SEO</li>
+<li>a 負責連結與互動</li>
+<li>picture 負責圖片載入策略</li>
+<li>data-* 則提供前端與 JavaScript 的資料橋樑</li>
+</ul>
+<p>當你開始理解「每個標籤為什麼存在」，而不是只是記語法時，HTML 才會真正變得有邏輯。</p>
+<p>這篇內容可以當作入門索引，後續可以再延伸：</p>
+<ul>
+<li>CSS 排版（Flex &#x2F; Grid）</li>
+<li>JavaScript DOM 操作</li>
+<li>RWD 實戰切版</li>
+</ul>
+<p>如果你已經看到這裡，代表你已經完成前端最基礎的一步了 👍</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+  
+  <section class="related-cards">
+    <h3 class="related-cards__title">
+      <i class="fa-solid fa-square-poll-horizontal"></i>相關文章
+    </h3>
+    <div class="related-cards__grid">
+      
+        
+          
+          
+            
+              
+            
+          
+          
+            
+            <a class="related-cards__item" href="/2026/05/02/HTML%20%E8%AA%9E%E6%84%8F%E5%8C%96%E6%A8%99%E7%B1%A4%E6%80%8E%E9%BA%BC%E7%94%A8%EF%BC%9F%E6%96%B0%E6%89%8B%E6%9C%80%E5%B8%B8%E6%90%9E%E9%8C%AF%E7%9A%84%205%20%E5%80%8B%E5%9C%B0%E6%96%B9/">
+              <span class="related-cards__item-title">HTML 語意化標籤怎麼用？新手最常搞錯的 5 個地方</span>
+              <span class="related-cards__item-date">
+                <i class="far fa-calendar-alt"></i>
+                2026-05-02
+              </span>
+            </a>
+          
+        
+      
+        
+      
+    </div>
+    <div class="share-article-section">
+      <div class="share-article-heading">
+        <i class="fa-solid fa-share-nodes share-article-icon" aria-hidden="true"></i>
+        <span>分享這篇文章</span>
+      </div>
+      <div class="share-article-buttons"
+           data-share-url="https://hailey.tw/2026/05/02/%E7%B6%B2%E9%A0%81%E9%96%8B%E7%99%BC%E6%96%B0%E6%89%8B%E6%8C%87%E5%8D%97/"
+           data-share-title="網頁開發新手指南">
+        <a href="#"
+           role="button"
+           class="share-article-btn"
+           data-platform="twitter">
+          <i class="fab fa-twitter"></i><span>Twitter</span>
+        </a>
+        <a href="#"
+           role="button"
+           class="share-article-btn"
+           data-platform="facebook">
+          <i class="fab fa-facebook"></i><span>Facebook</span>
+        </a>
+        <a href="#"
+           role="button"
+           class="share-article-btn"
+           data-platform="linkedin">
+          <i class="fab fa-linkedin"></i><span>LinkedIn</span>
+        </a>
+        <button type="button" class="share-article-btn" data-copy>
+          <i class="fa-regular fa-copy"></i><span>複製連結</span>
+        </button>
+      </div>
+    </div>
+  </section>
+  <style>
+    /* 讓 post-footer 變成可排序容器 */
+    .post-footer {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* 上一篇/下一篇 */
+    .post-footer .post-nav {
+      order: 20;
+    }
+
+    /* 你的相關文章區塊 */
+    .post-footer .related-cards {
+      order: 30;
+    }
+
+    /* 你的分享區塊（如果也要在 related 下方） */
+    .post-footer .share-article-section {
+      order: 40;
+    }
+    .related-cards {
+      margin: 2.25rem 0 1rem;
+    }
+
+    .related-cards__title {
+      margin-bottom: 12px;
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+
+    .related-cards__title i {
+        color: #22d3ee;
+        margin-right: 6px;
+    }
+
+    .related-cards__grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .related-cards__item {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 16px;
+      --tw-border-opacity: 1;
+      border: 1px solid rgb(82 82 91 / var(--tw-border-opacity, 1));
+      border-radius: 12px;
+      background: #4c4c5180;
+      color: #f5f7fa;
+      text-decoration: none;
+      transition: transform .18s ease, border-color .18s ease;
+    }
+
+    .related-cards__item:hover {
+      transform: translateY(-2px);
+      border-color: #22d3ee;
+      color: #22d3ee;
+    }
+
+    .related-cards__item-title {
+      font-size: 1rem;
+      line-height: 1.35;
+      font-weight: 600;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+
+    .related-cards__item-date {
+      margin-top: 10px;
+      font-size: .88rem;
+      color: #c5cad3;
+    }
+
+    @media (max-width: 1100px) {
+      .related-cards__grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .related-cards__grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* AddToAny */
+
+    /* 第一顆 AddToAny 主按鈕常太醜，直接隱藏 */
+    .post-footer .social-like .a2a_dd {
+    display: none;
+    }
+
+    .share-article-section { 
+      margin: 2rem 0 1rem; 
+      padding-top: 1.25rem; 
+    }
+    .share-article-heading { 
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .share-article-icon { 
+      color: #2dd4bf;
+      font-size: 1.25rem;
+    }
+    .share-article-buttons { 
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .share-article-btn {
+        display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px;
+        border: 1px solid rgb(82 82 91 / var(--tw-border-opacity, 1));
+        border-radius: 10px;
+        background: #4c4c5180;
+        color: inherit;
+        cursor: pointer;
+        text-decoration: none;
+        font: inherit;
+        transition: transform .18s ease, border-color .18s ease;
+    }
+    .share-article-btn:hover { border-color: #22d3ee;
+        transform: translateY(-2px); 
+    }
+  </style>
+  <script>
+  (function () {
+    var root = document.querySelector('.share-article-buttons');
+    if (!root || root.dataset.bound) return;
+    root.dataset.bound = '1';
+    var url = root.dataset.shareUrl || '';
+    var title = root.dataset.shareTitle || '';
+    var encUrl = encodeURIComponent(url);
+    var encTitle = encodeURIComponent(title);
+    var urls = {
+      twitter: 'https://twitter.com/intent/tweet?url=' + encUrl + '&text=' + encTitle,
+      facebook: 'https://www.facebook.com/sharer/sharer.php?u=' + encUrl,
+      linkedin: 'https://www.linkedin.com/sharing/share-offsite/?url=' + encUrl
+    };
+    root.querySelectorAll('[data-platform]').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        var p = btn.dataset.platform;
+        window.open(urls[p], '_blank', 'noopener,noreferrer');
+      });
+    });
+    var btnCopy = root.querySelector('[data-copy]');
+    if (btnCopy) {
+      btnCopy.addEventListener('click', function () {
+        navigator.clipboard.writeText(url).then(function () {
+          btnCopy.querySelector('span').textContent = '已複製';
+          setTimeout(function () { btnCopy.querySelector('span').textContent = '複製連結'; }, 2000);
+        });
+      });
+    }
+  })();
+  </script>
+
+
+          <div class="post-tags">
+              <a href="/tags/HTML-CSS/" rel="tag"># HTML/CSS</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/05/02/HTML%20%E8%AA%9E%E6%84%8F%E5%8C%96%E6%A8%99%E7%B1%A4%E6%80%8E%E9%BA%BC%E7%94%A8%EF%BC%9F%E6%96%B0%E6%89%8B%E6%9C%80%E5%B8%B8%E6%90%9E%E9%8C%AF%E7%9A%84%205%20%E5%80%8B%E5%9C%B0%E6%96%B9/" rel="prev" title="HTML 語意化標籤怎麼用？新手最常搞錯的 5 個地方">
+                  <i class="fa fa-angle-left"></i> HTML 語意化標籤怎麼用？新手最常搞錯的 5 個地方
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div><aside class="column-recent-posts" aria-label="最新文章">
+  <div class="recent-rail-inner">
+    <h3 class="recent-rail-title">
+      <i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i>
+      <span>最新文章</span>
+    </h3>
+    <ol class="recent-rail-list">
+      
+        <li class="recent-rail-item">
+          <a class="recent-rail-link" href="/2026/05/02/%E7%B6%B2%E9%A0%81%E9%96%8B%E7%99%BC%E6%96%B0%E6%89%8B%E6%8C%87%E5%8D%97/">
+            <span class="recent-rail-item-title">網頁開發新手指南</span>
+            <span class="recent-rail-item-date">05/02</span>
+          </a>
+        </li>
+      
+        <li class="recent-rail-item">
+          <a class="recent-rail-link" href="/2026/05/02/HTML%20%E8%AA%9E%E6%84%8F%E5%8C%96%E6%A8%99%E7%B1%A4%E6%80%8E%E9%BA%BC%E7%94%A8%EF%BC%9F%E6%96%B0%E6%89%8B%E6%9C%80%E5%B8%B8%E6%90%9E%E9%8C%AF%E7%9A%84%205%20%E5%80%8B%E5%9C%B0%E6%96%B9/">
+            <span class="recent-rail-item-title">HTML 語意化標籤怎麼用？新手最常搞錯的 5 個地方</span>
+            <span class="recent-rail-item-date">05/02</span>
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</aside>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class=""></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Hailey. All rights reserved.<br>Built with Hexo & Theme NexT</span>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"Hailey-1025/blog-comments","issue_term":"pathname","label":"comment","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js" defer></script>
+
+<script>
+(function () {
+  var mq = window.matchMedia('(max-width: 991px)');
+  var btn = document.querySelector('.site-nav-toggle .toggle');
+  var sidebarBtn = document.querySelector('.sidebar-toggle');
+  var siteNav = document.querySelector('.header .site-nav');
+  if (!btn || !sidebarBtn) return;
+
+  function collapseHeaderNavDropdown() {
+    document.body.classList.remove('site-nav-on');
+    if (siteNav) siteNav.style.removeProperty('--scroll-height');
+  }
+
+  btn.addEventListener('click', function (e) {
+    if (!mq.matches) return;
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    collapseHeaderNavDropdown();
+    sidebarBtn.click();
+  }, true);
+
+  new MutationObserver(function () {
+    if (!mq.matches) return;
+    var open = document.body.classList.contains('sidebar-active');
+    btn.classList.toggle('toggle-close', open);
+  }).observe(document.body, { attributes: true, attributeFilter: ['class'] });
+
+  mq.addEventListener('change', function () {
+    if (!mq.matches) {
+      btn.classList.remove('toggle-close');
+      collapseHeaderNavDropdown();
+      document.body.classList.remove('mobile-header-scrolled-down');
+    }
+  });
+
+  var lastY = window.scrollY || 0;
+  var ticking = false;
+
+  function updateMobileHeaderOnScroll() {
+    ticking = false;
+    if (!mq.matches) return;
+    var currentY = window.scrollY || 0;
+    var scrollingDown = currentY > lastY;
+    var passedTop = currentY > 10;
+    document.body.classList.toggle('mobile-header-scrolled-down', scrollingDown && passedTop);
+    lastY = currentY;
+  }
+
+  window.addEventListener('scroll', function () {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(updateMobileHeaderOnScroll);
+  }, { passive: true });
+})();
+</script>
+
+</body>
+</html>

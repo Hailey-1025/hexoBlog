@@ -313,7 +313,8 @@ dd {
 }
 .table-container .hljs-tag,
 .table-container .hljs-attr,
-.table-container .hljs-string {
+.table-container .hljs-string,
+.table-container .hljs-punctuation {
   color: #22d3ee !important;
   font-weight: 400;
 }
@@ -1399,7 +1400,7 @@ pre code {
     vertical-align: middle;
   }
   .links-of-author a::before {
-    background: #db9a2f;
+    background: #7a8fe0;
     display: inline-block;
     margin-right: 3px;
     transform: translateY(-2px);
@@ -2160,6 +2161,9 @@ pre code {
 .post-body video,
 .post-body embed {
   margin-bottom: 20px;
+}
+.post-body p img {
+  width: 100%;
 }
 .post-body .video-container {
   height: 0;
