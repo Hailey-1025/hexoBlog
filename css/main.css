@@ -312,10 +312,14 @@ dd {
   overflow: auto;
 }
 .table-container .hljs-tag,
-.table-container .hljs-name,
 .table-container .hljs-attr,
 .table-container .hljs-string {
   color: #37c6c0 !important;
+  font-weight: 400;
+}
+.table-container .hljs-name {
+  color: #ff8e40 !important;
+  font-weight: 400;
 }
 table {
   border-collapse: collapse;
@@ -1395,7 +1399,7 @@ pre code {
     vertical-align: middle;
   }
   .links-of-author a::before {
-    background: #01b645;
+    background: #1622a3;
     display: inline-block;
     margin-right: 3px;
     transform: translateY(-2px);
