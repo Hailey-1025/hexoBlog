@@ -318,6 +318,11 @@ dd {
   color: #22d3ee !important;
   font-weight: 400;
 }
+.table-container .hljs-keyword,
+.table-container .hljs-title,
+.table-container .hljs-function_ {
+  font-weight: 400;
+}
 .table-container .hljs-name {
   color: #f9a8d4 !important;
   font-weight: 400;
@@ -695,6 +700,7 @@ code {
   padding: 2px 4px;
   overflow-wrap: break-word;
   color: #22d3ee;
+  background: none;
 }
 kbd {
   border: 2px solid #f5f5f5;
@@ -1400,7 +1406,7 @@ pre code {
     vertical-align: middle;
   }
   .links-of-author a::before {
-    background: #ff62c4;
+    background: #d0ffc4;
     display: inline-block;
     margin-right: 3px;
     transform: translateY(-2px);
@@ -2833,6 +2839,35 @@ header.header {
   }
 }
 @media (min-width: 992px) {
+  .main.main--recent-rail .column > .header {
+    flex-shrink: 0;
+  }
+  .main.main--recent-rail .column > .sidebar {
+    flex: 1 1 auto;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .main.main--recent-rail .column .sidebar-desktop-stack {
+    flex: 1 1 auto;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .main.main--recent-rail .column .sidebar-desktop-stack > .sidebar-inner:first-of-type {
+    flex: 1 1 auto;
+    min-height: 0;
+    max-height: none;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+  }
+  .main.main--recent-rail .column .sidebar-desktop-stack > .sidebar-inner:not(:first-of-type) {
+    flex: 0 0 auto;
+  }
+}
+@media (min-width: 992px) {
   .main.main--recent-rail .main-inner {
     grid-column: auto;
     min-width: 0;
@@ -2949,6 +2984,15 @@ header.header {
   width: 240px;
   position: sticky;
 }
+@media (min-width: 992px) {
+  .column {
+    align-self: start;
+    display: flex;
+    flex-direction: column;
+    max-height: calc(100vh - 24px);
+    min-height: 0;
+  }
+}
 @media (max-width: 992px) {
   .column {
     position: relative;
@@ -2957,6 +3001,9 @@ header.header {
 @media (max-width: 991px) {
   .column {
     width: auto;
+    display: block;
+    max-height: none;
+    min-height: 0;
   }
 }
 .site-brand-container {
@@ -3069,6 +3116,9 @@ header.header {
     position: sticky;
     top: 12px;
   }
+  .main.main--recent-rail .column > .sidebar {
+    position: static;
+  }
   .sidebar-toggle {
     display: none;
   }
@@ -3080,6 +3130,9 @@ header.header {
     color: var(--text-color);
     margin-top: 12px;
     max-height: calc(100vh - 24px);
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
     visibility: hidden;
   }
   .site-state-item {
