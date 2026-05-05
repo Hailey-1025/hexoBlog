@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"hailey.tw","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":true,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"找到 ${hits} 個搜索結果（用時 ${time} 毫秒）","hits":"找到 ${hits} 個搜索結果"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="JavaScript 函式基礎教學，包含參數、return、作用域與實作範例，適合初學者入門">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript 函式 Function 入門教學｜參數、return 與作用域完整解析">
+<meta property="og:url" content="https://hailey.tw/2026/05/05/JavaScript%20%E5%87%BD%E5%BC%8F%20Function%20%E5%85%A5%E9%96%80%E6%95%99%E5%AD%B8%EF%BD%9C%E5%8F%83%E6%95%B8%E3%80%81return%20%E8%88%87%E4%BD%9C%E7%94%A8%E5%9F%9F%E5%AE%8C%E6%95%B4%E8%A7%A3%E6%9E%90/index.html">
+<meta property="og:site_name" content="Hailey&#39;s Blog">
+<meta property="og:description" content="JavaScript 函式基礎教學，包含參數、return、作用域與實作範例，適合初學者入門">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.postimg.cc/9f9jvyqQ/javascript-function-tutorial-cover.jpg">
+<meta property="article:published_time" content="2026-05-05T04:04:08.000Z">
+<meta property="article:modified_time" content="2026-05-05T04:05:01.429Z">
+<meta property="article:author" content="Hailey">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.postimg.cc/9f9jvyqQ/javascript-function-tutorial-cover.jpg">
+
+
+<link rel="canonical" href="https://hailey.tw/2026/05/05/JavaScript%20%E5%87%BD%E5%BC%8F%20Function%20%E5%85%A5%E9%96%80%E6%95%99%E5%AD%B8%EF%BD%9C%E5%8F%83%E6%95%B8%E3%80%81return%20%E8%88%87%E4%BD%9C%E7%94%A8%E5%9F%9F%E5%AE%8C%E6%95%B4%E8%A7%A3%E6%9E%90/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://hailey.tw/2026/05/05/JavaScript%20%E5%87%BD%E5%BC%8F%20Function%20%E5%85%A5%E9%96%80%E6%95%99%E5%AD%B8%EF%BD%9C%E5%8F%83%E6%95%B8%E3%80%81return%20%E8%88%87%E4%BD%9C%E7%94%A8%E5%9F%9F%E5%AE%8C%E6%95%B4%E8%A7%A3%E6%9E%90/","path":"2026/05/05/JavaScript 函式 Function 入門教學｜參數、return 與作用域完整解析/","title":"JavaScript 函式 Function 入門教學｜參數、return 與作用域完整解析"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>JavaScript 函式 Function 入門教學｜參數、return 與作用域完整解析 | Hailey's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8W8PTGBYMG"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-8W8PTGBYMG","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js" defer></script>
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="Hailey's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main main--recent-rail">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hailey's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Stressed spelled backwards is desserts.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜尋" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>關於</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜尋..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+    <div class="sidebar-mobile-focus">
+      <div class="site-meta site-meta--drawer">
+
+        <a href="/" class="brand" rel="start">
+          <i class="logo-line"></i>
+          <p class="site-title">Hailey's Blog</p>
+          <i class="logo-line"></i>
+        </a>
+          <p class="site-subtitle" itemprop="description">Stressed spelled backwards is desserts.</p>
+      </div>
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>關於</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+    </div>
+
+    <div class="sidebar-desktop-stack">
+
+      <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+        <ul class="sidebar-nav">
+          <li class="sidebar-nav-toc">
+            文章目錄
+          </li>
+          <li class="sidebar-nav-overview">
+            本站概要
+          </li>
+        </ul>
+
+        <div class="sidebar-panel-container">
+          <!--noindex-->
+          <div class="post-toc-wrap sidebar-panel">
+              <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E9%BA%BC%E6%98%AF%E5%87%BD%E5%BC%8F%EF%BC%9F"><span class="nav-number">2.</span> <span class="nav-text">什麼是函式？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%81%A9%E5%90%88%E4%BD%BF%E7%94%A8%E5%87%BD%E5%BC%8F%E7%9A%84%E6%99%82%E6%A9%9F"><span class="nav-number">2.1.</span> <span class="nav-text">適合使用函式的時機</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%91%BD%E5%90%8D%E8%A6%8F%E5%89%87"><span class="nav-number">3.</span> <span class="nav-text">命名規則</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E5%BC%8F%E5%9F%BA%E6%9C%AC%E5%AF%AB%E6%B3%95"><span class="nav-number">4.</span> <span class="nav-text">函式基本寫法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E5%BC%8F%E5%85%A7%E5%91%BC%E5%8F%AB%E5%85%B6%E4%BB%96%E5%87%BD%E5%BC%8F"><span class="nav-number">5.</span> <span class="nav-text">函式內呼叫其他函式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%83%E6%95%B8%EF%BC%88Parameter%EF%BC%89"><span class="nav-number">6.</span> <span class="nav-text">參數（Parameter）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%96%AE%E4%B8%80%E5%8F%83%E6%95%B8"><span class="nav-number">6.1.</span> <span class="nav-text">單一參數</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E5%80%8B%E5%8F%83%E6%95%B8%EF%BC%88%E4%BB%A5%E9%80%97%E8%99%9F%E9%9A%94%E9%96%8B%EF%BC%8C%E4%B8%94%E6%9C%89%E9%A0%86%E5%BA%8F%E6%80%A7%EF%BC%89"><span class="nav-number">6.2.</span> <span class="nav-text">多個參數（以逗號隔開，且有順序性）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#return-%E5%9B%9E%E5%82%B3%E5%80%BC"><span class="nav-number">7.</span> <span class="nav-text">return 回傳值</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B2%92%E6%9C%89-return-%E7%9A%84%E5%95%8F%E9%A1%8C"><span class="nav-number">7.1.</span> <span class="nav-text">沒有 return 的問題</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-return-%E6%AD%A3%E7%A2%BA%E5%9B%9E%E5%82%B3"><span class="nav-number">7.2.</span> <span class="nav-text">使用 return 正確回傳</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#return-%E6%90%AD%E9%85%8D%E4%B8%AD%E9%96%93%E8%AE%8A%E6%95%B8"><span class="nav-number">7.3.</span> <span class="nav-text">return 搭配中間變數</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#return-%E6%9C%83%E4%B8%AD%E6%96%B7%E5%87%BD%E5%BC%8F%E5%9F%B7%E8%A1%8C"><span class="nav-number">7.4.</span> <span class="nav-text">return 會中斷函式執行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E5%80%8B-return-%E5%88%86%E6%94%AF%EF%BC%88%E6%90%AD%E9%85%8D-if-else%EF%BC%89"><span class="nav-number">7.5.</span> <span class="nav-text">多個 return 分支（搭配 if&#x2F;else）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%A8%E5%9F%9F%E8%AE%8A%E6%95%B8%E8%88%87%E5%8D%80%E5%9F%9F%E8%AE%8A%E6%95%B8"><span class="nav-number">8.</span> <span class="nav-text">全域變數與區域變數</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B6%9C%E5%90%88%E7%AF%84%E4%BE%8B"><span class="nav-number">9.</span> <span class="nav-text">綜合範例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B8%E5%AD%B8%E9%A1%9E"><span class="nav-number">9.1.</span> <span class="nav-text">數學類</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E4%B8%B2%E9%A1%9E"><span class="nav-number">9.2.</span> <span class="nav-text">字串類</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8B%80%E6%85%8B%E7%AE%A1%E7%90%86%E9%A1%9E"><span class="nav-number">9.3.</span> <span class="nav-text">狀態管理類</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%A9%E4%BB%B6%E6%93%8D%E4%BD%9C%E9%A1%9E"><span class="nav-number">9.4.</span> <span class="nav-text">物件操作類</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8D%E9%BB%9E%E6%95%B4%E7%90%86"><span class="nav-number">10.</span> <span class="nav-text">重點整理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B5%90%E8%AA%9E"><span class="nav-number">11.</span> <span class="nav-text">結語</span></a></li></ol></div>
+          </div>
+          <!--/noindex-->
+
+          <div class="site-overview-wrap sidebar-panel">
+            <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hailey"
+      src="https://i.postimg.cc/d1YJx7jW/site-author-image.png">
+  <p class="site-author-name" itemprop="name">Hailey</p>
+  <div class="site-description" itemprop="description">專注前端開發，記錄 JavaScript 與 Vite 的實戰筆記，以及從非本科轉職工程師的成長之路。</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">標籤</span>
+      </div>
+  </nav>
+</div>
+
+          </div>
+        </div>
+      </div>
+
+      
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://hailey.tw/2026/05/05/JavaScript%20%E5%87%BD%E5%BC%8F%20Function%20%E5%85%A5%E9%96%80%E6%95%99%E5%AD%B8%EF%BD%9C%E5%8F%83%E6%95%B8%E3%80%81return%20%E8%88%87%E4%BD%9C%E7%94%A8%E5%9F%9F%E5%AE%8C%E6%95%B4%E8%A7%A3%E6%9E%90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://i.postimg.cc/d1YJx7jW/site-author-image.png">
+      <meta itemprop="name" content="Hailey">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hailey's Blog">
+      <meta itemprop="description" content="專注前端開發，記錄 JavaScript 與 Vite 的實戰筆記，以及從非本科轉職工程師的成長之路。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="JavaScript 函式 Function 入門教學｜參數、return 與作用域完整解析 | Hailey's Blog">
+      <meta itemprop="description" content="JavaScript 函式基礎教學，包含參數、return、作用域與實作範例，適合初學者入門">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JavaScript 函式 Function 入門教學｜參數、return 與作用域完整解析
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+      
+
+      <time title="創建時間：2026-05-05 12:04:08 / 修改時間：12:05:01" itemprop="dateCreated datePublished" datetime="2026-05-05T12:04:08+08:00">2026-05-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+            <div class="post-description">JavaScript 函式基礎教學，包含參數、return、作用域與實作範例，適合初學者入門</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p><img src="https://i.postimg.cc/9f9jvyqQ/javascript-function-tutorial-cover.jpg" alt="JavaScript 函式 Function 入門教學｜參數、return 與作用域完整解析"></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>函式（Function）是 JavaScript 中最重要的基礎概念之一，它能讓我們將重複的程式邏輯封裝起來，提高程式的可讀性與維護性。</p>
+<p>在實際開發中，幾乎所有功能（例如按鈕點擊、資料處理、API 請求）都會透過函式來組織，因此理解函式是學好 JavaScript 的關鍵一步。</p>
+<blockquote>
+<p>本篇適合 JavaScript 初學者，建議先具備：</p>
+<ul>
+<li>變數（<code>let</code> &#x2F; <code>const</code>）的基本觀念</li>
+<li>基本運算（<code>+</code>、<code>-</code>、<code>%</code> 等）</li>
+</ul>
+</blockquote>
+<hr>
+<h2 id="什麼是函式？"><a href="#什麼是函式？" class="headerlink" title="什麼是函式？"></a>什麼是函式？</h2><p>函式（Function）是將一段<strong>完整功能的程式碼</strong>包裝起來，透過命名後可以重複呼叫使用，避免程式碼重複撰寫。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 呼叫自訂函式的方式</span></span><br><span class="line"><span class="title function_">morningAction</span>();</span><br><span class="line"><span class="title function_">nightAction</span>();</span><br></pre></td></tr></table></figure>
+
+<h3 id="適合使用函式的時機"><a href="#適合使用函式的時機" class="headerlink" title="適合使用函式的時機"></a>適合使用函式的時機</h3><ol>
+<li><strong>程式碼需要重複使用</strong>：相同邏輯出現多次時，改用函式統一管理。</li>
+<li><strong>封裝完整的獨立功能</strong>：一段有明確目的的程式，應獨立成一個函式。</li>
+</ol>
+<hr>
+<h2 id="命名規則"><a href="#命名規則" class="headerlink" title="命名規則"></a>命名規則</h2><p>函式名稱命名規則與變數相同，但<strong>應以動詞為主</strong>，清楚描述該函式的行為。</p>
+<table>
+<thead>
+<tr>
+<th>動詞前綴</th>
+<th>意義</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>get</code></td>
+<td>取得、取出資料</td>
+</tr>
+<tr>
+<td><code>set</code></td>
+<td>賦予、修改資料</td>
+</tr>
+<tr>
+<td><code>add</code></td>
+<td>增加資料</td>
+</tr>
+<tr>
+<td><code>remove</code></td>
+<td>排除、刪除資料</td>
+</tr>
+<tr>
+<td><code>is</code></td>
+<td>判斷（回傳布林值）</td>
+</tr>
+<tr>
+<td><code>do</code></td>
+<td>執行某段邏輯</td>
+</tr>
+<tr>
+<td><code>check</code></td>
+<td>檢查、驗證</td>
+</tr>
+<tr>
+<td><code>calc</code></td>
+<td>計算</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="函式基本寫法"><a href="#函式基本寫法" class="headerlink" title="函式基本寫法"></a>函式基本寫法</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用 function 關鍵字宣告，後接函式名稱與大括號包住的程式區塊</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">morningAction</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;起床&#x27;</span>);</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;刷牙&#x27;</span>);</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;洗臉&#x27;</span>);</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;出門&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">nightAction</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;回家&#x27;</span>);</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;刷牙&#x27;</span>);</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;洗臉&#x27;</span>);</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;睡覺&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">morningAction</span>(); <span class="comment">// 執行，依序印出大括號內的內容</span></span><br><span class="line"><span class="title function_">nightAction</span>();</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="函式內呼叫其他函式"><a href="#函式內呼叫其他函式" class="headerlink" title="函式內呼叫其他函式"></a>函式內呼叫其他函式</h2><p>函式內可以再呼叫其他函式，程式會先執行被呼叫的函式，完成後才繼續往下執行。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">morningAction</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;起床&#x27;</span>);</span><br><span class="line">  <span class="title function_">cleanFace</span>(); <span class="comment">// 先跑完 cleanFace()，再繼續往下</span></span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;出門&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">nightAction</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;回家&#x27;</span>);</span><br><span class="line">  <span class="title function_">cleanFace</span>();</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;睡覺&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">cleanFace</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;刷牙&#x27;</span>);</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;洗臉&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">morningAction</span>();</span><br><span class="line"><span class="title function_">nightAction</span>();</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="參數（Parameter）"><a href="#參數（Parameter）" class="headerlink" title="參數（Parameter）"></a>參數（Parameter）</h2><p><strong>參數是函式與外部環境溝通的管道</strong>，就像變數一樣，可以將值傳入函式中使用。</p>
+<h3 id="單一參數"><a href="#單一參數" class="headerlink" title="單一參數"></a>單一參數</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">greet</span>(<span class="params">name</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(name);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">greet</span>(<span class="string">&#x27;Alice&#x27;</span>); <span class="comment">// Alice</span></span><br><span class="line"><span class="title function_">greet</span>(<span class="string">&#x27;Bob&#x27;</span>);   <span class="comment">// Bob</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="多個參數（以逗號隔開，且有順序性）"><a href="#多個參數（以逗號隔開，且有順序性）" class="headerlink" title="多個參數（以逗號隔開，且有順序性）"></a>多個參數（以逗號隔開，且有順序性）</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">showNums</span>(<span class="params">num1, num2</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(num1, num2);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">showNums</span>(<span class="number">1</span>, <span class="number">2</span>); <span class="comment">// 1 2</span></span><br><span class="line"><span class="title function_">showNums</span>(<span class="number">3</span>, <span class="number">4</span>); <span class="comment">// 3 4</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>⚠️ 參數<strong>只存活於函式的大括號內</strong>，離開函式後即無效。</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">add</span>(<span class="params">num1, num2</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(num1 + num2);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">add</span>(<span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(num1); <span class="comment">// ❌ 錯誤：num1 is not defined</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="return-回傳值"><a href="#return-回傳值" class="headerlink" title="return 回傳值"></a>return 回傳值</h2><blockquote>
+<p><strong>一句話記住</strong>：<code>return</code> &#x3D; 「把結果帶出去 + 停止函式執行」</p>
+</blockquote>
+<p>當需要將計算結果拿到函式<strong>外部</strong>使用時，必須透過 <code>return</code> 回傳。</p>
+<h3 id="沒有-return-的問題"><a href="#沒有-return-的問題" class="headerlink" title="沒有 return 的問題"></a>沒有 return 的問題</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">calcTotalScore</span>(<span class="params">chineseScore, mathScore</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(chineseScore + mathScore); <span class="comment">// 只印出，無法儲存</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> markTotalScore = <span class="title function_">calcTotalScore</span>(<span class="number">40</span>, <span class="number">60</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(markTotalScore); <span class="comment">// undefined（沒有回傳值）</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="使用-return-正確回傳"><a href="#使用-return-正確回傳" class="headerlink" title="使用 return 正確回傳"></a>使用 return 正確回傳</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">calcTotalScore</span>(<span class="params">chineseScore, mathScore</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> chineseScore + mathScore; <span class="comment">// 將結果回傳到呼叫處</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> markTotalScore = <span class="title function_">calcTotalScore</span>(<span class="number">40</span>, <span class="number">60</span>); <span class="comment">// 100</span></span><br><span class="line"><span class="keyword">let</span> tomTotalScore  = <span class="title function_">calcTotalScore</span>(<span class="number">70</span>, <span class="number">10</span>); <span class="comment">// 80</span></span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Tom 的總分為 <span class="subst">$&#123;tomTotalScore&#125;</span>`</span>); <span class="comment">// Tom 的總分為 80</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="return-搭配中間變數"><a href="#return-搭配中間變數" class="headerlink" title="return 搭配中間變數"></a>return 搭配中間變數</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">calcTotalScore</span>(<span class="params">chineseScore, mathScore</span>) &#123;</span><br><span class="line">  <span class="keyword">let</span> totalScore = chineseScore + mathScore;</span><br><span class="line">  <span class="keyword">return</span> totalScore;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// totalScore 只存在函式內，外部無法存取</span></span><br><span class="line"><span class="comment">// console.log(totalScore); // ❌ 錯誤</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> markTotalScore = <span class="title function_">calcTotalScore</span>(<span class="number">40</span>, <span class="number">60</span>);</span><br><span class="line"><span class="keyword">let</span> tomTotalScore  = <span class="title function_">calcTotalScore</span>(<span class="number">70</span>, <span class="number">10</span>);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Tom 的總分為 <span class="subst">$&#123;tomTotalScore&#125;</span>`</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="return-會中斷函式執行"><a href="#return-會中斷函式執行" class="headerlink" title="return 會中斷函式執行"></a>return 會中斷函式執行</h3><p><code>return</code> 執行後，函式<strong>立即結束</strong>，其後的程式碼不會再執行。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">calcTotalScore</span>(<span class="params">chineseScore, mathScore</span>) &#123;</span><br><span class="line">  <span class="keyword">let</span> totalScore = chineseScore + mathScore;</span><br><span class="line">  <span class="keyword">return</span> totalScore;       <span class="comment">// ← 函式到這裡結束</span></span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;hello&#x27;</span>);   <span class="comment">// ❌ 不會執行</span></span><br><span class="line">  <span class="keyword">return</span> <span class="number">3</span>;               <span class="comment">// ❌ 不會執行</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="多個-return-分支（搭配-if-else）"><a href="#多個-return-分支（搭配-if-else）" class="headerlink" title="多個 return 分支（搭配 if&#x2F;else）"></a>多個 return 分支（搭配 if&#x2F;else）</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">checkScore</span>(<span class="params">score</span>) &#123;</span><br><span class="line">  <span class="keyword">if</span> (score &gt;= <span class="number">60</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;及格&#x27;</span>;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;不及格&#x27;</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> tomScore  = <span class="title function_">checkScore</span>(<span class="number">60</span>);</span><br><span class="line"><span class="keyword">let</span> markScore = <span class="title function_">checkScore</span>(<span class="number">30</span>);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(tomScore);  <span class="comment">// 及格</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(markScore); <span class="comment">// 不及格</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="全域變數與區域變數"><a href="#全域變數與區域變數" class="headerlink" title="全域變數與區域變數"></a>全域變數與區域變數</h2><p>函式內若<strong>找不到某個變數</strong>，會向外層作用域查找，這個機制稱為 <strong>Scope Chain（作用域鏈）</strong>。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> count = <span class="number">0</span>; <span class="comment">// 全域變數</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">test</span>(<span class="params"></span>) &#123;</span><br><span class="line">  count += <span class="number">1</span>; <span class="comment">// 函式內找不到 count，往外找到全域的 count</span></span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;test 執行&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">test</span>();</span><br><span class="line"><span class="title function_">test</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`目前您紀錄了 <span class="subst">$&#123;count&#125;</span> 次`</span>); <span class="comment">// 目前您紀錄了 2 次</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>⚠️ 若需要跨次呼叫保存資料，可以使用外部變數，但實務上更建議使用 <strong>closure（閉包）或物件封裝</strong>，避免污染全域變數。</p>
+<p>全域變數在大型專案中容易造成「<strong>不可預期的修改來源</strong>」，是常見的 Bug 來源，也是面試常問觀念之一。</p>
+</blockquote>
+<hr>
+<h2 id="綜合範例"><a href="#綜合範例" class="headerlink" title="綜合範例"></a>綜合範例</h2><h3 id="數學類"><a href="#數學類" class="headerlink" title="數學類"></a>數學類</h3><p><strong>判斷偶數</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> checkCount = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">checkNumber</span>(<span class="params">myInput</span>) &#123;</span><br><span class="line">  checkCount += <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">if</span> (myInput % <span class="number">2</span> === <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;是偶數&#x27;</span>;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;不是偶數&#x27;</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">checkNumber</span>(<span class="number">7</span>));                       <span class="comment">// 不是偶數</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`您一共計算了 <span class="subst">$&#123;checkCount&#125;</span> 次`</span>);      <span class="comment">// 您一共計算了 1 次</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>數字自乘</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">square</span>(<span class="params">num</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> num * num;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">square</span>(<span class="number">2</span>)); <span class="comment">// 4</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">square</span>(<span class="number">3</span>)); <span class="comment">// 9</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>四捨五入至小數點第二位</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">twoFixed</span>(<span class="params">num</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> num.<span class="title function_">toFixed</span>(<span class="number">2</span>); <span class="comment">// toFixed(n) 為 JS 內建方法，保留 n 位小數</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">twoFixed</span>(<span class="number">1.8888</span>)); <span class="comment">// 1.89</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">twoFixed</span>(<span class="number">3.1234</span>)); <span class="comment">// 3.12</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="字串類"><a href="#字串類" class="headerlink" title="字串類"></a>字串類</h3><p><strong>字串拼接</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">talk</span>(<span class="params">text</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">`hi，<span class="subst">$&#123;text&#125;</span>`</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">talk</span>(<span class="string">&#x27;早上好&#x27;</span>)); <span class="comment">// hi，早上好</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">talk</span>(<span class="string">&#x27;晚上好&#x27;</span>)); <span class="comment">// hi，晚上好</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="狀態管理類"><a href="#狀態管理類" class="headerlink" title="狀態管理類"></a>狀態管理類</h3><blockquote>
+<p>累加需求：保存狀態的變數必須宣告在函式<strong>外</strong>，否則每次呼叫都會重置。</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> total = <span class="number">0</span>; <span class="comment">// 注意：變數與函式不可同名</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">addToTotal</span>(<span class="params">num</span>) &#123;</span><br><span class="line">  total += num;</span><br><span class="line">  <span class="keyword">return</span> total;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">addToTotal</span>(<span class="number">2</span>));  <span class="comment">// 2</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">addToTotal</span>(<span class="number">3</span>));  <span class="comment">// 5</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">addToTotal</span>(<span class="number">10</span>)); <span class="comment">// 15</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="物件操作類"><a href="#物件操作類" class="headerlink" title="物件操作類"></a>物件操作類</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> data = [];</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">addPerson</span>(<span class="params">name, sex</span>) &#123;</span><br><span class="line">  data.<span class="title function_">push</span>(&#123; name, sex &#125;); <span class="comment">// &#123; name: name, sex: sex &#125; 的 ES6 簡寫</span></span><br><span class="line">  <span class="keyword">return</span> data;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">addPerson</span>(<span class="string">&#x27;小花&#x27;</span>, <span class="string">&#x27;男生&#x27;</span>);</span><br><span class="line"><span class="title function_">addPerson</span>(<span class="string">&#x27;葉子&#x27;</span>, <span class="string">&#x27;女生&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(data);</span><br><span class="line"><span class="comment">// [&#123; name: &#x27;小花&#x27;, sex: &#x27;男生&#x27; &#125;, &#123; name: &#x27;葉子&#x27;, sex: &#x27;女生&#x27; &#125;]</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="重點整理"><a href="#重點整理" class="headerlink" title="重點整理"></a>重點整理</h2><table>
+<thead>
+<tr>
+<th>概念</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>函式宣告</td>
+<td><code>function 名稱(參數) { ... }</code></td>
+</tr>
+<tr>
+<td>參數作用域</td>
+<td>只存活於函式大括號內</td>
+</tr>
+<tr>
+<td><code>return</code></td>
+<td>將值回傳到函式外，並中斷後續執行</td>
+</tr>
+<tr>
+<td>Scope Chain</td>
+<td>函式內找不到變數時，會向外層逐層查找</td>
+</tr>
+<tr>
+<td>全域 vs 區域</td>
+<td>全域變數方便但有汙染風險，大型專案建議改用 closure</td>
+</tr>
+<tr>
+<td>命名建議</td>
+<td>動詞開頭，清楚描述行為；變數與函式不可同名</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="結語"><a href="#結語" class="headerlink" title="結語"></a>結語</h2><p>函式是 JavaScript 中最核心的基礎之一，從最簡單的「重複執行程式碼」，到進階的「狀態管理、閉包與模組化設計」，都建立在函式之上。</p>
+<p>本篇我們學到了：</p>
+<ul>
+<li>函式的基本寫法與呼叫方式</li>
+<li>參數如何傳遞資料</li>
+<li>return 如何回傳結果並中斷函式</li>
+<li>全域變數與區域變數的差異與風險</li>
+<li>基本的實際應用範例</li>
+</ul>
+<p>如果你能理解這些概念，代表你已經具備 JavaScript 入門到進階的關鍵基礎。</p>
+<p>接下來建議可以往以下方向延伸學習：</p>
+<ul>
+<li>Arrow Function（箭頭函式）</li>
+<li>Callback Function（回呼函式）</li>
+<li>Closure（閉包）</li>
+<li>Hoisting（提升）</li>
+</ul>
+<p>這些會讓你開始真正理解「JavaScript 的運作方式」，而不只是語法本身。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+  
+  <section class="related-cards">
+    <h3 class="related-cards__title">
+      <i class="fa-solid fa-square-poll-horizontal"></i>相關文章
+    </h3>
+    <div class="related-cards__grid">
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+              
+            
+          
+          
+            
+            <a class="related-cards__item" href="/2026/05/04/JavaScript%20%E9%99%A3%E5%88%97%E6%96%B9%E6%B3%95%E5%A4%A7%E5%85%A8%EF%BD%9C20%20%E7%A8%AE%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%20+%20%E5%9E%8B%E5%88%A5%E8%BD%89%E6%8F%9B%E8%88%87%E6%AF%94%E8%BC%83%E6%95%B4%E7%90%86/">
+              <span class="related-cards__item-title">JavaScript 陣列方法大全｜20 種常用方法 + 型別轉換與比較整理</span>
+              <span class="related-cards__item-date">
+                <i class="far fa-calendar-alt"></i>
+                2026-05-04
+              </span>
+            </a>
+          
+        
+      
+    </div>
+    <div class="share-article-section">
+      <div class="share-article-heading">
+        <i class="fa-solid fa-share-nodes share-article-icon" aria-hidden="true"></i>
+        <span>分享這篇文章</span>
+      </div>
+      <div class="share-article-buttons"
+           data-share-url="https://hailey.tw/2026/05/05/JavaScript%20%E5%87%BD%E5%BC%8F%20Function%20%E5%85%A5%E9%96%80%E6%95%99%E5%AD%B8%EF%BD%9C%E5%8F%83%E6%95%B8%E3%80%81return%20%E8%88%87%E4%BD%9C%E7%94%A8%E5%9F%9F%E5%AE%8C%E6%95%B4%E8%A7%A3%E6%9E%90/"
+           data-share-title="JavaScript 函式 Function 入門教學｜參數、return 與作用域完整解析">
+        <a href="#"
+           role="button"
+           class="share-article-btn"
+           data-platform="twitter">
+          <i class="fab fa-twitter"></i><span>Twitter</span>
+        </a>
+        <a href="#"
+           role="button"
+           class="share-article-btn"
+           data-platform="facebook">
+          <i class="fab fa-facebook"></i><span>Facebook</span>
+        </a>
+        <a href="#"
+           role="button"
+           class="share-article-btn"
+           data-platform="linkedin">
+          <i class="fab fa-linkedin"></i><span>LinkedIn</span>
+        </a>
+        <button type="button" class="share-article-btn" data-copy>
+          <i class="fa-regular fa-copy"></i><span>複製連結</span>
+        </button>
+      </div>
+    </div>
+  </section>
+  <style>
+    /* 讓 post-footer 變成可排序容器 */
+    .post-footer {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* 上一篇/下一篇 */
+    .post-footer .post-nav {
+      order: 20;
+    }
+
+    /* 你的相關文章區塊 */
+    .post-footer .related-cards {
+      order: 30;
+    }
+
+    /* 你的分享區塊（如果也要在 related 下方） */
+    .post-footer .share-article-section {
+      order: 40;
+    }
+    .related-cards {
+      margin: 2.25rem 0 1rem;
+    }
+
+    .related-cards__title {
+      margin-bottom: 12px;
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+
+    .related-cards__title i {
+        color: #22d3ee;
+        margin-right: 6px;
+    }
+
+    .related-cards__grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .related-cards__item {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 16px;
+      --tw-border-opacity: 1;
+      border: 1px solid rgb(82 82 91 / var(--tw-border-opacity, 1));
+      border-radius: 12px;
+      background: #4c4c5180;
+      color: #f5f7fa;
+      text-decoration: none;
+      transition: transform .18s ease, border-color .18s ease;
+    }
+
+    .related-cards__item:hover {
+      transform: translateY(-2px);
+      border-color: #22d3ee;
+      color: #22d3ee;
+    }
+
+    .related-cards__item-title {
+      font-size: 1rem;
+      line-height: 1.35;
+      font-weight: 600;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+
+    .related-cards__item-date {
+      margin-top: 10px;
+      font-size: .88rem;
+      color: #c5cad3;
+    }
+
+    @media (max-width: 1100px) {
+      .related-cards__grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .related-cards__grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* AddToAny */
+
+    /* 第一顆 AddToAny 主按鈕常太醜，直接隱藏 */
+    .post-footer .social-like .a2a_dd {
+    display: none;
+    }
+
+    .share-article-section { 
+      margin: 2rem 0 1rem; 
+      padding-top: 1.25rem; 
+    }
+    .share-article-heading { 
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .share-article-icon { 
+      color: #2dd4bf;
+      font-size: 1.25rem;
+    }
+    .share-article-buttons { 
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .share-article-btn {
+        display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px;
+        border: 1px solid rgb(82 82 91 / var(--tw-border-opacity, 1));
+        border-radius: 10px;
+        background: #4c4c5180;
+        color: inherit;
+        cursor: pointer;
+        text-decoration: none;
+        font: inherit;
+        transition: transform .18s ease, border-color .18s ease;
+    }
+    .share-article-btn:hover { border-color: #22d3ee;
+        transform: translateY(-2px); 
+    }
+  </style>
+  <script>
+  (function () {
+    var root = document.querySelector('.share-article-buttons');
+    if (!root || root.dataset.bound) return;
+    root.dataset.bound = '1';
+    var url = root.dataset.shareUrl || '';
+    var title = root.dataset.shareTitle || '';
+    var encUrl = encodeURIComponent(url);
+    var encTitle = encodeURIComponent(title);
+    var urls = {
+      twitter: 'https://twitter.com/intent/tweet?url=' + encUrl + '&text=' + encTitle,
+      facebook: 'https://www.facebook.com/sharer/sharer.php?u=' + encUrl,
+      linkedin: 'https://www.linkedin.com/sharing/share-offsite/?url=' + encUrl
+    };
+    root.querySelectorAll('[data-platform]').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        var p = btn.dataset.platform;
+        window.open(urls[p], '_blank', 'noopener,noreferrer');
+      });
+    });
+    var btnCopy = root.querySelector('[data-copy]');
+    if (btnCopy) {
+      btnCopy.addEventListener('click', function () {
+        navigator.clipboard.writeText(url).then(function () {
+          btnCopy.querySelector('span').textContent = '已複製';
+          setTimeout(function () { btnCopy.querySelector('span').textContent = '複製連結'; }, 2000);
+        });
+      });
+    }
+  })();
+  </script>
+
+
+          <div class="post-tags">
+              <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/05/04/JavaScript%20%E9%99%A3%E5%88%97%E6%96%B9%E6%B3%95%E5%A4%A7%E5%85%A8%EF%BD%9C20%20%E7%A8%AE%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%20+%20%E5%9E%8B%E5%88%A5%E8%BD%89%E6%8F%9B%E8%88%87%E6%AF%94%E8%BC%83%E6%95%B4%E7%90%86/" rel="prev" title="JavaScript 陣列方法大全｜20 種常用方法 + 型別轉換與比較整理">
+                  <i class="fa fa-angle-left"></i> JavaScript 陣列方法大全｜20 種常用方法 + 型別轉換與比較整理
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div><aside class="column-recent-posts" aria-label="最新文章">
+  <div class="recent-rail-inner">
+    <h3 class="recent-rail-title">
+      <i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i>
+      <span>最新文章</span>
+    </h3>
+    <ol class="recent-rail-list">
+      
+        <li class="recent-rail-item">
+          <a class="recent-rail-link" href="/2026/05/05/JavaScript%20%E5%87%BD%E5%BC%8F%20Function%20%E5%85%A5%E9%96%80%E6%95%99%E5%AD%B8%EF%BD%9C%E5%8F%83%E6%95%B8%E3%80%81return%20%E8%88%87%E4%BD%9C%E7%94%A8%E5%9F%9F%E5%AE%8C%E6%95%B4%E8%A7%A3%E6%9E%90/">
+            <span class="recent-rail-item-title">JavaScript 函式 Function 入門教學｜參數、return 與作用域完整解析</span>
+            <span class="recent-rail-item-date">05/05</span>
+          </a>
+        </li>
+      
+        <li class="recent-rail-item">
+          <a class="recent-rail-link" href="/2026/05/04/JavaScript%20%E9%99%A3%E5%88%97%E6%96%B9%E6%B3%95%E5%A4%A7%E5%85%A8%EF%BD%9C20%20%E7%A8%AE%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%20+%20%E5%9E%8B%E5%88%A5%E8%BD%89%E6%8F%9B%E8%88%87%E6%AF%94%E8%BC%83%E6%95%B4%E7%90%86/">
+            <span class="recent-rail-item-title">JavaScript 陣列方法大全｜20 種常用方法 + 型別轉換與比較整理</span>
+            <span class="recent-rail-item-date">05/04</span>
+          </a>
+        </li>
+      
+        <li class="recent-rail-item">
+          <a class="recent-rail-link" href="/2026/05/03/%E7%B6%B2%E9%A0%81%E9%96%8B%E7%99%BC%E6%96%B0%E6%89%8B%E6%8C%87%E5%8D%97/">
+            <span class="recent-rail-item-title">網頁開發新手指南</span>
+            <span class="recent-rail-item-date">05/03</span>
+          </a>
+        </li>
+      
+        <li class="recent-rail-item">
+          <a class="recent-rail-link" href="/2026/05/02/HTML%20%E8%AA%9E%E6%84%8F%E5%8C%96%E6%A8%99%E7%B1%A4%E6%80%8E%E9%BA%BC%E7%94%A8%EF%BC%9F%E6%96%B0%E6%89%8B%E6%9C%80%E5%B8%B8%E6%90%9E%E9%8C%AF%E7%9A%84%205%20%E5%80%8B%E5%9C%B0%E6%96%B9/">
+            <span class="recent-rail-item-title">HTML 語意化標籤怎麼用？新手最常搞錯的 5 個地方</span>
+            <span class="recent-rail-item-date">05/02</span>
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</aside>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class=""></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Hailey. All rights reserved.<br>Built with Hexo & Theme NexT</span>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"Hailey-1025/blog-comments","issue_term":"pathname","label":"comment","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js" defer></script>
+
+<script>
+(function () {
+  var mq = window.matchMedia('(max-width: 991px)');
+  var btn = document.querySelector('.site-nav-toggle .toggle');
+  var sidebarBtn = document.querySelector('.sidebar-toggle');
+  var siteNav = document.querySelector('.header .site-nav');
+  if (!btn || !sidebarBtn) return;
+
+  function collapseHeaderNavDropdown() {
+    document.body.classList.remove('site-nav-on');
+    if (siteNav) siteNav.style.removeProperty('--scroll-height');
+  }
+
+  btn.addEventListener('click', function (e) {
+    if (!mq.matches) return;
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    collapseHeaderNavDropdown();
+    sidebarBtn.click();
+  }, true);
+
+  new MutationObserver(function () {
+    if (!mq.matches) return;
+    var open = document.body.classList.contains('sidebar-active');
+    btn.classList.toggle('toggle-close', open);
+  }).observe(document.body, { attributes: true, attributeFilter: ['class'] });
+
+  mq.addEventListener('change', function () {
+    if (!mq.matches) {
+      btn.classList.remove('toggle-close');
+      collapseHeaderNavDropdown();
+      document.body.classList.remove('mobile-header-scrolled-down');
+    }
+  });
+
+  var lastY = window.scrollY || 0;
+  var ticking = false;
+
+  function updateMobileHeaderOnScroll() {
+    ticking = false;
+    if (!mq.matches) return;
+    var currentY = window.scrollY || 0;
+    var scrollingDown = currentY > lastY;
+    var passedTop = currentY > 10;
+    document.body.classList.toggle('mobile-header-scrolled-down', scrollingDown && passedTop);
+    lastY = currentY;
+  }
+
+  window.addEventListener('scroll', function () {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(updateMobileHeaderOnScroll);
+  }, { passive: true });
+})();
+</script>
+
+</body>
+</html>
