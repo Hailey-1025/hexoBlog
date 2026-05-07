@@ -23,7 +23,7 @@
     <meta name="description" content="從函式陳述式、函式表達式、箭頭函式、立即函式，到閉包（Closure），完整解析 JavaScript 函式的各種寫法與差異，搭配 hoisting、this 綁定的實例說明，幫助新手建立完整觀念。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JavaScript 函式怎麼用？5 種寫法＋閉包完整解析（新手必看）">
-<meta property="og:url" content="https://hailey.tw/2026/05/07/JavaScript%20%E5%87%BD%E5%BC%8F%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97/index.html">
+<meta property="og:url" content="https://hailey.tw/2026/05/07/JavaScript%20%E5%87%BD%E5%BC%8F%E6%80%8E%E9%BA%BC%E7%94%A8%EF%BC%9F5%20%E7%A8%AE%E5%AF%AB%E6%B3%95%EF%BC%8B%E9%96%89%E5%8C%85%E5%AE%8C%E6%95%B4%E8%A7%A3%E6%9E%90%EF%BC%88%E6%96%B0%E6%89%8B%E5%BF%85%E7%9C%8B%EF%BC%89/index.html">
 <meta property="og:site_name" content="Hailey&#39;s Blog">
 <meta property="og:description" content="從函式陳述式、函式表達式、箭頭函式、立即函式，到閉包（Closure），完整解析 JavaScript 函式的各種寫法與差異，搭配 hoisting、this 綁定的實例說明，幫助新手建立完整觀念。">
 <meta property="og:locale" content="zh_TW">
@@ -36,10 +36,10 @@
 <meta name="twitter:image" content="https://i.postimg.cc/nVWzqh21/javascript-function-guide-closure-arrow-function.jpg">
 
 
-<link rel="canonical" href="https://hailey.tw/2026/05/07/JavaScript%20%E5%87%BD%E5%BC%8F%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97/">
+<link rel="canonical" href="https://hailey.tw/2026/05/07/JavaScript%20%E5%87%BD%E5%BC%8F%E6%80%8E%E9%BA%BC%E7%94%A8%EF%BC%9F5%20%E7%A8%AE%E5%AF%AB%E6%B3%95%EF%BC%8B%E9%96%89%E5%8C%85%E5%AE%8C%E6%95%B4%E8%A7%A3%E6%9E%90%EF%BC%88%E6%96%B0%E6%89%8B%E5%BF%85%E7%9C%8B%EF%BC%89/">
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://hailey.tw/2026/05/07/JavaScript%20%E5%87%BD%E5%BC%8F%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97/","path":"2026/05/07/JavaScript 函式完整指南/","title":"JavaScript 函式怎麼用？5 種寫法＋閉包完整解析（新手必看）"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://hailey.tw/2026/05/07/JavaScript%20%E5%87%BD%E5%BC%8F%E6%80%8E%E9%BA%BC%E7%94%A8%EF%BC%9F5%20%E7%A8%AE%E5%AF%AB%E6%B3%95%EF%BC%8B%E9%96%89%E5%8C%85%E5%AE%8C%E6%95%B4%E8%A7%A3%E6%9E%90%EF%BC%88%E6%96%B0%E6%89%8B%E5%BF%85%E7%9C%8B%EF%BC%89/","path":"2026/05/07/JavaScript 函式怎麼用？5 種寫法＋閉包完整解析（新手必看）/","title":"JavaScript 函式怎麼用？5 種寫法＋閉包完整解析（新手必看）"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>JavaScript 函式怎麼用？5 種寫法＋閉包完整解析（新手必看） | Hailey's Blog</title>
@@ -240,7 +240,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
-    <link itemprop="mainEntityOfPage" href="https://hailey.tw/2026/05/07/JavaScript%20%E5%87%BD%E5%BC%8F%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97/">
+    <link itemprop="mainEntityOfPage" href="https://hailey.tw/2026/05/07/JavaScript%20%E5%87%BD%E5%BC%8F%E6%80%8E%E9%BA%BC%E7%94%A8%EF%BC%9F5%20%E7%A8%AE%E5%AF%AB%E6%B3%95%EF%BC%8B%E9%96%89%E5%8C%85%E5%AE%8C%E6%95%B4%E8%A7%A3%E6%9E%90%EF%BC%88%E6%96%B0%E6%89%8B%E5%BF%85%E7%9C%8B%EF%BC%89/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://i.postimg.cc/d1YJx7jW/site-author-image.png">
@@ -512,14 +512,6 @@
           
           
             
-          
-          
-        
-      
-        
-          
-          
-            
               
             
           
@@ -539,6 +531,16 @@
           
           
             
+          
+          
+        
+      
+        
+      
+        
+          
+          
+            
               
             
           
@@ -552,8 +554,6 @@
               </span>
             </a>
           
-        
-      
         
       
         
@@ -579,7 +579,7 @@
         <span>分享這篇文章</span>
       </div>
       <div class="share-article-buttons"
-           data-share-url="https://hailey.tw/2026/05/07/JavaScript%20%E5%87%BD%E5%BC%8F%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97/"
+           data-share-url="https://hailey.tw/2026/05/07/JavaScript%20%E5%87%BD%E5%BC%8F%E6%80%8E%E9%BA%BC%E7%94%A8%EF%BC%9F5%20%E7%A8%AE%E5%AF%AB%E6%B3%95%EF%BC%8B%E9%96%89%E5%8C%85%E5%AE%8C%E6%95%B4%E8%A7%A3%E6%9E%90%EF%BC%88%E6%96%B0%E6%89%8B%E5%BF%85%E7%9C%8B%EF%BC%89/"
            data-share-title="JavaScript 函式怎麼用？5 種寫法＋閉包完整解析（新手必看）">
         <a href="#"
            role="button"
@@ -807,7 +807,7 @@
     <ol class="recent-rail-list">
       
         <li class="recent-rail-item">
-          <a class="recent-rail-link" href="/2026/05/07/JavaScript%20%E5%87%BD%E5%BC%8F%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97/">
+          <a class="recent-rail-link" href="/2026/05/07/JavaScript%20%E5%87%BD%E5%BC%8F%E6%80%8E%E9%BA%BC%E7%94%A8%EF%BC%9F5%20%E7%A8%AE%E5%AF%AB%E6%B3%95%EF%BC%8B%E9%96%89%E5%8C%85%E5%AE%8C%E6%95%B4%E8%A7%A3%E6%9E%90%EF%BC%88%E6%96%B0%E6%89%8B%E5%BF%85%E7%9C%8B%EF%BC%89/">
             <span class="recent-rail-item-title">JavaScript 函式怎麼用？5 種寫法＋閉包完整解析（新手必看）</span>
             <span class="recent-rail-item-date">05/07</span>
           </a>
