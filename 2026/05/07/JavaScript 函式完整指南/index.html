@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"hailey.tw","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":true,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"找到 ${hits} 個搜索結果（用時 ${time} 毫秒）","hits":"找到 ${hits} 個搜索結果"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="從函式陳述式、函式表達式、箭頭函式、立即函式，到閉包（Closure），完整解析 JavaScript 函式的各種寫法與差異，搭配 hoisting、this 綁定的實例說明，幫助新手建立完整觀念。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript 函式怎麼用？5 種寫法＋閉包完整解析（新手必看）">
+<meta property="og:url" content="https://hailey.tw/2026/05/07/JavaScript%20%E5%87%BD%E5%BC%8F%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97/index.html">
+<meta property="og:site_name" content="Hailey&#39;s Blog">
+<meta property="og:description" content="從函式陳述式、函式表達式、箭頭函式、立即函式，到閉包（Closure），完整解析 JavaScript 函式的各種寫法與差異，搭配 hoisting、this 綁定的實例說明，幫助新手建立完整觀念。">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.postimg.cc/nVWzqh21/javascript-function-guide-closure-arrow-function.jpg">
+<meta property="article:published_time" content="2026-05-07T12:28:04.000Z">
+<meta property="article:modified_time" content="2026-05-07T12:28:58.073Z">
+<meta property="article:author" content="Hailey">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.postimg.cc/nVWzqh21/javascript-function-guide-closure-arrow-function.jpg">
+
+
+<link rel="canonical" href="https://hailey.tw/2026/05/07/JavaScript%20%E5%87%BD%E5%BC%8F%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://hailey.tw/2026/05/07/JavaScript%20%E5%87%BD%E5%BC%8F%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97/","path":"2026/05/07/JavaScript 函式完整指南/","title":"JavaScript 函式怎麼用？5 種寫法＋閉包完整解析（新手必看）"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>JavaScript 函式怎麼用？5 種寫法＋閉包完整解析（新手必看） | Hailey's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8W8PTGBYMG"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-8W8PTGBYMG","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js" defer></script>
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="Hailey's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main main--recent-rail">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hailey's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Stressed spelled backwards is desserts.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜尋" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>關於</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜尋..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+    <div class="sidebar-mobile-focus">
+      <div class="site-meta site-meta--drawer">
+
+        <a href="/" class="brand" rel="start">
+          <i class="logo-line"></i>
+          <p class="site-title">Hailey's Blog</p>
+          <i class="logo-line"></i>
+        </a>
+          <p class="site-subtitle" itemprop="description">Stressed spelled backwards is desserts.</p>
+      </div>
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>關於</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+    </div>
+
+    <div class="sidebar-desktop-stack">
+
+      <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+        <ul class="sidebar-nav">
+          <li class="sidebar-nav-toc">
+            文章目錄
+          </li>
+          <li class="sidebar-nav-overview">
+            本站概要
+          </li>
+        </ul>
+
+        <div class="sidebar-panel-container">
+          <!--noindex-->
+          <div class="post-toc-wrap sidebar-panel">
+              <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BF%AB%E9%80%9F%E9%81%B8%E6%93%87%EF%BC%9A%E6%88%91%E8%A9%B2%E7%94%A8%E5%93%AA%E4%B8%80%E7%A8%AE%E5%87%BD%E5%BC%8F%EF%BC%9F"><span class="nav-number">2.</span> <span class="nav-text">快速選擇：我該用哪一種函式？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E5%BC%8F%E9%99%B3%E8%BF%B0%E5%BC%8F%EF%BC%88Function-Declaration%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">函式陳述式（Function Declaration）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%B9%E6%80%A7%EF%BC%9AHoisting%EF%BC%88%E6%8F%90%E5%8D%87%EF%BC%89"><span class="nav-number">3.1.</span> <span class="nav-text">特性：Hoisting（提升）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E5%BC%8F%E8%A1%A8%E9%81%94%E5%BC%8F%EF%BC%88Function-Expression%EF%BC%89"><span class="nav-number">4.</span> <span class="nav-text">函式表達式（Function Expression）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%B9%E6%80%A7%EF%BC%9AHoisting-%E8%A1%8C%E7%82%BA%E4%B8%8D%E5%90%8C%EF%BC%8C%E7%95%99%E6%84%8F-TDZ"><span class="nav-number">4.1.</span> <span class="nav-text">特性：Hoisting 行為不同，留意 TDZ</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%AD%E9%A0%AD%E5%87%BD%E5%BC%8F%EF%BC%88Arrow-Function%EF%BC%89"><span class="nav-number">5.</span> <span class="nav-text">箭頭函式（Arrow Function）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B8%AE%E5%AF%AB%E8%A6%8F%E5%89%87"><span class="nav-number">5.1.</span> <span class="nav-text">縮寫規則</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%90%AD%E9%85%8D%E6%A8%A3%E6%9D%BF%E5%AD%97%E4%B8%B2"><span class="nav-number">5.2.</span> <span class="nav-text">搭配樣板字串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%90%AD%E9%85%8D%E9%99%A3%E5%88%97%E6%96%B9%E6%B3%95%EF%BC%88map%E3%80%81filter%EF%BC%89"><span class="nav-number">5.3.</span> <span class="nav-text">搭配陣列方法（map、filter）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9A%A0%EF%B8%8F-%E7%AE%AD%E9%A0%AD%E5%87%BD%E5%BC%8F%E8%88%87-this%EF%BC%88%E9%87%8D%E8%A6%81%EF%BC%81%EF%BC%89"><span class="nav-number">5.4.</span> <span class="nav-text">⚠️ 箭頭函式與 this（重要！）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9A%A0%EF%B8%8F-%E7%AE%AD%E9%A0%AD%E5%87%BD%E5%BC%8F%E6%B2%92%E6%9C%89-arguments"><span class="nav-number">5.5.</span> <span class="nav-text">⚠️ 箭頭函式沒有 arguments</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AB%8B%E5%8D%B3%E5%87%BD%E5%BC%8F%EF%BC%88IIFE%EF%BC%8CImmediately-Invoked-Function-Expression%EF%BC%89"><span class="nav-number">6.</span> <span class="nav-text">立即函式（IIFE，Immediately Invoked Function Expression）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%99%82%E6%A9%9F"><span class="nav-number">6.1.</span> <span class="nav-text">使用時機</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%96%89%E5%8C%85%EF%BC%88Closure%EF%BC%89"><span class="nav-number">7.</span> <span class="nav-text">閉包（Closure）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%A6%E7%94%A8%E7%AF%84%E4%BE%8B%EF%BC%9A%E5%B8%B6%E5%8F%83%E6%95%B8%E7%9A%84%E5%B7%A5%E5%BB%A0%E5%87%BD%E5%BC%8F"><span class="nav-number">7.1.</span> <span class="nav-text">實用範例：帶參數的工廠函式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E7%AB%AF%E5%AF%A6%E6%88%B0%E7%AF%84%E4%BE%8B%EF%BC%9AUI-%E7%8B%80%E6%85%8B%E5%88%87%E6%8F%9B"><span class="nav-number">7.2.</span> <span class="nav-text">前端實戰範例：UI 狀態切換</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9A%A0%EF%B8%8F-%E9%96%89%E5%8C%85%E5%B8%B8%E8%A6%8B%E9%99%B7%E9%98%B1%EF%BC%9A%E8%BF%B4%E5%9C%88-%E9%9D%9E%E5%90%8C%E6%AD%A5"><span class="nav-number">7.3.</span> <span class="nav-text">⚠️ 閉包常見陷阱：迴圈 + 非同步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%96%89%E5%8C%85%E7%9A%84%E7%89%B9%E6%80%A7%E8%88%87%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A0%85"><span class="nav-number">7.4.</span> <span class="nav-text">閉包的特性與注意事項</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%84%E7%A8%AE%E5%AF%AB%E6%B3%95%E6%AF%94%E8%BC%83%E7%B8%BD%E8%A6%BD"><span class="nav-number">8.</span> <span class="nav-text">各種寫法比較總覽</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B8%BD%E7%B5%90"><span class="nav-number">9.</span> <span class="nav-text">總結</span></a></li></ol></div>
+          </div>
+          <!--/noindex-->
+
+          <div class="site-overview-wrap sidebar-panel">
+            <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hailey"
+      src="https://i.postimg.cc/d1YJx7jW/site-author-image.png">
+  <p class="site-author-name" itemprop="name">Hailey</p>
+  <div class="site-description" itemprop="description">專注前端開發，記錄 JavaScript 與 Vite 的實戰筆記，以及從非本科轉職工程師的成長之路。</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">標籤</span>
+      </div>
+  </nav>
+</div>
+
+          </div>
+        </div>
+      </div>
+
+      
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://hailey.tw/2026/05/07/JavaScript%20%E5%87%BD%E5%BC%8F%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://i.postimg.cc/d1YJx7jW/site-author-image.png">
+      <meta itemprop="name" content="Hailey">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hailey's Blog">
+      <meta itemprop="description" content="專注前端開發，記錄 JavaScript 與 Vite 的實戰筆記，以及從非本科轉職工程師的成長之路。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="JavaScript 函式怎麼用？5 種寫法＋閉包完整解析（新手必看） | Hailey's Blog">
+      <meta itemprop="description" content="從函式陳述式、函式表達式、箭頭函式、立即函式，到閉包（Closure），完整解析 JavaScript 函式的各種寫法與差異，搭配 hoisting、this 綁定的實例說明，幫助新手建立完整觀念。">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JavaScript 函式怎麼用？5 種寫法＋閉包完整解析（新手必看）
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+      
+
+      <time title="創建時間：2026-05-07 20:28:04 / 修改時間：20:28:58" itemprop="dateCreated datePublished" datetime="2026-05-07T20:28:04+08:00">2026-05-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+            <div class="post-description">從函式陳述式、函式表達式、箭頭函式、立即函式，到閉包（Closure），完整解析 JavaScript 函式的各種寫法與差異，搭配 hoisting、this 綁定的實例說明，幫助新手建立完整觀念。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p><img src="https://i.postimg.cc/nVWzqh21/javascript-function-guide-closure-arrow-function.jpg" alt="javascript-function-guide-closure-arrow-function.jpg"></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>JavaScript 的函式（Function）是所有程式邏輯的核心，不論是事件處理、資料轉換，甚至是框架（如 React、Vue），都大量依賴函式運作。</p>
+<p>但對新手來說，常見的困惑是：</p>
+<ul>
+<li><code>function</code> 跟箭頭函式差在哪？</li>
+<li>為什麼有些函式可以先呼叫，有些不行？</li>
+<li>closure（閉包）到底在幹嘛？</li>
+</ul>
+<p>這篇文章會從最基本的函式寫法開始，帶你一步步理解：</p>
+<ul>
+<li>函式陳述式、函式表達式、箭頭函式的語法差異</li>
+<li><code>this</code> 與 hoisting 的行為比較</li>
+<li>立即函式（IIFE）的用途</li>
+<li>最重要的閉包（Closure）概念與實戰用法</li>
+</ul>
+<p>幫你建立一個完整的 JavaScript 函式觀念。</p>
+<hr>
+<h2 id="快速選擇：我該用哪一種函式？"><a href="#快速選擇：我該用哪一種函式？" class="headerlink" title="快速選擇：我該用哪一種函式？"></a>快速選擇：我該用哪一種函式？</h2><p>如果你只是想快速知道怎麼選，可以先看這裡：</p>
+<ul>
+<li>一般函式定義 &#x3D;&gt; 用「函式陳述式」</li>
+<li>需要重複使用的邏輯 &#x3D;&gt; 用「函式陳述式」</li>
+<li>當作回呼 &#x2F; 搭配陣列方法 &#x3D;&gt; 用「箭頭函式」</li>
+<li>需要使用 <code>this</code> &#x3D;&gt; 用「function」</li>
+<li>想保留狀態 &#x3D;&gt; 用「閉包」</li>
+</ul>
+<p>不確定時，預設使用箭頭函式（現代主流寫法）</p>
+<hr>
+<h2 id="函式陳述式（Function-Declaration）"><a href="#函式陳述式（Function-Declaration）" class="headerlink" title="函式陳述式（Function Declaration）"></a>函式陳述式（Function Declaration）</h2><p>函式陳述式是最傳統的函式定義方式。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">numA</span>(<span class="params">x</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> x * x</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="特性：Hoisting（提升）"><a href="#特性：Hoisting（提升）" class="headerlink" title="特性：Hoisting（提升）"></a>特性：Hoisting（提升）</h3><p>JavaScript 引擎在執行前會先掃描整份程式碼，<strong>將函式陳述式整個提升到作用域頂端</strong>，因此不管呼叫放在宣告前面還是後面，都能正常執行。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ✅ 這樣可以，因為整個函式被 hoist 了</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">numA</span>(<span class="number">3</span>)) <span class="comment">// 9</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">numA</span>(<span class="params">x</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> x * x</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="函式表達式（Function-Expression）"><a href="#函式表達式（Function-Expression）" class="headerlink" title="函式表達式（Function Expression）"></a>函式表達式（Function Expression）</h2><p>函式表達式是將一個匿名函式賦值給變數。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> numB = <span class="keyword">function</span>(<span class="params">x</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> x * x</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="特性：Hoisting-行為不同，留意-TDZ"><a href="#特性：Hoisting-行為不同，留意-TDZ" class="headerlink" title="特性：Hoisting 行為不同，留意 TDZ"></a>特性：Hoisting 行為不同，留意 TDZ</h3><p>這裡要稍微說清楚一點，「函式表達式不會被提升」這句話其實不夠精準：</p>
+<ul>
+<li><strong>變數宣告</strong>本身會被提升，但<strong>值（函式）不會</strong></li>
+<li>使用 <code>const</code> &#x2F; <code>let</code> 宣告時，存取提升前的變數會遇到 <strong>TDZ（暫時性死區，Temporal Dead Zone）</strong>，直接拋出錯誤</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ❌ ReferenceError：不能在初始化前存取 &#x27;numB&#x27;</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">numB</span>(<span class="number">3</span>))</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> numB = <span class="keyword">function</span>(<span class="params">x</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> x * x</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>對比 <code>var</code> 的情況：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(a) <span class="comment">// undefined（var 提升了但值還沒賦予）</span></span><br><span class="line"><span class="keyword">var</span> a = <span class="number">10</span></span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(b) <span class="comment">// ❌ ReferenceError（let/const 有 TDZ）</span></span><br><span class="line"><span class="keyword">let</span> b = <span class="number">10</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="箭頭函式（Arrow-Function）"><a href="#箭頭函式（Arrow-Function）" class="headerlink" title="箭頭函式（Arrow Function）"></a>箭頭函式（Arrow Function）</h2><p>ES6 引入的箭頭函式，是函式表達式的簡潔版本。移除 <code>function</code> 關鍵字，在參數後面加上 <code>=&gt;</code>。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">numC</span> = (<span class="params">x</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> x * x</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="縮寫規則"><a href="#縮寫規則" class="headerlink" title="縮寫規則"></a>縮寫規則</h3><p>箭頭函式可以根據情況進一步縮寫：</p>
+<p><strong>1. 單一回傳值：省略大括號與 <code>return</code></strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">numC</span> = (<span class="params">x</span>) =&gt; x * x</span><br></pre></td></tr></table></figure>
+
+<p><strong>2. 單一參數：省略括號</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">numC</span> = x =&gt; x * x</span><br></pre></td></tr></table></figure>
+
+<p><strong>3. 多個參數：括號不可省略</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">numD</span> = (<span class="params">x, y</span>) =&gt; x * y</span><br></pre></td></tr></table></figure>
+
+<p><strong>4. 無參數：括號不可省略</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">greet</span> = (<span class="params"></span>) =&gt; <span class="string">&#x27;Hello!&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>5. 回傳物件字面值：需用括號包住</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">getUser</span> = name =&gt; (&#123; <span class="attr">name</span>: name &#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="搭配樣板字串"><a href="#搭配樣板字串" class="headerlink" title="搭配樣板字串"></a>搭配樣板字串</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">num</span> = x =&gt; <span class="string">`數字相乘 <span class="subst">$&#123;x * x&#125;</span>`</span></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">numD</span> = (<span class="params">x, y</span>) =&gt; <span class="string">`數字相乘 <span class="subst">$&#123;x * y&#125;</span>`</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="搭配陣列方法（map、filter）"><a href="#搭配陣列方法（map、filter）" class="headerlink" title="搭配陣列方法（map、filter）"></a>搭配陣列方法（map、filter）</h3><p>如果你對這些方法還不熟，建議先補這篇（在實務中會非常常用）：<a href="https://hailey.tw/2026/05/04/JavaScript%20%E9%99%A3%E5%88%97%E6%96%B9%E6%B3%95%E5%A4%A7%E5%85%A8%EF%BD%9C20%20%E7%A8%AE%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%20+%20%E5%9E%8B%E5%88%A5%E8%BD%89%E6%8F%9B%E8%88%87%E6%AF%94%E8%BC%83%E6%95%B4%E7%90%86/">JavaScript 陣列方法大全｜map、filter、reduce 完整整理</a></p>
+<p>箭頭函式與陣列高階方法搭配時，寫法非常簡潔：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> data = [<span class="number">1</span>, <span class="number">8</span>, <span class="number">13</span>, <span class="number">20</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment">// 一般寫法</span></span><br><span class="line"><span class="keyword">const</span> newData = data.<span class="title function_">map</span>(<span class="keyword">function</span>(<span class="params">item</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> item + <span class="number">2</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 箭頭函式寫法</span></span><br><span class="line"><span class="keyword">const</span> newData = data.<span class="title function_">map</span>(<span class="function"><span class="params">item</span> =&gt;</span> item + <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(newData) <span class="comment">// [3, 10, 15, 22]</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>注意</strong>：若函式內有多行邏輯，還是需要加大括號與 <code>return</code>。</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> filtered = data.<span class="title function_">filter</span>(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> doubled = item * <span class="number">2</span></span><br><span class="line">  <span class="keyword">return</span> doubled &gt; <span class="number">10</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="⚠️-箭頭函式與-this（重要！）"><a href="#⚠️-箭頭函式與-this（重要！）" class="headerlink" title="⚠️ 箭頭函式與 this（重要！）"></a>⚠️ 箭頭函式與 <code>this</code>（重要！）</h3><p>箭頭函式<strong>沒有自己的 <code>this</code></strong>，它的 <code>this</code> 是在<strong>定義時</strong>就決定了，繼承自外層作用域，而不是在呼叫時動態決定。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">  <span class="attr">value</span>: <span class="number">10</span>,</span><br><span class="line">  <span class="attr">normal</span>: <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">value</span>) <span class="comment">// 10（this 指向 obj）</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">arrow</span>: <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">value</span>) <span class="comment">// ❌ undefined（this 指向外層，通常是 window）</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">obj.<span class="title function_">normal</span>() <span class="comment">// 10</span></span><br><span class="line">obj.<span class="title function_">arrow</span>()  <span class="comment">// undefined</span></span><br></pre></td></tr></table></figure>
+
+<p>因此，箭頭函式<strong>不適合</strong>用在以下情境：</p>
+<ul>
+<li>物件方法（需要 <code>this</code> 指向物件本身）</li>
+<li><code>constructor</code> 建構函式</li>
+<li>需要動態 <code>this</code> 的事件處理器</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// DOM 事件中的差異</span></span><br><span class="line"><span class="keyword">const</span> btn = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;button&#x27;</span>)</span><br><span class="line"></span><br><span class="line">btn.<span class="title function_">addEventListener</span>(<span class="string">&#x27;click&#x27;</span>, <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>) <span class="comment">// 👉 button</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">btn.<span class="title function_">addEventListener</span>(<span class="string">&#x27;click&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>) <span class="comment">// 👉 window（或 undefined）</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>在 DOM 事件中，<code>this</code> 通常指向觸發事件的元素，因此<strong>不建議使用箭頭函式</strong>（除非你是刻意要使用外層的 <code>this</code>）</p>
+<h3 id="⚠️-箭頭函式沒有-arguments"><a href="#⚠️-箭頭函式沒有-arguments" class="headerlink" title="⚠️ 箭頭函式沒有 arguments"></a>⚠️ 箭頭函式沒有 <code>arguments</code></h3><p>除了 <code>this</code>，箭頭函式也<strong>沒有自己的 <code>arguments</code> 物件</strong>，這是另一個常見的坑：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">normal</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">arguments</span>) <span class="comment">// ✅ Arguments [1, 2, 3]</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">arrow</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">arguments</span>) <span class="comment">// ❌ ReferenceError</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">normal</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line"><span class="title function_">arrow</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+
+<p>如果需要接收不定數量的參數，箭頭函式應改用其餘參數（rest parameters）：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">fn</span> = (<span class="params">...args</span>) =&gt; &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(args) <span class="comment">// ✅ [1, 2, 3]</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">fn</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="立即函式（IIFE，Immediately-Invoked-Function-Expression）"><a href="#立即函式（IIFE，Immediately-Invoked-Function-Expression）" class="headerlink" title="立即函式（IIFE，Immediately Invoked Function Expression）"></a>立即函式（IIFE，Immediately Invoked Function Expression）</h2><p>立即函式在定義後會<strong>立刻執行</strong>，通常用來建立獨立的作用域，避免污染全域變數。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 基本寫法</span></span><br><span class="line">(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> message = <span class="string">&#x27;我只活在這個作用域裡&#x27;</span></span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(message)</span><br><span class="line">&#125;)();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 帶參數的寫法</span></span><br><span class="line">(<span class="keyword">function</span>(<span class="params">name</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Hello, <span class="subst">$&#123;name&#125;</span>!`</span>)</span><br><span class="line">&#125;)(<span class="string">&#x27;世界&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 箭頭函式版本</span></span><br><span class="line">(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;箭頭 IIFE&#x27;</span>)</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用時機"><a href="#使用時機" class="headerlink" title="使用時機"></a>使用時機</h3><p>在 ES Modules（<code>import</code> &#x2F; <code>export</code>）出現之前，IIFE 是常見的模組化手法，用來隔離作用域、避免全域污染。</p>
+<p>現代專案已有更好的替代方案，IIFE 目前較少使用，除非：</p>
+<ul>
+<li>維護舊專案（非模組環境）</li>
+<li>需要快速隔離某段初始化邏輯</li>
+</ul>
+<hr>
+<h2 id="閉包（Closure）"><a href="#閉包（Closure）" class="headerlink" title="閉包（Closure）"></a>閉包（Closure）</h2><p>閉包是指一個函式<strong>記住並存取其被定義時的作用域</strong>，即使外部函式已執行完畢，內層函式依然能存取那些變數。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">makeCounter</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">let</span> count = <span class="number">0</span> <span class="comment">// 這個變數被內層函式「記住」</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    count++</span><br><span class="line">    <span class="keyword">return</span> count</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> counter = <span class="title function_">makeCounter</span>()</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">counter</span>()) <span class="comment">// 1</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">counter</span>()) <span class="comment">// 2</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">counter</span>()) <span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
+
+<p>每次呼叫 <code>counter()</code>，都能存取並修改 <code>makeCounter</code> 作用域內的 <code>count</code>，這就是閉包的核心。</p>
+<h3 id="實用範例：帶參數的工廠函式"><a href="#實用範例：帶參數的工廠函式" class="headerlink" title="實用範例：帶參數的工廠函式"></a>實用範例：帶參數的工廠函式</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">multiplier</span>(<span class="params">factor</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="params">x</span> =&gt;</span> x * factor</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> double = <span class="title function_">multiplier</span>(<span class="number">2</span>)</span><br><span class="line"><span class="keyword">const</span> triple = <span class="title function_">multiplier</span>(<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">double</span>(<span class="number">5</span>))  <span class="comment">// 10</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">triple</span>(<span class="number">5</span>))  <span class="comment">// 15</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="前端實戰範例：UI-狀態切換"><a href="#前端實戰範例：UI-狀態切換" class="headerlink" title="前端實戰範例：UI 狀態切換"></a>前端實戰範例：UI 狀態切換</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">createToggle</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">let</span> isOpen = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    isOpen = !isOpen</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;目前狀態：&#x27;</span>, isOpen)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> toggle = <span class="title function_">createToggle</span>()</span><br><span class="line"><span class="title function_">toggle</span>() <span class="comment">// 目前狀態：true</span></span><br><span class="line"><span class="title function_">toggle</span>() <span class="comment">// 目前狀態：false</span></span><br><span class="line"><span class="title function_">toggle</span>() <span class="comment">// 目前狀態：true</span></span><br></pre></td></tr></table></figure>
+
+<p>這種寫法常出現在：</p>
+<ul>
+<li>UI 狀態控制（展開 &#x2F; 收合、顯示 &#x2F; 隱藏）</li>
+<li>React Hooks 的底層概念（<code>useState</code> 本質上也是閉包）</li>
+</ul>
+<h3 id="⚠️-閉包常見陷阱：迴圈-非同步"><a href="#⚠️-閉包常見陷阱：迴圈-非同步" class="headerlink" title="⚠️ 閉包常見陷阱：迴圈 + 非同步"></a>⚠️ 閉包常見陷阱：迴圈 + 非同步</h3><p>這是實際開發中很容易踩到的坑，也是面試常考題：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ❌ 錯誤示範：用 var</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) &#123;</span><br><span class="line">  <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(i)</span><br><span class="line">  &#125;, <span class="number">1000</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 輸出：3, 3, 3（不是預期的 0, 1, 2）</span></span><br></pre></td></tr></table></figure>
+
+<p>原因是 <code>var</code> 沒有區塊作用域，三個 callback 共享同一個 <code>i</code>，等 setTimeout 執行時 <code>i</code> 已經是 3 了。</p>
+<p><strong>解法一：改用 <code>let</code>（最簡單）</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) &#123;</span><br><span class="line">  <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(i)</span><br><span class="line">  &#125;, <span class="number">1000</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// ✅ 輸出：0, 1, 2</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>解法二：用閉包鎖住每次的 <code>i</code></strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) &#123;</span><br><span class="line">  (<span class="keyword">function</span>(<span class="params">i</span>) &#123;</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(i)</span><br><span class="line">    &#125;, <span class="number">1000</span>)</span><br><span class="line">  &#125;)(i)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// ✅ 輸出：0, 1, 2</span></span><br></pre></td></tr></table></figure>
+
+<p>IIFE 在這裡的作用就是為每次迴圈建立獨立的作用域，讓每個 callback 各自保有自己的 <code>i</code>。</p>
+<h3 id="閉包的特性與注意事項"><a href="#閉包的特性與注意事項" class="headerlink" title="閉包的特性與注意事項"></a>閉包的特性與注意事項</h3><ul>
+<li>閉包讓函式可以<strong>保有私有狀態</strong>，是實作模組化的基礎</li>
+<li>每次呼叫外層函式，都會建立<strong>全新的閉包環境</strong></li>
+<li>過度使用閉包，可能導致變數長期被參考而<strong>無法被垃圾回收</strong>，需留意記憶體效能。</li>
+<li>只要閉包內的變數仍被引用，就不會被垃圾回收（Garbage Collection）</li>
+</ul>
+<hr>
+<h2 id="各種寫法比較總覽"><a href="#各種寫法比較總覽" class="headerlink" title="各種寫法比較總覽"></a>各種寫法比較總覽</h2><table>
+<thead>
+<tr>
+<th>類型</th>
+<th>Hoisting</th>
+<th><code>this</code> 綁定</th>
+<th>使用時機</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>函式陳述式</td>
+<td>整個提升</td>
+<td>動態（呼叫時決定）</td>
+<td>一般函式定義</td>
+</tr>
+<tr>
+<td>函式表達式</td>
+<td>變數提升，值不提升</td>
+<td>動態（呼叫時決定）</td>
+<td>條件式定義、作為值傳遞</td>
+</tr>
+<tr>
+<td>箭頭函式</td>
+<td>變數提升，值不提升</td>
+<td>靜態（定義時繼承外層）</td>
+<td>回呼、陣列方法</td>
+</tr>
+<tr>
+<td>立即函式</td>
+<td>無</td>
+<td>動態</td>
+<td>隔離作用域（舊專案）</td>
+</tr>
+<tr>
+<td>閉包</td>
+<td>依外層而定</td>
+<td>依外層而定</td>
+<td>私有狀態、工廠函式</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h2><p>如果你是剛入門的前端工程師，建議先牢牢掌握這三件事：</p>
+<ol>
+<li><strong>函式陳述式 vs 箭頭函式的差異</strong>（語法 + hoisting）</li>
+<li><strong><code>this</code> 的動態 vs 靜態行為</strong>（一般函式 vs 箭頭函式）</li>
+<li><strong>閉包的基本概念</strong>（保有狀態、工廠函式）</li>
+</ol>
+<p>當你能夠熟練運用 JavaScript 的 arrow function、closure（閉包）、以及理解 <code>this</code> 綁定的時機，你就已經跨過「初學者 → 初階工程師」的重要門檻。這些觀念在寫框架、處理 API、或做資料轉換時，會頻繁出現。</p>
+<blockquote>
+<p>函式不只是一個語法，而是 JavaScript 思維的核心。</p>
+</blockquote>
+<p>另外函式也可以作為參數傳遞，或作為其他函式的回傳值，這種用法稱為<strong>高階函式（Higher-Order Function）</strong>，是閉包概念的進一步應用，會在下一篇文章介紹。</p>
+<p>如果你已經理解這篇內容，建議下一步可以深入：</p>
+<ul>
+<li><code>this</code> 綁定（call &#x2F; apply &#x2F; bind）</li>
+<li>高階函式（Higher-Order Function）</li>
+<li>非同步函式（async &#x2F; await）</li>
+</ul>
+<p>這些都是現代前端開發的核心技能。</p>
+<hr>
+<p><strong>延伸閱讀</strong></p>
+<p>如果你想更深入理解 JavaScript 函式與相關觀念，可以繼續閱讀：<a href="https://hailey.tw/2026/05/04/JavaScript%20%E9%99%A3%E5%88%97%E6%96%B9%E6%B3%95%E5%A4%A7%E5%85%A8%EF%BD%9C20%20%E7%A8%AE%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%20+%20%E5%9E%8B%E5%88%A5%E8%BD%89%E6%8F%9B%E8%88%87%E6%AF%94%E8%BC%83%E6%95%B4%E7%90%86/">JavaScript 陣列方法大全｜map、filter、reduce 完整整理</a></p>
+<p>在實務開發中，函式常會搭配陣列方法（例如 map、filter）一起使用，這篇文章可以幫助你把兩者串起來理解。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+  
+  <section class="related-cards">
+    <h3 class="related-cards__title">
+      <i class="fa-solid fa-square-poll-horizontal"></i>相關文章
+    </h3>
+    <div class="related-cards__grid">
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+              
+            
+          
+          
+            
+            <a class="related-cards__item" href="/2026/05/05/JavaScript%20%E5%87%BD%E5%BC%8F%20Function%20%E5%85%A5%E9%96%80%E6%95%99%E5%AD%B8%EF%BD%9C%E5%8F%83%E6%95%B8%E3%80%81return%20%E8%88%87%E4%BD%9C%E7%94%A8%E5%9F%9F%E5%AE%8C%E6%95%B4%E8%A7%A3%E6%9E%90/">
+              <span class="related-cards__item-title">JavaScript 函式 Function 入門教學｜參數、return 與作用域完整解析</span>
+              <span class="related-cards__item-date">
+                <i class="far fa-calendar-alt"></i>
+                2026-05-05
+              </span>
+            </a>
+          
+        
+      
+        
+          
+          
+            
+              
+            
+          
+          
+            
+            <a class="related-cards__item" href="/2026/05/04/JavaScript%20%E9%99%A3%E5%88%97%E6%96%B9%E6%B3%95%E5%A4%A7%E5%85%A8%EF%BD%9C20%20%E7%A8%AE%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%20+%20%E5%9E%8B%E5%88%A5%E8%BD%89%E6%8F%9B%E8%88%87%E6%AF%94%E8%BC%83%E6%95%B4%E7%90%86/">
+              <span class="related-cards__item-title">JavaScript 陣列方法大全｜20 種常用方法 + 型別轉換與比較整理</span>
+              <span class="related-cards__item-date">
+                <i class="far fa-calendar-alt"></i>
+                2026-05-04
+              </span>
+            </a>
+          
+        
+      
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+    </div>
+    <div class="share-article-section">
+      <div class="share-article-heading">
+        <i class="fa-solid fa-share-nodes share-article-icon" aria-hidden="true"></i>
+        <span>分享這篇文章</span>
+      </div>
+      <div class="share-article-buttons"
+           data-share-url="https://hailey.tw/2026/05/07/JavaScript%20%E5%87%BD%E5%BC%8F%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97/"
+           data-share-title="JavaScript 函式怎麼用？5 種寫法＋閉包完整解析（新手必看）">
+        <a href="#"
+           role="button"
+           class="share-article-btn"
+           data-platform="twitter">
+          <i class="fab fa-twitter"></i><span>Twitter</span>
+        </a>
+        <a href="#"
+           role="button"
+           class="share-article-btn"
+           data-platform="facebook">
+          <i class="fab fa-facebook"></i><span>Facebook</span>
+        </a>
+        <a href="#"
+           role="button"
+           class="share-article-btn"
+           data-platform="linkedin">
+          <i class="fab fa-linkedin"></i><span>LinkedIn</span>
+        </a>
+        <button type="button" class="share-article-btn" data-copy>
+          <i class="fa-regular fa-copy"></i><span>複製連結</span>
+        </button>
+      </div>
+    </div>
+  </section>
+  <style>
+    /* 讓 post-footer 變成可排序容器 */
+    .post-footer {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* 上一篇/下一篇 */
+    .post-footer .post-nav {
+      order: 20;
+    }
+
+    /* 你的相關文章區塊 */
+    .post-footer .related-cards {
+      order: 30;
+    }
+
+    /* 你的分享區塊（如果也要在 related 下方） */
+    .post-footer .share-article-section {
+      order: 40;
+    }
+    .related-cards {
+      margin: 2.25rem 0 1rem;
+    }
+
+    .related-cards__title {
+      margin-bottom: 12px;
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+
+    .related-cards__title i {
+        color: #22d3ee;
+        margin-right: 6px;
+    }
+
+    .related-cards__grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .related-cards__item {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 16px;
+      --tw-border-opacity: 1;
+      border: 1px solid rgb(82 82 91 / var(--tw-border-opacity, 1));
+      border-radius: 12px;
+      background: #4c4c5180;
+      color: #f5f7fa;
+      text-decoration: none;
+      transition: transform .18s ease, border-color .18s ease;
+    }
+
+    .related-cards__item:hover {
+      transform: translateY(-2px);
+      border-color: #22d3ee;
+      color: #22d3ee;
+    }
+
+    .related-cards__item-title {
+      font-size: 1rem;
+      line-height: 1.35;
+      font-weight: 600;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+
+    .related-cards__item-date {
+      margin-top: 10px;
+      font-size: .88rem;
+      color: #c5cad3;
+    }
+
+    @media (max-width: 1100px) {
+      .related-cards__grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .related-cards__grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* AddToAny */
+
+    /* 第一顆 AddToAny 主按鈕常太醜，直接隱藏 */
+    .post-footer .social-like .a2a_dd {
+    display: none;
+    }
+
+    .share-article-section { 
+      margin: 2rem 0 1rem; 
+      padding-top: 1.25rem; 
+    }
+    .share-article-heading { 
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .share-article-icon { 
+      color: #2dd4bf;
+      font-size: 1.25rem;
+    }
+    .share-article-buttons { 
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .share-article-btn {
+        display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px;
+        border: 1px solid rgb(82 82 91 / var(--tw-border-opacity, 1));
+        border-radius: 10px;
+        background: #4c4c5180;
+        color: inherit;
+        cursor: pointer;
+        text-decoration: none;
+        font: inherit;
+        transition: transform .18s ease, border-color .18s ease;
+    }
+    .share-article-btn:hover { border-color: #22d3ee;
+        transform: translateY(-2px); 
+    }
+  </style>
+  <script>
+  (function () {
+    var root = document.querySelector('.share-article-buttons');
+    if (!root || root.dataset.bound) return;
+    root.dataset.bound = '1';
+    var url = root.dataset.shareUrl || '';
+    var title = root.dataset.shareTitle || '';
+    var encUrl = encodeURIComponent(url);
+    var encTitle = encodeURIComponent(title);
+    var urls = {
+      twitter: 'https://twitter.com/intent/tweet?url=' + encUrl + '&text=' + encTitle,
+      facebook: 'https://www.facebook.com/sharer/sharer.php?u=' + encUrl,
+      linkedin: 'https://www.linkedin.com/sharing/share-offsite/?url=' + encUrl
+    };
+    root.querySelectorAll('[data-platform]').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        var p = btn.dataset.platform;
+        window.open(urls[p], '_blank', 'noopener,noreferrer');
+      });
+    });
+    var btnCopy = root.querySelector('[data-copy]');
+    if (btnCopy) {
+      btnCopy.addEventListener('click', function () {
+        navigator.clipboard.writeText(url).then(function () {
+          btnCopy.querySelector('span').textContent = '已複製';
+          setTimeout(function () { btnCopy.querySelector('span').textContent = '複製連結'; }, 2000);
+        });
+      });
+    }
+  })();
+  </script>
+
+
+          <div class="post-tags">
+              <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/05/06/css%20%E5%85%A5%E9%96%80%E5%9F%BA%E7%A4%8E/" rel="prev" title="css 入門基礎">
+                  <i class="fa fa-angle-left"></i> css 入門基礎
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div><aside class="column-recent-posts" aria-label="最新文章">
+  <div class="recent-rail-inner">
+    <h3 class="recent-rail-title">
+      <i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i>
+      <span>最新文章</span>
+    </h3>
+    <ol class="recent-rail-list">
+      
+        <li class="recent-rail-item">
+          <a class="recent-rail-link" href="/2026/05/07/JavaScript%20%E5%87%BD%E5%BC%8F%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97/">
+            <span class="recent-rail-item-title">JavaScript 函式怎麼用？5 種寫法＋閉包完整解析（新手必看）</span>
+            <span class="recent-rail-item-date">05/07</span>
+          </a>
+        </li>
+      
+        <li class="recent-rail-item">
+          <a class="recent-rail-link" href="/2026/05/06/css%20%E5%85%A5%E9%96%80%E5%9F%BA%E7%A4%8E/">
+            <span class="recent-rail-item-title">css 入門基礎</span>
+            <span class="recent-rail-item-date">05/06</span>
+          </a>
+        </li>
+      
+        <li class="recent-rail-item">
+          <a class="recent-rail-link" href="/2026/05/05/JavaScript%20%E5%87%BD%E5%BC%8F%20Function%20%E5%85%A5%E9%96%80%E6%95%99%E5%AD%B8%EF%BD%9C%E5%8F%83%E6%95%B8%E3%80%81return%20%E8%88%87%E4%BD%9C%E7%94%A8%E5%9F%9F%E5%AE%8C%E6%95%B4%E8%A7%A3%E6%9E%90/">
+            <span class="recent-rail-item-title">JavaScript 函式 Function 入門教學｜參數、return 與作用域完整解析</span>
+            <span class="recent-rail-item-date">05/05</span>
+          </a>
+        </li>
+      
+        <li class="recent-rail-item">
+          <a class="recent-rail-link" href="/2026/05/04/JavaScript%20%E9%99%A3%E5%88%97%E6%96%B9%E6%B3%95%E5%A4%A7%E5%85%A8%EF%BD%9C20%20%E7%A8%AE%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%20+%20%E5%9E%8B%E5%88%A5%E8%BD%89%E6%8F%9B%E8%88%87%E6%AF%94%E8%BC%83%E6%95%B4%E7%90%86/">
+            <span class="recent-rail-item-title">JavaScript 陣列方法大全｜20 種常用方法 + 型別轉換與比較整理</span>
+            <span class="recent-rail-item-date">05/04</span>
+          </a>
+        </li>
+      
+        <li class="recent-rail-item">
+          <a class="recent-rail-link" href="/2026/05/03/%E7%B6%B2%E9%A0%81%E9%96%8B%E7%99%BC%E6%96%B0%E6%89%8B%E6%8C%87%E5%8D%97/">
+            <span class="recent-rail-item-title">網頁開發新手指南</span>
+            <span class="recent-rail-item-date">05/03</span>
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</aside>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class=""></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Hailey. All rights reserved.<br>Built with Hexo & Theme NexT</span>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"Hailey-1025/blog-comments","issue_term":"pathname","label":"comment","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js" defer></script>
+
+<script>
+(function () {
+  var mq = window.matchMedia('(max-width: 991px)');
+  var btn = document.querySelector('.site-nav-toggle .toggle');
+  var sidebarBtn = document.querySelector('.sidebar-toggle');
+  var siteNav = document.querySelector('.header .site-nav');
+  if (!btn || !sidebarBtn) return;
+
+  function collapseHeaderNavDropdown() {
+    document.body.classList.remove('site-nav-on');
+    if (siteNav) siteNav.style.removeProperty('--scroll-height');
+  }
+
+  btn.addEventListener('click', function (e) {
+    if (!mq.matches) return;
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    collapseHeaderNavDropdown();
+    sidebarBtn.click();
+  }, true);
+
+  new MutationObserver(function () {
+    if (!mq.matches) return;
+    var open = document.body.classList.contains('sidebar-active');
+    btn.classList.toggle('toggle-close', open);
+  }).observe(document.body, { attributes: true, attributeFilter: ['class'] });
+
+  mq.addEventListener('change', function () {
+    if (!mq.matches) {
+      btn.classList.remove('toggle-close');
+      collapseHeaderNavDropdown();
+      document.body.classList.remove('mobile-header-scrolled-down');
+    }
+  });
+
+  var lastY = window.scrollY || 0;
+  var ticking = false;
+
+  function updateMobileHeaderOnScroll() {
+    ticking = false;
+    if (!mq.matches) return;
+    var currentY = window.scrollY || 0;
+    var scrollingDown = currentY > lastY;
+    var passedTop = currentY > 10;
+    document.body.classList.toggle('mobile-header-scrolled-down', scrollingDown && passedTop);
+    lastY = currentY;
+  }
+
+  window.addEventListener('scroll', function () {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(updateMobileHeaderOnScroll);
+  }, { passive: true });
+})();
+</script>
+
+</body>
+</html>
