@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"hailey.tw","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":true,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"找到 ${hits} 個搜索結果（用時 ${time} 毫秒）","hits":"找到 ${hits} 個搜索結果"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="JavaScript while 迴圈完整教學，從使用情境、語法說明、常見錯誤到實戰範例，一篇搞懂 while 與 do...while，適合初學者入門">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript while 迴圈怎麼用？從 0 到理解（附常見錯誤與實例）">
+<meta property="og:url" content="https://hailey.tw/2026/05/08/JavaScript%20while%20%E8%BF%B4%E5%9C%88%E6%80%8E%E9%BA%BC%E7%94%A8%EF%BC%9F%E5%BE%9E%200%20%E5%88%B0%E7%90%86%E8%A7%A3%EF%BC%88%E9%99%84%E5%B8%B8%E8%A6%8B%E9%8C%AF%E8%AA%A4%E8%88%87%E5%AF%A6%E4%BE%8B%EF%BC%89/index.html">
+<meta property="og:site_name" content="Hailey&#39;s Blog">
+<meta property="og:description" content="JavaScript while 迴圈完整教學，從使用情境、語法說明、常見錯誤到實戰範例，一篇搞懂 while 與 do...while，適合初學者入門">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.postimg.cc/hvgVR8ZR/javascript-while-loop-guide.jpg">
+<meta property="article:published_time" content="2026-05-08T01:01:04.000Z">
+<meta property="article:modified_time" content="2026-05-08T01:01:17.132Z">
+<meta property="article:author" content="Hailey">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.postimg.cc/hvgVR8ZR/javascript-while-loop-guide.jpg">
+
+
+<link rel="canonical" href="https://hailey.tw/2026/05/08/JavaScript%20while%20%E8%BF%B4%E5%9C%88%E6%80%8E%E9%BA%BC%E7%94%A8%EF%BC%9F%E5%BE%9E%200%20%E5%88%B0%E7%90%86%E8%A7%A3%EF%BC%88%E9%99%84%E5%B8%B8%E8%A6%8B%E9%8C%AF%E8%AA%A4%E8%88%87%E5%AF%A6%E4%BE%8B%EF%BC%89/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://hailey.tw/2026/05/08/JavaScript%20while%20%E8%BF%B4%E5%9C%88%E6%80%8E%E9%BA%BC%E7%94%A8%EF%BC%9F%E5%BE%9E%200%20%E5%88%B0%E7%90%86%E8%A7%A3%EF%BC%88%E9%99%84%E5%B8%B8%E8%A6%8B%E9%8C%AF%E8%AA%A4%E8%88%87%E5%AF%A6%E4%BE%8B%EF%BC%89/","path":"2026/05/08/JavaScript while 迴圈怎麼用？從 0 到理解（附常見錯誤與實例）/","title":"JavaScript while 迴圈怎麼用？從 0 到理解（附常見錯誤與實例）"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>JavaScript while 迴圈怎麼用？從 0 到理解（附常見錯誤與實例） | Hailey's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8W8PTGBYMG"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-8W8PTGBYMG","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js" defer></script>
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="Hailey's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main main--recent-rail">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hailey's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Stressed spelled backwards is desserts.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜尋" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>關於</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜尋..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+    <div class="sidebar-mobile-focus">
+      <div class="site-meta site-meta--drawer">
+
+        <a href="/" class="brand" rel="start">
+          <i class="logo-line"></i>
+          <p class="site-title">Hailey's Blog</p>
+          <i class="logo-line"></i>
+        </a>
+          <p class="site-subtitle" itemprop="description">Stressed spelled backwards is desserts.</p>
+      </div>
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>關於</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+    </div>
+
+    <div class="sidebar-desktop-stack">
+
+      <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+        <ul class="sidebar-nav">
+          <li class="sidebar-nav-toc">
+            文章目錄
+          </li>
+          <li class="sidebar-nav-overview">
+            本站概要
+          </li>
+        </ul>
+
+        <div class="sidebar-panel-container">
+          <!--noindex-->
+          <div class="post-toc-wrap sidebar-panel">
+              <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E9%BA%BC%E6%98%AF-while-%E8%BF%B4%E5%9C%88%EF%BC%9F%EF%BC%88%E8%AA%9E%E6%B3%95%E8%88%87%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">什麼是 while 迴圈？（語法與基本概念）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AA%9E%E6%B3%95"><span class="nav-number">2.1.</span> <span class="nav-text">語法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%B7%E8%A1%8C%E6%B5%81%E7%A8%8B"><span class="nav-number">2.2.</span> <span class="nav-text">執行流程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#while-%E8%BF%B4%E5%9C%88%E7%AF%84%E4%BE%8B%EF%BC%88%E5%BE%9E%E5%9F%BA%E7%A4%8E%E5%88%B0%E5%AF%A6%E6%88%B0%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">while 迴圈範例（從基礎到實戰）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AF%84%E4%BE%8B-1%EF%BC%9A%E4%BE%9D%E5%BA%8F%E5%8D%B0%E5%87%BA%E6%95%B8%E5%AD%97"><span class="nav-number">3.1.</span> <span class="nav-text">範例 1：依序印出數字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AF%84%E4%BE%8B-2%EF%BC%9A%E8%A8%88%E7%AE%97%E7%B8%BD%E5%92%8C%EF%BC%881-%E5%8A%A0%E5%88%B0-5%EF%BC%89"><span class="nav-number">3.2.</span> <span class="nav-text">範例 2：計算總和（1 加到 5）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AF%84%E4%BE%8B-3%EF%BC%9A%E5%AF%A6%E6%88%B0-%E2%80%94-%E5%AF%86%E7%A2%BC%E9%A9%97%E8%AD%89"><span class="nav-number">3.3.</span> <span class="nav-text">範例 3：實戰 — 密碼驗證</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BB%B6%E4%BC%B8%EF%BC%9A%E9%99%90%E5%88%B6%E5%98%97%E8%A9%A6%E6%AC%A1%E6%95%B8%EF%BC%88%E6%9B%B4%E6%8E%A5%E8%BF%91%E5%AF%A6%E5%8B%99%EF%BC%89"><span class="nav-number">3.4.</span> <span class="nav-text">延伸：限制嘗試次數（更接近實務）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A6%8B%E5%95%8F%E9%A1%8C%E8%88%87%E8%A7%A3%E6%B3%95"><span class="nav-number">4.</span> <span class="nav-text">常見問題與解法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%95%8F%E9%A1%8C-1%EF%BC%9A%E7%84%A1%E7%AA%AE%E8%BF%B4%E5%9C%88%EF%BC%88%E6%9C%80%E5%B8%B8%E8%A6%8B%E7%9A%84%E9%8C%AF%E8%AA%A4%EF%BC%89"><span class="nav-number">4.1.</span> <span class="nav-text">問題 1：無窮迴圈（最常見的錯誤）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%95%8F%E9%A1%8C-2%EF%BC%9A%E6%A2%9D%E4%BB%B6%E4%B8%80%E9%96%8B%E5%A7%8B%E5%B0%B1%E7%82%BA-false"><span class="nav-number">4.2.</span> <span class="nav-text">問題 2：條件一開始就為 false</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%95%8F%E9%A1%8C-3%EF%BC%9Awhile-%E8%88%87-for-%E7%9A%84%E4%BD%BF%E7%94%A8%E6%99%82%E6%A9%9F"><span class="nav-number">4.3.</span> <span class="nav-text">問題 3：while 與 for 的使用時機</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%B2%E9%9A%8E%E7%94%A8%E6%B3%95"><span class="nav-number">5.</span> <span class="nav-text">進階用法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#break%EF%BC%9A%E5%BC%B7%E5%88%B6%E4%B8%AD%E6%96%B7%E8%BF%B4%E5%9C%88"><span class="nav-number">5.1.</span> <span class="nav-text">break：強制中斷迴圈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#continue%EF%BC%9A%E8%B7%B3%E9%81%8E%E7%95%B6%E6%AC%A1%EF%BC%8C%E7%B9%BC%E7%BA%8C%E4%B8%8B%E4%B8%80%E6%AC%A1"><span class="nav-number">5.2.</span> <span class="nav-text">continue：跳過當次，繼續下一次</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#do%E2%80%A6while%EF%BC%9A%E8%87%B3%E5%B0%91%E5%9F%B7%E8%A1%8C%E4%B8%80%E6%AC%A1"><span class="nav-number">5.3.</span> <span class="nav-text">do…while：至少執行一次</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8D%E9%BB%9E%E6%95%B4%E7%90%86"><span class="nav-number">6.</span> <span class="nav-text">重點整理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B8%BD%E7%B5%90"><span class="nav-number">7.</span> <span class="nav-text">總結</span></a></li></ol></div>
+          </div>
+          <!--/noindex-->
+
+          <div class="site-overview-wrap sidebar-panel">
+            <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hailey"
+      src="https://i.postimg.cc/d1YJx7jW/site-author-image.png">
+  <p class="site-author-name" itemprop="name">Hailey</p>
+  <div class="site-description" itemprop="description">專注前端開發，記錄 JavaScript 與 Vite 的實戰筆記，以及從非本科轉職工程師的成長之路。</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">標籤</span>
+      </div>
+  </nav>
+</div>
+
+          </div>
+        </div>
+      </div>
+
+      
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://hailey.tw/2026/05/08/JavaScript%20while%20%E8%BF%B4%E5%9C%88%E6%80%8E%E9%BA%BC%E7%94%A8%EF%BC%9F%E5%BE%9E%200%20%E5%88%B0%E7%90%86%E8%A7%A3%EF%BC%88%E9%99%84%E5%B8%B8%E8%A6%8B%E9%8C%AF%E8%AA%A4%E8%88%87%E5%AF%A6%E4%BE%8B%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://i.postimg.cc/d1YJx7jW/site-author-image.png">
+      <meta itemprop="name" content="Hailey">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hailey's Blog">
+      <meta itemprop="description" content="專注前端開發，記錄 JavaScript 與 Vite 的實戰筆記，以及從非本科轉職工程師的成長之路。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="JavaScript while 迴圈怎麼用？從 0 到理解（附常見錯誤與實例） | Hailey's Blog">
+      <meta itemprop="description" content="JavaScript while 迴圈完整教學，從使用情境、語法說明、常見錯誤到實戰範例，一篇搞懂 while 與 do...while，適合初學者入門">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JavaScript while 迴圈怎麼用？從 0 到理解（附常見錯誤與實例）
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+      
+
+      <time title="創建時間：2026-05-08 09:01:04 / 修改時間：09:01:17" itemprop="dateCreated datePublished" datetime="2026-05-08T09:01:04+08:00">2026-05-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+            <div class="post-description">JavaScript while 迴圈完整教學，從使用情境、語法說明、常見錯誤到實戰範例，一篇搞懂 while 與 do...while，適合初學者入門</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p><img src="https://i.postimg.cc/hvgVR8ZR/javascript-while-loop-guide.jpg" alt="JavaScript while 迴圈怎麼用？從 0 到理解（附常見錯誤與實例）"></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>你什麼時候需要 while？</p>
+<p>在學習迴圈時，你可能會先接觸到 <code>for</code>，但很快就會遇到一個問題：<strong>如果我不知道要執行幾次，該怎麼辦？</strong>，例如：</p>
+<ul>
+<li>持續讀取資料，直到資料結束</li>
+<li>等待使用者輸入正確的值</li>
+<li>不斷重試某個動作，直到成功為止</li>
+</ul>
+<p>這時候，<code>while</code> 迴圈會是更自然的選擇。</p>
+<blockquote>
+<p>本篇適合 JavaScript 初學者，建議先具備：</p>
+<ul>
+<li>變數（<code>let</code> &#x2F; <code>const</code>）的基本觀念</li>
+<li>基本比較運算（<code>&lt;</code>、<code>&gt;</code>、<code>&lt;=</code>、<code>&gt;=</code>、<code>===</code>）</li>
+<li>布林值（<code>true</code> &#x2F; <code>false</code>）的概念</li>
+</ul>
+</blockquote>
+<hr>
+<h2 id="什麼是-while-迴圈？（語法與基本概念）"><a href="#什麼是-while-迴圈？（語法與基本概念）" class="headerlink" title="什麼是 while 迴圈？（語法與基本概念）"></a>什麼是 while 迴圈？（語法與基本概念）</h2><p><code>while</code> 迴圈是一種<strong>流程控制結構</strong>，用於在條件成立時不斷重複執行某段程式碼。</p>
+<blockquote>
+<p><strong>一句話記住</strong>：條件為 <code>true</code> 就繼續跑，條件變 <code>false</code> 就停下來。</p>
+</blockquote>
+<p><code>while</code> 的本質不是「重複執行」，而是 <strong>「持續執行，直到條件不成立為止」</strong></p>
+<h3 id="語法"><a href="#語法" class="headerlink" title="語法"></a>語法</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (條件) &#123;</span><br><span class="line">  <span class="comment">// 當條件為 true 時，重複執行這裡的程式碼</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>條件</strong>：一個會被評估為 <code>true</code> 或 <code>false</code> 的表達式。</li>
+<li><strong>程式碼區塊</strong>：條件成立時反覆執行的內容。</li>
+</ul>
+<h3 id="執行流程"><a href="#執行流程" class="headerlink" title="執行流程"></a>執行流程</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">① 評估條件</span><br><span class="line">    ├── true  → 執行程式碼區塊 → 回到 ①</span><br><span class="line">    └── false → 結束迴圈，繼續往下執行</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="while-迴圈範例（從基礎到實戰）"><a href="#while-迴圈範例（從基礎到實戰）" class="headerlink" title="while 迴圈範例（從基礎到實戰）"></a>while 迴圈範例（從基礎到實戰）</h2><h3 id="範例-1：依序印出數字"><a href="#範例-1：依序印出數字" class="headerlink" title="範例 1：依序印出數字"></a>範例 1：依序印出數字</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> count = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> (count &lt; <span class="number">5</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Count is: &#x27;</span> + count);</span><br><span class="line">  count++; <span class="comment">// 每次執行後將 count 加 1，確保條件終會變為 false</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>執行步驟：</strong></p>
+<table>
+<thead>
+<tr>
+<th>迴圈次數</th>
+<th>count 值</th>
+<th>條件 <code>count &lt; 5</code></th>
+<th>動作</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>第 1 次</td>
+<td>0</td>
+<td>true</td>
+<td>印出，count → 1</td>
+</tr>
+<tr>
+<td>第 2 次</td>
+<td>1</td>
+<td>true</td>
+<td>印出，count → 2</td>
+</tr>
+<tr>
+<td>第 3 次</td>
+<td>2</td>
+<td>true</td>
+<td>印出，count → 3</td>
+</tr>
+<tr>
+<td>第 4 次</td>
+<td>3</td>
+<td>true</td>
+<td>印出，count → 4</td>
+</tr>
+<tr>
+<td>第 5 次</td>
+<td>4</td>
+<td>true</td>
+<td>印出，count → 5</td>
+</tr>
+<tr>
+<td>第 6 次</td>
+<td>5</td>
+<td><strong>false</strong></td>
+<td><strong>結束迴圈</strong></td>
+</tr>
+</tbody></table>
+<p><strong>輸出結果：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Count is: 0</span><br><span class="line">Count is: 1</span><br><span class="line">Count is: 2</span><br><span class="line">Count is: 3</span><br><span class="line">Count is: 4</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="範例-2：計算總和（1-加到-5）"><a href="#範例-2：計算總和（1-加到-5）" class="headerlink" title="範例 2：計算總和（1 加到 5）"></a>範例 2：計算總和（1 加到 5）</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> sum = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">let</span> num = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> (num &lt;= <span class="number">5</span>) &#123;</span><br><span class="line">  sum += num;</span><br><span class="line">  num++;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Sum is: &#x27;</span> + sum); <span class="comment">// Sum is: 15</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>執行邏輯：</strong></p>
+<table>
+<thead>
+<tr>
+<th>迴圈次數</th>
+<th>num</th>
+<th>sum 計算過程</th>
+<th>結果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>第 1 次</td>
+<td>1</td>
+<td>0 + 1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>第 2 次</td>
+<td>2</td>
+<td>1 + 2</td>
+<td>3</td>
+</tr>
+<tr>
+<td>第 3 次</td>
+<td>3</td>
+<td>3 + 3</td>
+<td>6</td>
+</tr>
+<tr>
+<td>第 4 次</td>
+<td>4</td>
+<td>6 + 4</td>
+<td>10</td>
+</tr>
+<tr>
+<td>第 5 次</td>
+<td>5</td>
+<td>10 + 5</td>
+<td>15</td>
+</tr>
+<tr>
+<td>第 6 次</td>
+<td>6</td>
+<td>條件 <code>6 &lt;= 5</code> 為 false，結束</td>
+<td>—</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="範例-3：實戰-—-密碼驗證"><a href="#範例-3：實戰-—-密碼驗證" class="headerlink" title="範例 3：實戰 — 密碼驗證"></a>範例 3：實戰 — 密碼驗證</h3><p>這是 <code>while</code> 迴圈最貼近實務的使用情境：<strong>不知道使用者會輸入幾次，但知道什麼時候該停止</strong>。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> password = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> (password !== <span class="string">&#x27;1234&#x27;</span>) &#123;</span><br><span class="line">  password = <span class="title function_">prompt</span>(<span class="string">&#x27;請輸入密碼：&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;登入成功&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>程式會持續要求輸入，直到使用者輸入正確密碼 <code>&#39;1234&#39;</code> 才停止。這種「執行到成功為止」的邏輯，正是 <code>JavaScript while 迴圈</code> 最典型的用法之一。</p>
+<blockquote>
+<p>⚠️ 注意：實務上不會直接在前端寫死密碼，這裡僅用於示範流程控制邏輯。</p>
+</blockquote>
+<hr>
+<h3 id="延伸：限制嘗試次數（更接近實務）"><a href="#延伸：限制嘗試次數（更接近實務）" class="headerlink" title="延伸：限制嘗試次數（更接近實務）"></a>延伸：限制嘗試次數（更接近實務）</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> password = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line"><span class="keyword">let</span> attempts = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> (password !== <span class="string">&#x27;1234&#x27;</span> &amp;&amp; attempts &lt; <span class="number">3</span>) &#123;</span><br><span class="line">  password = <span class="title function_">prompt</span>(<span class="string">&#x27;請輸入密碼：&#x27;</span>);</span><br><span class="line">  attempts++;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (password === <span class="string">&#x27;1234&#x27;</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;登入成功&#x27;</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;嘗試次數過多&#x27;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="常見問題與解法"><a href="#常見問題與解法" class="headerlink" title="常見問題與解法"></a>常見問題與解法</h2><h3 id="問題-1：無窮迴圈（最常見的錯誤）"><a href="#問題-1：無窮迴圈（最常見的錯誤）" class="headerlink" title="問題 1：無窮迴圈（最常見的錯誤）"></a>問題 1：無窮迴圈（最常見的錯誤）</h3><p>如果迴圈內<strong>忘記更新條件變數</strong>，條件永遠為 <code>true</code>，程式會卡死。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ❌ 錯誤示範：count 永遠不變，條件一直為 true</span></span><br><span class="line"><span class="keyword">let</span> count = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span> (count &lt; <span class="number">5</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(count);</span><br><span class="line">  <span class="comment">// 忘記寫 count++</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ✅ 正確做法：確保每次迴圈後條件有機會變為 false</span></span><br><span class="line"><span class="keyword">let</span> count = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span> (count &lt; <span class="number">5</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(count);</span><br><span class="line">  count++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>⚠️ 撰寫 <code>while</code> 迴圈時，請先確認：<strong>迴圈內是否有讓條件終會變為 <code>false</code> 的邏輯？</strong></p>
+</blockquote>
+<hr>
+<h3 id="問題-2：條件一開始就為-false"><a href="#問題-2：條件一開始就為-false" class="headerlink" title="問題 2：條件一開始就為 false"></a>問題 2：條件一開始就為 false</h3><p>若條件在進入迴圈前已為 <code>false</code>，迴圈內的程式碼<strong>一次都不會執行</strong>。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> count = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">while</span> (count &lt; <span class="number">5</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(count); <span class="comment">// 永遠不會執行</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 程式直接跳過，繼續往下</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="問題-3：while-與-for-的使用時機"><a href="#問題-3：while-與-for-的使用時機" class="headerlink" title="問題 3：while 與 for 的使用時機"></a>問題 3：while 與 for 的使用時機</h3><table>
+<thead>
+<tr>
+<th>比較項目</th>
+<th><code>while</code></th>
+<th><code>for</code></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>適用情境</td>
+<td>執行次數<strong>不確定</strong>，依條件判斷</td>
+<td>執行次數<strong>固定</strong>或已知</td>
+</tr>
+<tr>
+<td>典型使用</td>
+<td>等待輸入、重試直到成功</td>
+<td>跑陣列、固定次數重複</td>
+</tr>
+</tbody></table>
+<p><code>while</code> 不是不能做固定次數的事，但<strong>用對工具，程式碼更易讀</strong>：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ❌ 不推薦：用 while 硬寫固定次數，多餘的初始化與更新</span></span><br><span class="line"><span class="keyword">let</span> i = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span> (i &lt; <span class="number">5</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(i);</span><br><span class="line">  i++;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ✅ 更好：次數固定就用 for，結構更清晰</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="進階用法"><a href="#進階用法" class="headerlink" title="進階用法"></a>進階用法</h2><h3 id="break：強制中斷迴圈"><a href="#break：強制中斷迴圈" class="headerlink" title="break：強制中斷迴圈"></a>break：強制中斷迴圈</h3><p>當某個條件達成時，用 <code>break</code> 立即跳出迴圈。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> count = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> (count &lt; <span class="number">10</span>) &#123;</span><br><span class="line">  <span class="keyword">if</span> (count === <span class="number">5</span>) &#123;</span><br><span class="line">    <span class="keyword">break</span>; <span class="comment">// 強制結束，不再繼續</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(count);</span><br><span class="line">  count++;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 輸出：0 1 2 3 4</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="continue：跳過當次，繼續下一次"><a href="#continue：跳過當次，繼續下一次" class="headerlink" title="continue：跳過當次，繼續下一次"></a>continue：跳過當次，繼續下一次</h3><p><code>continue</code> 會跳過當次剩餘的程式碼，直接回到條件判斷。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> count = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> (count &lt; <span class="number">6</span>) &#123;</span><br><span class="line">  count++;</span><br><span class="line">  <span class="keyword">if</span> (count % <span class="number">2</span> === <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">continue</span>; <span class="comment">// 偶數跳過不印出</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(count);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 輸出：1 3 5</span></span><br></pre></td></tr></table></figure>
+
+<p>簡單整理：</p>
+<ul>
+<li><code>break</code>：<strong>直接離開整個迴圈</strong></li>
+<li><code>continue</code>：<strong>略過這一圈，繼續下一圈</strong></li>
+</ul>
+<hr>
+<h3 id="do…while：至少執行一次"><a href="#do…while：至少執行一次" class="headerlink" title="do…while：至少執行一次"></a>do…while：至少執行一次</h3><p><code>do...while</code> 與 <code>while</code> 的差異：<strong>先執行，再判斷條件</strong>，無論條件為何，程式碼至少執行一次。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// （為了避免變數衝突，這裡使用不同變數名稱）</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// while：條件一開始為 false，一次都不執行</span></span><br><span class="line"><span class="keyword">let</span> countA = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">while</span> (countA &lt; <span class="number">5</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(countA); <span class="comment">// 不執行</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// do...while：即使條件為 false，仍先執行一次</span></span><br><span class="line"><span class="keyword">let</span> countB = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(countB); <span class="comment">// 輸出：10</span></span><br><span class="line">  countB++;</span><br><span class="line">&#125; <span class="keyword">while</span> (countB &lt; <span class="number">5</span>);  <span class="comment">// 條件為 false，結束</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>適用情境</strong>：需要先讓使用者輸入一次，再根據輸入決定是否繼續。</p>
+<hr>
+<h2 id="重點整理"><a href="#重點整理" class="headerlink" title="重點整理"></a>重點整理</h2><table>
+<thead>
+<tr>
+<th>概念</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>while</code> 基本語法</td>
+<td>條件為 <code>true</code> 就持續執行，<code>false</code> 就停止</td>
+</tr>
+<tr>
+<td>無窮迴圈</td>
+<td>迴圈內忘記更新條件變數，最常見的錯誤</td>
+</tr>
+<tr>
+<td><code>while</code> vs <code>for</code></td>
+<td><code>while</code> 適合次數不確定；<code>for</code> 適合次數固定</td>
+</tr>
+<tr>
+<td><code>break</code></td>
+<td>強制中斷並跳出迴圈</td>
+</tr>
+<tr>
+<td><code>continue</code></td>
+<td>跳過當次剩餘程式碼，繼續下一次迴圈</td>
+</tr>
+<tr>
+<td><code>do...while</code></td>
+<td>先執行一次，再判斷條件是否繼續</td>
+</tr>
+</tbody></table>
+<h2 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h2><p>簡單來說，<code>while</code> 迴圈的核心就是：</p>
+<p>👉 <strong>「當你不知道要跑幾次，但知道何時停止時，就用 while」</strong></p>
+<p>如果還是不確定該用哪個迴圈，可以用這個快速判斷：</p>
+<ul>
+<li>次數固定 → 用 <code>for</code></li>
+<li>條件控制 → 用 <code>while</code></li>
+</ul>
+<p>當你開始用「條件」思考，而不是「次數」思考時，你就真的理解 <code>while</code> 了。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+  
+  <section class="related-cards">
+    <h3 class="related-cards__title">
+      <i class="fa-solid fa-square-poll-horizontal"></i>相關文章
+    </h3>
+    <div class="related-cards__grid">
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+              
+            
+          
+          
+            
+            <a class="related-cards__item" href="/2026/05/07/JavaScript%20%E5%87%BD%E5%BC%8F%E6%80%8E%E9%BA%BC%E7%94%A8%EF%BC%9F5%20%E7%A8%AE%E5%AF%AB%E6%B3%95%EF%BC%8B%E9%96%89%E5%8C%85%E5%AE%8C%E6%95%B4%E8%A7%A3%E6%9E%90%EF%BC%88%E6%96%B0%E6%89%8B%E5%BF%85%E7%9C%8B%EF%BC%89/">
+              <span class="related-cards__item-title">JavaScript 函式怎麼用？5 種寫法＋閉包完整解析（新手必看）</span>
+              <span class="related-cards__item-date">
+                <i class="far fa-calendar-alt"></i>
+                2026-05-07
+              </span>
+            </a>
+          
+        
+      
+        
+          
+          
+            
+              
+            
+          
+          
+            
+            <a class="related-cards__item" href="/2026/05/05/JavaScript%20%E5%87%BD%E5%BC%8F%20Function%20%E5%85%A5%E9%96%80%E6%95%99%E5%AD%B8%EF%BD%9C%E5%8F%83%E6%95%B8%E3%80%81return%20%E8%88%87%E4%BD%9C%E7%94%A8%E5%9F%9F%E5%AE%8C%E6%95%B4%E8%A7%A3%E6%9E%90/">
+              <span class="related-cards__item-title">JavaScript 函式 Function 入門教學｜參數、return 與作用域完整解析</span>
+              <span class="related-cards__item-date">
+                <i class="far fa-calendar-alt"></i>
+                2026-05-05
+              </span>
+            </a>
+          
+        
+      
+        
+          
+          
+            
+              
+            
+          
+          
+            
+            <a class="related-cards__item" href="/2026/05/04/JavaScript%20%E9%99%A3%E5%88%97%E6%96%B9%E6%B3%95%E5%A4%A7%E5%85%A8%EF%BD%9C20%20%E7%A8%AE%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%20+%20%E5%9E%8B%E5%88%A5%E8%BD%89%E6%8F%9B%E8%88%87%E6%AF%94%E8%BC%83%E6%95%B4%E7%90%86/">
+              <span class="related-cards__item-title">JavaScript 陣列方法大全｜20 種常用方法 + 型別轉換與比較整理</span>
+              <span class="related-cards__item-date">
+                <i class="far fa-calendar-alt"></i>
+                2026-05-04
+              </span>
+            </a>
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+    </div>
+    <div class="share-article-section">
+      <div class="share-article-heading">
+        <i class="fa-solid fa-share-nodes share-article-icon" aria-hidden="true"></i>
+        <span>分享這篇文章</span>
+      </div>
+      <div class="share-article-buttons"
+           data-share-url="https://hailey.tw/2026/05/08/JavaScript%20while%20%E8%BF%B4%E5%9C%88%E6%80%8E%E9%BA%BC%E7%94%A8%EF%BC%9F%E5%BE%9E%200%20%E5%88%B0%E7%90%86%E8%A7%A3%EF%BC%88%E9%99%84%E5%B8%B8%E8%A6%8B%E9%8C%AF%E8%AA%A4%E8%88%87%E5%AF%A6%E4%BE%8B%EF%BC%89/"
+           data-share-title="JavaScript while 迴圈怎麼用？從 0 到理解（附常見錯誤與實例）">
+        <a href="#"
+           role="button"
+           class="share-article-btn"
+           data-platform="twitter">
+          <i class="fab fa-twitter"></i><span>Twitter</span>
+        </a>
+        <a href="#"
+           role="button"
+           class="share-article-btn"
+           data-platform="facebook">
+          <i class="fab fa-facebook"></i><span>Facebook</span>
+        </a>
+        <a href="#"
+           role="button"
+           class="share-article-btn"
+           data-platform="linkedin">
+          <i class="fab fa-linkedin"></i><span>LinkedIn</span>
+        </a>
+        <button type="button" class="share-article-btn" data-copy>
+          <i class="fa-regular fa-copy"></i><span>複製連結</span>
+        </button>
+      </div>
+    </div>
+  </section>
+  <style>
+    /* 讓 post-footer 變成可排序容器 */
+    .post-footer {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* 上一篇/下一篇 */
+    .post-footer .post-nav {
+      order: 20;
+    }
+
+    /* 你的相關文章區塊 */
+    .post-footer .related-cards {
+      order: 30;
+    }
+
+    /* 你的分享區塊（如果也要在 related 下方） */
+    .post-footer .share-article-section {
+      order: 40;
+    }
+    .related-cards {
+      margin: 2.25rem 0 1rem;
+    }
+
+    .related-cards__title {
+      margin-bottom: 12px;
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+
+    .related-cards__title i {
+        color: #22d3ee;
+        margin-right: 6px;
+    }
+
+    .related-cards__grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .related-cards__item {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 16px;
+      --tw-border-opacity: 1;
+      border: 1px solid rgb(82 82 91 / var(--tw-border-opacity, 1));
+      border-radius: 12px;
+      background: #4c4c5180;
+      color: #f5f7fa;
+      text-decoration: none;
+      transition: transform .18s ease, border-color .18s ease;
+    }
+
+    .related-cards__item:hover {
+      transform: translateY(-2px);
+      border-color: #22d3ee;
+      color: #22d3ee;
+    }
+
+    .related-cards__item-title {
+      font-size: 1rem;
+      line-height: 1.35;
+      font-weight: 600;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+
+    .related-cards__item-date {
+      margin-top: 10px;
+      font-size: .88rem;
+      color: #c5cad3;
+    }
+
+    @media (max-width: 1100px) {
+      .related-cards__grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .related-cards__grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* AddToAny */
+
+    /* 第一顆 AddToAny 主按鈕常太醜，直接隱藏 */
+    .post-footer .social-like .a2a_dd {
+    display: none;
+    }
+
+    .share-article-section { 
+      margin: 2rem 0 1rem; 
+      padding-top: 1.25rem; 
+    }
+    .share-article-heading { 
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .share-article-icon { 
+      color: #2dd4bf;
+      font-size: 1.25rem;
+    }
+    .share-article-buttons { 
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .share-article-btn {
+        display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px;
+        border: 1px solid rgb(82 82 91 / var(--tw-border-opacity, 1));
+        border-radius: 10px;
+        background: #4c4c5180;
+        color: inherit;
+        cursor: pointer;
+        text-decoration: none;
+        font: inherit;
+        transition: transform .18s ease, border-color .18s ease;
+    }
+    .share-article-btn:hover { border-color: #22d3ee;
+        transform: translateY(-2px); 
+    }
+  </style>
+  <script>
+  (function () {
+    var root = document.querySelector('.share-article-buttons');
+    if (!root || root.dataset.bound) return;
+    root.dataset.bound = '1';
+    var url = root.dataset.shareUrl || '';
+    var title = root.dataset.shareTitle || '';
+    var encUrl = encodeURIComponent(url);
+    var encTitle = encodeURIComponent(title);
+    var urls = {
+      twitter: 'https://twitter.com/intent/tweet?url=' + encUrl + '&text=' + encTitle,
+      facebook: 'https://www.facebook.com/sharer/sharer.php?u=' + encUrl,
+      linkedin: 'https://www.linkedin.com/sharing/share-offsite/?url=' + encUrl
+    };
+    root.querySelectorAll('[data-platform]').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        var p = btn.dataset.platform;
+        window.open(urls[p], '_blank', 'noopener,noreferrer');
+      });
+    });
+    var btnCopy = root.querySelector('[data-copy]');
+    if (btnCopy) {
+      btnCopy.addEventListener('click', function () {
+        navigator.clipboard.writeText(url).then(function () {
+          btnCopy.querySelector('span').textContent = '已複製';
+          setTimeout(function () { btnCopy.querySelector('span').textContent = '複製連結'; }, 2000);
+        });
+      });
+    }
+  })();
+  </script>
+
+
+          <div class="post-tags">
+              <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/05/07/JavaScript%20%E5%87%BD%E5%BC%8F%E6%80%8E%E9%BA%BC%E7%94%A8%EF%BC%9F5%20%E7%A8%AE%E5%AF%AB%E6%B3%95%EF%BC%8B%E9%96%89%E5%8C%85%E5%AE%8C%E6%95%B4%E8%A7%A3%E6%9E%90%EF%BC%88%E6%96%B0%E6%89%8B%E5%BF%85%E7%9C%8B%EF%BC%89/" rel="prev" title="JavaScript 函式怎麼用？5 種寫法＋閉包完整解析（新手必看）">
+                  <i class="fa fa-angle-left"></i> JavaScript 函式怎麼用？5 種寫法＋閉包完整解析（新手必看）
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div><aside class="column-recent-posts" aria-label="最新文章">
+  <div class="recent-rail-inner">
+    <h3 class="recent-rail-title">
+      <i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i>
+      <span>最新文章</span>
+    </h3>
+    <ol class="recent-rail-list">
+      
+        <li class="recent-rail-item">
+          <a class="recent-rail-link" href="/2026/05/08/JavaScript%20while%20%E8%BF%B4%E5%9C%88%E6%80%8E%E9%BA%BC%E7%94%A8%EF%BC%9F%E5%BE%9E%200%20%E5%88%B0%E7%90%86%E8%A7%A3%EF%BC%88%E9%99%84%E5%B8%B8%E8%A6%8B%E9%8C%AF%E8%AA%A4%E8%88%87%E5%AF%A6%E4%BE%8B%EF%BC%89/">
+            <span class="recent-rail-item-title">JavaScript while 迴圈怎麼用？從 0 到理解（附常見錯誤與實例）</span>
+            <span class="recent-rail-item-date">05/08</span>
+          </a>
+        </li>
+      
+        <li class="recent-rail-item">
+          <a class="recent-rail-link" href="/2026/05/07/JavaScript%20%E5%87%BD%E5%BC%8F%E6%80%8E%E9%BA%BC%E7%94%A8%EF%BC%9F5%20%E7%A8%AE%E5%AF%AB%E6%B3%95%EF%BC%8B%E9%96%89%E5%8C%85%E5%AE%8C%E6%95%B4%E8%A7%A3%E6%9E%90%EF%BC%88%E6%96%B0%E6%89%8B%E5%BF%85%E7%9C%8B%EF%BC%89/">
+            <span class="recent-rail-item-title">JavaScript 函式怎麼用？5 種寫法＋閉包完整解析（新手必看）</span>
+            <span class="recent-rail-item-date">05/07</span>
+          </a>
+        </li>
+      
+        <li class="recent-rail-item">
+          <a class="recent-rail-link" href="/2026/05/06/css%20%E5%85%A5%E9%96%80%E5%9F%BA%E7%A4%8E/">
+            <span class="recent-rail-item-title">css 入門基礎</span>
+            <span class="recent-rail-item-date">05/06</span>
+          </a>
+        </li>
+      
+        <li class="recent-rail-item">
+          <a class="recent-rail-link" href="/2026/05/05/JavaScript%20%E5%87%BD%E5%BC%8F%20Function%20%E5%85%A5%E9%96%80%E6%95%99%E5%AD%B8%EF%BD%9C%E5%8F%83%E6%95%B8%E3%80%81return%20%E8%88%87%E4%BD%9C%E7%94%A8%E5%9F%9F%E5%AE%8C%E6%95%B4%E8%A7%A3%E6%9E%90/">
+            <span class="recent-rail-item-title">JavaScript 函式 Function 入門教學｜參數、return 與作用域完整解析</span>
+            <span class="recent-rail-item-date">05/05</span>
+          </a>
+        </li>
+      
+        <li class="recent-rail-item">
+          <a class="recent-rail-link" href="/2026/05/04/JavaScript%20%E9%99%A3%E5%88%97%E6%96%B9%E6%B3%95%E5%A4%A7%E5%85%A8%EF%BD%9C20%20%E7%A8%AE%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%20+%20%E5%9E%8B%E5%88%A5%E8%BD%89%E6%8F%9B%E8%88%87%E6%AF%94%E8%BC%83%E6%95%B4%E7%90%86/">
+            <span class="recent-rail-item-title">JavaScript 陣列方法大全｜20 種常用方法 + 型別轉換與比較整理</span>
+            <span class="recent-rail-item-date">05/04</span>
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</aside>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class=""></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Hailey. All rights reserved.<br>Built with Hexo & Theme NexT</span>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"Hailey-1025/blog-comments","issue_term":"pathname","label":"comment","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js" defer></script>
+
+<script>
+(function () {
+  var mq = window.matchMedia('(max-width: 991px)');
+  var btn = document.querySelector('.site-nav-toggle .toggle');
+  var sidebarBtn = document.querySelector('.sidebar-toggle');
+  var siteNav = document.querySelector('.header .site-nav');
+  if (!btn || !sidebarBtn) return;
+
+  function collapseHeaderNavDropdown() {
+    document.body.classList.remove('site-nav-on');
+    if (siteNav) siteNav.style.removeProperty('--scroll-height');
+  }
+
+  btn.addEventListener('click', function (e) {
+    if (!mq.matches) return;
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    collapseHeaderNavDropdown();
+    sidebarBtn.click();
+  }, true);
+
+  new MutationObserver(function () {
+    if (!mq.matches) return;
+    var open = document.body.classList.contains('sidebar-active');
+    btn.classList.toggle('toggle-close', open);
+  }).observe(document.body, { attributes: true, attributeFilter: ['class'] });
+
+  mq.addEventListener('change', function () {
+    if (!mq.matches) {
+      btn.classList.remove('toggle-close');
+      collapseHeaderNavDropdown();
+      document.body.classList.remove('mobile-header-scrolled-down');
+    }
+  });
+
+  var lastY = window.scrollY || 0;
+  var ticking = false;
+
+  function updateMobileHeaderOnScroll() {
+    ticking = false;
+    if (!mq.matches) return;
+    var currentY = window.scrollY || 0;
+    var scrollingDown = currentY > lastY;
+    var passedTop = currentY > 10;
+    document.body.classList.toggle('mobile-header-scrolled-down', scrollingDown && passedTop);
+    lastY = currentY;
+  }
+
+  window.addEventListener('scroll', function () {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(updateMobileHeaderOnScroll);
+  }, { passive: true });
+})();
+</script>
+
+</body>
+</html>
