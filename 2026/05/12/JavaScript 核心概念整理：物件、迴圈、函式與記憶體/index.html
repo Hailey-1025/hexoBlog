@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"hailey.tw","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":true,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"找到 ${hits} 個搜索結果（用時 ${time} 毫秒）","hits":"找到 ${hits} 個搜索結果"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="整理 JavaScript 中常見的核心概念，包含 switch、物件操作、迴圈、拷貝、函式陳述式與表達式、一級函式，以及基本型別與物件型別的傳遞差異。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript 核心概念整理：物件、迴圈、函式、拷貝與記憶體">
+<meta property="og:url" content="https://hailey.tw/2026/05/12/JavaScript%20%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%E6%95%B4%E7%90%86%EF%BC%9A%E7%89%A9%E4%BB%B6%E3%80%81%E8%BF%B4%E5%9C%88%E3%80%81%E5%87%BD%E5%BC%8F%E8%88%87%E8%A8%98%E6%86%B6%E9%AB%94/index.html">
+<meta property="og:site_name" content="Hailey&#39;s Blog">
+<meta property="og:description" content="整理 JavaScript 中常見的核心概念，包含 switch、物件操作、迴圈、拷貝、函式陳述式與表達式、一級函式，以及基本型別與物件型別的傳遞差異。">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.postimg.cc/L5Y0Vk9M/javascript-core-concepts-cover.jpg">
+<meta property="article:published_time" content="2026-05-12T03:05:12.000Z">
+<meta property="article:modified_time" content="2026-05-12T03:53:07.258Z">
+<meta property="article:author" content="Hailey">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.postimg.cc/L5Y0Vk9M/javascript-core-concepts-cover.jpg">
+
+
+<link rel="canonical" href="https://hailey.tw/2026/05/12/JavaScript%20%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%E6%95%B4%E7%90%86%EF%BC%9A%E7%89%A9%E4%BB%B6%E3%80%81%E8%BF%B4%E5%9C%88%E3%80%81%E5%87%BD%E5%BC%8F%E8%88%87%E8%A8%98%E6%86%B6%E9%AB%94/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://hailey.tw/2026/05/12/JavaScript%20%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%E6%95%B4%E7%90%86%EF%BC%9A%E7%89%A9%E4%BB%B6%E3%80%81%E8%BF%B4%E5%9C%88%E3%80%81%E5%87%BD%E5%BC%8F%E8%88%87%E8%A8%98%E6%86%B6%E9%AB%94/","path":"2026/05/12/JavaScript 核心概念整理：物件、迴圈、函式與記憶體/","title":"JavaScript 核心概念整理：物件、迴圈、函式、拷貝與記憶體"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>JavaScript 核心概念整理：物件、迴圈、函式、拷貝與記憶體 | Hailey's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8W8PTGBYMG"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-8W8PTGBYMG","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js" defer></script>
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="Hailey's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main main--recent-rail">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hailey's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Stressed spelled backwards is desserts.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜尋" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>關於</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜尋..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+    <div class="sidebar-mobile-focus">
+      <div class="site-meta site-meta--drawer">
+
+        <a href="/" class="brand" rel="start">
+          <i class="logo-line"></i>
+          <p class="site-title">Hailey's Blog</p>
+          <i class="logo-line"></i>
+        </a>
+          <p class="site-subtitle" itemprop="description">Stressed spelled backwards is desserts.</p>
+      </div>
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>關於</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+    </div>
+
+    <div class="sidebar-desktop-stack">
+
+      <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+        <ul class="sidebar-nav">
+          <li class="sidebar-nav-toc">
+            文章目錄
+          </li>
+          <li class="sidebar-nav-overview">
+            本站概要
+          </li>
+        </ul>
+
+        <div class="sidebar-panel-container">
+          <!--noindex-->
+          <div class="post-toc-wrap sidebar-panel">
+              <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#switch-%E6%A2%9D%E4%BB%B6%E5%88%A4%E6%96%B7"><span class="nav-number">2.</span> <span class="nav-text">switch 條件判斷</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%EF%BC%9A%E4%B8%8D%E7%94%A8-return-%E6%99%82%E8%A6%81%E5%8A%A0-break"><span class="nav-number">2.1.</span> <span class="nav-text">注意：不用 return 時要加 break</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%A9%E4%BB%B6%EF%BC%88Object%EF%BC%89%E6%93%8D%E4%BD%9C"><span class="nav-number">3.</span> <span class="nav-text">物件（Object）操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E7%B5%90%E6%A7%8B%E8%88%87%E6%96%B9%E6%B3%95"><span class="nav-number">3.1.</span> <span class="nav-text">基本結構與方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8B%95%E6%85%8B%E5%B1%AC%E6%80%A7%E5%90%8D%E7%A8%B1%E8%88%87%E5%8F%AF%E9%81%B8%E4%B8%B2%E8%81%AF"><span class="nav-number">3.2.</span> <span class="nav-text">動態屬性名稱與可選串聯</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8-for-in-%E9%81%8D%E6%AD%B7%E7%89%A9%E4%BB%B6"><span class="nav-number">3.3.</span> <span class="nav-text">用 for...in 遍歷物件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%A9%E4%BB%B6%E4%BD%BF%E7%94%A8%E9%99%A3%E5%88%97%E6%96%B9%E6%B3%95"><span class="nav-number">3.4.</span> <span class="nav-text">物件使用陣列方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%B4%E5%9C%88"><span class="nav-number">4.</span> <span class="nav-text">迴圈</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#for-%E8%BF%B4%E5%9C%88%EF%BC%88%E5%82%B3%E7%B5%B1%E5%AF%AB%E6%B3%95%EF%BC%89"><span class="nav-number">4.1.</span> <span class="nav-text">for 迴圈（傳統寫法）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#forEach%EF%BC%88%E5%B8%B8%E8%A6%8B%E5%AF%AB%E6%B3%95%EF%BC%89"><span class="nav-number">4.2.</span> <span class="nav-text">forEach（常見寫法）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#for-of"><span class="nav-number">4.3.</span> <span class="nav-text">for...of</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%A9%E4%BB%B6%E6%8B%B7%E8%B2%9D"><span class="nav-number">5.</span> <span class="nav-text">物件拷貝</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BA%E5%B1%A4%E6%8B%B7%E8%B2%9D"><span class="nav-number">5.1.</span> <span class="nav-text">淺層拷貝</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%B1%E5%B1%A4%E6%8B%B7%E8%B2%9D"><span class="nav-number">5.2.</span> <span class="nav-text">深層拷貝</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#const-%E8%88%87-let-%E7%9A%84%E4%BD%BF%E7%94%A8%E5%8E%9F%E5%89%87"><span class="nav-number">6.</span> <span class="nav-text">const 與 let 的使用原則</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E5%BC%8F%E9%99%B3%E8%BF%B0%E5%BC%8F-vs-%E5%87%BD%E5%BC%8F%E8%A1%A8%E9%81%94%E5%BC%8F"><span class="nav-number">7.</span> <span class="nav-text">函式陳述式 vs 函式表達式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E5%BC%8F%E9%99%B3%E8%BF%B0%E5%BC%8F%EF%BC%88Function-Declaration%EF%BC%89"><span class="nav-number">7.1.</span> <span class="nav-text">函式陳述式（Function Declaration）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E5%BC%8F%E8%A1%A8%E9%81%94%E5%BC%8F%EF%BC%88Function-Expression%EF%BC%89"><span class="nav-number">7.2.</span> <span class="nav-text">函式表達式（Function Expression）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B7%AE%E7%95%B0%E6%95%B4%E7%90%86"><span class="nav-number">7.3.</span> <span class="nav-text">差異整理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A3%9C%E5%85%85%EF%BC%9A%E7%AB%8B%E5%8D%B3%E5%9F%B7%E8%A1%8C%E5%87%BD%E5%BC%8F%EF%BC%88IIFE%EF%BC%89"><span class="nav-number">7.4.</span> <span class="nav-text">補充：立即執行函式（IIFE）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E7%B4%9A%E5%87%BD%E5%BC%8F%EF%BC%88First-Class-Functions%EF%BC%89"><span class="nav-number">8.</span> <span class="nav-text">一級函式（First-Class Functions）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E7%B4%9A%E5%87%BD%E5%BC%8F-vs-%E9%AB%98%E9%9A%8E%E5%87%BD%E5%BC%8F"><span class="nav-number">8.1.</span> <span class="nav-text">一級函式 vs 高階函式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%9E%8B%E5%88%A5%E8%88%87%E7%89%A9%E4%BB%B6%E5%9E%8B%E5%88%A5%E7%9A%84%E5%82%B3%E9%81%9E%E5%B7%AE%E7%95%B0"><span class="nav-number">9.</span> <span class="nav-text">基本型別與物件型別的傳遞差異</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%9E%8B%E5%88%A5%EF%BC%9A%E5%82%B3%E9%81%9E%E5%80%BC%E7%9A%84%E5%89%AF%E6%9C%AC"><span class="nav-number">9.1.</span> <span class="nav-text">基本型別：傳遞值的副本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%A9%E4%BB%B6%E5%9E%8B%E5%88%A5%EF%BC%9A%E5%82%B3%E9%81%9E%E8%A8%98%E6%86%B6%E9%AB%94%E4%BD%8D%E5%9D%80%E7%9A%84%E5%89%AF%E6%9C%AC"><span class="nav-number">9.2.</span> <span class="nav-text">物件型別：傳遞記憶體位址的副本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E8%A6%81%E9%99%B7%E9%98%B1%EF%BC%9A%E6%8F%9B%E6%8E%89%E6%95%B4%E5%80%8B%E7%89%A9%E4%BB%B6%E4%B8%8D%E6%9C%83%E5%BD%B1%E9%9F%BF%E5%A4%96%E9%83%A8"><span class="nav-number">9.3.</span> <span class="nav-text">重要陷阱：換掉整個物件不會影響外部</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B8%BD%E7%B5%90"><span class="nav-number">9.4.</span> <span class="nav-text">總結</span></a></li></ol></li></ol></div>
+          </div>
+          <!--/noindex-->
+
+          <div class="site-overview-wrap sidebar-panel">
+            <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hailey"
+      src="https://i.postimg.cc/d1YJx7jW/site-author-image.png">
+  <p class="site-author-name" itemprop="name">Hailey</p>
+  <div class="site-description" itemprop="description">專注前端開發，記錄 JavaScript 與 Vite 的實戰筆記，以及從非本科轉職工程師的成長之路。</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">標籤</span>
+      </div>
+  </nav>
+</div>
+
+          </div>
+        </div>
+      </div>
+
+      
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://hailey.tw/2026/05/12/JavaScript%20%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%E6%95%B4%E7%90%86%EF%BC%9A%E7%89%A9%E4%BB%B6%E3%80%81%E8%BF%B4%E5%9C%88%E3%80%81%E5%87%BD%E5%BC%8F%E8%88%87%E8%A8%98%E6%86%B6%E9%AB%94/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://i.postimg.cc/d1YJx7jW/site-author-image.png">
+      <meta itemprop="name" content="Hailey">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hailey's Blog">
+      <meta itemprop="description" content="專注前端開發，記錄 JavaScript 與 Vite 的實戰筆記，以及從非本科轉職工程師的成長之路。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="JavaScript 核心概念整理：物件、迴圈、函式、拷貝與記憶體 | Hailey's Blog">
+      <meta itemprop="description" content="整理 JavaScript 中常見的核心概念，包含 switch、物件操作、迴圈、拷貝、函式陳述式與表達式、一級函式，以及基本型別與物件型別的傳遞差異。">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JavaScript 核心概念整理：物件、迴圈、函式、拷貝與記憶體
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+      
+
+      <time title="創建時間：2026-05-12 11:05:12 / 修改時間：11:53:07" itemprop="dateCreated datePublished" datetime="2026-05-12T11:05:12+08:00">2026-05-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+            <div class="post-description">整理 JavaScript 中常見的核心概念，包含 switch、物件操作、迴圈、拷貝、函式陳述式與表達式、一級函式，以及基本型別與物件型別的傳遞差異。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p><img src="https://i.postimg.cc/L5Y0Vk9M/javascript-core-concepts-cover.jpg" alt="javascript-core-concepts-cover"></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>JavaScript 在學習初期，常常會同時接觸到很多看似零散的概念，例如：</p>
+<ul>
+<li><code>switch</code></li>
+<li>物件（Object）</li>
+<li>迴圈（Loop）</li>
+<li>淺層拷貝與深層拷貝</li>
+<li>函式陳述式與函式表達式</li>
+<li>傳值與記憶體參考</li>
+</ul>
+<p>剛開始學時，很容易變成「每個都看過，但不知道彼此有什麼關聯」。</p>
+<p>這篇文章整理了 JavaScript 中幾個常見且重要的核心觀念，內容以初學者角度出發，搭配簡單範例說明，幫助你建立對物件、函式、迴圈與記憶體運作的基本理解。</p>
+<h2 id="switch-條件判斷"><a href="#switch-條件判斷" class="headerlink" title="switch 條件判斷"></a>switch 條件判斷</h2><p><code>switch</code> 是處理多條件判斷的語法，功能類似多個 <code>if...else if</code>。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">myThought</span>(<span class="params">week</span>) &#123;</span><br><span class="line">  <span class="keyword">switch</span> (week) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;星期一：穿新衣。&quot;</span>)</span><br><span class="line">      <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">case</span> <span class="number">7</span>:</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;星期日：來考試。&quot;</span>)</span><br><span class="line">      <span class="keyword">break</span></span><br><span class="line">    <span class="attr">default</span>:</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;一周只有七天，輸入錯囉&quot;</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">myThought</span>(<span class="number">1</span>) <span class="comment">// &quot;星期一：穿新衣。&quot;</span></span><br><span class="line"><span class="title function_">myThought</span>(<span class="number">7</span>) <span class="comment">// &quot;星期日：來考試。&quot;</span></span><br><span class="line"><span class="title function_">myThought</span>(<span class="number">8</span>) <span class="comment">// &quot;一周只有七天，輸入錯囉&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>範例中若只是輸出內容，通常使用 break 即可；return 多半用在函式需要提前結束並回傳值時。</p>
+<h3 id="注意：不用-return-時要加-break"><a href="#注意：不用-return-時要加-break" class="headerlink" title="注意：不用 return 時要加 break"></a>注意：不用 <code>return</code> 時要加 <code>break</code></h3><p><code>switch</code> 的特性是：只要進入一個 <code>case</code>，如果沒有 <code>return</code> 或 <code>break</code> 中斷，會繼續往下執行所有 <code>case</code>（稱為「fall-through」）。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">myThought</span>(<span class="params">week</span>) &#123;</span><br><span class="line">  <span class="keyword">switch</span> (week) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;星期一：穿新衣。&quot;</span>)</span><br><span class="line">      <span class="keyword">break</span> <span class="comment">// 中斷，避免繼續往下執行</span></span><br><span class="line">    <span class="keyword">case</span> <span class="number">7</span>:</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;星期日：來考試。&quot;</span>)</span><br><span class="line">      <span class="keyword">break</span></span><br><span class="line">    <span class="attr">default</span>:</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;一周只有七天，輸入錯囉&quot;</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="物件（Object）操作"><a href="#物件（Object）操作" class="headerlink" title="物件（Object）操作"></a>物件（Object）操作</h2><h3 id="基本結構與方法"><a href="#基本結構與方法" class="headerlink" title="基本結構與方法"></a>基本結構與方法</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;小明&#x27;</span>,  <span class="comment">// 屬性</span></span><br><span class="line">  <span class="attr">age</span>: <span class="number">16</span>,</span><br><span class="line">  <span class="attr">go</span>: <span class="keyword">function</span> (<span class="params"></span>) &#123;  <span class="comment">// 方法（method）</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;小明在跑步&#x27;</span>)</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">obj.<span class="title function_">go</span>()        <span class="comment">// 點記法</span></span><br><span class="line">obj[<span class="string">&#x27;go&#x27;</span>]()     <span class="comment">// 括號記法</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用變數存取屬性</span></span><br><span class="line"><span class="keyword">const</span> variable = <span class="string">&#x27;go&#x27;</span></span><br><span class="line">obj[variable]() <span class="comment">// 等同 obj.go()</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="動態屬性名稱與可選串聯"><a href="#動態屬性名稱與可選串聯" class="headerlink" title="動態屬性名稱與可選串聯"></a>動態屬性名稱與可選串聯</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> propertyName = <span class="string">&#x27;name&#x27;</span></span><br><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">  [propertyName]: <span class="string">&#x27;小明&#x27;</span>, <span class="comment">// 等同 name: &#x27;小明&#x27;</span></span><br><span class="line">  <span class="attr">inner</span>: &#123;</span><br><span class="line">    姓名: <span class="string">&#x27;內層的物件&#x27;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(obj.<span class="property">inner</span>.姓名)    <span class="comment">// &#x27;內層的物件&#x27;</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(obj?.<span class="property">inner</span>?.姓名)  <span class="comment">// 可選串聯（Optional Chaining）</span></span><br><span class="line"><span class="comment">// 若路徑中有 undefined 或拼錯，不會報錯，而是回傳 undefined</span></span><br><span class="line"><span class="comment">// 避免程式中斷，保護後續程式繼續執行</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="用-for-in-遍歷物件"><a href="#用-for-in-遍歷物件" class="headerlink" title="用 for...in 遍歷物件"></a>用 <code>for...in</code> 遍歷物件</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">const</span> key <span class="keyword">in</span> obj) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(key)        <span class="comment">// 印出所有屬性名稱</span></span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(obj[key])   <span class="comment">// 印出對應的值</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 適合在不知道物件內有哪些 key 時使用</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="物件使用陣列方法"><a href="#物件使用陣列方法" class="headerlink" title="物件使用陣列方法"></a>物件使用陣列方法</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> family = &#123;</span><br><span class="line">  <span class="title class_">Ming</span>: &#123; <span class="attr">name</span>: <span class="string">&#x27;小明&#x27;</span> &#125;,</span><br><span class="line">  <span class="title class_">Jay</span>: &#123; <span class="attr">name</span>: <span class="string">&#x27;杰倫&#x27;</span> &#125;,</span><br><span class="line">  <span class="title class_">Auntie</span>: &#123; <span class="attr">name</span>: <span class="string">&#x27;漂亮阿姨&#x27;</span> &#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title class_">Object</span>.<span class="title function_">keys</span>(family)   <span class="comment">// 取得所有 key：[&#x27;Ming&#x27;, &#x27;Jay&#x27;, &#x27;Auntie&#x27;]</span></span><br><span class="line"><span class="title class_">Object</span>.<span class="title function_">values</span>(family) <span class="comment">// 取得所有 value：[&#123;name:&#x27;小明&#x27;&#125;, ...]</span></span><br><span class="line"></span><br><span class="line"><span class="title class_">Object</span>.<span class="title function_">values</span>(family).<span class="title function_">forEach</span>(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(item)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="title class_">Object</span>.<span class="title function_">keys</span>(family).<span class="title function_">forEach</span>(<span class="function"><span class="params">key</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(key)</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(family[key])</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p><code>Object.keys()</code> 回傳的是陣列，因此可以搭配 <code>forEach()</code>、<code>map()</code> 等陣列方法操作。</p>
+<hr>
+<h2 id="迴圈"><a href="#迴圈" class="headerlink" title="迴圈"></a>迴圈</h2><h3 id="for-迴圈（傳統寫法）"><a href="#for-迴圈（傳統寫法）" class="headerlink" title="for 迴圈（傳統寫法）"></a><code>for</code> 迴圈（傳統寫法）</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> arr = [<span class="string">&#x27;小明&#x27;</span>, <span class="string">&#x27;杰倫&#x27;</span>, <span class="string">&#x27;漂亮阿姨&#x27;</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> index = <span class="number">0</span>; index &lt; arr.<span class="property">length</span>; index++) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(index)       <span class="comment">// 0, 1, 2（索引）</span></span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(arr[index])  <span class="comment">// 小明、杰倫、漂亮阿姨（值）</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="forEach（常見寫法）"><a href="#forEach（常見寫法）" class="headerlink" title="forEach（常見寫法）"></a><code>forEach</code>（常見寫法）</h3><p>適合單純遍歷陣列；若需要中途跳出迴圈或搭配 async&#x2F;await，通常會改用 for…of。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> arr = [<span class="string">&#x27;小明&#x27;</span>, <span class="string">&#x27;杰倫&#x27;</span>, <span class="string">&#x27;漂亮阿姨&#x27;</span>]</span><br><span class="line"></span><br><span class="line">arr.<span class="title function_">forEach</span>(<span class="keyword">function</span> (<span class="params">item, index, array</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(item, index, array)</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 參數順序固定，但名稱可自訂：</span></span><br><span class="line"><span class="comment">// 1. item  → 當前值</span></span><br><span class="line"><span class="comment">// 2. index → 當前索引</span></span><br><span class="line"><span class="comment">// 3. array → 陣列本身（較少使用）</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="for-of"><a href="#for-of" class="headerlink" title="for...of"></a><code>for...of</code></h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">const</span> item <span class="keyword">of</span> arr) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(item)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>適合遍歷陣列或其他 iterable 資料，且支援：</p>
+<ul>
+<li><code>break</code></li>
+<li><code>continue</code></li>
+<li><code>async/await</code></li>
+</ul>
+<hr>
+<h2 id="物件拷貝"><a href="#物件拷貝" class="headerlink" title="物件拷貝"></a>物件拷貝</h2><h3 id="淺層拷貝"><a href="#淺層拷貝" class="headerlink" title="淺層拷貝"></a>淺層拷貝</h3><p>只複製第一層屬性。若物件內有巢狀陣列或物件，仍然共用同一個記憶體參考。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> family = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;佛傑家&#x27;</span>,</span><br><span class="line">  <span class="attr">member</span>: [&#123;&#125;, &#123;&#125;, &#123;&#125;],</span><br><span class="line">  <span class="attr">sayHello</span>: <span class="keyword">function</span> (<span class="params"></span>) &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> newFamily = &#123; ...family &#125;              <span class="comment">// 方法一：展開運算子（推薦）</span></span><br><span class="line"><span class="keyword">const</span> newFamily2 = <span class="title class_">Object</span>.<span class="title function_">assign</span>(&#123;&#125;, family)  <span class="comment">// 方法二：Object.assign</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>使用物件字面值 <code>{}</code> 或陣列字面值 <code>[]</code> 時，通常會建立新的參考型別資料。</p>
+</blockquote>
+<h3 id="深層拷貝"><a href="#深層拷貝" class="headerlink" title="深層拷貝"></a>深層拷貝</h3><p>完整複製所有層級，但 <code>structuredClone()</code> 無法處理 function、DOM 節點等特殊資料型別。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 舊版常見寫法：</span></span><br><span class="line"><span class="keyword">const</span> newFamily = <span class="title class_">JSON</span>.<span class="title function_">parse</span>(<span class="title class_">JSON</span>.<span class="title function_">stringify</span>(family))</span><br><span class="line"></span><br><span class="line"><span class="comment">// JSON.stringify 先將物件轉成字串</span></span><br><span class="line"><span class="comment">// JSON.parse 再將字串轉回物件</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 新版寫法：</span></span><br><span class="line"><span class="keyword">const</span> newFamily2 = <span class="title function_">structuredClone</span>(family)</span><br></pre></td></tr></table></figure>
+
+<p><strong>何時用哪種？</strong></p>
+<ul>
+<li>物件結構單純、或需要保留函式 → 用<strong>淺層拷貝</strong></li>
+<li>有複雜的巢狀資料需要完整隔離 → 用<strong>深層拷貝</strong></li>
+</ul>
+<hr>
+<h2 id="const-與-let-的使用原則"><a href="#const-與-let-的使用原則" class="headerlink" title="const 與 let 的使用原則"></a><code>const</code> 與 <code>let</code> 的使用原則</h2><blockquote>
+<p>沒有重新賦值的需求，就應該使用 <code>const</code>。只要不會出錯，預設用 <code>const</code>。</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> name = <span class="string">&#x27;小明&#x27;</span>  <span class="comment">// ✅ 不需重新賦值，用 const</span></span><br><span class="line"><span class="keyword">let</span> count = <span class="number">0</span>       <span class="comment">// ✅ 需要累加，用 let</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="函式陳述式-vs-函式表達式"><a href="#函式陳述式-vs-函式表達式" class="headerlink" title="函式陳述式 vs 函式表達式"></a>函式陳述式 vs 函式表達式</h2><h3 id="函式陳述式（Function-Declaration）"><a href="#函式陳述式（Function-Declaration）" class="headerlink" title="函式陳述式（Function Declaration）"></a>函式陳述式（Function Declaration）</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">sayHello</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Hello!&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">sayHello</span>() <span class="comment">// ✅ 可在宣告前呼叫（因為會被提升 Hoisting）</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="函式表達式（Function-Expression）"><a href="#函式表達式（Function-Expression）" class="headerlink" title="函式表達式（Function Expression）"></a>函式表達式（Function Expression）</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> sayHello = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Hello!&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">sayHello</span>() <span class="comment">// ✅ 需在宣告後呼叫，否則報錯</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="差異整理"><a href="#差異整理" class="headerlink" title="差異整理"></a>差異整理</h3><table>
+<thead>
+<tr>
+<th>比較項目</th>
+<th>函式陳述式</th>
+<th>函式表達式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>語法</td>
+<td>直接以 <code>function</code> 開頭</td>
+<td>指派給變數或常數</td>
+</tr>
+<tr>
+<td>提升（Hoisting）</td>
+<td>✅ 會提升，可先呼叫再宣告</td>
+<td>⚠️ 變數會提升，但函式需在賦值後才能使用</td>
+</tr>
+<tr>
+<td>是否可匿名</td>
+<td>❌ 必須有名稱</td>
+<td>✅ 可匿名或具名</td>
+</tr>
+<tr>
+<td>使用時機</td>
+<td>固定用途的函式</td>
+<td>傳參數、立即執行函式（IIFE）</td>
+</tr>
+</tbody></table>
+<h3 id="補充：立即執行函式（IIFE）"><a href="#補充：立即執行函式（IIFE）" class="headerlink" title="補充：立即執行函式（IIFE）"></a>補充：立即執行函式（IIFE）</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;馬上執行！&quot;</span>)</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="一級函式（First-Class-Functions）"><a href="#一級函式（First-Class-Functions）" class="headerlink" title="一級函式（First-Class Functions）"></a>一級函式（First-Class Functions）</h2><p>JavaScript 中，函式是「值」的一種，可以像變數一樣被操作，稱為<strong>一級函式</strong>。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. 賦值給變數</span></span><br><span class="line"><span class="keyword">const</span> greet = <span class="keyword">function</span> (<span class="params"></span>) &#123; <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Hello!&quot;</span>) &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 作為引數傳入</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">callTwice</span>(<span class="params">func</span>) &#123;</span><br><span class="line">  <span class="title function_">func</span>()</span><br><span class="line">  <span class="title function_">func</span>()</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">callTwice</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123; <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Hi!&quot;</span>) &#125;) <span class="comment">// Hi! Hi!</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 作為回傳值</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">createGreeter</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">function</span> (<span class="params"></span>) &#123; <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Hello from returned function!&quot;</span>) &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> greeter = <span class="title function_">createGreeter</span>()</span><br><span class="line"><span class="title function_">greeter</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment">// 4. 存在陣列或物件中</span></span><br><span class="line"><span class="keyword">const</span> tools = [</span><br><span class="line">  <span class="keyword">function</span> (<span class="params"></span>) &#123; <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Tool 1&quot;</span>) &#125;,</span><br><span class="line">  <span class="keyword">function</span> (<span class="params"></span>) &#123; <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Tool 2&quot;</span>) &#125;,</span><br><span class="line">]</span><br><span class="line">tools[<span class="number">0</span>]() <span class="comment">// Tool 1</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="一級函式-vs-高階函式"><a href="#一級函式-vs-高階函式" class="headerlink" title="一級函式 vs 高階函式"></a>一級函式 vs 高階函式</h3><table>
+<thead>
+<tr>
+<th>概念</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>一級函式</strong></td>
+<td>語言特性，函式可像值一樣被賦值、傳遞、回傳</td>
+</tr>
+<tr>
+<td><strong>高階函式</strong></td>
+<td>使用技巧，指接收函式為參數、或回傳函式的函式</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="基本型別與物件型別的傳遞差異"><a href="#基本型別與物件型別的傳遞差異" class="headerlink" title="基本型別與物件型別的傳遞差異"></a>基本型別與物件型別的傳遞差異</h2><h3 id="基本型別：傳遞值的副本"><a href="#基本型別：傳遞值的副本" class="headerlink" title="基本型別：傳遞值的副本"></a>基本型別：傳遞值的副本</h3><p>適用於：<code>number</code>、<code>string</code>、<code>boolean</code>、<code>null</code>、<code>undefined</code> 等。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">10</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">modify</span>(<span class="params">x</span>) &#123;</span><br><span class="line">  x = <span class="number">20</span></span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;函式內 x:&quot;</span>, x) <span class="comment">// 20</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">modify</span>(a)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;函式外 a:&quot;</span>, a) <span class="comment">// 10（不受影響）</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="物件型別：傳遞記憶體位址的副本"><a href="#物件型別：傳遞記憶體位址的副本" class="headerlink" title="物件型別：傳遞記憶體位址的副本"></a>物件型別：傳遞記憶體位址的副本</h3><p>適用於：<code>Object</code>、<code>Array</code>、<code>Function</code>。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123; <span class="attr">value</span>: <span class="number">10</span> &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">modify</span>(<span class="params">o</span>) &#123;</span><br><span class="line">  o.<span class="property">value</span> = <span class="number">20</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">modify</span>(obj)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(obj.<span class="property">value</span>) <span class="comment">// 20（被改變了）</span></span><br></pre></td></tr></table></figure>
+
+<p>JavaScript 實際上都是「傳值（pass by value）」；只是物件型別的值是記憶體位址（reference），因此修改屬性時會影響原物件。</p>
+<h3 id="重要陷阱：換掉整個物件不會影響外部"><a href="#重要陷阱：換掉整個物件不會影響外部" class="headerlink" title="重要陷阱：換掉整個物件不會影響外部"></a>重要陷阱：換掉整個物件不會影響外部</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123; <span class="attr">value</span>: <span class="number">10</span> &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">modify</span>(<span class="params">o</span>) &#123;</span><br><span class="line">  o = &#123; <span class="attr">value</span>: <span class="number">20</span> &#125; <span class="comment">// 讓 o 指向新物件，原本的 obj 不受影響</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">modify</span>(obj)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(obj.<span class="property">value</span>) <span class="comment">// 10（沒有變）</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h3><table>
+<thead>
+<tr>
+<th>情況</th>
+<th>會影響外部？</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>傳基本型別（數字、字串）</td>
+<td>❌ 不會</td>
+<td>傳的是值的副本</td>
+</tr>
+<tr>
+<td>傳物件 &#x2F; 陣列，修改屬性</td>
+<td>✅ 會</td>
+<td>傳遞的是 reference 的副本</td>
+</tr>
+<tr>
+<td>傳物件 &#x2F; 陣列，換掉整個物件</td>
+<td>❌ 不會</td>
+<td>只改了參數指向，原變數不變</td>
+</tr>
+</tbody></table>
+<p>以上這些觀念，幾乎都是 JavaScript 開發中最常接觸的基礎內容。</p>
+<p>剛開始學習時，可能會覺得：</p>
+<ul>
+<li>名詞很多</li>
+<li>行為很像</li>
+<li>容易混淆</li>
+</ul>
+<p>但其實這些概念彼此之間都有關聯。</p>
+<p>例如：</p>
+<ul>
+<li>函式其實也是物件的一種</li>
+<li>淺拷貝與深拷貝牽涉到記憶體參考</li>
+<li><code>forEach</code> 能接收函式，和一級函式的概念有關</li>
+<li>物件型別的傳遞方式，也會影響資料是否被改動</li>
+</ul>
+<p>比起一次硬背所有名詞，更重要的是：</p>
+<blockquote>
+<p>能理解「為什麼會這樣運作」。</p>
+</blockquote>
+<p>當你開始實際撰寫專案、操作資料與除錯時，這些觀念會慢慢串起來，也會越來越熟悉。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+  
+  <section class="related-cards">
+    <h3 class="related-cards__title">
+      <i class="fa-solid fa-square-poll-horizontal"></i>相關文章
+    </h3>
+    <div class="related-cards__grid">
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+              
+            
+          
+          
+            
+            <a class="related-cards__item" href="/2026/05/08/JavaScript%20while%20%E8%BF%B4%E5%9C%88%E6%80%8E%E9%BA%BC%E7%94%A8%EF%BC%9F%E5%BE%9E%200%20%E5%88%B0%E7%90%86%E8%A7%A3%EF%BC%88%E9%99%84%E5%B8%B8%E8%A6%8B%E9%8C%AF%E8%AA%A4%E8%88%87%E5%AF%A6%E4%BE%8B%EF%BC%89/">
+              <span class="related-cards__item-title">JavaScript while 迴圈怎麼用？從 0 到理解（附常見錯誤與實例）</span>
+              <span class="related-cards__item-date">
+                <i class="far fa-calendar-alt"></i>
+                2026-05-08
+              </span>
+            </a>
+          
+        
+      
+        
+          
+          
+            
+              
+            
+          
+          
+            
+            <a class="related-cards__item" href="/2026/05/05/JavaScript%20%E5%87%BD%E5%BC%8F%20Function%20%E5%85%A5%E9%96%80%E6%95%99%E5%AD%B8%EF%BD%9C%E5%8F%83%E6%95%B8%E3%80%81return%20%E8%88%87%E4%BD%9C%E7%94%A8%E5%9F%9F%E5%AE%8C%E6%95%B4%E8%A7%A3%E6%9E%90/">
+              <span class="related-cards__item-title">JavaScript 函式 Function 入門教學｜參數、return 與作用域完整解析</span>
+              <span class="related-cards__item-date">
+                <i class="far fa-calendar-alt"></i>
+                2026-05-05
+              </span>
+            </a>
+          
+        
+      
+        
+          
+          
+            
+              
+            
+          
+          
+            
+            <a class="related-cards__item" href="/2026/05/07/JavaScript%20%E5%87%BD%E5%BC%8F%E6%80%8E%E9%BA%BC%E7%94%A8%EF%BC%9F5%20%E7%A8%AE%E5%AF%AB%E6%B3%95%EF%BC%8B%E9%96%89%E5%8C%85%E5%AE%8C%E6%95%B4%E8%A7%A3%E6%9E%90%EF%BC%88%E6%96%B0%E6%89%8B%E5%BF%85%E7%9C%8B%EF%BC%89/">
+              <span class="related-cards__item-title">JavaScript 函式怎麼用？5 種寫法＋閉包完整解析（新手必看）</span>
+              <span class="related-cards__item-date">
+                <i class="far fa-calendar-alt"></i>
+                2026-05-07
+              </span>
+            </a>
+          
+        
+      
+        
+          
+          
+            
+              
+            
+          
+          
+            
+            <a class="related-cards__item" href="/2026/05/04/JavaScript%20%E9%99%A3%E5%88%97%E6%96%B9%E6%B3%95%E5%A4%A7%E5%85%A8%EF%BD%9C20%20%E7%A8%AE%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%20+%20%E5%9E%8B%E5%88%A5%E8%BD%89%E6%8F%9B%E8%88%87%E6%AF%94%E8%BC%83%E6%95%B4%E7%90%86/">
+              <span class="related-cards__item-title">JavaScript 陣列方法大全｜20 種常用方法 + 型別轉換與比較整理</span>
+              <span class="related-cards__item-date">
+                <i class="far fa-calendar-alt"></i>
+                2026-05-04
+              </span>
+            </a>
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="share-article-section">
+      <div class="share-article-heading">
+        <i class="fa-solid fa-share-nodes share-article-icon" aria-hidden="true"></i>
+        <span>分享這篇文章</span>
+      </div>
+      <div class="share-article-buttons"
+           data-share-url="https://hailey.tw/2026/05/12/JavaScript%20%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%E6%95%B4%E7%90%86%EF%BC%9A%E7%89%A9%E4%BB%B6%E3%80%81%E8%BF%B4%E5%9C%88%E3%80%81%E5%87%BD%E5%BC%8F%E8%88%87%E8%A8%98%E6%86%B6%E9%AB%94/"
+           data-share-title="JavaScript 核心概念整理：物件、迴圈、函式、拷貝與記憶體">
+        <a href="#"
+           role="button"
+           class="share-article-btn"
+           data-platform="twitter">
+          <i class="fab fa-twitter"></i><span>Twitter</span>
+        </a>
+        <a href="#"
+           role="button"
+           class="share-article-btn"
+           data-platform="facebook">
+          <i class="fab fa-facebook"></i><span>Facebook</span>
+        </a>
+        <a href="#"
+           role="button"
+           class="share-article-btn"
+           data-platform="linkedin">
+          <i class="fab fa-linkedin"></i><span>LinkedIn</span>
+        </a>
+        <button type="button" class="share-article-btn" data-copy>
+          <i class="fa-regular fa-copy"></i><span>複製連結</span>
+        </button>
+      </div>
+    </div>
+  </section>
+  <style>
+    /* 讓 post-footer 變成可排序容器 */
+    .post-footer {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* 上一篇/下一篇 */
+    .post-footer .post-nav {
+      order: 20;
+    }
+
+    /* 你的相關文章區塊 */
+    .post-footer .related-cards {
+      order: 30;
+    }
+
+    /* 你的分享區塊（如果也要在 related 下方） */
+    .post-footer .share-article-section {
+      order: 40;
+    }
+    .related-cards {
+      margin: 2.25rem 0 1rem;
+    }
+
+    .related-cards__title {
+      margin-bottom: 12px;
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+
+    .related-cards__title i {
+        color: #22d3ee;
+        margin-right: 6px;
+    }
+
+    .related-cards__grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .related-cards__item {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 16px;
+      --tw-border-opacity: 1;
+      border: 1px solid rgb(82 82 91 / var(--tw-border-opacity, 1));
+      border-radius: 12px;
+      background: #4c4c5180;
+      color: #f5f7fa;
+      text-decoration: none;
+      transition: transform .18s ease, border-color .18s ease;
+    }
+
+    .related-cards__item:hover {
+      transform: translateY(-2px);
+      border-color: #22d3ee;
+      color: #22d3ee;
+    }
+
+    .related-cards__item-title {
+      font-size: 1rem;
+      line-height: 1.35;
+      font-weight: 600;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+
+    .related-cards__item-date {
+      margin-top: 10px;
+      font-size: .88rem;
+      color: #c5cad3;
+    }
+
+    @media (max-width: 1100px) {
+      .related-cards__grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .related-cards__grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* AddToAny */
+
+    /* 第一顆 AddToAny 主按鈕常太醜，直接隱藏 */
+    .post-footer .social-like .a2a_dd {
+    display: none;
+    }
+
+    .share-article-section { 
+      margin: 2rem 0 1rem; 
+      padding-top: 1.25rem; 
+    }
+    .share-article-heading { 
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .share-article-icon { 
+      color: #2dd4bf;
+      font-size: 1.25rem;
+    }
+    .share-article-buttons { 
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .share-article-btn {
+        display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px;
+        border: 1px solid rgb(82 82 91 / var(--tw-border-opacity, 1));
+        border-radius: 10px;
+        background: #4c4c5180;
+        color: inherit;
+        cursor: pointer;
+        text-decoration: none;
+        font: inherit;
+        transition: transform .18s ease, border-color .18s ease;
+    }
+    .share-article-btn:hover { border-color: #22d3ee;
+        transform: translateY(-2px); 
+    }
+  </style>
+  <script>
+  (function () {
+    var root = document.querySelector('.share-article-buttons');
+    if (!root || root.dataset.bound) return;
+    root.dataset.bound = '1';
+    var url = root.dataset.shareUrl || '';
+    var title = root.dataset.shareTitle || '';
+    var encUrl = encodeURIComponent(url);
+    var encTitle = encodeURIComponent(title);
+    var urls = {
+      twitter: 'https://twitter.com/intent/tweet?url=' + encUrl + '&text=' + encTitle,
+      facebook: 'https://www.facebook.com/sharer/sharer.php?u=' + encUrl,
+      linkedin: 'https://www.linkedin.com/sharing/share-offsite/?url=' + encUrl
+    };
+    root.querySelectorAll('[data-platform]').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        var p = btn.dataset.platform;
+        window.open(urls[p], '_blank', 'noopener,noreferrer');
+      });
+    });
+    var btnCopy = root.querySelector('[data-copy]');
+    if (btnCopy) {
+      btnCopy.addEventListener('click', function () {
+        navigator.clipboard.writeText(url).then(function () {
+          btnCopy.querySelector('span').textContent = '已複製';
+          setTimeout(function () { btnCopy.querySelector('span').textContent = '複製連結'; }, 2000);
+        });
+      });
+    }
+  })();
+  </script>
+
+
+          <div class="post-tags">
+              <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/05/11/CSS%20%E5%AE%B9%E5%99%A8%E8%88%87%E5%85%A7%E5%AE%B9%E5%88%86%E9%9B%A2%EF%BC%9AFlexbox%20%E5%A4%9A%E6%AC%84%E6%8E%92%E7%89%88%E8%88%87%20gutter%20%E9%96%93%E8%B7%9D%E5%AF%A6%E4%BD%9C/" rel="prev" title="CSS 容器與內容分離：Flexbox 多欄排版與 gutter 間距實作">
+                  <i class="fa fa-angle-left"></i> CSS 容器與內容分離：Flexbox 多欄排版與 gutter 間距實作
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div><aside class="column-recent-posts" aria-label="最新文章">
+  <div class="recent-rail-inner">
+    <h3 class="recent-rail-title">
+      <i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i>
+      <span>最新文章</span>
+    </h3>
+    <ol class="recent-rail-list">
+      
+        <li class="recent-rail-item">
+          <a class="recent-rail-link" href="/2026/05/12/JavaScript%20%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%E6%95%B4%E7%90%86%EF%BC%9A%E7%89%A9%E4%BB%B6%E3%80%81%E8%BF%B4%E5%9C%88%E3%80%81%E5%87%BD%E5%BC%8F%E8%88%87%E8%A8%98%E6%86%B6%E9%AB%94/">
+            <span class="recent-rail-item-title">JavaScript 核心概念整理：物件、迴圈、函式、拷貝與記憶體</span>
+            <span class="recent-rail-item-date">05/12</span>
+          </a>
+        </li>
+      
+        <li class="recent-rail-item">
+          <a class="recent-rail-link" href="/2026/05/11/CSS%20%E5%AE%B9%E5%99%A8%E8%88%87%E5%85%A7%E5%AE%B9%E5%88%86%E9%9B%A2%EF%BC%9AFlexbox%20%E5%A4%9A%E6%AC%84%E6%8E%92%E7%89%88%E8%88%87%20gutter%20%E9%96%93%E8%B7%9D%E5%AF%A6%E4%BD%9C/">
+            <span class="recent-rail-item-title">CSS 容器與內容分離：Flexbox 多欄排版與 gutter 間距實作</span>
+            <span class="recent-rail-item-date">05/11</span>
+          </a>
+        </li>
+      
+        <li class="recent-rail-item">
+          <a class="recent-rail-link" href="/2026/05/10/Codewars%20%E6%96%B0%E6%89%8B%E6%95%99%E5%AD%B8%EF%BC%9AJavaScript%20%E5%88%B7%E9%A1%8C%E6%B5%81%E7%A8%8B%E8%88%87%E8%A7%A3%E9%A1%8C%E6%8A%80%E5%B7%A7%E5%AE%8C%E6%95%B4%E8%A7%A3%E6%9E%90/">
+            <span class="recent-rail-item-title">Codewars 新手教學：JavaScript 刷題流程與解題技巧完整解析</span>
+            <span class="recent-rail-item-date">05/10</span>
+          </a>
+        </li>
+      
+        <li class="recent-rail-item">
+          <a class="recent-rail-link" href="/2026/05/09/%E9%AB%98%E9%9A%8E%E5%87%BD%E5%BC%8F%E6%98%AF%E4%BB%80%E9%BA%BC%EF%BC%9FJavaScript%20map%E3%80%81filter%E3%80%81reduce%20%E5%AE%8C%E6%95%B4%E6%95%99%E5%AD%B8/">
+            <span class="recent-rail-item-title">高階函式是什麼？JavaScript map、filter、reduce 完整教學</span>
+            <span class="recent-rail-item-date">05/09</span>
+          </a>
+        </li>
+      
+        <li class="recent-rail-item">
+          <a class="recent-rail-link" href="/2026/05/08/JavaScript%20while%20%E8%BF%B4%E5%9C%88%E6%80%8E%E9%BA%BC%E7%94%A8%EF%BC%9F%E5%BE%9E%200%20%E5%88%B0%E7%90%86%E8%A7%A3%EF%BC%88%E9%99%84%E5%B8%B8%E8%A6%8B%E9%8C%AF%E8%AA%A4%E8%88%87%E5%AF%A6%E4%BE%8B%EF%BC%89/">
+            <span class="recent-rail-item-title">JavaScript while 迴圈怎麼用？從 0 到理解（附常見錯誤與實例）</span>
+            <span class="recent-rail-item-date">05/08</span>
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</aside>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class=""></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Hailey. All rights reserved.<br>Built with Hexo & Theme NexT</span>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"Hailey-1025/blog-comments","issue_term":"pathname","label":"comment","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js" defer></script>
+
+<script>
+(function () {
+  var mq = window.matchMedia('(max-width: 991px)');
+  var btn = document.querySelector('.site-nav-toggle .toggle');
+  var sidebarBtn = document.querySelector('.sidebar-toggle');
+  var siteNav = document.querySelector('.header .site-nav');
+  if (!btn || !sidebarBtn) return;
+
+  function collapseHeaderNavDropdown() {
+    document.body.classList.remove('site-nav-on');
+    if (siteNav) siteNav.style.removeProperty('--scroll-height');
+  }
+
+  btn.addEventListener('click', function (e) {
+    if (!mq.matches) return;
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    collapseHeaderNavDropdown();
+    sidebarBtn.click();
+  }, true);
+
+  new MutationObserver(function () {
+    if (!mq.matches) return;
+    var open = document.body.classList.contains('sidebar-active');
+    btn.classList.toggle('toggle-close', open);
+  }).observe(document.body, { attributes: true, attributeFilter: ['class'] });
+
+  mq.addEventListener('change', function () {
+    if (!mq.matches) {
+      btn.classList.remove('toggle-close');
+      collapseHeaderNavDropdown();
+      document.body.classList.remove('mobile-header-scrolled-down');
+    }
+  });
+
+  var lastY = window.scrollY || 0;
+  var ticking = false;
+
+  function updateMobileHeaderOnScroll() {
+    ticking = false;
+    if (!mq.matches) return;
+    var currentY = window.scrollY || 0;
+    var scrollingDown = currentY > lastY;
+    var passedTop = currentY > 10;
+    document.body.classList.toggle('mobile-header-scrolled-down', scrollingDown && passedTop);
+    lastY = currentY;
+  }
+
+  window.addEventListener('scroll', function () {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(updateMobileHeaderOnScroll);
+  }, { passive: true });
+})();
+</script>
+
+</body>
+</html>
