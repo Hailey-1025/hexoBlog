@@ -1406,7 +1406,7 @@ pre code {
     vertical-align: middle;
   }
   .links-of-author a::before {
-    background: #440afc;
+    background: #ec221a;
     display: inline-block;
     margin-right: 3px;
     transform: translateY(-2px);
@@ -1510,7 +1510,8 @@ pre code {
   visibility: hidden;
 }
 .sidebar-nav-active .sidebar-nav {
-  height: calc(2em + 1px);
+  height: calc(3em + 1px);
+  padding-bottom: 8px;
   pointer-events: unset;
   visibility: unset;
 }

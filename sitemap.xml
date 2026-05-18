@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://hailey.tw/2026/05/18/JavaScript%20DOM%20%E4%BA%8B%E4%BB%B6%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97%EF%BC%9AaddEventListener%E3%80%81%E4%BA%8B%E4%BB%B6%E5%86%92%E6%B3%A1%E8%88%87%E4%BA%8B%E4%BB%B6%E5%A7%94%E6%B4%BE/</loc>
+    
+    <lastmod>2026-05-18</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://hailey.tw/2026/05/17/JavaScript%20DOM%20%E6%93%8D%E4%BD%9C%E5%AE%8C%E6%95%B4%E6%95%99%E5%AD%B8%EF%BC%9AquerySelector%E3%80%81innerHTML%E3%80%81dataset%20%E4%B8%80%E6%AC%A1%E6%90%9E%E6%87%82/</loc>
     
     <lastmod>2026-05-17</lastmod>
@@ -139,7 +148,7 @@
 
   <url>
     <loc>https://hailey.tw/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -147,21 +156,21 @@
   
   <url>
     <loc>https://hailey.tw/tags/HTML-CSS/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hailey.tw/tags/Codewars/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hailey.tw/tags/JavaScript/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
@@ -170,21 +179,21 @@
   
   <url>
     <loc>https://hailey.tw/categories/HTML-CSS/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hailey.tw/categories/Codewars/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hailey.tw/categories/JavaScript/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
