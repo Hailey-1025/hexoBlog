@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://hailey.tw/2026/05/20/JavaScript%20%E8%AE%8A%E6%95%B8%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97%EF%BD%9Clet%E3%80%81const%E3%80%81var%20%E5%B7%AE%E7%95%B0%E8%88%87%E5%91%BD%E5%90%8D%E8%A6%8F%E5%89%87%E4%B8%80%E6%AC%A1%E6%90%9E%E6%87%82/</loc>
+    
+    <lastmod>2026-05-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://hailey.tw/2026/05/19/getElementsByTagName/</loc>
     
     <lastmod>2026-05-19</lastmod>
@@ -157,7 +166,7 @@
 
   <url>
     <loc>https://hailey.tw/</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -165,21 +174,21 @@
   
   <url>
     <loc>https://hailey.tw/tags/HTML-CSS/</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hailey.tw/tags/JavaScript/</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hailey.tw/tags/Codewars/</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
@@ -188,21 +197,21 @@
   
   <url>
     <loc>https://hailey.tw/categories/HTML-CSS/</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hailey.tw/categories/JavaScript/</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hailey.tw/categories/Codewars/</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>

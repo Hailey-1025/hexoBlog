@@ -29,7 +29,7 @@
 <meta property="og:locale" content="zh_TW">
 <meta property="og:image" content="https://i.postimg.cc/FzyLt54B/javascript-reduce-concat-cover.jpg">
 <meta property="article:published_time" content="2026-05-19T02:14:31.000Z">
-<meta property="article:modified_time" content="2026-05-19T02:40:47.232Z">
+<meta property="article:modified_time" content="2026-05-19T02:55:31.221Z">
 <meta property="article:author" content="Hailey">
 <meta property="article:tag" content="JavaScript">
 <meta name="twitter:card" content="summary">
@@ -202,7 +202,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-count">16</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
@@ -270,7 +270,7 @@
       <span class="post-meta-item-text">發表於</span>
       
 
-      <time title="創建時間：2026-05-19 10:14:31 / 修改時間：10:40:47" itemprop="dateCreated datePublished" datetime="2026-05-19T10:14:31+08:00">2026-05-19</time>
+      <time title="創建時間：2026-05-19 10:14:31 / 修改時間：10:55:31" itemprop="dateCreated datePublished" datetime="2026-05-19T10:14:31+08:00">2026-05-19</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -454,8 +454,8 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 這種情況用 forEach 更清楚</span></span><br><span class="line">items.<span class="title function_">forEach</span>(<span class="function"><span class="params">item</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(item));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 這種情況才是 reduce 的舞台</span></span><br><span class="line"><span class="keyword">const</span> counts = items.<span class="title function_">reduce</span>(<span class="function">(<span class="params">acc, item</span>) =&gt;</span> &#123;</span><br><span class="line">    acc[item] = (acc[item] || <span class="number">0</span>) + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> acc;</span><br><span class="line">&#125;, &#123;&#125;);</span><br></pre></td></tr></table></figure>
 
 <hr>
-<h2 id="DOM-reduce-實戰整合"><a href="#DOM-reduce-實戰整合" class="headerlink" title="DOM + reduce 實戰整合"></a>DOM + reduce 實戰整合</h2><p>以下是一個完整範例，結合 <code>querySelectorAll</code>、<code>Array.from</code>、<code>reduce</code>，展示現代 JavaScript 的實戰寫法：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> calculateButton = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;calculate&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> result = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;result&#x27;</span>);</span><br><span class="line"></span><br><span class="line">calculateButton.<span class="title function_">addEventListener</span>(<span class="string">&#x27;click&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 現代寫法：querySelectorAll + Array.from + reduce</span></span><br><span class="line">    <span class="keyword">const</span> sum = <span class="title class_">Array</span>.<span class="title function_">from</span>(<span class="variable language_">document</span>.<span class="title function_">querySelectorAll</span>(<span class="string">&#x27;#data td&#x27;</span>))</span><br><span class="line">        .<span class="title function_">reduce</span>(<span class="function">(<span class="params">acc, cell</span>) =&gt;</span> acc + <span class="built_in">parseInt</span>(cell.<span class="property">textContent</span>, <span class="number">10</span>), <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    result.<span class="property">textContent</span> = <span class="string">`總和：<span class="subst">$&#123;sum&#125;</span>`</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="DOM-reduce-實戰整合"><a href="#DOM-reduce-實戰整合" class="headerlink" title="DOM + reduce 實戰整合"></a>DOM + reduce 實戰整合</h2><p>以下是一個完整範例，結合 <code>querySelectorAll</code>、<code>Array.from</code>、<code>reduce</code>，展示目前 JavaScript 的實戰寫法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> calculateButton = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;calculate&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> result = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;result&#x27;</span>);</span><br><span class="line"></span><br><span class="line">calculateButton.<span class="title function_">addEventListener</span>(<span class="string">&#x27;click&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// querySelectorAll + Array.from + reduce</span></span><br><span class="line">    <span class="keyword">const</span> sum = <span class="title class_">Array</span>.<span class="title function_">from</span>(<span class="variable language_">document</span>.<span class="title function_">querySelectorAll</span>(<span class="string">&#x27;#data td&#x27;</span>))</span><br><span class="line">        .<span class="title function_">reduce</span>(<span class="function">(<span class="params">acc, cell</span>) =&gt;</span> acc + <span class="built_in">parseInt</span>(cell.<span class="property">textContent</span>, <span class="number">10</span>), <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    result.<span class="property">textContent</span> = <span class="string">`總和：<span class="subst">$&#123;sum&#125;</span>`</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
 <p>這個寫法整合了本文的所有核心概念：</p>
 <ul>
@@ -527,22 +527,6 @@
           
           
             
-          
-          
-        
-      
-        
-          
-          
-            
-          
-          
-        
-      
-        
-          
-          
-            
               
             
           
@@ -562,6 +546,22 @@
           
           
             
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
               
             
           
@@ -574,6 +574,14 @@
                 2026-05-17
               </span>
             </a>
+          
+        
+      
+        
+          
+          
+            
+          
           
         
       
@@ -605,11 +613,11 @@
           
           
             
-            <a class="related-cards__item" href="/2026/05/05/JavaScript%20%E5%87%BD%E5%BC%8F%20Function%20%E5%85%A5%E9%96%80%E6%95%99%E5%AD%B8%EF%BD%9C%E5%8F%83%E6%95%B8%E3%80%81return%20%E8%88%87%E4%BD%9C%E7%94%A8%E5%9F%9F%E5%AE%8C%E6%95%B4%E8%A7%A3%E6%9E%90/">
-              <span class="related-cards__item-title">JavaScript 函式 Function 入門教學｜參數、return 與作用域完整解析</span>
+            <a class="related-cards__item" href="/2026/05/12/JavaScript%20%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%E6%95%B4%E7%90%86%EF%BC%9A%E7%89%A9%E4%BB%B6%E3%80%81%E8%BF%B4%E5%9C%88%E3%80%81%E5%87%BD%E5%BC%8F%E8%88%87%E8%A8%98%E6%86%B6%E9%AB%94/">
+              <span class="related-cards__item-title">JavaScript 核心概念整理：物件、迴圈、函式、拷貝與記憶體</span>
               <span class="related-cards__item-date">
                 <i class="far fa-calendar-alt"></i>
-                2026-05-05
+                2026-05-12
               </span>
             </a>
           
@@ -845,6 +853,9 @@
                 </a>
             </div>
             <div class="post-nav-item">
+                <a href="/2026/05/20/JavaScript%20%E8%AE%8A%E6%95%B8%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97%EF%BD%9Clet%E3%80%81const%E3%80%81var%20%E5%B7%AE%E7%95%B0%E8%88%87%E5%91%BD%E5%90%8D%E8%A6%8F%E5%89%87%E4%B8%80%E6%AC%A1%E6%90%9E%E6%87%82/" rel="next" title="JavaScript 變數完全指南｜let、const、var 差異與命名規則一次搞懂">
+                  JavaScript 變數完全指南｜let、const、var 差異與命名規則一次搞懂 <i class="fa fa-angle-right"></i>
+                </a>
             </div>
           </div>
     </footer>
@@ -864,6 +875,13 @@
       <span>最新文章</span>
     </h3>
     <ol class="recent-rail-list">
+      
+        <li class="recent-rail-item">
+          <a class="recent-rail-link" href="/2026/05/20/JavaScript%20%E8%AE%8A%E6%95%B8%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97%EF%BD%9Clet%E3%80%81const%E3%80%81var%20%E5%B7%AE%E7%95%B0%E8%88%87%E5%91%BD%E5%90%8D%E8%A6%8F%E5%89%87%E4%B8%80%E6%AC%A1%E6%90%9E%E6%87%82/">
+            <span class="recent-rail-item-title">JavaScript 變數完全指南｜let、const、var 差異與命名規則一次搞懂</span>
+            <span class="recent-rail-item-date">05/20</span>
+          </a>
+        </li>
       
         <li class="recent-rail-item">
           <a class="recent-rail-link" href="/2026/05/19/getElementsByTagName/">
@@ -890,13 +908,6 @@
           <a class="recent-rail-link" href="/2026/05/13/HTML%20Form%20%E8%A1%A8%E5%96%AE%E5%AE%8C%E6%95%B4%E6%95%99%E5%AD%B8%EF%BC%9AInput%E3%80%81Label%E3%80%81Button%20%E8%88%87%20CSS%20%E6%A8%A3%E5%BC%8F%E6%95%B4%E7%90%86/">
             <span class="recent-rail-item-title">HTML Form 表單完整教學：Input、Label、Button 與 CSS 樣式整理</span>
             <span class="recent-rail-item-date">05/13</span>
-          </a>
-        </li>
-      
-        <li class="recent-rail-item">
-          <a class="recent-rail-link" href="/2026/05/12/JavaScript%20%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%E6%95%B4%E7%90%86%EF%BC%9A%E7%89%A9%E4%BB%B6%E3%80%81%E8%BF%B4%E5%9C%88%E3%80%81%E5%87%BD%E5%BC%8F%E8%88%87%E8%A8%98%E6%86%B6%E9%AB%94/">
-            <span class="recent-rail-item-title">JavaScript 核心概念整理：物件、迴圈、函式、拷貝與記憶體</span>
-            <span class="recent-rail-item-date">05/12</span>
           </a>
         </li>
       

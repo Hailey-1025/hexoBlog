@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"hailey.tw","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":true,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"找到 ${hits} 個搜索結果（用時 ${time} 毫秒）","hits":"找到 ${hits} 個搜索結果"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="搞不清楚 let、const、var 的差別嗎？這篇文章從變數宣告方式、命名規則到作用域，用白話文帶你一次釐清，附常見地雷與實用範例，JavaScript 新手必看！">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript 變數完全指南｜let、const、var 差異與命名規則一次搞懂">
+<meta property="og:url" content="https://hailey.tw/2026/05/20/JavaScript%20%E8%AE%8A%E6%95%B8%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97%EF%BD%9Clet%E3%80%81const%E3%80%81var%20%E5%B7%AE%E7%95%B0%E8%88%87%E5%91%BD%E5%90%8D%E8%A6%8F%E5%89%87%E4%B8%80%E6%AC%A1%E6%90%9E%E6%87%82/index.html">
+<meta property="og:site_name" content="Hailey&#39;s Blog">
+<meta property="og:description" content="搞不清楚 let、const、var 的差別嗎？這篇文章從變數宣告方式、命名規則到作用域，用白話文帶你一次釐清，附常見地雷與實用範例，JavaScript 新手必看！">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2026-05-20T09:59:00.000Z">
+<meta property="article:modified_time" content="2026-05-20T10:11:07.620Z">
+<meta property="article:author" content="Hailey">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://hailey.tw/2026/05/20/JavaScript%20%E8%AE%8A%E6%95%B8%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97%EF%BD%9Clet%E3%80%81const%E3%80%81var%20%E5%B7%AE%E7%95%B0%E8%88%87%E5%91%BD%E5%90%8D%E8%A6%8F%E5%89%87%E4%B8%80%E6%AC%A1%E6%90%9E%E6%87%82/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://hailey.tw/2026/05/20/JavaScript%20%E8%AE%8A%E6%95%B8%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97%EF%BD%9Clet%E3%80%81const%E3%80%81var%20%E5%B7%AE%E7%95%B0%E8%88%87%E5%91%BD%E5%90%8D%E8%A6%8F%E5%89%87%E4%B8%80%E6%AC%A1%E6%90%9E%E6%87%82/","path":"2026/05/20/JavaScript 變數完全指南｜let、const、var 差異與命名規則一次搞懂/","title":"JavaScript 變數完全指南｜let、const、var 差異與命名規則一次搞懂"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>JavaScript 變數完全指南｜let、const、var 差異與命名規則一次搞懂 | Hailey's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8W8PTGBYMG"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-8W8PTGBYMG","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js" defer></script>
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="Hailey's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main main--recent-rail">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hailey's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Stressed spelled backwards is desserts.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜尋" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>關於</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜尋..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+    <div class="sidebar-mobile-focus">
+      <div class="site-meta site-meta--drawer">
+
+        <a href="/" class="brand" rel="start">
+          <i class="logo-line"></i>
+          <p class="site-title">Hailey's Blog</p>
+          <i class="logo-line"></i>
+        </a>
+          <p class="site-subtitle" itemprop="description">Stressed spelled backwards is desserts.</p>
+      </div>
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>關於</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+    </div>
+
+    <div class="sidebar-desktop-stack">
+
+      <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+        <ul class="sidebar-nav">
+          <li class="sidebar-nav-toc">
+            文章目錄
+          </li>
+          <li class="sidebar-nav-overview">
+            本站概要
+          </li>
+        </ul>
+
+        <div class="sidebar-panel-container">
+          <!--noindex-->
+          <div class="post-toc-wrap sidebar-panel">
+              <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%A4%8E%E7%90%86%E8%A7%A3"><span class="nav-number">1.</span> <span class="nav-text">基礎理解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E9%BA%BC%E6%98%AF%E8%AE%8A%E6%95%B8%EF%BC%9F"><span class="nav-number">1.1.</span> <span class="nav-text">什麼是變數？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%AE%A3%E5%91%8A%E8%AE%8A%E6%95%B8"><span class="nav-number">1.2.</span> <span class="nav-text">如何宣告變數</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%8A%E6%95%B8%E5%91%BD%E5%90%8D%E8%A6%8F%E5%89%87"><span class="nav-number">1.3.</span> <span class="nav-text">變數命名規則</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A1%AC%E6%80%A7%E8%A6%8F%E5%89%87%EF%BC%88%E9%81%95%E5%8F%8D%E5%B0%B1%E5%A0%B1%E9%8C%AF%EF%BC%89"><span class="nav-number">1.3.1.</span> <span class="nav-text">硬性規則（違反就報錯）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%91%BD%E5%90%8D%E6%85%A3%E4%BE%8B%EF%BC%88%E4%B8%8D%E9%81%B5%E5%AE%88%E4%B8%8D%E6%9C%83%E9%8C%AF%EF%BC%8C%E4%BD%86%E5%A4%A7%E5%AE%B6%E9%83%BD%E9%80%99%E6%A8%A3%E5%AF%AB%EF%BC%89"><span class="nav-number">1.3.2.</span> <span class="nav-text">命名慣例（不遵守不會錯，但大家都這樣寫）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E7%A8%AE%E5%AE%A3%E5%91%8A%E6%96%B9%E5%BC%8F%E6%AF%94%E8%BC%83"><span class="nav-number">1.4.</span> <span class="nav-text">三種宣告方式比較</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#let%EF%BC%9A%E6%9C%83%E8%AE%8A%E5%8B%95%E7%9A%84%E5%80%BC"><span class="nav-number">1.5.</span> <span class="nav-text">let：會變動的值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#const%EF%BC%9A%E4%B8%8D%E6%87%89%E8%A9%B2%E8%A2%AB%E4%BF%AE%E6%94%B9%E7%9A%84%E5%80%BC"><span class="nav-number">1.6.</span> <span class="nav-text">const：不應該被修改的值</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E2%9A%A0%EF%B8%8F-const-%E7%9A%84%E9%99%B7%E9%98%B1%EF%BC%9A%E7%89%A9%E4%BB%B6%E5%92%8C%E9%99%A3%E5%88%97"><span class="nav-number">1.6.1.</span> <span class="nav-text">⚠️ const 的陷阱：物件和陣列</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#var%EF%BC%9A%E5%B7%B2%E8%A2%AB%E6%B7%98%E6%B1%B0%E7%9A%84%E5%AF%AB%E6%B3%95"><span class="nav-number">1.7.</span> <span class="nav-text">var：已被淘汰的寫法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%9C%E7%94%A8%E5%9F%9F%EF%BC%88Scope%EF%BC%89%E5%BF%AB%E9%80%9F%E7%90%86%E8%A7%A3"><span class="nav-number">1.8.</span> <span class="nav-text">作用域（Scope）快速理解</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%B2%E9%9A%8E%E7%90%86%E8%A7%A3%EF%BC%88%E9%9D%A2%E8%A9%A6%E5%8A%A0%E5%88%86%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">進階理解（面試加分）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%8F%88%EF%BC%88Scope-Chain%EF%BC%89"><span class="nav-number">2.1.</span> <span class="nav-text">作用域鏈（Scope Chain）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9A%AB%E6%99%82%E6%80%A7%E6%AD%BB%E5%8D%80%EF%BC%88Temporal-Dead-Zone-TDZ%EF%BC%89"><span class="nav-number">2.2.</span> <span class="nav-text">暫時性死區（Temporal Dead Zone, TDZ）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B8%BD%E7%B5%90%EF%BC%9A%E9%81%B8%E6%93%87%E5%8E%9F%E5%89%87"><span class="nav-number">3.</span> <span class="nav-text">總結：選擇原則</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BB%B6%E4%BC%B8%E5%AD%B8%E7%BF%92%E8%B3%87%E6%BA%90"><span class="nav-number">4.</span> <span class="nav-text">延伸學習資源</span></a></li></ol></div>
+          </div>
+          <!--/noindex-->
+
+          <div class="site-overview-wrap sidebar-panel">
+            <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hailey"
+      src="https://i.postimg.cc/d1YJx7jW/site-author-image.png">
+  <p class="site-author-name" itemprop="name">Hailey</p>
+  <div class="site-description" itemprop="description">專注前端開發，記錄 JavaScript 與 Vite 的實戰筆記，以及從非本科轉職工程師的成長之路。</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">標籤</span>
+      </div>
+  </nav>
+</div>
+
+          </div>
+        </div>
+      </div>
+
+      
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://hailey.tw/2026/05/20/JavaScript%20%E8%AE%8A%E6%95%B8%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97%EF%BD%9Clet%E3%80%81const%E3%80%81var%20%E5%B7%AE%E7%95%B0%E8%88%87%E5%91%BD%E5%90%8D%E8%A6%8F%E5%89%87%E4%B8%80%E6%AC%A1%E6%90%9E%E6%87%82/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://i.postimg.cc/d1YJx7jW/site-author-image.png">
+      <meta itemprop="name" content="Hailey">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hailey's Blog">
+      <meta itemprop="description" content="專注前端開發，記錄 JavaScript 與 Vite 的實戰筆記，以及從非本科轉職工程師的成長之路。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="JavaScript 變數完全指南｜let、const、var 差異與命名規則一次搞懂 | Hailey's Blog">
+      <meta itemprop="description" content="搞不清楚 let、const、var 的差別嗎？這篇文章從變數宣告方式、命名規則到作用域，用白話文帶你一次釐清，附常見地雷與實用範例，JavaScript 新手必看！">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JavaScript 變數完全指南｜let、const、var 差異與命名規則一次搞懂
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+      
+
+      <time title="創建時間：2026-05-20 17:59:00 / 修改時間：18:11:07" itemprop="dateCreated datePublished" datetime="2026-05-20T17:59:00+08:00">2026-05-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+            <div class="post-description">搞不清楚 let、const、var 的差別嗎？這篇文章從變數宣告方式、命名規則到作用域，用白話文帶你一次釐清，附常見地雷與實用範例，JavaScript 新手必看！</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>「變數」是所有程式語言的基礎，而 JavaScript 光是宣告變數就有三種方式。如果你曾被 <code>let</code>、<code>const</code>、<code>var</code> 搞得一頭霧水，這篇文章就是為你寫的 🙌</p>
+<hr>
+<h2 id="基礎理解"><a href="#基礎理解" class="headerlink" title="基礎理解"></a>基礎理解</h2><h3 id="什麼是變數？"><a href="#什麼是變數？" class="headerlink" title="什麼是變數？"></a>什麼是變數？</h3><p>你可以把變數想像成一個<strong>貼了標籤的盒子</strong>。盒子裡放著值（數字、文字、布林等），標籤就是你取的名字，之後可以透過這個名字來取用或修改裡面的東西。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> price = <span class="number">100</span>; <span class="comment">// 一個名叫 price 的盒子，裡面放著 100</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="如何宣告變數"><a href="#如何宣告變數" class="headerlink" title="如何宣告變數"></a>如何宣告變數</h3><p>JavaScript 宣告變數的基本語法是：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> 變數名稱 = 值;</span><br></pre></td></tr></table></figure>
+
+<p>舉個例子：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="comment">// let   → 宣告關鍵字</span></span><br><span class="line"><span class="comment">// a     → 變數名稱（自訂）</span></span><br><span class="line"><span class="comment">// =     → 賦值運算子（把右邊的值指定給左邊）</span></span><br><span class="line"><span class="comment">// 1     → 值</span></span><br><span class="line"><span class="comment">// ;     → 分號，代表這行程式碼結束</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>💡 分號 <code>;</code> 在 JavaScript 其實可以省略（有 ASI 機制自動補上），但建議初學者先養成加分號的習慣，比較不容易踩到奇怪的 bug。</p>
+</blockquote>
+<hr>
+<h3 id="變數命名規則"><a href="#變數命名規則" class="headerlink" title="變數命名規則"></a>變數命名規則</h3><p>取一個好名字不只是風格問題，錯誤的命名直接讓程式爆掉。以下是你一定要知道的規則：</p>
+<h4 id="硬性規則（違反就報錯）"><a href="#硬性規則（違反就報錯）" class="headerlink" title="硬性規則（違反就報錯）"></a>硬性規則（違反就報錯）</h4><ul>
+<li>❌ <strong>不可以數字開頭</strong>：<code>1price</code> → 錯誤，<code>price1</code> → OK</li>
+<li>❌ <strong>不可使用 JS 保留字</strong>：像 <code>let</code>、<code>function</code>、<code>class</code> 這些 JS 自己在用的詞，不能拿來當變數名</li>
+<li>✅ 英文、數字、<code>_</code>、<code>$</code> 都可以用</li>
+<li>✅ 有區分大小寫：<code>price</code> 和 <code>Price</code> 是<strong>不同的</strong>兩個變數</li>
+</ul>
+<p>📋 <a target="_blank" rel="noopener" href="https://www.w3schools.com/js/js_reserved.asp">JS 保留字完整清單（W3Schools）</a></p>
+<h4 id="命名慣例（不遵守不會錯，但大家都這樣寫）"><a href="#命名慣例（不遵守不會錯，但大家都這樣寫）" class="headerlink" title="命名慣例（不遵守不會錯，但大家都這樣寫）"></a>命名慣例（不遵守不會錯，但大家都這樣寫）</h4><p><strong>小駝峰命名法（camelCase）</strong> 是 JS 最主流的命名風格：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ✅ 推薦：小駝峰</span></span><br><span class="line"><span class="keyword">let</span> itemPrice = <span class="number">100</span>;</span><br><span class="line"><span class="keyword">let</span> userName = <span class="string">&#x27;Alice&#x27;</span>;</span><br><span class="line"><span class="keyword">let</span> isLoading = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ❌ 不推薦：全小寫、底線或其他風格</span></span><br><span class="line"><span class="keyword">let</span> itemprice = <span class="number">100</span>;</span><br><span class="line"><span class="keyword">let</span> user_name = <span class="string">&#x27;Alice&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<p><strong>常見語意化命名參考：</strong></p>
+<table>
+<thead>
+<tr>
+<th>類型</th>
+<th>命名風格</th>
+<th>範例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>一般變數</td>
+<td>名詞</td>
+<td><code>price</code>, <code>userName</code></td>
+</tr>
+<tr>
+<td>布林變數</td>
+<td><code>is</code> 或 <code>has</code> 開頭</td>
+<td><code>isLoading</code>, <code>hasError</code>, <code>isVisible</code></td>
+</tr>
+<tr>
+<td>函式（補充）</td>
+<td>動詞開頭</td>
+<td><code>getUserName()</code>, <code>handleClick()</code></td>
+</tr>
+<tr>
+<td>常數</td>
+<td>全大寫加底線</td>
+<td><code>MAX_SIZE</code>, <code>API_URL</code></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>💡 命名請盡量語意化，不要取 <code>a</code>、<code>b</code>、<code>x1</code> 這種讓人看不懂的名字，三個月後你自己也會忘記它是什麼 😅</p>
+</blockquote>
+<hr>
+<h3 id="三種宣告方式比較"><a href="#三種宣告方式比較" class="headerlink" title="三種宣告方式比較"></a>三種宣告方式比較</h3><p>這是初學者最常搞混的地方。先看懂這張表，再往下讀細節：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><code>let</code></th>
+<th><code>const</code></th>
+<th><code>var</code></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>推薦程度</td>
+<td>推薦</td>
+<td>優先選</td>
+<td>避免</td>
+</tr>
+<tr>
+<td>可否重新賦值</td>
+<td>可以</td>
+<td>不行（原始型別）</td>
+<td>可以</td>
+</tr>
+<tr>
+<td>可否重複宣告</td>
+<td>不行</td>
+<td>不行</td>
+<td>可以</td>
+</tr>
+<tr>
+<td>作用域</td>
+<td>區塊（block）</td>
+<td>區塊（block）</td>
+<td>函式（function）</td>
+</tr>
+<tr>
+<td>提升（Hoisting）</td>
+<td>暫時性死區</td>
+<td>暫時性死區</td>
+<td>會提升，初始值為 <code>undefined</code></td>
+</tr>
+<tr>
+<td>掛在 <code>window</code> 上？</td>
+<td>不會</td>
+<td>不會</td>
+<td>會</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="let：會變動的值"><a href="#let：會變動的值" class="headerlink" title="let：會變動的值"></a>let：會變動的值</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> score = <span class="number">0</span>;</span><br><span class="line">score = <span class="number">100</span>; <span class="comment">// ✅ 可以修改</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// ❌ 不能在同一作用域重複宣告，以下這行會報錯：</span></span><br><span class="line"><span class="comment">// let score = 50;</span></span><br></pre></td></tr></table></figure>
+
+<p>當這個變數的值<strong>會在程式執行過程中改變</strong>，就用 <code>let</code>。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> count = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">handleClick</span>(<span class="params"></span>) &#123;</span><br><span class="line">  count = count + <span class="number">1</span>;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(count);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="const：不應該被修改的值"><a href="#const：不應該被修改的值" class="headerlink" title="const：不應該被修改的值"></a>const：不應該被修改的值</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="variable constant_">PI</span> = <span class="number">3.14159</span>;</span><br><span class="line"><span class="variable constant_">PI</span> = <span class="number">3</span>; <span class="comment">// ❌ 報錯！const 的原始值不能修改</span></span><br></pre></td></tr></table></figure>
+
+<p>當這個值<strong>不應該被修改</strong>的時候，用 <code>const</code>。用 <code>const</code> 可以明確告訴其他開發者「這個值不應該被改動」，減少意外 bug。</p>
+<h4 id="⚠️-const-的陷阱：物件和陣列"><a href="#⚠️-const-的陷阱：物件和陣列" class="headerlink" title="⚠️ const 的陷阱：物件和陣列"></a>⚠️ const 的陷阱：物件和陣列</h4><p>這是很多人踩過的坑！<code>const</code> 宣告的物件或陣列，<strong>內容是可以修改的</strong>：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> user = &#123; <span class="attr">name</span>: <span class="string">&#x27;Alice&#x27;</span>, <span class="attr">age</span>: <span class="number">25</span> &#125;;</span><br><span class="line">user.<span class="property">age</span> = <span class="number">26</span>;          <span class="comment">// ✅ 可以！修改屬性沒問題</span></span><br><span class="line">user = &#123; <span class="attr">name</span>: <span class="string">&#x27;Bob&#x27;</span> &#125;; <span class="comment">// ❌ 報錯！不能換一個全新的物件</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> list = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line">list.<span class="title function_">push</span>(<span class="number">4</span>);  <span class="comment">// ✅ 可以！新增元素沒問題</span></span><br><span class="line">list = [<span class="number">5</span>, <span class="number">6</span>]; <span class="comment">// ❌ 報錯！不能換成新陣列</span></span><br></pre></td></tr></table></figure>
+
+<p>📌 <strong>重點：<code>const</code> 鎖的是「變數綁定」，不是「值本身」。</strong> 簡單說：盒子不能換，但盒子裡面的東西你還是可以動。</p>
+<hr>
+<h3 id="var：已被淘汰的寫法"><a href="#var：已被淘汰的寫法" class="headerlink" title="var：已被淘汰的寫法"></a>var：已被淘汰的寫法</h3><p><code>var</code> 是 JavaScript 早期的宣告方式，因為設計問題，已逐漸被 <code>let</code> 和 <code>const</code> 取代。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">var</span> x = <span class="number">2</span>; <span class="comment">// ✅ 不報錯，直接覆蓋（可能導致不可預期的變數覆蓋問題）</span></span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(y); <span class="comment">// undefined（不報錯，因為提升了）</span></span><br><span class="line"><span class="keyword">var</span> y = <span class="number">5</span>;</span><br></pre></td></tr></table></figure>
+
+<p><strong><code>var</code> 的問題：</strong></p>
+<ol>
+<li><strong>可以重複宣告</strong>：同名變數宣告兩次不報錯，容易造成意外覆蓋</li>
+<li><strong>函式作用域（非區塊）</strong>：<code>if</code>、<code>for</code> 裡面宣告的 <code>var</code>，在外面也看得到</li>
+<li><strong>提升（Hoisting）</strong>：在宣告之前就使用不報錯，而是得到 <code>undefined</code>，難以除錯</li>
+<li><strong>汙染全域</strong>：會自動掛在 <code>window</code> 物件上</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// var 與 let 的作用域差異</span></span><br><span class="line"><span class="keyword">if</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> leakyVar = <span class="string">&#x27;我跑出去了！&#x27;</span>;</span><br><span class="line">  <span class="keyword">let</span> safeVar = <span class="string">&#x27;我留在這裡&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(leakyVar); <span class="comment">// ✅ 可以讀到（但這不是好事）</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(safeVar);  <span class="comment">// ❌ 報錯，找不到</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="作用域（Scope）快速理解"><a href="#作用域（Scope）快速理解" class="headerlink" title="作用域（Scope）快速理解"></a>作用域（Scope）快速理解</h3><p>作用域決定了「<strong>哪裡可以看到這個變數</strong>」，記住三個層級就夠：</p>
+<ul>
+<li><strong>全域</strong>：整個程式都看得到</li>
+<li><strong>函式</strong>：只有 <code>function</code> 裡看得到，函式執行結束後就消失</li>
+<li><strong>區塊</strong>：<code>{}</code> 裡才看得到（<code>let</code> &#x2F; <code>const</code> 適用）</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> globalVar = <span class="string">&#x27;全域&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">example</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">let</span> funcVar = <span class="string">&#x27;函式內&#x27;</span>;      <span class="comment">// 只存在於函式執行期間</span></span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(globalVar); <span class="comment">// ✅ 函式內可以看到全域變數</span></span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(funcVar);   <span class="comment">// ✅ 在自己的作用域內，看得到</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(funcVar); <span class="comment">// ❌ 報錯：函式外看不到函式裡的變數</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="進階理解（面試加分）"><a href="#進階理解（面試加分）" class="headerlink" title="進階理解（面試加分）"></a>進階理解（面試加分）</h2><h3 id="作用域鏈（Scope-Chain）"><a href="#作用域鏈（Scope-Chain）" class="headerlink" title="作用域鏈（Scope Chain）"></a>作用域鏈（Scope Chain）</h3><p>當 JavaScript 在當前作用域找不到變數時，會一層一層向外（父層）尋找，直到找到為止。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> globalVar = <span class="string">&#x27;我是全域&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">outer</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">let</span> outerVar = <span class="string">&#x27;我是外層&#x27;</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">inner</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> innerVar = <span class="string">&#x27;我是內層&#x27;</span>;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(innerVar);  <span class="comment">// ✅ 成功</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(outerVar);  <span class="comment">// ✅ 成功（向上找一層）</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(globalVar); <span class="comment">// ✅ 成功（向上找兩層）</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="title function_">inner</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">outer</span>();</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>重點：<strong>內層可以看見外層，但外層看不見內層。</strong> 這能有效防止變數污染，確保程式碼模組化。</p>
+</blockquote>
+<hr>
+<h3 id="暫時性死區（Temporal-Dead-Zone-TDZ）"><a href="#暫時性死區（Temporal-Dead-Zone-TDZ）" class="headerlink" title="暫時性死區（Temporal Dead Zone, TDZ）"></a>暫時性死區（Temporal Dead Zone, TDZ）</h3><p>很多人誤以為 <code>let</code> 和 <code>const</code> 不會提升（Hoisting），這其實是常見誤解。它們<strong>會提升，但行為與 <code>var</code> 完全不同</strong>：</p>
+<ul>
+<li><code>var</code>：執行前會同時完成「宣告」與「初始化」，所以宣告前讀取得到 <code>undefined</code></li>
+<li><code>let</code> &#x2F; <code>const</code>：執行前已被建立（提升），但尚未初始化，必須等到執行到宣告那行才可存取</li>
+</ul>
+<p><strong>在「進入區塊」到「完成初始化」之間的這段時間，就是暫時性死區（TDZ）。</strong> 在 TDZ 內存取變數會直接報錯：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="comment">// --- TDZ 開始 ---</span></span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(a); <span class="comment">// ❌ ReferenceError: Cannot access &#x27;a&#x27; before initialization</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> a = <span class="number">10</span>; <span class="comment">// --- TDZ 結束 ---</span></span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(a); <span class="comment">// ✅ 10</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>TDZ 的作用是避免在初始化前誤用變數，讓 bug 更容易被發現。</p>
+<hr>
+<h2 id="總結：選擇原則"><a href="#總結：選擇原則" class="headerlink" title="總結：選擇原則"></a>總結：選擇原則</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">要宣告一個變數？</span><br><span class="line">│</span><br><span class="line">├── 這個值不會改變？</span><br><span class="line">│   └── 用 const ✅（預設優先選這個）</span><br><span class="line">│</span><br><span class="line">├── 這個值之後需要修改？</span><br><span class="line">│   └── 用 let ✅</span><br><span class="line">│</span><br><span class="line">└── 想用 var？</span><br><span class="line">    └── 不要 ❌（只在看舊 code 或面試題才會出現）</span><br></pre></td></tr></table></figure>
+
+<p>📌 <strong>實務規則：99% 的情況用 <code>const</code>；需要改值才換成 <code>let</code>；<code>var</code> 只出現在閱讀舊程式碼或面試題時。</strong></p>
+<hr>
+<h2 id="延伸學習資源"><a href="#延伸學習資源" class="headerlink" title="延伸學習資源"></a>延伸學習資源</h2><ul>
+<li>📖 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Statements/var">MDN：var</a></li>
+<li>📖 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Statements/let">MDN：let</a></li>
+<li>📖 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Statements/const">MDN：const</a></li>
+<li>📋 <a target="_blank" rel="noopener" href="https://www.w3schools.com/js/js_reserved.asp">JS 保留字清單（W3Schools）</a></li>
+<li>🎓 <a target="_blank" rel="noopener" href="https://javascript.info/variables">JavaScript.info：變數</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+  
+  <section class="related-cards">
+    <h3 class="related-cards__title">
+      <i class="fa-solid fa-square-poll-horizontal"></i>相關文章
+    </h3>
+    <div class="related-cards__grid">
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+              
+            
+          
+          
+            
+            <a class="related-cards__item" href="/2026/05/18/JavaScript%20DOM%20%E4%BA%8B%E4%BB%B6%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97%EF%BC%9AaddEventListener%E3%80%81%E4%BA%8B%E4%BB%B6%E5%86%92%E6%B3%A1%E8%88%87%E4%BA%8B%E4%BB%B6%E5%A7%94%E6%B4%BE/">
+              <span class="related-cards__item-title">JavaScript DOM 事件完整指南：addEventListener、事件冒泡與事件委派</span>
+              <span class="related-cards__item-date">
+                <i class="far fa-calendar-alt"></i>
+                2026-05-18
+              </span>
+            </a>
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+              
+            
+          
+          
+            
+            <a class="related-cards__item" href="/2026/05/17/JavaScript%20DOM%20%E6%93%8D%E4%BD%9C%E5%AE%8C%E6%95%B4%E6%95%99%E5%AD%B8%EF%BC%9AquerySelector%E3%80%81innerHTML%E3%80%81dataset%20%E4%B8%80%E6%AC%A1%E6%90%9E%E6%87%82/">
+              <span class="related-cards__item-title">JavaScript DOM 操作完整教學：querySelector、innerHTML、dataset 一次搞懂</span>
+              <span class="related-cards__item-date">
+                <i class="far fa-calendar-alt"></i>
+                2026-05-17
+              </span>
+            </a>
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+              
+            
+          
+          
+            
+            <a class="related-cards__item" href="/2026/05/08/JavaScript%20while%20%E8%BF%B4%E5%9C%88%E6%80%8E%E9%BA%BC%E7%94%A8%EF%BC%9F%E5%BE%9E%200%20%E5%88%B0%E7%90%86%E8%A7%A3%EF%BC%88%E9%99%84%E5%B8%B8%E8%A6%8B%E9%8C%AF%E8%AA%A4%E8%88%87%E5%AF%A6%E4%BE%8B%EF%BC%89/">
+              <span class="related-cards__item-title">JavaScript while 迴圈怎麼用？從 0 到理解（附常見錯誤與實例）</span>
+              <span class="related-cards__item-date">
+                <i class="far fa-calendar-alt"></i>
+                2026-05-08
+              </span>
+            </a>
+          
+        
+      
+        
+          
+          
+            
+              
+            
+          
+          
+            
+            <a class="related-cards__item" href="/2026/05/12/JavaScript%20%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%E6%95%B4%E7%90%86%EF%BC%9A%E7%89%A9%E4%BB%B6%E3%80%81%E8%BF%B4%E5%9C%88%E3%80%81%E5%87%BD%E5%BC%8F%E8%88%87%E8%A8%98%E6%86%B6%E9%AB%94/">
+              <span class="related-cards__item-title">JavaScript 核心概念整理：物件、迴圈、函式、拷貝與記憶體</span>
+              <span class="related-cards__item-date">
+                <i class="far fa-calendar-alt"></i>
+                2026-05-12
+              </span>
+            </a>
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="share-article-section">
+      <div class="share-article-heading">
+        <i class="fa-solid fa-share-nodes share-article-icon" aria-hidden="true"></i>
+        <span>分享這篇文章</span>
+      </div>
+      <div class="share-article-buttons"
+           data-share-url="https://hailey.tw/2026/05/20/JavaScript%20%E8%AE%8A%E6%95%B8%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97%EF%BD%9Clet%E3%80%81const%E3%80%81var%20%E5%B7%AE%E7%95%B0%E8%88%87%E5%91%BD%E5%90%8D%E8%A6%8F%E5%89%87%E4%B8%80%E6%AC%A1%E6%90%9E%E6%87%82/"
+           data-share-title="JavaScript 變數完全指南｜let、const、var 差異與命名規則一次搞懂">
+        <a href="#"
+           role="button"
+           class="share-article-btn"
+           data-platform="twitter">
+          <i class="fab fa-twitter"></i><span>Twitter</span>
+        </a>
+        <a href="#"
+           role="button"
+           class="share-article-btn"
+           data-platform="facebook">
+          <i class="fab fa-facebook"></i><span>Facebook</span>
+        </a>
+        <a href="#"
+           role="button"
+           class="share-article-btn"
+           data-platform="linkedin">
+          <i class="fab fa-linkedin"></i><span>LinkedIn</span>
+        </a>
+        <button type="button" class="share-article-btn" data-copy>
+          <i class="fa-regular fa-copy"></i><span>複製連結</span>
+        </button>
+      </div>
+    </div>
+  </section>
+  <style>
+    /* 讓 post-footer 變成可排序容器 */
+    .post-footer {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* 上一篇/下一篇 */
+    .post-footer .post-nav {
+      order: 20;
+    }
+
+    /* 你的相關文章區塊 */
+    .post-footer .related-cards {
+      order: 30;
+    }
+
+    /* 你的分享區塊（如果也要在 related 下方） */
+    .post-footer .share-article-section {
+      order: 40;
+    }
+    .related-cards {
+      margin: 2.25rem 0 1rem;
+    }
+
+    .related-cards__title {
+      margin-bottom: 12px;
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+
+    .related-cards__title i {
+        color: #22d3ee;
+        margin-right: 6px;
+    }
+
+    .related-cards__grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .related-cards__item {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 16px;
+      --tw-border-opacity: 1;
+      border: 1px solid rgb(82 82 91 / var(--tw-border-opacity, 1));
+      border-radius: 12px;
+      background: #4c4c5180;
+      color: #f5f7fa;
+      text-decoration: none;
+      transition: transform .18s ease, border-color .18s ease;
+    }
+
+    .related-cards__item:hover {
+      transform: translateY(-2px);
+      border-color: #22d3ee;
+      color: #22d3ee;
+    }
+
+    .related-cards__item-title {
+      font-size: 1rem;
+      line-height: 1.35;
+      font-weight: 600;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+
+    .related-cards__item-date {
+      margin-top: 10px;
+      font-size: .88rem;
+      color: #c5cad3;
+    }
+
+    @media (max-width: 1100px) {
+      .related-cards__grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .related-cards__grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* AddToAny */
+
+    /* 第一顆 AddToAny 主按鈕常太醜，直接隱藏 */
+    .post-footer .social-like .a2a_dd {
+    display: none;
+    }
+
+    .share-article-section { 
+      margin: 2rem 0 1rem; 
+      padding-top: 1.25rem; 
+    }
+    .share-article-heading { 
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .share-article-icon { 
+      color: #2dd4bf;
+      font-size: 1.25rem;
+    }
+    .share-article-buttons { 
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .share-article-btn {
+        display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px;
+        border: 1px solid rgb(82 82 91 / var(--tw-border-opacity, 1));
+        border-radius: 10px;
+        background: #4c4c5180;
+        color: inherit;
+        cursor: pointer;
+        text-decoration: none;
+        font: inherit;
+        transition: transform .18s ease, border-color .18s ease;
+    }
+    .share-article-btn:hover { border-color: #22d3ee;
+        transform: translateY(-2px); 
+    }
+  </style>
+  <script>
+  (function () {
+    var root = document.querySelector('.share-article-buttons');
+    if (!root || root.dataset.bound) return;
+    root.dataset.bound = '1';
+    var url = root.dataset.shareUrl || '';
+    var title = root.dataset.shareTitle || '';
+    var encUrl = encodeURIComponent(url);
+    var encTitle = encodeURIComponent(title);
+    var urls = {
+      twitter: 'https://twitter.com/intent/tweet?url=' + encUrl + '&text=' + encTitle,
+      facebook: 'https://www.facebook.com/sharer/sharer.php?u=' + encUrl,
+      linkedin: 'https://www.linkedin.com/sharing/share-offsite/?url=' + encUrl
+    };
+    root.querySelectorAll('[data-platform]').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        var p = btn.dataset.platform;
+        window.open(urls[p], '_blank', 'noopener,noreferrer');
+      });
+    });
+    var btnCopy = root.querySelector('[data-copy]');
+    if (btnCopy) {
+      btnCopy.addEventListener('click', function () {
+        navigator.clipboard.writeText(url).then(function () {
+          btnCopy.querySelector('span').textContent = '已複製';
+          setTimeout(function () { btnCopy.querySelector('span').textContent = '複製連結'; }, 2000);
+        });
+      });
+    }
+  })();
+  </script>
+
+
+          <div class="post-tags">
+              <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/05/19/getElementsByTagName/" rel="prev" title="JavaScript 實戰教學：從 DOM 選取到 reduce 與 concat 一次掌握">
+                  <i class="fa fa-angle-left"></i> JavaScript 實戰教學：從 DOM 選取到 reduce 與 concat 一次掌握
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div><aside class="column-recent-posts" aria-label="最新文章">
+  <div class="recent-rail-inner">
+    <h3 class="recent-rail-title">
+      <i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i>
+      <span>最新文章</span>
+    </h3>
+    <ol class="recent-rail-list">
+      
+        <li class="recent-rail-item">
+          <a class="recent-rail-link" href="/2026/05/20/JavaScript%20%E8%AE%8A%E6%95%B8%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97%EF%BD%9Clet%E3%80%81const%E3%80%81var%20%E5%B7%AE%E7%95%B0%E8%88%87%E5%91%BD%E5%90%8D%E8%A6%8F%E5%89%87%E4%B8%80%E6%AC%A1%E6%90%9E%E6%87%82/">
+            <span class="recent-rail-item-title">JavaScript 變數完全指南｜let、const、var 差異與命名規則一次搞懂</span>
+            <span class="recent-rail-item-date">05/20</span>
+          </a>
+        </li>
+      
+        <li class="recent-rail-item">
+          <a class="recent-rail-link" href="/2026/05/19/getElementsByTagName/">
+            <span class="recent-rail-item-title">JavaScript 實戰教學：從 DOM 選取到 reduce 與 concat 一次掌握</span>
+            <span class="recent-rail-item-date">05/19</span>
+          </a>
+        </li>
+      
+        <li class="recent-rail-item">
+          <a class="recent-rail-link" href="/2026/05/18/JavaScript%20DOM%20%E4%BA%8B%E4%BB%B6%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97%EF%BC%9AaddEventListener%E3%80%81%E4%BA%8B%E4%BB%B6%E5%86%92%E6%B3%A1%E8%88%87%E4%BA%8B%E4%BB%B6%E5%A7%94%E6%B4%BE/">
+            <span class="recent-rail-item-title">JavaScript DOM 事件完整指南：addEventListener、事件冒泡與事件委派</span>
+            <span class="recent-rail-item-date">05/18</span>
+          </a>
+        </li>
+      
+        <li class="recent-rail-item">
+          <a class="recent-rail-link" href="/2026/05/17/JavaScript%20DOM%20%E6%93%8D%E4%BD%9C%E5%AE%8C%E6%95%B4%E6%95%99%E5%AD%B8%EF%BC%9AquerySelector%E3%80%81innerHTML%E3%80%81dataset%20%E4%B8%80%E6%AC%A1%E6%90%9E%E6%87%82/">
+            <span class="recent-rail-item-title">JavaScript DOM 操作完整教學：querySelector、innerHTML、dataset 一次搞懂</span>
+            <span class="recent-rail-item-date">05/17</span>
+          </a>
+        </li>
+      
+        <li class="recent-rail-item">
+          <a class="recent-rail-link" href="/2026/05/13/HTML%20Form%20%E8%A1%A8%E5%96%AE%E5%AE%8C%E6%95%B4%E6%95%99%E5%AD%B8%EF%BC%9AInput%E3%80%81Label%E3%80%81Button%20%E8%88%87%20CSS%20%E6%A8%A3%E5%BC%8F%E6%95%B4%E7%90%86/">
+            <span class="recent-rail-item-title">HTML Form 表單完整教學：Input、Label、Button 與 CSS 樣式整理</span>
+            <span class="recent-rail-item-date">05/13</span>
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</aside>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class=""></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Hailey. All rights reserved.<br>Built with Hexo & Theme NexT</span>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"Hailey-1025/blog-comments","issue_term":"pathname","label":"comment","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js" defer></script>
+
+<script>
+(function () {
+  var mq = window.matchMedia('(max-width: 991px)');
+  var btn = document.querySelector('.site-nav-toggle .toggle');
+  var sidebarBtn = document.querySelector('.sidebar-toggle');
+  var siteNav = document.querySelector('.header .site-nav');
+  if (!btn || !sidebarBtn) return;
+
+  function collapseHeaderNavDropdown() {
+    document.body.classList.remove('site-nav-on');
+    if (siteNav) siteNav.style.removeProperty('--scroll-height');
+  }
+
+  btn.addEventListener('click', function (e) {
+    if (!mq.matches) return;
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    collapseHeaderNavDropdown();
+    sidebarBtn.click();
+  }, true);
+
+  new MutationObserver(function () {
+    if (!mq.matches) return;
+    var open = document.body.classList.contains('sidebar-active');
+    btn.classList.toggle('toggle-close', open);
+  }).observe(document.body, { attributes: true, attributeFilter: ['class'] });
+
+  mq.addEventListener('change', function () {
+    if (!mq.matches) {
+      btn.classList.remove('toggle-close');
+      collapseHeaderNavDropdown();
+      document.body.classList.remove('mobile-header-scrolled-down');
+    }
+  });
+
+  var lastY = window.scrollY || 0;
+  var ticking = false;
+
+  function updateMobileHeaderOnScroll() {
+    ticking = false;
+    if (!mq.matches) return;
+    var currentY = window.scrollY || 0;
+    var scrollingDown = currentY > lastY;
+    var passedTop = currentY > 10;
+    document.body.classList.toggle('mobile-header-scrolled-down', scrollingDown && passedTop);
+    lastY = currentY;
+  }
+
+  window.addEventListener('scroll', function () {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(updateMobileHeaderOnScroll);
+  }, { passive: true });
+})();
+</script>
+
+</body>
+</html>
