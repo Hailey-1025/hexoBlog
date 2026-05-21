@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"hailey.tw","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":true,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"找到 ${hits} 個搜索結果（用時 ${time} 毫秒）","hits":"找到 ${hits} 個搜索結果"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="完整介紹 JavaScript 的基礎型別：數字、字串、布林、陣列、物件，加上容易踩坑的作用域 Scope、Hoisting 提升與暫時性死區 TDZ，附大量程式碼範例，新手必讀！">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript 基礎型別全攻略｜數字、字串、陣列、物件、作用域與提升一次搞懂">
+<meta property="og:url" content="https://hailey.tw/2026/05/21/JavaScript%20%E5%9F%BA%E7%A4%8E%E5%9E%8B%E5%88%A5%E5%85%A8%E6%94%BB%E7%95%A5%EF%BD%9C%E6%95%B8%E5%AD%97%E3%80%81%E5%AD%97%E4%B8%B2%E3%80%81%E9%99%A3%E5%88%97%E3%80%81%E7%89%A9%E4%BB%B6%E3%80%81%E4%BD%9C%E7%94%A8%E5%9F%9F%E8%88%87%E6%8F%90%E5%8D%87%E4%B8%80%E6%AC%A1%E6%90%9E%E6%87%82/index.html">
+<meta property="og:site_name" content="Hailey&#39;s Blog">
+<meta property="og:description" content="完整介紹 JavaScript 的基礎型別：數字、字串、布林、陣列、物件，加上容易踩坑的作用域 Scope、Hoisting 提升與暫時性死區 TDZ，附大量程式碼範例，新手必讀！">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2026-05-21T03:48:18.000Z">
+<meta property="article:modified_time" content="2026-05-21T03:50:24.168Z">
+<meta property="article:author" content="Hailey">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://hailey.tw/2026/05/21/JavaScript%20%E5%9F%BA%E7%A4%8E%E5%9E%8B%E5%88%A5%E5%85%A8%E6%94%BB%E7%95%A5%EF%BD%9C%E6%95%B8%E5%AD%97%E3%80%81%E5%AD%97%E4%B8%B2%E3%80%81%E9%99%A3%E5%88%97%E3%80%81%E7%89%A9%E4%BB%B6%E3%80%81%E4%BD%9C%E7%94%A8%E5%9F%9F%E8%88%87%E6%8F%90%E5%8D%87%E4%B8%80%E6%AC%A1%E6%90%9E%E6%87%82/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://hailey.tw/2026/05/21/JavaScript%20%E5%9F%BA%E7%A4%8E%E5%9E%8B%E5%88%A5%E5%85%A8%E6%94%BB%E7%95%A5%EF%BD%9C%E6%95%B8%E5%AD%97%E3%80%81%E5%AD%97%E4%B8%B2%E3%80%81%E9%99%A3%E5%88%97%E3%80%81%E7%89%A9%E4%BB%B6%E3%80%81%E4%BD%9C%E7%94%A8%E5%9F%9F%E8%88%87%E6%8F%90%E5%8D%87%E4%B8%80%E6%AC%A1%E6%90%9E%E6%87%82/","path":"2026/05/21/JavaScript 基礎型別全攻略｜數字、字串、陣列、物件、作用域與提升一次搞懂/","title":"JavaScript 基礎型別全攻略｜數字、字串、陣列、物件、作用域與提升一次搞懂"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>JavaScript 基礎型別全攻略｜數字、字串、陣列、物件、作用域與提升一次搞懂 | Hailey's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8W8PTGBYMG"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-8W8PTGBYMG","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js" defer></script>
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="Hailey's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main main--recent-rail">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hailey's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Stressed spelled backwards is desserts.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜尋" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>關於</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜尋..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+    <div class="sidebar-mobile-focus">
+      <div class="site-meta site-meta--drawer">
+
+        <a href="/" class="brand" rel="start">
+          <i class="logo-line"></i>
+          <p class="site-title">Hailey's Blog</p>
+          <i class="logo-line"></i>
+        </a>
+          <p class="site-subtitle" itemprop="description">Stressed spelled backwards is desserts.</p>
+      </div>
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>關於</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+    </div>
+
+    <div class="sidebar-desktop-stack">
+
+      <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+        <ul class="sidebar-nav">
+          <li class="sidebar-nav-toc">
+            文章目錄
+          </li>
+          <li class="sidebar-nav-overview">
+            本站概要
+          </li>
+        </ul>
+
+        <div class="sidebar-panel-container">
+          <!--noindex-->
+          <div class="post-toc-wrap sidebar-panel">
+              <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B8%E5%AD%97%E5%9E%8B%E5%88%A5%E8%88%87%E9%81%8B%E7%AE%97%E5%AD%90"><span class="nav-number">1.</span> <span class="nav-text">數字型別與運算子</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%97%E8%A1%93%E9%81%8B%E7%AE%97%E5%AD%90"><span class="nav-number">1.1.</span> <span class="nav-text">算術運算子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B3%A6%E5%80%BC%E9%81%8B%E7%AE%97%E5%AD%90-%E3%80%81"><span class="nav-number">1.2.</span> <span class="nav-text">賦值運算子 +&#x3D;、-&#x3D;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%81%9E%E5%A2%9E-a-%E8%88%87%E9%81%9E%E6%B8%9B-a"><span class="nav-number">1.3.</span> <span class="nav-text">遞增 a++ 與遞減 a--</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NaN%EF%BC%9A%E9%9D%9E%E6%95%B8%E5%AD%97%E7%9A%84%E6%95%B8%E5%AD%97"><span class="nav-number">1.4.</span> <span class="nav-text">NaN：非數字的數字</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%97%E4%B8%B2%E5%9E%8B%E5%88%A5"><span class="nav-number">2.</span> <span class="nav-text">字串型別</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%A3%E5%91%8A%E5%AD%97%E4%B8%B2"><span class="nav-number">2.1.</span> <span class="nav-text">宣告字串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E4%B8%B2%E7%9B%B8%E5%8A%A0%EF%BC%88%E4%B8%B2%E6%8E%A5%EF%BC%89"><span class="nav-number">2.2.</span> <span class="nav-text">字串相加（串接）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E4%B8%B2%E8%88%87%E6%95%B8%E5%AD%97%E6%B7%B7%E7%94%A8%EF%BC%9A%E6%B3%A8%E6%84%8F%E9%9A%B1%E6%80%A7%E8%BD%89%E5%9E%8B%EF%BC%81"><span class="nav-number">2.3.</span> <span class="nav-text">字串與數字混用：注意隱性轉型！</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%96%E5%AD%97%E4%B8%B2%E4%B8%AD%E7%9A%84%E5%AD%97%E5%85%83"><span class="nav-number">2.4.</span> <span class="nav-text">取字串中的字元</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%83%E6%9E%97%EF%BC%88Boolean%EF%BC%89%E3%80%81undefined%E3%80%81null"><span class="nav-number">3.</span> <span class="nav-text">布林（Boolean）、undefined、null</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%83%E6%9E%97%EF%BC%88Boolean%EF%BC%89"><span class="nav-number">3.1.</span> <span class="nav-text">布林（Boolean）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined%EF%BC%9A%E5%B0%9A%E6%9C%AA%E8%B3%A6%E5%80%BC"><span class="nav-number">3.2.</span> <span class="nav-text">undefined：尚未賦值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#null%EF%BC%9A%E5%88%BB%E6%84%8F%E8%A8%AD%E7%82%BA%E7%A9%BA%E5%80%BC"><span class="nav-number">3.3.</span> <span class="nav-text">null：刻意設為空值</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%99%A3%E5%88%97%EF%BC%88Array%EF%BC%89"><span class="nav-number">4.</span> <span class="nav-text">陣列（Array）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%A3%E5%91%8A%E8%88%87%E8%AE%80%E5%8F%96"><span class="nav-number">4.1.</span> <span class="nav-text">宣告與讀取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E%E8%B3%87%E6%96%99"><span class="nav-number">4.2.</span> <span class="nav-text">新增資料</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%AA%E9%99%A4%E8%B3%87%E6%96%99"><span class="nav-number">4.3.</span> <span class="nav-text">刪除資料</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%99%A3%E5%88%97-%E7%89%A9%E4%BB%B6%E7%9A%84%E7%B5%84%E5%90%88%EF%BC%88%E5%AF%A6%E6%88%B0%E8%B6%85%E5%B8%B8%E7%94%A8%EF%BC%89"><span class="nav-number">4.4.</span> <span class="nav-text">陣列 + 物件的組合（實戰超常用）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%A9%E4%BB%B6%EF%BC%88Object%EF%BC%89"><span class="nav-number">5.</span> <span class="nav-text">物件（Object）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%A3%E5%91%8A%E7%89%A9%E4%BB%B6"><span class="nav-number">5.1.</span> <span class="nav-text">宣告物件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%80%E5%8F%96%E3%80%81%E6%96%B0%E5%A2%9E%E3%80%81%E5%88%AA%E9%99%A4%E5%B1%AC%E6%80%A7"><span class="nav-number">5.2.</span> <span class="nav-text">讀取、新增、刪除屬性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%82%B3%E5%80%BC-vs-%E5%82%B3%E5%9D%80%EF%BC%88%E9%87%8D%E8%A6%81%EF%BC%81%EF%BC%89"><span class="nav-number">6.</span> <span class="nav-text">傳值 vs 傳址（重要！）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%9F%E5%A7%8B%E5%9E%8B%E5%88%A5%EF%BC%9A%E5%82%B3%E5%80%BC%EF%BC%88%E8%A4%87%E8%A3%BD%E4%B8%80%E4%BB%BD%EF%BC%89"><span class="nav-number">6.1.</span> <span class="nav-text">原始型別：傳值（複製一份）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%A9%E4%BB%B6%E5%9E%8B%E5%88%A5%EF%BC%9A%E5%82%B3%E5%9D%80%EF%BC%88%E5%85%B1%E7%94%A8%E5%90%8C%E4%B8%80%E5%80%8B%E8%A8%98%E6%86%B6%E9%AB%94%E4%BD%8D%E7%BD%AE%EF%BC%89"><span class="nav-number">6.2.</span> <span class="nav-text">物件型別：傳址（共用同一個記憶體位置）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%AF%E6%80%A7%E8%BD%89%E5%9E%8B-vs-%E9%9A%B1%E6%80%A7%E8%BD%89%E5%9E%8B"><span class="nav-number">7.</span> <span class="nav-text">顯性轉型 vs 隱性轉型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A1%AF%E6%80%A7%E8%BD%89%E5%9E%8B%EF%BC%88%E6%98%8E%E7%A2%BA%E5%91%8A%E8%A8%B4-JS-%E8%A6%81%E8%BD%89%EF%BC%89"><span class="nav-number">7.1.</span> <span class="nav-text">顯性轉型（明確告訴 JS 要轉）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9A%B1%E6%80%A7%E8%BD%89%E5%9E%8B%EF%BC%88JS-%E8%87%AA%E5%8B%95%E8%BD%89%EF%BC%8C%E5%AE%B9%E6%98%93%E8%B8%A9%E5%9D%91%EF%BC%89"><span class="nav-number">7.2.</span> <span class="nav-text">隱性轉型（JS 自動轉，容易踩坑）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%9C%E7%94%A8%E5%9F%9F%EF%BC%88Scope%EF%BC%89"><span class="nav-number">8.</span> <span class="nav-text">作用域（Scope）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E8%A6%8F%E5%89%87"><span class="nav-number">8.1.</span> <span class="nav-text">核心規則</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#var-%E7%9A%84%E5%87%BD%E5%BC%8F%E4%BD%9C%E7%94%A8%E5%9F%9F-vs-let-const-%E7%9A%84%E5%8D%80%E5%A1%8A%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="nav-number">8.2.</span> <span class="nav-text">var 的函式作用域 vs let&#x2F;const 的區塊作用域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A9%9E%E6%B3%95%E4%BD%9C%E7%94%A8%E5%9F%9F%EF%BC%88Lexical-Scope%EF%BC%89"><span class="nav-number">8.3.</span> <span class="nav-text">詞法作用域（Lexical Scope）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B1%AC%E6%80%A7-vs-%E8%AE%8A%E6%95%B8"><span class="nav-number">9.</span> <span class="nav-text">屬性 vs 變數</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%90%E5%8D%87%EF%BC%88Hoisting%EF%BC%89"><span class="nav-number">10.</span> <span class="nav-text">提升（Hoisting）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%A9%E5%80%8B%E9%9A%8E%E6%AE%B5"><span class="nav-number">10.1.</span> <span class="nav-text">兩個階段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AF%84%E4%BE%8B%E8%A7%A3%E6%9E%90"><span class="nav-number">10.2.</span> <span class="nav-text">範例解析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%B5%E9%80%A0%E9%9A%8E%E6%AE%B5%EF%BC%9A%E5%87%BD%E5%BC%8F%E5%84%AA%E5%85%88"><span class="nav-number">10.3.</span> <span class="nav-text">創造階段：函式優先</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#let-const-%E7%9A%84%E6%9A%AB%E6%99%82%E6%80%A7%E6%AD%BB%E5%8D%80%EF%BC%88TDZ%EF%BC%89"><span class="nav-number">10.4.</span> <span class="nav-text">let &#x2F; const 的暫時性死區（TDZ）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined-vs-not-defined"><span class="nav-number">11.</span> <span class="nav-text">undefined vs not defined</span></a></li></ol></div>
+          </div>
+          <!--/noindex-->
+
+          <div class="site-overview-wrap sidebar-panel">
+            <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hailey"
+      src="https://i.postimg.cc/d1YJx7jW/site-author-image.png">
+  <p class="site-author-name" itemprop="name">Hailey</p>
+  <div class="site-description" itemprop="description">專注前端開發，記錄 JavaScript 與 Vite 的實戰筆記，以及從非本科轉職工程師的成長之路。</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">標籤</span>
+      </div>
+  </nav>
+</div>
+
+          </div>
+        </div>
+      </div>
+
+      
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://hailey.tw/2026/05/21/JavaScript%20%E5%9F%BA%E7%A4%8E%E5%9E%8B%E5%88%A5%E5%85%A8%E6%94%BB%E7%95%A5%EF%BD%9C%E6%95%B8%E5%AD%97%E3%80%81%E5%AD%97%E4%B8%B2%E3%80%81%E9%99%A3%E5%88%97%E3%80%81%E7%89%A9%E4%BB%B6%E3%80%81%E4%BD%9C%E7%94%A8%E5%9F%9F%E8%88%87%E6%8F%90%E5%8D%87%E4%B8%80%E6%AC%A1%E6%90%9E%E6%87%82/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://i.postimg.cc/d1YJx7jW/site-author-image.png">
+      <meta itemprop="name" content="Hailey">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hailey's Blog">
+      <meta itemprop="description" content="專注前端開發，記錄 JavaScript 與 Vite 的實戰筆記，以及從非本科轉職工程師的成長之路。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="JavaScript 基礎型別全攻略｜數字、字串、陣列、物件、作用域與提升一次搞懂 | Hailey's Blog">
+      <meta itemprop="description" content="完整介紹 JavaScript 的基礎型別：數字、字串、布林、陣列、物件，加上容易踩坑的作用域 Scope、Hoisting 提升與暫時性死區 TDZ，附大量程式碼範例，新手必讀！">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JavaScript 基礎型別全攻略｜數字、字串、陣列、物件、作用域與提升一次搞懂
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+      
+
+      <time title="創建時間：2026-05-21 11:48:18 / 修改時間：11:50:24" itemprop="dateCreated datePublished" datetime="2026-05-21T11:48:18+08:00">2026-05-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+            <div class="post-description">完整介紹 JavaScript 的基礎型別：數字、字串、布林、陣列、物件，加上容易踩坑的作用域 Scope、Hoisting 提升與暫時性死區 TDZ，附大量程式碼範例，新手必讀！</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><blockquote>
+<p>搞懂型別，是寫好 JavaScript 的第一步。這篇文章會帶你走過數字、字串、布林、陣列、物件，以及那些讓新手頭疼的<strong>作用域</strong>和<strong>提升</strong>概念，用白話 + 大量範例，讓你一篇讀通 🚀</p>
+</blockquote>
+<hr>
+<h2 id="數字型別與運算子"><a href="#數字型別與運算子" class="headerlink" title="數字型別與運算子"></a>數字型別與運算子</h2><h3 id="算術運算子"><a href="#算術運算子" class="headerlink" title="算術運算子"></a>算術運算子</h3><p>JavaScript 支援基本的數學運算：</p>
+<table>
+<thead>
+<tr>
+<th>符號</th>
+<th>意義</th>
+<th>範例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>+</code></td>
+<td>加法</td>
+<td><code>3 + 2 → 5</code></td>
+</tr>
+<tr>
+<td><code>-</code></td>
+<td>減法</td>
+<td><code>5 - 1 → 4</code></td>
+</tr>
+<tr>
+<td><code>*</code></td>
+<td>乘法</td>
+<td><code>4 * 3 → 12</code></td>
+</tr>
+<tr>
+<td><code>/</code></td>
+<td>除法</td>
+<td><code>10 / 2 → 5</code></td>
+</tr>
+<tr>
+<td><code>%</code></td>
+<td>取餘數</td>
+<td><code>10 % 3 → 1</code></td>
+</tr>
+<tr>
+<td><code>=</code></td>
+<td>賦值（不是等於！）</td>
+<td><code>let a = 1</code></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>⚠️ <code>=</code> 在 JS 是<strong>賦值</strong>，「等於」的比較要用 <code>==</code> 或 <code>===</code>，這是新手超常搞混的地方！</p>
+</blockquote>
+<h3 id="賦值運算子-、"><a href="#賦值運算子-、" class="headerlink" title="賦值運算子 +=、-="></a>賦值運算子 <code>+=</code>、<code>-=</code></h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line">a = a + <span class="number">5</span>; <span class="comment">// 一般寫法</span></span><br><span class="line">a += <span class="number">5</span>;    <span class="comment">// 簡寫，結果一樣</span></span><br><span class="line"></span><br><span class="line">a = a - <span class="number">3</span>;</span><br><span class="line">a -= <span class="number">3</span>;    <span class="comment">// 簡寫</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="遞增-a-與遞減-a"><a href="#遞增-a-與遞減-a" class="headerlink" title="遞增 a++ 與遞減 a--"></a>遞增 <code>a++</code> 與遞減 <code>a--</code></h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">1</span>;</span><br><span class="line">a++; <span class="comment">// 等同於 a = a + 1，a 變成 2</span></span><br><span class="line">a--; <span class="comment">// 等同於 a = a - 1，a 回到 1</span></span><br></pre></td></tr></table></figure>
+
+<p>這兩個有<strong>後綴</strong>和<strong>前綴</strong>的差異，這個細節很常考：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 後綴（postfix）：先用當前值，再加 1</span></span><br><span class="line"><span class="keyword">let</span> x = <span class="number">3</span>;</span><br><span class="line"><span class="keyword">let</span> y = x++; <span class="comment">// y = 3，x = 4（先把 3 給 y，然後 x 才加 1）</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 前綴（prefix）：先加 1，再用新值</span></span><br><span class="line"><span class="keyword">let</span> a = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">let</span> b = ++a; <span class="comment">// a = 3，b = 3（a 先加 1，再把 3 給 b）</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>💡 如果只是要累加，<code>a++</code> 跟 <code>++a</code> 結果一樣。差別只有在把它「賦值給其他變數」時才會出現。</p>
+</blockquote>
+<hr>
+<h3 id="NaN：非數字的數字"><a href="#NaN：非數字的數字" class="headerlink" title="NaN：非數字的數字"></a>NaN：非數字的數字</h3><p><code>NaN</code> 的全名是 <strong>Not a Number</strong>，但它的型別是 <code>number</code>，是不是有點矛盾😅</p>
+<p><strong>什麼時候會出現 NaN？</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> name = <span class="string">&#x27;Tom&#x27;</span>;</span><br><span class="line"><span class="keyword">let</span> age = <span class="number">18</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(name * age); <span class="comment">// NaN，字串不能拿來乘</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>NaN 有個奇怪的特性：它不等於任何值，包括自己！</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">NaN</span> === <span class="title class_">NaN</span>); <span class="comment">// false 😱</span></span><br></pre></td></tr></table></figure>
+
+<p>所以要判斷一個值是不是 NaN，要用 <code>isNaN()</code> 方法：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 實際應用：驗證使用者輸入的 BMI 數值</span></span><br><span class="line"><span class="keyword">let</span> height = <span class="built_in">parseFloat</span>(userInput);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="built_in">isNaN</span>(height)) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;您的輸入有誤，請重新輸入&#x27;</span>);</span><br><span class="line">  <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="字串型別"><a href="#字串型別" class="headerlink" title="字串型別"></a>字串型別</h2><h3 id="宣告字串"><a href="#宣告字串" class="headerlink" title="宣告字串"></a>宣告字串</h3><p>字串一定要用引號包起來（單引號 <code>&#39; &#39;</code> 或雙引號 <code>&quot; &quot;</code> 都可以），否則 JS 會把它當成變數名稱來解讀：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> greeting = <span class="string">&#x27;Hello&#x27;</span>;</span><br><span class="line"><span class="keyword">let</span> name = <span class="string">&quot;Alice&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="字串相加（串接）"><a href="#字串相加（串接）" class="headerlink" title="字串相加（串接）"></a>字串相加（串接）</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> friendName = <span class="string">&#x27;Tom&#x27;</span>;</span><br><span class="line"><span class="keyword">let</span> content = <span class="string">&#x27;你好嗎？&#x27;</span>;</span><br><span class="line"><span class="keyword">let</span> total = friendName + <span class="string">&#x27; &#x27;</span> + content;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(total); <span class="comment">// Tom 你好嗎？</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 用樣板字面值更清晰</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`<span class="subst">$&#123;friendName&#125;</span> <span class="subst">$&#123;content&#125;</span>`</span>); <span class="comment">// 同樣結果</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="字串與數字混用：注意隱性轉型！"><a href="#字串與數字混用：注意隱性轉型！" class="headerlink" title="字串與數字混用：注意隱性轉型！"></a>字串與數字混用：注意隱性轉型！</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> name = <span class="string">&#x27;Tom&#x27;</span>;</span><br><span class="line"><span class="keyword">let</span> age = <span class="number">18</span>;</span><br><span class="line"><span class="keyword">let</span> numStr = <span class="string">&#x27;18&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(name + age);    <span class="comment">// &#x27;Tom18&#x27;（數字被轉成字串）</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(age + numStr);  <span class="comment">// &#x27;1818&#x27;（一樣，字串優先）</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;10&#x27;</span> * <span class="string">&#x27;10&#x27;</span>);   <span class="comment">// 100（乘法會把字串轉成數字）</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>⚠️ <code>+</code> 號遇到字串會變成「串接」，但 <code>*</code>、<code>-</code>、<code>/</code> 會把字串轉成數字再運算。這個不對稱的行為是很多 bug 的來源，要特別留意！</p>
+</blockquote>
+<h3 id="取字串中的字元"><a href="#取字串中的字元" class="headerlink" title="取字串中的字元"></a>取字串中的字元</h3><p>字串可以像陣列一樣，用索引來取出特定位置的字元（從 0 開始）：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> str = <span class="string">&#x27;123456789&#x27;</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(str[<span class="number">0</span>]); <span class="comment">// &#x27;1&#x27;</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(str[<span class="number">2</span>]); <span class="comment">// &#x27;3&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="布林（Boolean）、undefined、null"><a href="#布林（Boolean）、undefined、null" class="headerlink" title="布林（Boolean）、undefined、null"></a>布林（Boolean）、undefined、null</h2><p>這三個型別很基礎，但有不少細節差異。</p>
+<h3 id="布林（Boolean）"><a href="#布林（Boolean）" class="headerlink" title="布林（Boolean）"></a>布林（Boolean）</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> isOpen = <span class="literal">true</span>;</span><br><span class="line"><span class="keyword">let</span> isLoading = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 布林與數字運算時，true = 1，false = 0</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="literal">true</span> + <span class="number">1</span>);  <span class="comment">// 2</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="literal">false</span> + <span class="number">1</span>); <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>💡 布林型別的變數命名，慣例上會加 <code>is</code>、<code>has</code>、<code>can</code> 作為開頭，例如 <code>isLoading</code>、<code>hasError</code>、<code>canEdit</code>，讓人一眼就知道這是個布林值。</p>
+</blockquote>
+<h3 id="undefined：尚未賦值"><a href="#undefined：尚未賦值" class="headerlink" title="undefined：尚未賦值"></a>undefined：尚未賦值</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(a); <span class="comment">// undefined（宣告了，但沒給值）</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="null：刻意設為空值"><a href="#null：刻意設為空值" class="headerlink" title="null：刻意設為空值"></a>null：刻意設為空值</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> user = <span class="literal">null</span>; <span class="comment">// 明確表示「這裡目前是空的」</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>undefined vs null 的差異：</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><code>undefined</code></th>
+<th><code>null</code></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>意思</td>
+<td>沒有被賦值</td>
+<td>刻意設為空值</td>
+</tr>
+<tr>
+<td>型別（typeof）</td>
+<td><code>&quot;undefined&quot;</code></td>
+<td><code>&quot;object&quot;</code>（這是 JS 的歷史 bug）</td>
+</tr>
+<tr>
+<td>使用時機</td>
+<td>JS 自動產生</td>
+<td>開發者主動使用</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="陣列（Array）"><a href="#陣列（Array）" class="headerlink" title="陣列（Array）"></a>陣列（Array）</h2><p><strong>使用時機</strong>：需要儲存多筆<strong>同性質</strong>的資料時。</p>
+<h3 id="宣告與讀取"><a href="#宣告與讀取" class="headerlink" title="宣告與讀取"></a>宣告與讀取</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> colors = [<span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>, <span class="string">&#x27;green&#x27;</span>];</span><br><span class="line"><span class="keyword">let</span> mixed = [<span class="string">&#x27;hello&#x27;</span>, <span class="number">8</span>, <span class="literal">false</span>]; <span class="comment">// 可以混合型別</span></span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(colors[<span class="number">0</span>]); <span class="comment">// &#x27;red&#x27;（索引從 0 開始）</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(colors[<span class="number">2</span>]); <span class="comment">// &#x27;green&#x27;</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(colors.<span class="property">length</span>); <span class="comment">// 3（共有幾筆資料）</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="新增資料"><a href="#新增資料" class="headerlink" title="新增資料"></a>新增資料</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> colors = [<span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>, <span class="string">&#x27;green&#x27;</span>];</span><br><span class="line"></span><br><span class="line">colors.<span class="title function_">push</span>(<span class="string">&#x27;pink&#x27;</span>);    <span class="comment">// 加到「最後面」→ [&#x27;red&#x27;, &#x27;blue&#x27;, &#x27;green&#x27;, &#x27;pink&#x27;]</span></span><br><span class="line">colors.<span class="title function_">unshift</span>(<span class="string">&#x27;white&#x27;</span>); <span class="comment">// 加到「最前面」→ [&#x27;white&#x27;, &#x27;red&#x27;, &#x27;blue&#x27;, &#x27;green&#x27;, &#x27;pink&#x27;]</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="刪除資料"><a href="#刪除資料" class="headerlink" title="刪除資料"></a>刪除資料</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> colors = [<span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>, <span class="string">&#x27;green&#x27;</span>];</span><br><span class="line"></span><br><span class="line">colors.<span class="title function_">pop</span>();   <span class="comment">// 刪除「最後一筆」→ [&#x27;red&#x27;, &#x27;blue&#x27;]</span></span><br><span class="line">colors.<span class="title function_">shift</span>(); <span class="comment">// 刪除「第一筆」→ [&#x27;blue&#x27;]</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>記憶技巧 🧠：</strong></p>
+<ul>
+<li><code>push</code> &#x2F; <code>pop</code>：對應陣列「尾巴」（像是推入、彈出）</li>
+<li><code>unshift</code> &#x2F; <code>shift</code>：對應陣列「頭部」</li>
+</ul>
+<h3 id="陣列-物件的組合（實戰超常用）"><a href="#陣列-物件的組合（實戰超常用）" class="headerlink" title="陣列 + 物件的組合（實戰超常用）"></a>陣列 + 物件的組合（實戰超常用）</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> users = [];</span><br><span class="line"></span><br><span class="line">users.<span class="title function_">push</span>(&#123; <span class="attr">name</span>: <span class="string">&#x27;小美&#x27;</span>, <span class="attr">age</span>: <span class="number">30</span> &#125;);</span><br><span class="line">users.<span class="title function_">push</span>(&#123; <span class="attr">name</span>: <span class="string">&#x27;小明&#x27;</span>, <span class="attr">age</span>: <span class="number">23</span> &#125;);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(users[<span class="number">0</span>].<span class="property">name</span>); <span class="comment">// &#x27;小美&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="物件（Object）"><a href="#物件（Object）" class="headerlink" title="物件（Object）"></a>物件（Object）</h2><p><strong>使用時機</strong>：描述一個「東西」的各種屬性與行為。</p>
+<h3 id="宣告物件"><a href="#宣告物件" class="headerlink" title="宣告物件"></a>宣告物件</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> home = &#123;</span><br><span class="line">  <span class="attr">motherName</span>: <span class="string">&#x27;Nico&#x27;</span>,  <span class="comment">// 屬性: 值</span></span><br><span class="line">  <span class="attr">fatherName</span>: <span class="string">&#x27;Tom&#x27;</span>,</span><br><span class="line">  <span class="attr">cats</span>: <span class="number">2</span>,</span><br><span class="line">  <span class="attr">isWakeUp</span>: <span class="literal">false</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="讀取、新增、刪除屬性"><a href="#讀取、新增、刪除屬性" class="headerlink" title="讀取、新增、刪除屬性"></a>讀取、新增、刪除屬性</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 讀取</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(home.<span class="property">cats</span>); <span class="comment">// 2</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(home[<span class="string">&#x27;motherName&#x27;</span>]); <span class="comment">// &#x27;Nico&#x27;（另一種讀法，屬性名是動態時用這個）</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 新增屬性</span></span><br><span class="line">home.<span class="property">dogName</span> = <span class="string">&#x27;Lucky&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 刪除屬性</span></span><br><span class="line"><span class="keyword">delete</span> home.<span class="property">fatherName</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(home.<span class="property">fatherName</span>); <span class="comment">// undefined</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="傳值-vs-傳址（重要！）"><a href="#傳值-vs-傳址（重要！）" class="headerlink" title="傳值 vs 傳址（重要！）"></a>傳值 vs 傳址（重要！）</h2><p>這是很多人一開始搞不懂，然後寫出奇怪 bug 的根源之一。</p>
+<h3 id="原始型別：傳值（複製一份）"><a href="#原始型別：傳值（複製一份）" class="headerlink" title="原始型別：傳值（複製一份）"></a>原始型別：傳值（複製一份）</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="string">&#x27;hello&#x27;</span>;</span><br><span class="line"><span class="keyword">let</span> b = a; <span class="comment">// b 拿到的是 a 的「複製品」</span></span><br><span class="line"></span><br><span class="line">b = <span class="string">&#x27;world&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(a); <span class="comment">// &#x27;hello&#x27;（a 沒有被影響）</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(b); <span class="comment">// &#x27;world&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="物件型別：傳址（共用同一個記憶體位置）"><a href="#物件型別：傳址（共用同一個記憶體位置）" class="headerlink" title="物件型別：傳址（共用同一個記憶體位置）"></a>物件型別：傳址（共用同一個記憶體位置）</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>];</span><br><span class="line"><span class="keyword">let</span> arr2 = arr; <span class="comment">// arr2 拿到的是「同一個陣列的地址」</span></span><br><span class="line"></span><br><span class="line">arr.<span class="title function_">push</span>(<span class="number">100</span>);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(arr);  <span class="comment">// [1, 3, 5, 100]</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(arr2); <span class="comment">// [1, 3, 5, 100]（arr2 也跟著變了！）</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>⚠️ 陣列和物件是「傳址」，兩個變數會指向同一份資料。如果你不想互相影響，需要做「拷貝」，例如用展開運算子 <code>[...arr]</code> 或 <code>JSON.parse(JSON.stringify(obj))</code>。</p>
+</blockquote>
+<hr>
+<h2 id="顯性轉型-vs-隱性轉型"><a href="#顯性轉型-vs-隱性轉型" class="headerlink" title="顯性轉型 vs 隱性轉型"></a>顯性轉型 vs 隱性轉型</h2><h3 id="顯性轉型（明確告訴-JS-要轉）"><a href="#顯性轉型（明確告訴-JS-要轉）" class="headerlink" title="顯性轉型（明確告訴 JS 要轉）"></a>顯性轉型（明確告訴 JS 要轉）</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">String</span>(<span class="number">123</span>);    <span class="comment">// &#x27;123&#x27;</span></span><br><span class="line"><span class="title class_">Number</span>(<span class="string">&#x27;456&#x27;</span>);  <span class="comment">// 456</span></span><br><span class="line"><span class="title class_">Number</span>(<span class="literal">true</span>);   <span class="comment">// 1</span></span><br><span class="line"><span class="title class_">Number</span>(<span class="literal">false</span>);  <span class="comment">// 0</span></span><br><span class="line"><span class="title class_">Number</span>(<span class="string">&#x27;abc&#x27;</span>);  <span class="comment">// NaN</span></span><br><span class="line"><span class="title class_">Boolean</span>(<span class="number">0</span>);     <span class="comment">// false</span></span><br><span class="line"><span class="title class_">Boolean</span>(<span class="string">&#x27;hi&#x27;</span>);  <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="隱性轉型（JS-自動轉，容易踩坑）"><a href="#隱性轉型（JS-自動轉，容易踩坑）" class="headerlink" title="隱性轉型（JS 自動轉，容易踩坑）"></a>隱性轉型（JS 自動轉，容易踩坑）</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// + 遇到字串 → 全部串接</span></span><br><span class="line"><span class="string">&#x27;3&#x27;</span> + <span class="number">2</span>    <span class="comment">// &#x27;32&#x27;（數字被轉成字串）</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 其他運算子 → 嘗試轉成數字</span></span><br><span class="line"><span class="string">&#x27;3&#x27;</span> - <span class="number">1</span>    <span class="comment">// 2</span></span><br><span class="line"><span class="string">&#x27;3&#x27;</span> * <span class="string">&#x27;2&#x27;</span>  <span class="comment">// 6</span></span><br><span class="line"><span class="literal">true</span> + <span class="number">1</span>   <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="作用域（Scope）"><a href="#作用域（Scope）" class="headerlink" title="作用域（Scope）"></a>作用域（Scope）</h2><p>作用域決定了「一個變數在哪裡可以被存取到」。</p>
+<h3 id="核心規則"><a href="#核心規則" class="headerlink" title="核心規則"></a>核心規則</h3><ul>
+<li><strong>內層可以存取外層</strong>的變數</li>
+<li><strong>外層不能存取內層</strong>的變數</li>
+<li>不同作用域之間是獨立的</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="string">&#x27;全域&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">fn</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">let</span> b = <span class="string">&#x27;函式內&#x27;</span>;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(a); <span class="comment">// ✅ 可以，內層可以取外層</span></span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(b); <span class="comment">// ✅ 可以</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(b); <span class="comment">// ❌ 錯誤，外層看不到內層的 b</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="var-的函式作用域-vs-let-const-的區塊作用域"><a href="#var-的函式作用域-vs-let-const-的區塊作用域" class="headerlink" title="var 的函式作用域 vs let&#x2F;const 的區塊作用域"></a>var 的函式作用域 vs let&#x2F;const 的區塊作用域</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// var：函式作用域（for 迴圈擋不住它）</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(i); <span class="comment">// 3（跑出來了！）</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// let：區塊作用域（乖乖待在 &#123;&#125; 裡面）</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> j = <span class="number">0</span>; j &lt; <span class="number">3</span>; j++) &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(j); <span class="comment">// ❌ 報錯，j is not defined</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>💡 這就是為什麼現代 JS 推薦用 <code>let</code> 寫 for 迴圈，用 <code>var</code> 的話變數會「跑出來」變成全域，很危險。</p>
+</blockquote>
+<h3 id="詞法作用域（Lexical-Scope）"><a href="#詞法作用域（Lexical-Scope）" class="headerlink" title="詞法作用域（Lexical Scope）"></a>詞法作用域（Lexical Scope）</h3><p><strong>變數的作用域在程式碼「寫好的時候」就決定了</strong>，不是執行的時候才決定。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="string">&#x27;小明&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">fn1</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(a); <span class="comment">// 小明（fn1 定義時，外層的 a 是&#x27;小明&#x27;）</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">fn2</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> a = <span class="string">&#x27;小花&#x27;</span>;</span><br><span class="line">  <span class="title function_">fn1</span>(); <span class="comment">// 呼叫 fn1，但 fn1 的作用域是看它定義的位置，不是呼叫的位置</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">fn2</span>(); <span class="comment">// 印出「小明」，不是「小花」</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="屬性-vs-變數"><a href="#屬性-vs-變數" class="headerlink" title="屬性 vs 變數"></a>屬性 vs 變數</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="string">&#x27;小明&#x27;</span>;   <span class="comment">// 變數，同時也是 window 的屬性</span></span><br><span class="line"><span class="keyword">let</span> b = <span class="string">&#x27;小花&#x27;</span>;   <span class="comment">// 變數，不掛在 window 上</span></span><br><span class="line">c = <span class="string">&#x27;小邪&#x27;</span>;       <span class="comment">// ⚠️ 沒有宣告！這只是 window 的一個屬性，非常危險</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">delete</span> <span class="variable language_">window</span>.<span class="property">c</span>; <span class="comment">// 屬性可以被刪除</span></span><br><span class="line"><span class="keyword">delete</span> <span class="variable language_">window</span>.<span class="property">a</span>; <span class="comment">// 嘗試刪除 var 宣告的變數</span></span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(a);        <span class="comment">// &#x27;小明&#x27;（var 雖然掛在 window，但它同時是「變數」，不能被 delete）</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(c);        <span class="comment">// ❌ 報錯（c 只是屬性，被 delete 就消失了）</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>重點整理：</strong></p>
+<ul>
+<li>屬性（Property）可以被 <code>delete</code> 刪除</li>
+<li>變數（Variable）不能被 <code>delete</code> 刪除</li>
+<li><strong>永遠記得宣告變數</strong>，不要讓它意外變成全域屬性！</li>
+</ul>
+<hr>
+<h2 id="提升（Hoisting）"><a href="#提升（Hoisting）" class="headerlink" title="提升（Hoisting）"></a>提升（Hoisting）</h2><p>JavaScript 在執行程式碼前，會先經歷一個「創造階段」，把變數和函式宣告都「提升」到作用域的最頂端。</p>
+<h3 id="兩個階段"><a href="#兩個階段" class="headerlink" title="兩個階段"></a>兩個階段</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1. 創造階段（Creation Phase）</span><br><span class="line">   → 掃描所有宣告，在記憶體中建立空間</span><br><span class="line">   → 函式宣告優先、var 次之</span><br><span class="line">   </span><br><span class="line">2. 執行階段（Execution Phase）</span><br><span class="line">   → 逐行執行程式碼</span><br></pre></td></tr></table></figure>
+
+<h3 id="範例解析"><a href="#範例解析" class="headerlink" title="範例解析"></a>範例解析</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 範例一：var 的提升</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(a); <span class="comment">// undefined（不報錯！a 已被提升，但還沒賦值）</span></span><br><span class="line"><span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(a); <span class="comment">// 1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 範例二：函式宣告會被完整提升</span></span><br><span class="line"><span class="title function_">eat</span>(); <span class="comment">// ✅ 正常執行，印出「吃飯」</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">eat</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;吃飯&#x27;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="創造階段：函式優先"><a href="#創造階段：函式優先" class="headerlink" title="創造階段：函式優先"></a>創造階段：函式優先</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">a</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;我是函式&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(a); <span class="comment">// 1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 創造階段發生了什麼？</span></span><br><span class="line"><span class="comment">// 1. function a() 先被提升（函式優先）</span></span><br><span class="line"><span class="comment">// 2. var a 重複宣告，被忽略</span></span><br><span class="line"><span class="comment">// 執行階段：a = 1，所以最後印出 1</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="let-const-的暫時性死區（TDZ）"><a href="#let-const-的暫時性死區（TDZ）" class="headerlink" title="let &#x2F; const 的暫時性死區（TDZ）"></a>let &#x2F; const 的暫時性死區（TDZ）</h3><p><code>let</code> 和 <code>const</code> 也有提升，但在宣告前存取會直接<strong>報錯</strong>，而不是給你 <code>undefined</code>。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(x); <span class="comment">// ❌ ReferenceError：Cannot access &#x27;x&#x27; before initialization</span></span><br><span class="line"><span class="keyword">let</span> x = <span class="number">5</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 對比 var</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(y); <span class="comment">// undefined（不報錯，但值很奇怪）</span></span><br><span class="line"><span class="keyword">var</span> y = <span class="number">5</span>;</span><br></pre></td></tr></table></figure>
+
+<p>這個「宣告前的禁區」就叫做<strong>暫時性死區（Temporal Dead Zone, TDZ）</strong>，是 <code>let</code>&#x2F;<code>const</code> 刻意設計的保護機制，讓你的錯誤更早被發現。</p>
+<hr>
+<h2 id="undefined-vs-not-defined"><a href="#undefined-vs-not-defined" class="headerlink" title="undefined vs not defined"></a>undefined vs not defined</h2><p>這兩個看起來像但完全不同，一定要分清楚：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> b;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(b); <span class="comment">// undefined（宣告了，但沒給值，程式繼續跑）</span></span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(a); <span class="comment">// ❌ ReferenceError: a is not defined（根本沒宣告過，程式停止！）</span></span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th><code>undefined</code></th>
+<th><code>not defined</code></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>原因</td>
+<td>宣告了但沒賦值</td>
+<td>根本沒有宣告</td>
+</tr>
+<tr>
+<td>是否報錯</td>
+<td>❌ 不報錯</td>
+<td>✅ 報錯（ReferenceError）</td>
+</tr>
+<tr>
+<td>程式是否繼續</td>
+<td>✅ 繼續執行</td>
+<td>❌ 後面的程式碼全部停止</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>⚠️ <code>not defined</code> 的紅字錯誤是「阻斷性錯誤」，會讓後面所有程式碼都無法執行，一定要修！</p>
+</blockquote>
+<hr>
+<p>這篇內容有點多，但每個部分都是 JavaScript 的核心基礎，越早搞懂越輕鬆 💪  </p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+  
+  <section class="related-cards">
+    <h3 class="related-cards__title">
+      <i class="fa-solid fa-square-poll-horizontal"></i>相關文章
+    </h3>
+    <div class="related-cards__grid">
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+              
+            
+          
+          
+            
+            <a class="related-cards__item" href="/2026/05/18/JavaScript%20DOM%20%E4%BA%8B%E4%BB%B6%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97%EF%BC%9AaddEventListener%E3%80%81%E4%BA%8B%E4%BB%B6%E5%86%92%E6%B3%A1%E8%88%87%E4%BA%8B%E4%BB%B6%E5%A7%94%E6%B4%BE/">
+              <span class="related-cards__item-title">JavaScript DOM 事件完整指南：addEventListener、事件冒泡與事件委派</span>
+              <span class="related-cards__item-date">
+                <i class="far fa-calendar-alt"></i>
+                2026-05-18
+              </span>
+            </a>
+          
+        
+      
+        
+          
+          
+            
+              
+            
+          
+          
+            
+            <a class="related-cards__item" href="/2026/05/17/JavaScript%20DOM%20%E6%93%8D%E4%BD%9C%E5%AE%8C%E6%95%B4%E6%95%99%E5%AD%B8%EF%BC%9AquerySelector%E3%80%81innerHTML%E3%80%81dataset%20%E4%B8%80%E6%AC%A1%E6%90%9E%E6%87%82/">
+              <span class="related-cards__item-title">JavaScript DOM 操作完整教學：querySelector、innerHTML、dataset 一次搞懂</span>
+              <span class="related-cards__item-date">
+                <i class="far fa-calendar-alt"></i>
+                2026-05-17
+              </span>
+            </a>
+          
+        
+      
+        
+          
+          
+            
+              
+            
+          
+          
+            
+            <a class="related-cards__item" href="/2026/05/05/JavaScript%20%E5%87%BD%E5%BC%8F%20Function%20%E5%85%A5%E9%96%80%E6%95%99%E5%AD%B8%EF%BD%9C%E5%8F%83%E6%95%B8%E3%80%81return%20%E8%88%87%E4%BD%9C%E7%94%A8%E5%9F%9F%E5%AE%8C%E6%95%B4%E8%A7%A3%E6%9E%90/">
+              <span class="related-cards__item-title">JavaScript 函式 Function 入門教學｜參數、return 與作用域完整解析</span>
+              <span class="related-cards__item-date">
+                <i class="far fa-calendar-alt"></i>
+                2026-05-05
+              </span>
+            </a>
+          
+        
+      
+        
+          
+          
+            
+              
+            
+          
+          
+            
+            <a class="related-cards__item" href="/2026/05/07/JavaScript%20%E5%87%BD%E5%BC%8F%E6%80%8E%E9%BA%BC%E7%94%A8%EF%BC%9F5%20%E7%A8%AE%E5%AF%AB%E6%B3%95%EF%BC%8B%E9%96%89%E5%8C%85%E5%AE%8C%E6%95%B4%E8%A7%A3%E6%9E%90%EF%BC%88%E6%96%B0%E6%89%8B%E5%BF%85%E7%9C%8B%EF%BC%89/">
+              <span class="related-cards__item-title">JavaScript 函式怎麼用？5 種寫法＋閉包完整解析（新手必看）</span>
+              <span class="related-cards__item-date">
+                <i class="far fa-calendar-alt"></i>
+                2026-05-07
+              </span>
+            </a>
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="share-article-section">
+      <div class="share-article-heading">
+        <i class="fa-solid fa-share-nodes share-article-icon" aria-hidden="true"></i>
+        <span>分享這篇文章</span>
+      </div>
+      <div class="share-article-buttons"
+           data-share-url="https://hailey.tw/2026/05/21/JavaScript%20%E5%9F%BA%E7%A4%8E%E5%9E%8B%E5%88%A5%E5%85%A8%E6%94%BB%E7%95%A5%EF%BD%9C%E6%95%B8%E5%AD%97%E3%80%81%E5%AD%97%E4%B8%B2%E3%80%81%E9%99%A3%E5%88%97%E3%80%81%E7%89%A9%E4%BB%B6%E3%80%81%E4%BD%9C%E7%94%A8%E5%9F%9F%E8%88%87%E6%8F%90%E5%8D%87%E4%B8%80%E6%AC%A1%E6%90%9E%E6%87%82/"
+           data-share-title="JavaScript 基礎型別全攻略｜數字、字串、陣列、物件、作用域與提升一次搞懂">
+        <a href="#"
+           role="button"
+           class="share-article-btn"
+           data-platform="twitter">
+          <i class="fab fa-twitter"></i><span>Twitter</span>
+        </a>
+        <a href="#"
+           role="button"
+           class="share-article-btn"
+           data-platform="facebook">
+          <i class="fab fa-facebook"></i><span>Facebook</span>
+        </a>
+        <a href="#"
+           role="button"
+           class="share-article-btn"
+           data-platform="linkedin">
+          <i class="fab fa-linkedin"></i><span>LinkedIn</span>
+        </a>
+        <button type="button" class="share-article-btn" data-copy>
+          <i class="fa-regular fa-copy"></i><span>複製連結</span>
+        </button>
+      </div>
+    </div>
+  </section>
+  <style>
+    /* 讓 post-footer 變成可排序容器 */
+    .post-footer {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* 上一篇/下一篇 */
+    .post-footer .post-nav {
+      order: 20;
+    }
+
+    /* 你的相關文章區塊 */
+    .post-footer .related-cards {
+      order: 30;
+    }
+
+    /* 你的分享區塊（如果也要在 related 下方） */
+    .post-footer .share-article-section {
+      order: 40;
+    }
+    .related-cards {
+      margin: 2.25rem 0 1rem;
+    }
+
+    .related-cards__title {
+      margin-bottom: 12px;
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+
+    .related-cards__title i {
+        color: #22d3ee;
+        margin-right: 6px;
+    }
+
+    .related-cards__grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .related-cards__item {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 16px;
+      --tw-border-opacity: 1;
+      border: 1px solid rgb(82 82 91 / var(--tw-border-opacity, 1));
+      border-radius: 12px;
+      background: #4c4c5180;
+      color: #f5f7fa;
+      text-decoration: none;
+      transition: transform .18s ease, border-color .18s ease;
+    }
+
+    .related-cards__item:hover {
+      transform: translateY(-2px);
+      border-color: #22d3ee;
+      color: #22d3ee;
+    }
+
+    .related-cards__item-title {
+      font-size: 1rem;
+      line-height: 1.35;
+      font-weight: 600;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+
+    .related-cards__item-date {
+      margin-top: 10px;
+      font-size: .88rem;
+      color: #c5cad3;
+    }
+
+    @media (max-width: 1100px) {
+      .related-cards__grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .related-cards__grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* AddToAny */
+
+    /* 第一顆 AddToAny 主按鈕常太醜，直接隱藏 */
+    .post-footer .social-like .a2a_dd {
+    display: none;
+    }
+
+    .share-article-section { 
+      margin: 2rem 0 1rem; 
+      padding-top: 1.25rem; 
+    }
+    .share-article-heading { 
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .share-article-icon { 
+      color: #2dd4bf;
+      font-size: 1.25rem;
+    }
+    .share-article-buttons { 
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .share-article-btn {
+        display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px;
+        border: 1px solid rgb(82 82 91 / var(--tw-border-opacity, 1));
+        border-radius: 10px;
+        background: #4c4c5180;
+        color: inherit;
+        cursor: pointer;
+        text-decoration: none;
+        font: inherit;
+        transition: transform .18s ease, border-color .18s ease;
+    }
+    .share-article-btn:hover { border-color: #22d3ee;
+        transform: translateY(-2px); 
+    }
+  </style>
+  <script>
+  (function () {
+    var root = document.querySelector('.share-article-buttons');
+    if (!root || root.dataset.bound) return;
+    root.dataset.bound = '1';
+    var url = root.dataset.shareUrl || '';
+    var title = root.dataset.shareTitle || '';
+    var encUrl = encodeURIComponent(url);
+    var encTitle = encodeURIComponent(title);
+    var urls = {
+      twitter: 'https://twitter.com/intent/tweet?url=' + encUrl + '&text=' + encTitle,
+      facebook: 'https://www.facebook.com/sharer/sharer.php?u=' + encUrl,
+      linkedin: 'https://www.linkedin.com/sharing/share-offsite/?url=' + encUrl
+    };
+    root.querySelectorAll('[data-platform]').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        var p = btn.dataset.platform;
+        window.open(urls[p], '_blank', 'noopener,noreferrer');
+      });
+    });
+    var btnCopy = root.querySelector('[data-copy]');
+    if (btnCopy) {
+      btnCopy.addEventListener('click', function () {
+        navigator.clipboard.writeText(url).then(function () {
+          btnCopy.querySelector('span').textContent = '已複製';
+          setTimeout(function () { btnCopy.querySelector('span').textContent = '複製連結'; }, 2000);
+        });
+      });
+    }
+  })();
+  </script>
+
+
+          <div class="post-tags">
+              <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/05/20/JavaScript%20%E8%AE%8A%E6%95%B8%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97%EF%BD%9Clet%E3%80%81const%E3%80%81var%20%E5%B7%AE%E7%95%B0%E8%88%87%E5%91%BD%E5%90%8D%E8%A6%8F%E5%89%87%E4%B8%80%E6%AC%A1%E6%90%9E%E6%87%82/" rel="prev" title="JavaScript 變數完全指南｜let、const、var 差異與命名規則一次搞懂">
+                  <i class="fa fa-angle-left"></i> JavaScript 變數完全指南｜let、const、var 差異與命名規則一次搞懂
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div><aside class="column-recent-posts" aria-label="最新文章">
+  <div class="recent-rail-inner">
+    <h3 class="recent-rail-title">
+      <i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i>
+      <span>最新文章</span>
+    </h3>
+    <ol class="recent-rail-list">
+      
+        <li class="recent-rail-item">
+          <a class="recent-rail-link" href="/2026/05/21/JavaScript%20%E5%9F%BA%E7%A4%8E%E5%9E%8B%E5%88%A5%E5%85%A8%E6%94%BB%E7%95%A5%EF%BD%9C%E6%95%B8%E5%AD%97%E3%80%81%E5%AD%97%E4%B8%B2%E3%80%81%E9%99%A3%E5%88%97%E3%80%81%E7%89%A9%E4%BB%B6%E3%80%81%E4%BD%9C%E7%94%A8%E5%9F%9F%E8%88%87%E6%8F%90%E5%8D%87%E4%B8%80%E6%AC%A1%E6%90%9E%E6%87%82/">
+            <span class="recent-rail-item-title">JavaScript 基礎型別全攻略｜數字、字串、陣列、物件、作用域與提升一次搞懂</span>
+            <span class="recent-rail-item-date">05/21</span>
+          </a>
+        </li>
+      
+        <li class="recent-rail-item">
+          <a class="recent-rail-link" href="/2026/05/20/JavaScript%20%E8%AE%8A%E6%95%B8%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97%EF%BD%9Clet%E3%80%81const%E3%80%81var%20%E5%B7%AE%E7%95%B0%E8%88%87%E5%91%BD%E5%90%8D%E8%A6%8F%E5%89%87%E4%B8%80%E6%AC%A1%E6%90%9E%E6%87%82/">
+            <span class="recent-rail-item-title">JavaScript 變數完全指南｜let、const、var 差異與命名規則一次搞懂</span>
+            <span class="recent-rail-item-date">05/20</span>
+          </a>
+        </li>
+      
+        <li class="recent-rail-item">
+          <a class="recent-rail-link" href="/2026/05/19/getElementsByTagName/">
+            <span class="recent-rail-item-title">JavaScript 實戰教學：從 DOM 選取到 reduce 與 concat 一次掌握</span>
+            <span class="recent-rail-item-date">05/19</span>
+          </a>
+        </li>
+      
+        <li class="recent-rail-item">
+          <a class="recent-rail-link" href="/2026/05/18/JavaScript%20DOM%20%E4%BA%8B%E4%BB%B6%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97%EF%BC%9AaddEventListener%E3%80%81%E4%BA%8B%E4%BB%B6%E5%86%92%E6%B3%A1%E8%88%87%E4%BA%8B%E4%BB%B6%E5%A7%94%E6%B4%BE/">
+            <span class="recent-rail-item-title">JavaScript DOM 事件完整指南：addEventListener、事件冒泡與事件委派</span>
+            <span class="recent-rail-item-date">05/18</span>
+          </a>
+        </li>
+      
+        <li class="recent-rail-item">
+          <a class="recent-rail-link" href="/2026/05/17/JavaScript%20DOM%20%E6%93%8D%E4%BD%9C%E5%AE%8C%E6%95%B4%E6%95%99%E5%AD%B8%EF%BC%9AquerySelector%E3%80%81innerHTML%E3%80%81dataset%20%E4%B8%80%E6%AC%A1%E6%90%9E%E6%87%82/">
+            <span class="recent-rail-item-title">JavaScript DOM 操作完整教學：querySelector、innerHTML、dataset 一次搞懂</span>
+            <span class="recent-rail-item-date">05/17</span>
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</aside>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class=""></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Hailey. All rights reserved.<br>Built with Hexo & Theme NexT</span>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"Hailey-1025/blog-comments","issue_term":"pathname","label":"comment","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js" defer></script>
+
+<script>
+(function () {
+  var mq = window.matchMedia('(max-width: 991px)');
+  var btn = document.querySelector('.site-nav-toggle .toggle');
+  var sidebarBtn = document.querySelector('.sidebar-toggle');
+  var siteNav = document.querySelector('.header .site-nav');
+  if (!btn || !sidebarBtn) return;
+
+  function collapseHeaderNavDropdown() {
+    document.body.classList.remove('site-nav-on');
+    if (siteNav) siteNav.style.removeProperty('--scroll-height');
+  }
+
+  btn.addEventListener('click', function (e) {
+    if (!mq.matches) return;
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    collapseHeaderNavDropdown();
+    sidebarBtn.click();
+  }, true);
+
+  new MutationObserver(function () {
+    if (!mq.matches) return;
+    var open = document.body.classList.contains('sidebar-active');
+    btn.classList.toggle('toggle-close', open);
+  }).observe(document.body, { attributes: true, attributeFilter: ['class'] });
+
+  mq.addEventListener('change', function () {
+    if (!mq.matches) {
+      btn.classList.remove('toggle-close');
+      collapseHeaderNavDropdown();
+      document.body.classList.remove('mobile-header-scrolled-down');
+    }
+  });
+
+  var lastY = window.scrollY || 0;
+  var ticking = false;
+
+  function updateMobileHeaderOnScroll() {
+    ticking = false;
+    if (!mq.matches) return;
+    var currentY = window.scrollY || 0;
+    var scrollingDown = currentY > lastY;
+    var passedTop = currentY > 10;
+    document.body.classList.toggle('mobile-header-scrolled-down', scrollingDown && passedTop);
+    lastY = currentY;
+  }
+
+  window.addEventListener('scroll', function () {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(updateMobileHeaderOnScroll);
+  }, { passive: true });
+})();
+</script>
+
+</body>
+</html>
