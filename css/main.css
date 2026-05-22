@@ -1406,7 +1406,7 @@ pre code {
     vertical-align: middle;
   }
   .links-of-author a::before {
-    background: #fffbcc;
+    background: #9a8399;
     display: inline-block;
     margin-right: 3px;
     transform: translateY(-2px);
@@ -1913,7 +1913,7 @@ pre code {
   background: #22d3ee;
   height: 2px;
   position: fixed;
-  z-index: 50;
+  z-index: 9999;
   width: var(--progress);
   left: 0;
   top: 0;
@@ -2984,6 +2984,7 @@ header.header {
 .column {
   width: 240px;
   position: sticky;
+  z-index: 99;
 }
 @media (min-width: 992px) {
   .column {
@@ -3237,7 +3238,7 @@ header.header {
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     background: rgba(0,0,0,0.35);
-    z-index: 1000;
+    z-index: 9;
   }
   body.sidebar-active .sidebar-dimmer {
     opacity: 1;
