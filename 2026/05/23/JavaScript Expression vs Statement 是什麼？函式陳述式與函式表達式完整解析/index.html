@@ -28,7 +28,7 @@
 <meta property="og:description" content="深入解析 JavaScript 中 Expression（表達式）與 Statement（陳述式）的本質差異，搭配函式陳述式、函式表達式、箭頭函式與 Hoisting 完整說明，附上常見陷阱與實戰範例。">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2026-05-23T02:57:16.000Z">
-<meta property="article:modified_time" content="2026-05-23T15:08:21.000Z">
+<meta property="article:modified_time" content="2026-05-23T15:27:41.484Z">
 <meta property="article:author" content="Hailey">
 <meta property="article:tag" content="JavaScript">
 <meta name="twitter:card" content="summary">
@@ -268,7 +268,7 @@
       <span class="post-meta-item-text">發表於</span>
       
 
-      <time title="創建時間：2026-05-23 10:57:16 / 修改時間：23:08:21" itemprop="dateCreated datePublished" datetime="2026-05-23T10:57:16+08:00">2026-05-23</time>
+      <time title="創建時間：2026-05-23 10:57:16 / 修改時間：23:27:41" itemprop="dateCreated datePublished" datetime="2026-05-23T10:57:16+08:00">2026-05-23</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -317,7 +317,7 @@
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">1</span> &gt; <span class="number">2</span> &gt; <span class="number">3</span>);  <span class="comment">// false</span></span><br><span class="line"><span class="comment">// 解析：先算 1 &gt; 2 → false，再算 false &gt; 3 → 0 &gt; 3 → false</span></span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">3</span> &lt; <span class="number">2</span> &lt; <span class="number">1</span>);  <span class="comment">// true（！）</span></span><br><span class="line"><span class="comment">// 解析：先算 3 &lt; 2 → false，再算 false &lt; 1 → 0 &lt; 1 → true</span></span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<p>😱 關鍵在於：在數值比較時，<strong><code>false</code> 會被當成 <code>0</code>，<code>true</code> 會被當成 <code>1</code></strong>。<br>所以 <code>false &lt; 1</code> 其實等於 <code>0 &lt; 1</code>，結果是 <code>true</code>。</p>
+<p>關鍵在於：在數值比較時，<strong><code>false</code> 會被當成 <code>0</code>，<code>true</code> 會被當成 <code>1</code></strong>。<br>所以 <code>false &lt; 1</code> 其實等於 <code>0 &lt; 1</code>，結果是 <code>true</code>。</p>
 <p>這就是為什麼比較數字範圍時，要分開寫 <code>3 &gt; 2 &amp;&amp; 2 &gt; 1</code>，而不是鍊式比較。</p>
 </blockquote>
 <hr>
@@ -378,7 +378,7 @@
 </blockquote>
 <h3 id="高階函式（函式回傳函式）"><a href="#高階函式（函式回傳函式）" class="headerlink" title="高階函式（函式回傳函式）"></a>高階函式（函式回傳函式）</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">createCounter</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;計數！&#x27;</span>);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> counter = <span class="title function_">createCounter</span>();</span><br><span class="line"><span class="title function_">counter</span>(); <span class="comment">// &#x27;計數！&#x27;</span></span><br></pre></td></tr></table></figure>
 
-<p>這種「函式回傳函式」的模式，是之後學習**閉包（Closure）**的基礎。</p>
+<p>這種「函式回傳函式」的模式，是之後學習 <strong>閉包（Closure）</strong> 的基礎。</p>
 <hr>
 <h2 id="整理比較"><a href="#整理比較" class="headerlink" title="整理比較"></a>整理比較</h2><table>
 <thead>
@@ -395,13 +395,13 @@
 </tr>
 <tr>
 <td>是否需要名字</td>
-<td>✅ 必須有</td>
-<td>❌ 可以匿名</td>
+<td>必須有</td>
+<td>可以匿名</td>
 </tr>
 <tr>
 <td>Hoisting</td>
-<td>✅ 建立階段即可使用</td>
-<td>⚠️ 是否可用取決於變數狀態（<code>const</code>&#x2F;<code>let</code> → TDZ；<code>var</code> → <code>undefined</code>）</td>
+<td>建立階段即可使用</td>
+<td>是否可用取決於變數狀態（<code>const</code>&#x2F;<code>let</code> → TDZ；<code>var</code> → <code>undefined</code>）</td>
 </tr>
 <tr>
 <td>呼叫時機</td>
@@ -411,14 +411,7 @@
 </tbody></table>
 <hr>
 <h2 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h2><p>當你開始能分辨「哪些程式碼是在產生值，哪些是在控制程式流程」，你會發現 JavaScript 很多看似神奇的行為，其實都有跡可循——Hoisting 的邏輯、IIFE 為什麼需要括號、框架裡各種奇特的寫法，背後都和這個概念有關。</p>
-<p>理解了 Expression &#x2F; Statement 和 Hoisting 之後，你已經具備往下深挖的基礎了：</p>
-<ul>
-<li><strong>var &#x2F; let &#x2F; const 的 Hoisting 差異</strong>：三種宣告方式的提升行為不完全相同，值得深入了解</li>
-<li><strong>作用域（Scope）</strong>：變數在哪裡可以被存取？函式作用域 vs 區塊作用域</li>
-<li><strong>閉包（Closure）</strong>：函式記住了它被建立時的環境——這是 JS 最強大也最容易卡住的觀念之一</li>
-<li><strong>this 是什麼</strong>：在不同情境下 <code>this</code> 指向誰，是很多 bug 的來源</li>
-</ul>
-<p>每一個概念都建立在前一個之上，紮穩基礎，後面的東西會越來越清晰。</p>
+<p>理解了 Expression &#x2F; Statement 和 Hoisting 之後，你已經具備往下深挖的基礎了，紮穩基礎，後面學習的東西就會越來越清晰。</p>
 
     </div>
 
@@ -433,6 +426,14 @@
       <i class="fa-solid fa-square-poll-horizontal"></i>相關文章
     </h3>
     <div class="related-cards__grid">
+      
+        
+          
+          
+            
+          
+          
+        
       
         
           
@@ -507,11 +508,11 @@
           
           
             
-            <a class="related-cards__item" href="/2026/05/05/JavaScript%20%E5%87%BD%E5%BC%8F%20Function%20%E5%85%A5%E9%96%80%E6%95%99%E5%AD%B8%EF%BD%9C%E5%8F%83%E6%95%B8%E3%80%81return%20%E8%88%87%E4%BD%9C%E7%94%A8%E5%9F%9F%E5%AE%8C%E6%95%B4%E8%A7%A3%E6%9E%90/">
-              <span class="related-cards__item-title">JavaScript 函式 Function 入門教學｜參數、return 與作用域完整解析</span>
+            <a class="related-cards__item" href="/2026/05/08/JavaScript%20while%20%E8%BF%B4%E5%9C%88%E6%80%8E%E9%BA%BC%E7%94%A8%EF%BC%9F%E5%BE%9E%200%20%E5%88%B0%E7%90%86%E8%A7%A3%EF%BC%88%E9%99%84%E5%B8%B8%E8%A6%8B%E9%8C%AF%E8%AA%A4%E8%88%87%E5%AF%A6%E4%BE%8B%EF%BC%89/">
+              <span class="related-cards__item-title">JavaScript while 迴圈怎麼用？從 0 到理解（附常見錯誤與實例）</span>
               <span class="related-cards__item-date">
                 <i class="far fa-calendar-alt"></i>
-                2026-05-05
+                2026-05-08
               </span>
             </a>
           
@@ -526,16 +527,14 @@
           
           
             
-            <a class="related-cards__item" href="/2026/05/07/JavaScript%20%E5%87%BD%E5%BC%8F%E6%80%8E%E9%BA%BC%E7%94%A8%EF%BC%9F5%20%E7%A8%AE%E5%AF%AB%E6%B3%95%EF%BC%8B%E9%96%89%E5%8C%85%E5%AE%8C%E6%95%B4%E8%A7%A3%E6%9E%90%EF%BC%88%E6%96%B0%E6%89%8B%E5%BF%85%E7%9C%8B%EF%BC%89/">
-              <span class="related-cards__item-title">JavaScript 函式怎麼用？5 種寫法＋閉包完整解析（新手必看）</span>
+            <a class="related-cards__item" href="/2026/05/05/JavaScript%20%E5%87%BD%E5%BC%8F%20Function%20%E5%85%A5%E9%96%80%E6%95%99%E5%AD%B8%EF%BD%9C%E5%8F%83%E6%95%B8%E3%80%81return%20%E8%88%87%E4%BD%9C%E7%94%A8%E5%9F%9F%E5%AE%8C%E6%95%B4%E8%A7%A3%E6%9E%90/">
+              <span class="related-cards__item-title">JavaScript 函式 Function 入門教學｜參數、return 與作用域完整解析</span>
               <span class="related-cards__item-date">
                 <i class="far fa-calendar-alt"></i>
-                2026-05-07
+                2026-05-05
               </span>
             </a>
           
-        
-      
         
       
         
