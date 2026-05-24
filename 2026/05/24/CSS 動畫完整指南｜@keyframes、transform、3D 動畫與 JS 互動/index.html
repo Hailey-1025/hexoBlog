@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"hailey.tw","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":true,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"找到 ${hits} 個搜索結果（用時 ${time} 毫秒）","hits":"找到 ${hits} 個搜索結果"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="深入探討 CSS 動畫核心技巧，包含 @keyframes 設定、3D 透視效果 (Perspective)、JS 動畫事件監聽以及 CSS 變數在主題切換中的實戰應用。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS 動畫完整指南｜@keyframes、transform、3D 動畫與 JS 互動">
+<meta property="og:url" content="https://hailey.tw/2026/05/24/CSS%20%E5%8B%95%E7%95%AB%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97%EF%BD%9C@keyframes%E3%80%81transform%E3%80%813D%20%E5%8B%95%E7%95%AB%E8%88%87%20JS%20%E4%BA%92%E5%8B%95/index.html">
+<meta property="og:site_name" content="Hailey&#39;s Blog">
+<meta property="og:description" content="深入探討 CSS 動畫核心技巧，包含 @keyframes 設定、3D 透視效果 (Perspective)、JS 動畫事件監聽以及 CSS 變數在主題切換中的實戰應用。">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2026-05-24T14:08:44.000Z">
+<meta property="article:modified_time" content="2026-05-24T14:15:35.211Z">
+<meta property="article:author" content="Hailey">
+<meta property="article:tag" content="HTML&#x2F;CSS">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://hailey.tw/2026/05/24/CSS%20%E5%8B%95%E7%95%AB%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97%EF%BD%9C@keyframes%E3%80%81transform%E3%80%813D%20%E5%8B%95%E7%95%AB%E8%88%87%20JS%20%E4%BA%92%E5%8B%95/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://hailey.tw/2026/05/24/CSS%20%E5%8B%95%E7%95%AB%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97%EF%BD%9C@keyframes%E3%80%81transform%E3%80%813D%20%E5%8B%95%E7%95%AB%E8%88%87%20JS%20%E4%BA%92%E5%8B%95/","path":"2026/05/24/CSS 動畫完整指南｜@keyframes、transform、3D 動畫與 JS 互動/","title":"CSS 動畫完整指南｜@keyframes、transform、3D 動畫與 JS 互動"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>CSS 動畫完整指南｜@keyframes、transform、3D 動畫與 JS 互動 | Hailey's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8W8PTGBYMG"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-8W8PTGBYMG","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js" defer></script>
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="Hailey's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main main--recent-rail">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hailey's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Stressed spelled backwards is desserts.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜尋" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>關於</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜尋..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+    <div class="sidebar-mobile-focus">
+      <div class="site-meta site-meta--drawer">
+
+        <a href="/" class="brand" rel="start">
+          <i class="logo-line"></i>
+          <p class="site-title">Hailey's Blog</p>
+          <i class="logo-line"></i>
+        </a>
+          <p class="site-subtitle" itemprop="description">Stressed spelled backwards is desserts.</p>
+      </div>
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>關於</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+    </div>
+
+    <div class="sidebar-desktop-stack">
+
+      <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+        <ul class="sidebar-nav">
+          <li class="sidebar-nav-toc">
+            文章目錄
+          </li>
+          <li class="sidebar-nav-overview">
+            本站概要
+          </li>
+        </ul>
+
+        <div class="sidebar-panel-container">
+          <!--noindex-->
+          <div class="post-toc-wrap sidebar-panel">
+              <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E5%8B%95%E7%95%AB%E6%A6%82%E5%BF%B5%EF%BC%9A-keyframes"><span class="nav-number">1.</span> <span class="nav-text">核心動畫概念：@keyframes</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%A8-%E5%9F%BA%E6%9C%AC%E8%AA%9E%E6%B3%95%E8%88%87%E8%A8%AD%E5%AE%9A"><span class="nav-number">1.1.</span> <span class="nav-text">✨ 基本語法與設定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%A8-Transform-%E5%B1%AC%E6%80%A7%E7%9A%84%E5%90%88%E4%BD%B5%E8%88%87%E9%A0%86%E5%BA%8F"><span class="nav-number">1.2.</span> <span class="nav-text">✨ Transform 屬性的合併與順序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Transform-3D%EF%BC%9A%E9%96%8B%E5%95%9F%E7%A9%BA%E9%96%93%E6%84%9F"><span class="nav-number">2.</span> <span class="nav-text">Transform 3D：開啟空間感</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%B2%E9%9A%8E%E5%AF%A6%E6%88%B0%E6%8A%80%E5%B7%A7"><span class="nav-number">3.</span> <span class="nav-text">進階實戰技巧</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSS-%E8%AE%8A%E6%95%B8%E6%87%89%E7%94%A8-Variables"><span class="nav-number">4.</span> <span class="nav-text">CSS 變數應用 (Variables)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A3%9C%E5%85%85%EF%BC%9A%E5%B8%B8%E7%94%A8%E5%B1%AC%E6%80%A7%E9%80%9F%E6%9F%A5"><span class="nav-number">5.</span> <span class="nav-text">補充：常用屬性速查</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%A8-pointer-events"><span class="nav-number">5.1.</span> <span class="nav-text">✨ pointer-events</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%A8-transform-origin"><span class="nav-number">5.2.</span> <span class="nav-text">✨ transform-origin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%A8-transition-delay"><span class="nav-number">5.3.</span> <span class="nav-text">✨ transition-delay</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%88%E8%83%BD%E5%84%AA%E5%8C%96%E5%BB%BA%E8%AD%B0"><span class="nav-number">6.</span> <span class="nav-text">效能優化建議</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%A8-%E5%84%AA%E5%85%88%E4%BD%BF%E7%94%A8-transform-%E5%92%8C-opacity"><span class="nav-number">6.1.</span> <span class="nav-text">✨ 優先使用 transform 和 opacity</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%A8-%E4%BD%BF%E7%94%A8-will-change-%E6%8F%90%E7%A4%BA%E7%80%8F%E8%A6%BD%E5%99%A8"><span class="nav-number">6.2.</span> <span class="nav-text">✨ 使用 will-change 提示瀏覽器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%A8-%E6%B8%9B%E5%B0%91%E9%87%8D%E7%B9%AA%E7%AF%84%E5%9C%8D"><span class="nav-number">6.3.</span> <span class="nav-text">✨ 減少重繪範圍</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B5%90%E8%AA%9E"><span class="nav-number">7.</span> <span class="nav-text">結語</span></a></li></ol></div>
+          </div>
+          <!--/noindex-->
+
+          <div class="site-overview-wrap sidebar-panel">
+            <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hailey"
+      src="https://i.postimg.cc/d1YJx7jW/site-author-image.png">
+  <p class="site-author-name" itemprop="name">Hailey</p>
+  <div class="site-description" itemprop="description">專注前端開發，記錄 JavaScript 與 Vite 的實戰筆記，以及從非本科轉職工程師的成長之路。</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">標籤</span>
+      </div>
+  </nav>
+</div>
+
+          </div>
+        </div>
+      </div>
+
+      
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://hailey.tw/2026/05/24/CSS%20%E5%8B%95%E7%95%AB%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97%EF%BD%9C@keyframes%E3%80%81transform%E3%80%813D%20%E5%8B%95%E7%95%AB%E8%88%87%20JS%20%E4%BA%92%E5%8B%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://i.postimg.cc/d1YJx7jW/site-author-image.png">
+      <meta itemprop="name" content="Hailey">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hailey's Blog">
+      <meta itemprop="description" content="專注前端開發，記錄 JavaScript 與 Vite 的實戰筆記，以及從非本科轉職工程師的成長之路。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="CSS 動畫完整指南｜@keyframes、transform、3D 動畫與 JS 互動 | Hailey's Blog">
+      <meta itemprop="description" content="深入探討 CSS 動畫核心技巧，包含 @keyframes 設定、3D 透視效果 (Perspective)、JS 動畫事件監聽以及 CSS 變數在主題切換中的實戰應用。">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          CSS 動畫完整指南｜@keyframes、transform、3D 動畫與 JS 互動
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+      
+
+      <time title="創建時間：2026-05-24 22:08:44 / 修改時間：22:15:35" itemprop="dateCreated datePublished" datetime="2026-05-24T22:08:44+08:00">2026-05-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/HTML-CSS/" itemprop="url" rel="index"><span itemprop="name">HTML/CSS</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+            <div class="post-description">深入探討 CSS 動畫核心技巧，包含 @keyframes 設定、3D 透視效果 (Perspective)、JS 動畫事件監聽以及 CSS 變數在主題切換中的實戰應用。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>在現代網頁設計中，適當的動畫能提升使用者體驗並增加視覺層次感。本文將從基礎的影格動畫開始，進階到 3D 空間轉換與 JavaScript 的連動控制，協助你紮實掌握 CSS 動畫的核心。</p>
+<h2 id="核心動畫概念：-keyframes"><a href="#核心動畫概念：-keyframes" class="headerlink" title="核心動畫概念：@keyframes"></a>核心動畫概念：@keyframes</h2><p>要建立 CSS 動畫，必須先定義影格。</p>
+<h3 id="✨-基本語法與設定"><a href="#✨-基本語法與設定" class="headerlink" title="✨ 基本語法與設定"></a>✨ 基本語法與設定</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@keyframes</span> ani &#123;</span><br><span class="line">    <span class="number">0%</span> &#123;</span><br><span class="line">        <span class="attribute">transform</span>: <span class="built_in">translate</span>(<span class="number">0</span>, <span class="number">0</span>); <span class="comment">/* 起始位移 */</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="number">100%</span> &#123;</span><br><span class="line">        <span class="attribute">transform</span>: <span class="built_in">translate</span>(<span class="number">100px</span>, <span class="number">0</span>); <span class="comment">/* 結束位移 */</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.ani</span> &#123;</span><br><span class="line">    <span class="comment">/* 縮寫法：名稱 | 時長 | 填充模式 | 重複次數 */</span></span><br><span class="line">    <span class="attribute">animation</span>: ani <span class="number">3s</span> forwards <span class="number">3</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/* 也可以分開寫，方便閱讀： */</span></span><br><span class="line">    <span class="attribute">animation-iteration-count</span>: infinite; <span class="comment">/* infinite 為無限次循環 */</span></span><br><span class="line">    <span class="attribute">animation-fill-mode</span>: forwards;       <span class="comment">/* 動畫結束後定格在最後一格 */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>⚠️ 注意：不建議將動畫直接綁在 <code>:hover</code> 上，因為當滑鼠移開時動畫會立即中斷，建議透過 Class 切換或 JS 來控制。</p>
+<h3 id="✨-Transform-屬性的合併與順序"><a href="#✨-Transform-屬性的合併與順序" class="headerlink" title="✨ Transform 屬性的合併與順序"></a>✨ Transform 屬性的合併與順序</h3><p><strong>重要觀念</strong>：同一個元素的 transform 會互相覆蓋，因此多個變形效果必須寫在同一個 transform 中，且 <strong>順序會影響結果</strong>。</p>
+<p><strong>範例：順序的差異</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 先位移再旋轉 */</span></span><br><span class="line"><span class="attribute">transform</span>: <span class="built_in">translate</span>(<span class="number">100px</span>, <span class="number">0</span>) <span class="built_in">rotate</span>(<span class="number">45deg</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 先旋轉再位移（結果完全不同！）*/</span></span><br><span class="line"><span class="attribute">transform</span>: <span class="built_in">rotate</span>(<span class="number">45deg</span>) <span class="built_in">translate</span>(<span class="number">100px</span>, <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+
+<p><strong>範例：合併的寫法</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@keyframes</span> ani &#123;</span><br><span class="line">    <span class="number">0%</span> &#123;</span><br><span class="line">        <span class="comment">/* 正確寫法：合併在同一個 transform 中 */</span></span><br><span class="line">        <span class="attribute">transform</span>: <span class="built_in">translate</span>(<span class="number">0</span>, <span class="number">0</span>) <span class="built_in">rotate</span>(<span class="number">360deg</span>); <span class="comment">/* 位移 + 旋轉 */</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="number">100%</span> &#123;</span><br><span class="line">        <span class="attribute">transform</span>: translate (<span class="number">100px</span>, <span class="number">0</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="Transform-3D：開啟空間感"><a href="#Transform-3D：開啟空間感" class="headerlink" title="Transform 3D：開啟空間感"></a>Transform 3D：開啟空間感</h2><p>要在網頁中呈現 3D 效果，必須先建立「透視感」。</p>
+<ol>
+<li><p><strong>使用前的必要結構</strong>：3D 效果必須由父層定義透視範圍，子層定義 3D 渲染模式。</p>
+ <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 父層：建立透視空間 */</span></span><br><span class="line"><span class="selector-class">.perspective-wrapper</span> &#123;</span><br><span class="line">    <span class="attribute">perspective</span>: <span class="number">500px</span>; <span class="comment">/* 數值越小，透視感越強烈，常見值為 500px-1000px */</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 子元素：開啟 3D 渲染 */</span></span><br><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">    <span class="attribute">transform-style</span>: preserve-<span class="number">3</span>d; </span><br><span class="line">    <span class="attribute">transform</span>: <span class="built_in">rotateY</span>(<span class="number">45deg</span>) <span class="built_in">translateZ</span>(<span class="number">50px</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>常見 3D 屬性</strong></p>
+<ul>
+<li>translateZ：前後位移（Z 軸）。</li>
+<li>rotateX &#x2F; rotateY &#x2F; rotateZ：繞著不同軸向旋轉，產生 3D 翻轉效果。</li>
+<li>scaleZ：在 Z 軸方向上的縮放。</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>參考範例：<a target="_blank" rel="noopener" href="https://www.casper.tw/WorkShop-gh-pages/css3d/">https://www.casper.tw/WorkShop-gh-pages/css3d/</a></p>
+</blockquote>
+<hr>
+<h2 id="進階實戰技巧"><a href="#進階實戰技巧" class="headerlink" title="進階實戰技巧"></a>進階實戰技巧</h2><ol>
+<li><p><strong>運用選擇器與時間差</strong>：利用 <code>:nth-child</code> 搭配 <code>transition-delay</code> 可以做出扇形展開或波浪式的動畫效果。</p>
+ <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 當父層 hover 時，指定第二個子元素旋轉 */</span></span><br><span class="line"><span class="selector-class">.poker-group</span><span class="selector-pseudo">:hover</span> <span class="selector-class">.poker</span><span class="selector-pseudo">:nth-child</span>(<span class="number">2</span>) &#123;</span><br><span class="line">    <span class="attribute">transform</span>: <span class="built_in">rotate</span>(<span class="number">15deg</span>);</span><br><span class="line">    <span class="attribute">transition-delay</span>: <span class="number">0.1s</span>; <span class="comment">/* 加入時間差 */</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 調整旋轉中心點 (x 軸, y 軸) */</span></span><br><span class="line"><span class="selector-class">.poker</span> &#123;</span><br><span class="line">    <span class="attribute">transform-origin</span>: <span class="number">0</span> <span class="number">100%</span>; <span class="comment">/* 以左下角為中心旋轉 */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>使用 JavaScript 監聽動畫事件</strong>：利用 animationend 事件，可以在動畫徹底結束後執行特定動作（如移除 Class 或轉址）。</p>
+ <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> box = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;#btn1&#x27;</span>);</span><br><span class="line"></span><br><span class="line">box.<span class="title function_">addEventListener</span>(<span class="string">&#x27;click&#x27;</span>, <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">classList</span>.<span class="title function_">add</span>(<span class="string">&#x27;ani-1&#x27;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 監聽動畫結束事件</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="title function_">addEventListener</span>(<span class="string">&#x27;animationend&#x27;</span>, <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">classList</span>.<span class="title function_">remove</span>(<span class="string">&#x27;ani-1&#x27;</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;動畫已完成並成功移除 Class&#x27;</span>);</span><br><span class="line">    &#125;, &#123; <span class="attr">once</span>: <span class="literal">true</span> &#125;); <span class="comment">// 使用 once: true 確保監聽器只執行一次</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>純 CSS 動畫觸發</strong>：利用隱藏的 checkbox 與相鄰選取器，可以用純 CSS 製作開關式的動畫（無需 JavaScript）。</p>
+ <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="selector-id">#checkbox</span> &#123; <span class="attribute">display</span>: none; &#125;</span></span><br><span class="line"><span class="language-css">    </span></span><br><span class="line"><span class="language-css">    <span class="comment">/* 運用 ~ 選取同層級後方所有元素 */</span></span></span><br><span class="line"><span class="language-css">    <span class="selector-id">#checkbox</span><span class="selector-pseudo">:checked</span> ~ <span class="selector-class">.box</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">animation</span>: rotate <span class="number">1s</span> linear infinite;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">id</span>=<span class="string">&quot;checkbox&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span>=<span class="string">&quot;box&quot;</span> <span class="attr">for</span>=<span class="string">&quot;checkbox&quot;</span>&gt;</span>點我觸發動畫<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br></pre></td></tr></table></figure>
+ <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 改成 + 的話就是相鄰選取器：前面的完成後，後面的 .box 就會執行 css 內容 */</span></span><br><span class="line">    <span class="selector-id">#checkbox</span><span class="selector-pseudo">:checked</span> + <span class="selector-class">.box</span> &#123;</span><br><span class="line">        <span class="attribute">animation</span>: rotate <span class="number">1s</span> linear infinite;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<hr>
+<h2 id="CSS-變數應用-Variables"><a href="#CSS-變數應用-Variables" class="headerlink" title="CSS 變數應用 (Variables)"></a>CSS 變數應用 (Variables)</h2><p>以下列範例來說，CSS 變數 (–variable-name) 能極大化程式碼的複用性，它不需要修改 box 的結構，而是用修改變數的方式去更改 box 的背景色跟文字顏色，特別適合用在 深色模式 (Dark Mode) 的切換。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="selector-pseudo">:root</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="comment">/* 全域變數定義 */</span></span></span><br><span class="line"><span class="language-css">        <span class="attr">--bg-color</span>: <span class="number">#ffffff</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attr">--text-color</span>: <span class="number">#000000</span>;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="selector-class">.box</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">background</span>: <span class="built_in">var</span>(--bg-color);</span></span><br><span class="line"><span class="language-css">        <span class="attribute">color</span>: <span class="built_in">var</span>(--text-color);</span></span><br><span class="line"><span class="language-css">        <span class="attribute">transition</span>: <span class="number">0.3s</span>;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="comment">/* 當父層有 .dark-theme 時，覆蓋變數值 */</span></span></span><br><span class="line"><span class="language-css">    <span class="selector-class">.dark-theme</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attr">--bg-color</span>: <span class="number">#1a1a1a</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attr">--text-color</span>: <span class="number">#ffffff</span>;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box&quot;</span>&gt;</span>淺色模式<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;dark-theme&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box&quot;</span>&gt;</span>深色模式<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- JavaScript 切換範例 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">onclick</span>=<span class="string">&quot;document.body.classList.toggle(&#x27;dark-theme&#x27;)&quot;</span>&gt;</span></span><br><span class="line">    切換主題</span><br><span class="line"><span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="補充：常用屬性速查"><a href="#補充：常用屬性速查" class="headerlink" title="補充：常用屬性速查"></a>補充：常用屬性速查</h2><h3 id="✨-pointer-events"><a href="#✨-pointer-events" class="headerlink" title="✨ pointer-events"></a>✨ <code>pointer-events</code></h3><p>控制元素是否響應滑鼠事件（常用於動畫期間禁用互動）</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.element</span> &#123;</span><br><span class="line">    <span class="attribute">pointer-events</span>: none;  <span class="comment">/* 禁用所有滑鼠事件 */</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.element</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">    <span class="attribute">pointer-events</span>: auto;  <span class="comment">/* 恢復滑鼠事件 */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="✨-transform-origin"><a href="#✨-transform-origin" class="headerlink" title="✨ transform-origin"></a>✨ <code>transform-origin</code></h3><p>設定變換的中心點（預設為元素中心 <code>50% 50%</code>）</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.card</span> &#123;</span><br><span class="line">    <span class="attribute">transform-origin</span>: <span class="number">0</span> <span class="number">100%</span>;  <span class="comment">/* 以左下角為中心旋轉 */</span></span><br><span class="line">    <span class="comment">/* x軸 y軸，可用像素或百分比 */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="✨-transition-delay"><a href="#✨-transition-delay" class="headerlink" title="✨ transition-delay"></a>✨ <code>transition-delay</code></h3><p>為過渡效果加入延遲時間（常用於製作波浪或序列動畫）</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.item</span><span class="selector-pseudo">:nth-child</span>(<span class="number">1</span>) &#123; <span class="attribute">transition-delay</span>: <span class="number">0s</span>; &#125;</span><br><span class="line"><span class="selector-class">.item</span><span class="selector-pseudo">:nth-child</span>(<span class="number">2</span>) &#123; <span class="attribute">transition-delay</span>: <span class="number">0.1s</span>; &#125;</span><br><span class="line"><span class="selector-class">.item</span><span class="selector-pseudo">:nth-child</span>(<span class="number">3</span>) &#123; <span class="attribute">transition-delay</span>: <span class="number">0.2s</span>; &#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="效能優化建議"><a href="#效能優化建議" class="headerlink" title="效能優化建議"></a>效能優化建議</h2><h3 id="✨-優先使用-transform-和-opacity"><a href="#✨-優先使用-transform-和-opacity" class="headerlink" title="✨ 優先使用 transform 和 opacity"></a>✨ 優先使用 <code>transform</code> 和 <code>opacity</code></h3><p>這兩個屬性會觸發 GPU 加速，效能最佳：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* ✅ 推薦：使用 transform */</span></span><br><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">    <span class="attribute">transform</span>: <span class="built_in">translateX</span>(<span class="number">100px</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* ❌ 避免：使用 left/top（會觸發重排） */</span></span><br><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">    <span class="attribute">left</span>: <span class="number">100px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="✨-使用-will-change-提示瀏覽器"><a href="#✨-使用-will-change-提示瀏覽器" class="headerlink" title="✨ 使用 will-change 提示瀏覽器"></a>✨ 使用 <code>will-change</code> 提示瀏覽器</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.animated-element</span> &#123;</span><br><span class="line">    <span class="attribute">will-change</span>: transform, opacity;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 動畫結束後記得移除 */</span></span><br><span class="line"><span class="selector-class">.animated-element</span><span class="selector-class">.done</span> &#123;</span><br><span class="line">    <span class="attribute">will-change</span>: auto;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="✨-減少重繪範圍"><a href="#✨-減少重繪範圍" class="headerlink" title="✨ 減少重繪範圍"></a>✨ 減少重繪範圍</h3><p>使用 <code>contain</code> 屬性限制重繪範圍：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.animation-container</span> &#123;</span><br><span class="line">    <span class="attribute">contain</span>: layout style paint;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="結語"><a href="#結語" class="headerlink" title="結語"></a>結語</h2><p>CSS 動畫不只是視覺上的點綴，更是引導使用者視覺焦點的重要工具。從基礎的 @keyframes 到強大的 3D 轉換，掌握這些技巧能讓你的網頁從平面轉向立體，並透過 CSS 變數讓樣式維護變得更輕鬆。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+  
+  <section class="related-cards">
+    <h3 class="related-cards__title">
+      <i class="fa-solid fa-square-poll-horizontal"></i>相關文章
+    </h3>
+    <div class="related-cards__grid">
+      
+        
+      
+        
+          
+          
+            
+              
+            
+          
+          
+            
+            <a class="related-cards__item" href="/2026/05/02/HTML%20%E8%AA%9E%E6%84%8F%E5%8C%96%E6%A8%99%E7%B1%A4%E6%80%8E%E9%BA%BC%E7%94%A8%EF%BC%9F%E6%96%B0%E6%89%8B%E6%9C%80%E5%B8%B8%E6%90%9E%E9%8C%AF%E7%9A%84%205%20%E5%80%8B%E5%9C%B0%E6%96%B9/">
+              <span class="related-cards__item-title">HTML 語意化標籤怎麼用？新手最常搞錯的 5 個地方</span>
+              <span class="related-cards__item-date">
+                <i class="far fa-calendar-alt"></i>
+                2026-05-02
+              </span>
+            </a>
+          
+        
+      
+        
+          
+          
+            
+              
+            
+          
+          
+            
+            <a class="related-cards__item" href="/2026/05/11/CSS%20%E5%AE%B9%E5%99%A8%E8%88%87%E5%85%A7%E5%AE%B9%E5%88%86%E9%9B%A2%EF%BC%9AFlexbox%20%E5%A4%9A%E6%AC%84%E6%8E%92%E7%89%88%E8%88%87%20gutter%20%E9%96%93%E8%B7%9D%E5%AF%A6%E4%BD%9C/">
+              <span class="related-cards__item-title">CSS 容器與內容分離：Flexbox 多欄排版與 gutter 間距實作</span>
+              <span class="related-cards__item-date">
+                <i class="far fa-calendar-alt"></i>
+                2026-05-11
+              </span>
+            </a>
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+              
+            
+          
+          
+            
+            <a class="related-cards__item" href="/2026/05/13/HTML%20Form%20%E8%A1%A8%E5%96%AE%E5%AE%8C%E6%95%B4%E6%95%99%E5%AD%B8%EF%BC%9AInput%E3%80%81Label%E3%80%81Button%20%E8%88%87%20CSS%20%E6%A8%A3%E5%BC%8F%E6%95%B4%E7%90%86/">
+              <span class="related-cards__item-title">HTML Form 表單完整教學：Input、Label、Button 與 CSS 樣式整理</span>
+              <span class="related-cards__item-date">
+                <i class="far fa-calendar-alt"></i>
+                2026-05-13
+              </span>
+            </a>
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+              
+            
+          
+          
+            
+            <a class="related-cards__item" href="/2026/05/06/css%20%E5%85%A5%E9%96%80%E5%9F%BA%E7%A4%8E/">
+              <span class="related-cards__item-title">css 入門基礎</span>
+              <span class="related-cards__item-date">
+                <i class="far fa-calendar-alt"></i>
+                2026-05-06
+              </span>
+            </a>
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="share-article-section">
+      <div class="share-article-heading">
+        <i class="fa-solid fa-share-nodes share-article-icon" aria-hidden="true"></i>
+        <span>分享這篇文章</span>
+      </div>
+      <div class="share-article-buttons"
+           data-share-url="https://hailey.tw/2026/05/24/CSS%20%E5%8B%95%E7%95%AB%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97%EF%BD%9C@keyframes%E3%80%81transform%E3%80%813D%20%E5%8B%95%E7%95%AB%E8%88%87%20JS%20%E4%BA%92%E5%8B%95/"
+           data-share-title="CSS 動畫完整指南｜@keyframes、transform、3D 動畫與 JS 互動">
+        <a href="#"
+           role="button"
+           class="share-article-btn"
+           data-platform="twitter">
+          <i class="fab fa-twitter"></i><span>Twitter</span>
+        </a>
+        <a href="#"
+           role="button"
+           class="share-article-btn"
+           data-platform="facebook">
+          <i class="fab fa-facebook"></i><span>Facebook</span>
+        </a>
+        <a href="#"
+           role="button"
+           class="share-article-btn"
+           data-platform="linkedin">
+          <i class="fab fa-linkedin"></i><span>LinkedIn</span>
+        </a>
+        <button type="button" class="share-article-btn" data-copy>
+          <i class="fa-regular fa-copy"></i><span>複製連結</span>
+        </button>
+      </div>
+    </div>
+  </section>
+  <style>
+    /* 讓 post-footer 變成可排序容器 */
+    .post-footer {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* 上一篇/下一篇 */
+    .post-footer .post-nav {
+      order: 20;
+    }
+
+    /* 你的相關文章區塊 */
+    .post-footer .related-cards {
+      order: 30;
+    }
+
+    /* 你的分享區塊（如果也要在 related 下方） */
+    .post-footer .share-article-section {
+      order: 40;
+    }
+    .related-cards {
+      margin: 2.25rem 0 1rem;
+    }
+
+    .related-cards__title {
+      margin-bottom: 12px;
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+
+    .related-cards__title i {
+        color: #22d3ee;
+        margin-right: 6px;
+    }
+
+    .related-cards__grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .related-cards__item {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 16px;
+      --tw-border-opacity: 1;
+      border: 1px solid rgb(82 82 91 / var(--tw-border-opacity, 1));
+      border-radius: 12px;
+      background: #4c4c5180;
+      color: #f5f7fa;
+      text-decoration: none;
+      transition: transform .18s ease, border-color .18s ease;
+    }
+
+    .related-cards__item:hover {
+      transform: translateY(-2px);
+      border-color: #22d3ee;
+      color: #22d3ee;
+    }
+
+    .related-cards__item-title {
+      font-size: 1rem;
+      line-height: 1.35;
+      font-weight: 600;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+
+    .related-cards__item-date {
+      margin-top: 10px;
+      font-size: .88rem;
+      color: #c5cad3;
+    }
+
+    @media (max-width: 1100px) {
+      .related-cards__grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .related-cards__grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* AddToAny */
+
+    /* 第一顆 AddToAny 主按鈕常太醜，直接隱藏 */
+    .post-footer .social-like .a2a_dd {
+    display: none;
+    }
+
+    .share-article-section { 
+      margin: 2rem 0 1rem; 
+      padding-top: 1.25rem; 
+    }
+    .share-article-heading { 
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .share-article-icon { 
+      color: #2dd4bf;
+      font-size: 1.25rem;
+    }
+    .share-article-buttons { 
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .share-article-btn {
+        display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px;
+        border: 1px solid rgb(82 82 91 / var(--tw-border-opacity, 1));
+        border-radius: 10px;
+        background: #4c4c5180;
+        color: inherit;
+        cursor: pointer;
+        text-decoration: none;
+        font: inherit;
+        transition: transform .18s ease, border-color .18s ease;
+    }
+    .share-article-btn:hover { border-color: #22d3ee;
+        transform: translateY(-2px); 
+    }
+  </style>
+  <script>
+  (function () {
+    var root = document.querySelector('.share-article-buttons');
+    if (!root || root.dataset.bound) return;
+    root.dataset.bound = '1';
+    var url = root.dataset.shareUrl || '';
+    var title = root.dataset.shareTitle || '';
+    var encUrl = encodeURIComponent(url);
+    var encTitle = encodeURIComponent(title);
+    var urls = {
+      twitter: 'https://twitter.com/intent/tweet?url=' + encUrl + '&text=' + encTitle,
+      facebook: 'https://www.facebook.com/sharer/sharer.php?u=' + encUrl,
+      linkedin: 'https://www.linkedin.com/sharing/share-offsite/?url=' + encUrl
+    };
+    root.querySelectorAll('[data-platform]').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        var p = btn.dataset.platform;
+        window.open(urls[p], '_blank', 'noopener,noreferrer');
+      });
+    });
+    var btnCopy = root.querySelector('[data-copy]');
+    if (btnCopy) {
+      btnCopy.addEventListener('click', function () {
+        navigator.clipboard.writeText(url).then(function () {
+          btnCopy.querySelector('span').textContent = '已複製';
+          setTimeout(function () { btnCopy.querySelector('span').textContent = '複製連結'; }, 2000);
+        });
+      });
+    }
+  })();
+  </script>
+
+
+          <div class="post-tags">
+              <a href="/tags/HTML-CSS/" rel="tag"># HTML/CSS</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/05/23/JavaScript%20Expression%20vs%20Statement%20%E6%98%AF%E4%BB%80%E9%BA%BC%EF%BC%9F%E5%87%BD%E5%BC%8F%E9%99%B3%E8%BF%B0%E5%BC%8F%E8%88%87%E5%87%BD%E5%BC%8F%E8%A1%A8%E9%81%94%E5%BC%8F%E5%AE%8C%E6%95%B4%E8%A7%A3%E6%9E%90/" rel="prev" title="JavaScript Expression vs Statement 是什麼？函式陳述式與函式表達式完整解析">
+                  <i class="fa fa-angle-left"></i> JavaScript Expression vs Statement 是什麼？函式陳述式與函式表達式完整解析
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div><aside class="column-recent-posts" aria-label="最新文章">
+  <div class="recent-rail-inner">
+    <h3 class="recent-rail-title">
+      <i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i>
+      <span>最新文章</span>
+    </h3>
+    <ol class="recent-rail-list">
+      
+        <li class="recent-rail-item">
+          <a class="recent-rail-link" href="/2026/05/24/CSS%20%E5%8B%95%E7%95%AB%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97%EF%BD%9C@keyframes%E3%80%81transform%E3%80%813D%20%E5%8B%95%E7%95%AB%E8%88%87%20JS%20%E4%BA%92%E5%8B%95/">
+            <span class="recent-rail-item-title">CSS 動畫完整指南｜@keyframes、transform、3D 動畫與 JS 互動</span>
+            <span class="recent-rail-item-date">05/24</span>
+          </a>
+        </li>
+      
+        <li class="recent-rail-item">
+          <a class="recent-rail-link" href="/2026/05/23/JavaScript%20Expression%20vs%20Statement%20%E6%98%AF%E4%BB%80%E9%BA%BC%EF%BC%9F%E5%87%BD%E5%BC%8F%E9%99%B3%E8%BF%B0%E5%BC%8F%E8%88%87%E5%87%BD%E5%BC%8F%E8%A1%A8%E9%81%94%E5%BC%8F%E5%AE%8C%E6%95%B4%E8%A7%A3%E6%9E%90/">
+            <span class="recent-rail-item-title">JavaScript Expression vs Statement 是什麼？函式陳述式與函式表達式完整解析</span>
+            <span class="recent-rail-item-date">05/23</span>
+          </a>
+        </li>
+      
+        <li class="recent-rail-item">
+          <a class="recent-rail-link" href="/2026/05/22/JavaScript%20%E6%AF%94%E8%BC%83%E8%88%87%E9%82%8F%E8%BC%AF%E9%81%8B%E7%AE%97%E5%AD%90%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97%EF%BD%9Cif%20else%20%E8%88%87%E4%B8%89%E5%85%83%E9%81%8B%E7%AE%97%E5%AD%90%E4%B8%80%E6%AC%A1%E6%90%9E%E6%87%82/">
+            <span class="recent-rail-item-title">JavaScript 比較與邏輯運算子完整指南｜if else 與三元運算子一次搞懂</span>
+            <span class="recent-rail-item-date">05/22</span>
+          </a>
+        </li>
+      
+        <li class="recent-rail-item">
+          <a class="recent-rail-link" href="/2026/05/21/JavaScript%20%E5%9F%BA%E7%A4%8E%E5%9E%8B%E5%88%A5%E5%85%A8%E6%94%BB%E7%95%A5%EF%BD%9C%E6%95%B8%E5%AD%97%E3%80%81%E5%AD%97%E4%B8%B2%E3%80%81%E9%99%A3%E5%88%97%E3%80%81%E7%89%A9%E4%BB%B6%E3%80%81%E4%BD%9C%E7%94%A8%E5%9F%9F%E8%88%87%E6%8F%90%E5%8D%87%E4%B8%80%E6%AC%A1%E6%90%9E%E6%87%82/">
+            <span class="recent-rail-item-title">JavaScript 基礎型別全攻略｜數字、字串、陣列、物件、作用域與提升一次搞懂</span>
+            <span class="recent-rail-item-date">05/21</span>
+          </a>
+        </li>
+      
+        <li class="recent-rail-item">
+          <a class="recent-rail-link" href="/2026/05/20/JavaScript%20%E8%AE%8A%E6%95%B8%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97%EF%BD%9Clet%E3%80%81const%E3%80%81var%20%E5%B7%AE%E7%95%B0%E8%88%87%E5%91%BD%E5%90%8D%E8%A6%8F%E5%89%87%E4%B8%80%E6%AC%A1%E6%90%9E%E6%87%82/">
+            <span class="recent-rail-item-title">JavaScript 變數完全指南｜let、const、var 差異與命名規則一次搞懂</span>
+            <span class="recent-rail-item-date">05/20</span>
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</aside>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class=""></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Hailey. All rights reserved.<br>Built with Hexo & Theme NexT</span>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"Hailey-1025/blog-comments","issue_term":"pathname","label":"comment","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js" defer></script>
+
+<script>
+(function () {
+  var mq = window.matchMedia('(max-width: 991px)');
+  var btn = document.querySelector('.site-nav-toggle .toggle');
+  var sidebarBtn = document.querySelector('.sidebar-toggle');
+  var siteNav = document.querySelector('.header .site-nav');
+  if (!btn || !sidebarBtn) return;
+
+  function collapseHeaderNavDropdown() {
+    document.body.classList.remove('site-nav-on');
+    if (siteNav) siteNav.style.removeProperty('--scroll-height');
+  }
+
+  btn.addEventListener('click', function (e) {
+    if (!mq.matches) return;
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    collapseHeaderNavDropdown();
+    sidebarBtn.click();
+  }, true);
+
+  new MutationObserver(function () {
+    if (!mq.matches) return;
+    var open = document.body.classList.contains('sidebar-active');
+    btn.classList.toggle('toggle-close', open);
+  }).observe(document.body, { attributes: true, attributeFilter: ['class'] });
+
+  mq.addEventListener('change', function () {
+    if (!mq.matches) {
+      btn.classList.remove('toggle-close');
+      collapseHeaderNavDropdown();
+      document.body.classList.remove('mobile-header-scrolled-down');
+    }
+  });
+
+  var lastY = window.scrollY || 0;
+  var ticking = false;
+
+  function updateMobileHeaderOnScroll() {
+    ticking = false;
+    if (!mq.matches) return;
+    var currentY = window.scrollY || 0;
+    var scrollingDown = currentY > lastY;
+    var passedTop = currentY > 10;
+    document.body.classList.toggle('mobile-header-scrolled-down', scrollingDown && passedTop);
+    lastY = currentY;
+  }
+
+  window.addEventListener('scroll', function () {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(updateMobileHeaderOnScroll);
+  }, { passive: true });
+})();
+</script>
+
+</body>
+</html>
