@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"hailey.tw","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":true,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"找到 ${hits} 個搜索結果（用時 ${time} 毫秒）","hits":"找到 ${hits} 個搜索結果"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="完整的 CSS 進階實戰指南！深入解析 CSS 變數（Custom Properties）的全域與區域應用、FlexBox 與卡片設計模式、圖片樣式重置技巧，以及預設樣式的最佳實踐。搭配實戰範例，讓你的 CSS 程式碼更具維護性與擴展性。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS 進階實戰指南：變數、容器設計與樣式重置">
+<meta property="og:url" content="https://hailey.tw/2026/05/25/CSS%20%E9%80%B2%E9%9A%8E%E5%AF%A6%E6%88%B0%E6%8C%87%E5%8D%97%EF%BC%9A%E8%AE%8A%E6%95%B8%E3%80%81%E5%AE%B9%E5%99%A8%E8%A8%AD%E8%A8%88%E8%88%87%E6%A8%A3%E5%BC%8F%E9%87%8D%E7%BD%AE/index.html">
+<meta property="og:site_name" content="Hailey&#39;s Blog">
+<meta property="og:description" content="完整的 CSS 進階實戰指南！深入解析 CSS 變數（Custom Properties）的全域與區域應用、FlexBox 與卡片設計模式、圖片樣式重置技巧，以及預設樣式的最佳實踐。搭配實戰範例，讓你的 CSS 程式碼更具維護性與擴展性。">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.postimg.cc/Sx8Bm16G/padding-X.png">
+<meta property="article:published_time" content="2026-05-25T00:18:48.000Z">
+<meta property="article:modified_time" content="2026-05-25T00:52:14.216Z">
+<meta property="article:author" content="Hailey">
+<meta property="article:tag" content="HTML&#x2F;CSS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.postimg.cc/Sx8Bm16G/padding-X.png">
+
+
+<link rel="canonical" href="https://hailey.tw/2026/05/25/CSS%20%E9%80%B2%E9%9A%8E%E5%AF%A6%E6%88%B0%E6%8C%87%E5%8D%97%EF%BC%9A%E8%AE%8A%E6%95%B8%E3%80%81%E5%AE%B9%E5%99%A8%E8%A8%AD%E8%A8%88%E8%88%87%E6%A8%A3%E5%BC%8F%E9%87%8D%E7%BD%AE/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://hailey.tw/2026/05/25/CSS%20%E9%80%B2%E9%9A%8E%E5%AF%A6%E6%88%B0%E6%8C%87%E5%8D%97%EF%BC%9A%E8%AE%8A%E6%95%B8%E3%80%81%E5%AE%B9%E5%99%A8%E8%A8%AD%E8%A8%88%E8%88%87%E6%A8%A3%E5%BC%8F%E9%87%8D%E7%BD%AE/","path":"2026/05/25/CSS 進階實戰指南：變數、容器設計與樣式重置/","title":"CSS 進階實戰指南：變數、容器設計與樣式重置"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>CSS 進階實戰指南：變數、容器設計與樣式重置 | Hailey's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8W8PTGBYMG"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-8W8PTGBYMG","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js" defer></script>
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="Hailey's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main main--recent-rail">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hailey's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Stressed spelled backwards is desserts.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜尋" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>關於</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜尋..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+    <div class="sidebar-mobile-focus">
+      <div class="site-meta site-meta--drawer">
+
+        <a href="/" class="brand" rel="start">
+          <i class="logo-line"></i>
+          <p class="site-title">Hailey's Blog</p>
+          <i class="logo-line"></i>
+        </a>
+          <p class="site-subtitle" itemprop="description">Stressed spelled backwards is desserts.</p>
+      </div>
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>關於</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+    </div>
+
+    <div class="sidebar-desktop-stack">
+
+      <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+        <ul class="sidebar-nav">
+          <li class="sidebar-nav-toc">
+            文章目錄
+          </li>
+          <li class="sidebar-nav-overview">
+            本站概要
+          </li>
+        </ul>
+
+        <div class="sidebar-panel-container">
+          <!--noindex-->
+          <div class="post-toc-wrap sidebar-panel">
+              <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#CSS-Variables%EF%BC%88CSS-%E8%87%AA%E8%A8%82%E5%B1%AC%E6%80%A7%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">CSS Variables（CSS 自訂屬性）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%A8%E5%9F%9F%E8%AE%8A%E6%95%B8%E7%9A%84%E5%AE%9A%E7%BE%A9%E8%88%87%E4%BD%BF%E7%94%A8"><span class="nav-number">1.1.</span> <span class="nav-text">全域變數的定義與使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%80%E5%9F%9F%E8%AE%8A%E6%95%B8%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="nav-number">1.2.</span> <span class="nav-text">區域變數的作用域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A5%97%E7%94%A8-Bootstrap-%E8%AE%8A%E6%95%B8"><span class="nav-number">1.3.</span> <span class="nav-text">套用 Bootstrap 變數</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSS-%E8%AE%8A%E6%95%B8%E7%9A%84%E9%80%B2%E9%9A%8E%E6%87%89%E7%94%A8"><span class="nav-number">1.4.</span> <span class="nav-text">CSS 變數的進階應用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%96%E5%B1%A4%E5%AE%B9%E5%99%A8%E8%A8%AD%E8%A8%88%E6%A8%A1%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">外層容器設計模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Container-%E5%AE%B9%E5%99%A8%E7%9A%84%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="nav-number">2.1.</span> <span class="nav-text">Container 容器的核心概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E9%9B%A2%E9%97%9C%E6%B3%A8%E9%BB%9E%EF%BC%9A%E5%AE%B9%E5%99%A8-vs-%E4%BD%88%E5%B1%80"><span class="nav-number">2.2.</span> <span class="nav-text">分離關注點：容器 vs 佈局</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%A1%E7%89%87%E6%9E%B6%E6%A7%8B%E8%88%87-Flexbox-%E4%BD%88%E5%B1%80"><span class="nav-number">3.</span> <span class="nav-text">卡片架構與 Flexbox 佈局</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%8D%A1%E7%89%87%E4%BD%88%E5%B1%80%E7%B5%90%E6%A7%8B"><span class="nav-number">3.1.</span> <span class="nav-text">基本卡片佈局結構</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-Flexbox-%E5%AF%A6%E7%8F%BE%E9%9F%BF%E6%87%89%E5%BC%8F%E5%8D%A1%E7%89%87"><span class="nav-number">3.2.</span> <span class="nav-text">使用 Flexbox 實現響應式卡片</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%82%BA%E4%BB%80%E9%BA%BC%E4%BD%BF%E7%94%A8%E7%99%BE%E5%88%86%E6%AF%94%E5%AF%AC%E5%BA%A6%EF%BC%9F"><span class="nav-number">3.3.</span> <span class="nav-text">為什麼使用百分比寬度？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8F%BE%E4%BB%A3%E6%96%B9%E6%A1%88%EF%BC%9A%E4%BD%BF%E7%94%A8-gap-%E5%B1%AC%E6%80%A7"><span class="nav-number">3.4.</span> <span class="nav-text">現代方案：使用 gap 屬性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9F%BF%E6%87%89%E5%BC%8F%E5%8D%A1%E7%89%87%E4%BD%88%E5%B1%80"><span class="nav-number">3.5.</span> <span class="nav-text">響應式卡片佈局</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A0%90%E8%A8%AD%E6%A8%A3%E5%BC%8F%E8%88%87%E9%87%8D%E7%BD%AE%E6%8A%80%E5%B7%A7"><span class="nav-number">4.</span> <span class="nav-text">預設樣式與重置技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%96%E7%89%87%E9%87%8D%E7%BD%AE%EF%BC%88Image-Reset%EF%BC%89"><span class="nav-number">4.1.</span> <span class="nav-text">圖片重置（Image Reset）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Body-%E9%A0%90%E8%A8%AD%E6%A8%A3%E5%BC%8F"><span class="nav-number">4.2.</span> <span class="nav-text">Body 預設樣式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%8C%E6%95%B4%E7%9A%84-CSS-Reset-%E8%88%87-Base-Style"><span class="nav-number">4.3.</span> <span class="nav-text">完整的 CSS Reset 與 Base Style</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E7%94%A8%E8%A7%80%E5%BF%B5%E8%A3%9C%E5%85%85"><span class="nav-number">4.4.</span> <span class="nav-text">通用觀念補充</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Opacity-%E5%B1%AC%E6%80%A7"><span class="nav-number">4.4.1.</span> <span class="nav-text">Opacity 屬性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%82%BA%E4%BB%80%E9%BA%BC%E8%A6%81%E8%A8%AD%E5%AE%9A-font-size-16px%EF%BC%9F"><span class="nav-number">4.4.2.</span> <span class="nav-text">為什麼要設定 font-size: 16px？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B8%BD%E7%B5%90"><span class="nav-number">5.</span> <span class="nav-text">總結</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BB%B6%E4%BC%B8%E5%AD%B8%E7%BF%92%E8%B3%87%E6%BA%90"><span class="nav-number">5.1.</span> <span class="nav-text">延伸學習資源</span></a></li></ol></li></ol></div>
+          </div>
+          <!--/noindex-->
+
+          <div class="site-overview-wrap sidebar-panel">
+            <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hailey"
+      src="https://i.postimg.cc/d1YJx7jW/site-author-image.png">
+  <p class="site-author-name" itemprop="name">Hailey</p>
+  <div class="site-description" itemprop="description">專注前端開發，記錄 JavaScript 與 Vite 的實戰筆記，以及從非本科轉職工程師的成長之路。</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">標籤</span>
+      </div>
+  </nav>
+</div>
+
+          </div>
+        </div>
+      </div>
+
+      
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://hailey.tw/2026/05/25/CSS%20%E9%80%B2%E9%9A%8E%E5%AF%A6%E6%88%B0%E6%8C%87%E5%8D%97%EF%BC%9A%E8%AE%8A%E6%95%B8%E3%80%81%E5%AE%B9%E5%99%A8%E8%A8%AD%E8%A8%88%E8%88%87%E6%A8%A3%E5%BC%8F%E9%87%8D%E7%BD%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://i.postimg.cc/d1YJx7jW/site-author-image.png">
+      <meta itemprop="name" content="Hailey">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hailey's Blog">
+      <meta itemprop="description" content="專注前端開發，記錄 JavaScript 與 Vite 的實戰筆記，以及從非本科轉職工程師的成長之路。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="CSS 進階實戰指南：變數、容器設計與樣式重置 | Hailey's Blog">
+      <meta itemprop="description" content="完整的 CSS 進階實戰指南！深入解析 CSS 變數（Custom Properties）的全域與區域應用、FlexBox 與卡片設計模式、圖片樣式重置技巧，以及預設樣式的最佳實踐。搭配實戰範例，讓你的 CSS 程式碼更具維護性與擴展性。">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          CSS 進階實戰指南：變數、容器設計與樣式重置
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+      
+
+      <time title="創建時間：2026-05-25 08:18:48 / 修改時間：08:52:14" itemprop="dateCreated datePublished" datetime="2026-05-25T08:18:48+08:00">2026-05-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/HTML-CSS/" itemprop="url" rel="index"><span itemprop="name">HTML/CSS</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+            <div class="post-description">完整的 CSS 進階實戰指南！深入解析 CSS 變數（Custom Properties）的全域與區域應用、FlexBox 與卡片設計模式、圖片樣式重置技巧，以及預設樣式的最佳實踐。搭配實戰範例，讓你的 CSS 程式碼更具維護性與擴展性。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>在現代前端開發中，撰寫可維護、可擴展的 CSS 程式碼至關重要。本文將深入探討 CSS 變數、容器設計模式以及樣式重置，幫助你建立更專業的網頁專案。</p>
+<hr>
+<h2 id="CSS-Variables（CSS-自訂屬性）"><a href="#CSS-Variables（CSS-自訂屬性）" class="headerlink" title="CSS Variables（CSS 自訂屬性）"></a>CSS Variables（CSS 自訂屬性）</h2><p>CSS 變數（也稱為 CSS Custom Properties）是現代 CSS 的強大功能，能夠讓你的樣式更具彈性和可維護性。</p>
+<h3 id="全域變數的定義與使用"><a href="#全域變數的定義與使用" class="headerlink" title="全域變數的定義與使用"></a>全域變數的定義與使用</h3><p>全域變數定義在 <code>:root</code> 選擇器中，可以在整個文件中使用：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-pseudo">:root</span> &#123;</span><br><span class="line">    <span class="attr">--primary-color</span>: <span class="number">#005500</span>;</span><br><span class="line">    <span class="attr">--secondary-color</span>: <span class="number">#00aa00</span>;</span><br><span class="line">    <span class="attr">--spacing-unit</span>: <span class="number">8px</span>;</span><br><span class="line">    <span class="attr">--border-radius</span>: <span class="number">4px</span>;</span><br><span class="line">    <span class="attr">--font-main</span>: <span class="string">&#x27;Noto Sans&#x27;</span>, sans-serif;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">background</span>: <span class="built_in">var</span>(--primary-color);</span><br><span class="line">    <span class="attribute">border-radius</span>: <span class="built_in">var</span>(--border-radius);</span><br><span class="line">    <span class="attribute">margin</span>: <span class="built_in">var</span>(--spacing-unit);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>優點：</strong></p>
+<ul>
+<li>集中管理顏色、間距等設計 Token（Design Tokens，例如顏色、字級、間距的統一命名）</li>
+<li>便於主題切換和維護</li>
+<li>提高程式碼可讀性</li>
+</ul>
+<h3 id="區域變數的作用域"><a href="#區域變數的作用域" class="headerlink" title="區域變數的作用域"></a>區域變數的作用域</h3><p>區域變數只在特定範圍內生效，可以覆蓋全域變數：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-pseudo">:root</span> &#123;</span><br><span class="line">    <span class="attr">--theme-color</span>: <span class="number">#005500</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.red-section</span> &#123;</span><br><span class="line">    <span class="attr">--theme-color</span>: <span class="number">#ff0000</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">    <span class="attribute">background</span>: <span class="built_in">var</span>(--theme-color);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 這個 box 使用全域的綠色 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 這個 box 使用區域的紅色 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;red-section&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="套用-Bootstrap-變數"><a href="#套用-Bootstrap-變數" class="headerlink" title="套用 Bootstrap 變數"></a>套用 Bootstrap 變數</h3><p>如果你的專案使用 Bootstrap，可以直接引用 Bootstrap 的 CSS 變數：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box&quot;</span> <span class="attr">style</span>=<span class="string">&quot;background-color: var(--bs-primary);&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;card&quot;</span> <span class="attr">style</span>=<span class="string">&quot;padding: var(--bs-gutter-x);&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>常用 Bootstrap 變數：</strong></p>
+<ul>
+<li><code>--bs-primary</code>, <code>--bs-secondary</code>, <code>--bs-success</code> 等顏色變數</li>
+<li><code>--bs-gutter-x</code>, <code>--bs-gutter-y</code> 間距變數</li>
+<li><code>--bs-border-radius</code> 圓角變數</li>
+</ul>
+<blockquote>
+<p>需注意並非所有 Bootstrap Sass 變數都會輸出為 CSS Variables，實際可用項目建議查看<a target="_blank" rel="noopener" href="https://getbootstrap.com/docs/5.3/customize/css-variables/">官方文件</a>確認。</p>
+</blockquote>
+<h3 id="CSS-變數的進階應用"><a href="#CSS-變數的進階應用" class="headerlink" title="CSS 變數的進階應用"></a>CSS 變數的進階應用</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-pseudo">:root</span> &#123;</span><br><span class="line">    <span class="attr">--base-size</span>: <span class="number">16px</span>;</span><br><span class="line">    <span class="attr">--scale-ratio</span>: <span class="number">1.25</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/* 使用 calc 計算衍生值 */</span></span><br><span class="line">    <span class="attr">--h1-size</span>: <span class="built_in">calc</span>(<span class="built_in">var</span>(--base-size) * <span class="built_in">var</span>(--scale-ratio) * <span class="built_in">var</span>(--scale-ratio) * <span class="built_in">var</span>(--scale-ratio));</span><br><span class="line">    <span class="attr">--h2-size</span>: <span class="built_in">calc</span>(<span class="built_in">var</span>(--base-size) * <span class="built_in">var</span>(--scale-ratio) * <span class="built_in">var</span>(--scale-ratio));</span><br><span class="line">    <span class="attr">--h3-size</span>: <span class="built_in">calc</span>(<span class="built_in">var</span>(--base-size) * <span class="built_in">var</span>(--scale-ratio));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 支援裝置動態調整 */</span></span><br><span class="line"><span class="keyword">@media</span> (<span class="attribute">max-width</span>: <span class="number">768px</span>) &#123;</span><br><span class="line">    <span class="selector-pseudo">:root</span> &#123;</span><br><span class="line">        <span class="attr">--base-size</span>: <span class="number">14px</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="外層容器設計模式"><a href="#外層容器設計模式" class="headerlink" title="外層容器設計模式"></a>外層容器設計模式</h2><p>良好的容器設計是響應式佈局的基礎。</p>
+<h3 id="Container-容器的核心概念"><a href="#Container-容器的核心概念" class="headerlink" title="Container 容器的核心概念"></a>Container 容器的核心概念</h3><p><code>.container</code> 通常代表外層容器，負責：</p>
+<ul>
+<li>設定最大寬度（<code>max-width</code>）</li>
+<li>水平置中（<code>margin: 0 auto</code>）</li>
+<li>左右留白（<code>padding</code>）</li>
+</ul>
+<p><strong>為什麼要設定左右 padding？</strong><br>在小螢幕裝置上，如果沒有 padding，內容會緊貼視窗邊緣，影響閱讀體驗。</p>
+<p><img src="https://i.postimg.cc/Sx8Bm16G/padding-X.png" alt="左右 padding"></p>
+<h3 id="分離關注點：容器-vs-佈局"><a href="#分離關注點：容器-vs-佈局" class="headerlink" title="分離關注點：容器 vs 佈局"></a>分離關注點：容器 vs 佈局</h3><p>建議將容器的尺寸控制與內容佈局分離：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 容器：只管尺寸和邊距 */</span></span><br><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">    <span class="attribute">max-width</span>: <span class="number">1296px</span>;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">0</span> auto;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">0</span> <span class="number">12px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 佈局：管理內容排列 */</span></span><br><span class="line"><span class="selector-class">.card-group</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: flex;</span><br><span class="line">    <span class="attribute">flex-wrap</span>: wrap;</span><br><span class="line">    <span class="attribute">gap</span>: <span class="number">24px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>好處：</strong></p>
+<ul>
+<li>提高程式碼可重複使用性</li>
+<li>更容易維護和調整</li>
+<li>符合單一職責原則</li>
+</ul>
+<hr>
+<h2 id="卡片架構與-Flexbox-佈局"><a href="#卡片架構與-Flexbox-佈局" class="headerlink" title="卡片架構與 Flexbox 佈局"></a>卡片架構與 Flexbox 佈局</h2><h3 id="基本卡片佈局結構"><a href="#基本卡片佈局結構" class="headerlink" title="基本卡片佈局結構"></a>基本卡片佈局結構</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;container&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">&quot;card-group&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;card&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;image.jpg&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;卡片圖片&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">h3</span>&gt;</span>卡片標題<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">p</span>&gt;</span>卡片內容...<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;card&quot;</span>&gt;</span>...<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;card&quot;</span>&gt;</span>...<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="使用-Flexbox-實現響應式卡片"><a href="#使用-Flexbox-實現響應式卡片" class="headerlink" title="使用 Flexbox 實現響應式卡片"></a>使用 Flexbox 實現響應式卡片</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">    <span class="attribute">max-width</span>: <span class="number">1296px</span>;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">0</span> auto;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">0</span> <span class="number">12px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.card-group</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: flex;</span><br><span class="line">    <span class="attribute">flex-wrap</span>: wrap;</span><br><span class="line">    <span class="attribute">gap</span>: <span class="number">24px</span>; <span class="comment">/* 推薦使用 gap 屬性 */</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.card</span> &#123;</span><br><span class="line">    <span class="comment">/* 兩欄佈局，扣除間距 */</span></span><br><span class="line">    <span class="attribute">width</span>: <span class="built_in">calc</span>(<span class="number">50%</span> - <span class="number">12px</span>);</span><br><span class="line">    <span class="attribute">background</span>: <span class="number">#fff</span>;</span><br><span class="line">    <span class="attribute">border-radius</span>: <span class="number">8px</span>;</span><br><span class="line">    <span class="attribute">overflow</span>: hidden;</span><br><span class="line">    <span class="attribute">transition</span>: transform <span class="number">0.3s</span> ease;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.card</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">    <span class="attribute">transform</span>: <span class="built_in">translateY</span>(-<span class="number">4px</span>);</span><br><span class="line">    <span class="attribute">box-shadow</span>: <span class="number">0</span> <span class="number">4px</span> <span class="number">12px</span> <span class="built_in">rgba</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0.1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="為什麼使用百分比寬度？"><a href="#為什麼使用百分比寬度？" class="headerlink" title="為什麼使用百分比寬度？"></a>為什麼使用百分比寬度？</h3><p>使用 <code>calc(50% - 12px)</code> 的原因：</p>
+<ul>
+<li><strong>彈性佈局</strong>：適應不同容器寬度</li>
+<li><strong>間距計算</strong>：兩欄之間存在 24px 的 gap，每張卡片需各扣除 12px，避免總寬度超出容器</li>
+<li><strong>響應式友善</strong>：容易調整為單欄或三欄佈局</li>
+</ul>
+<h3 id="現代方案：使用-gap-屬性"><a href="#現代方案：使用-gap-屬性" class="headerlink" title="現代方案：使用 gap 屬性"></a>現代方案：使用 gap 屬性</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.card-group</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: flex;</span><br><span class="line">    <span class="attribute">flex-wrap</span>: wrap;</span><br><span class="line">    <span class="attribute">gap</span>: <span class="number">24px</span>; <span class="comment">/* 統一管理間距 */</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.card</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="built_in">calc</span>(<span class="number">50%</span> - <span class="number">12px</span>); <span class="comment">/* 仍需計算，因為 gap 是額外空間 */</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 或者使用 flex-basis */</span></span><br><span class="line"><span class="selector-class">.card</span> &#123;</span><br><span class="line">    <span class="attribute">flex</span>: <span class="number">0</span> <span class="number">0</span> <span class="built_in">calc</span>(<span class="number">50%</span> - <span class="number">12px</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="響應式卡片佈局"><a href="#響應式卡片佈局" class="headerlink" title="響應式卡片佈局"></a>響應式卡片佈局</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 手機：單欄 */</span></span><br><span class="line"><span class="selector-class">.card</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 平板：雙欄 */</span></span><br><span class="line"><span class="keyword">@media</span> (<span class="attribute">min-width</span>: <span class="number">768px</span>) &#123;</span><br><span class="line">    <span class="selector-class">.card</span> &#123;</span><br><span class="line">        <span class="attribute">width</span>: <span class="built_in">calc</span>(<span class="number">50%</span> - <span class="number">12px</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 桌面：三欄 */</span></span><br><span class="line"><span class="keyword">@media</span> (<span class="attribute">min-width</span>: <span class="number">1200px</span>) &#123;</span><br><span class="line">    <span class="selector-class">.card</span> &#123;</span><br><span class="line">        <span class="attribute">width</span>: <span class="built_in">calc</span>(<span class="number">33.333%</span> - <span class="number">16px</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="預設樣式與重置技巧"><a href="#預設樣式與重置技巧" class="headerlink" title="預設樣式與重置技巧"></a>預設樣式與重置技巧</h2><h3 id="圖片重置（Image-Reset）"><a href="#圖片重置（Image-Reset）" class="headerlink" title="圖片重置（Image Reset）"></a>圖片重置（Image Reset）</h3><p>圖片下方常出現空隙問題，這是因為 <code>&lt;img&gt;</code> 屬於 inline-level element，會受到文字基線（baseline）對齊影響。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">img</span> &#123;</span><br><span class="line">    <span class="attribute">max-width</span>: <span class="number">100%</span>;</span><br><span class="line">    <span class="attribute">height</span>: auto;</span><br><span class="line">    <span class="attribute">display</span>: block; <span class="comment">/* 最常見且穩定的解法 */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>也可以透過 <code>vertical-align</code> 調整基線對齊方式，但實務上較常直接改為 <code>display: block</code>：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">img</span> &#123;</span><br><span class="line">    <span class="attribute">vertical-align</span>: middle;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>延伸閱讀：</strong></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://tzuhui.github.io/2020/01/08/HTML/html-img-blank/">HTML img 圖片下方空白之謎</a></li>
+</ul>
+<h3 id="Body-預設樣式"><a href="#Body-預設樣式" class="headerlink" title="Body 預設樣式"></a>Body 預設樣式</h3><p>統一設定全站預設樣式，減少重複程式碼：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">    <span class="attribute">font-family</span>: <span class="string">&quot;Noto Sans&quot;</span>, <span class="string">&quot;Microsoft JhengHei&quot;</span>, sans-serif;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">16px</span>; <span class="comment">/* 網頁預設即為 16px */</span></span><br><span class="line">    <span class="attribute">line-height</span>: <span class="number">1.5</span>;</span><br><span class="line">    <span class="attribute">font-weight</span>: <span class="number">400</span>; <span class="comment">/* 網頁預設即為 400，可省略 */</span></span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#333</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#fff</span>; <span class="comment">/* 網頁預設背景即為白色，可省略 */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意事項：</strong></p>
+<ol>
+<li><strong>字體名稱有空格時必須加引號</strong></li>
+</ol>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* ✅ 正確 */</span></span><br><span class="line"><span class="attribute">font-family</span>: <span class="string">&quot;Noto Sans&quot;</span>, sans-serif;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* ❌ 錯誤 */</span></span><br><span class="line"><span class="attribute">font-family</span>: Noto Sans, sans-serif;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><strong>最後一定要補上通用字體</strong></li>
+</ol>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">font-family</span>: <span class="string">&quot;Noto Sans&quot;</span>, <span class="string">&quot;Microsoft JhengHei&quot;</span>, sans-serif;</span><br></pre></td></tr></table></figure>
+<p>   確保在所有裝置都能正確顯示</p>
+<ol start="3">
+<li><strong>使用倍數而非固定值設定 line-height</strong></li>
+</ol>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* ✅ 推薦：會根據 font-size 自動調整 */</span></span><br><span class="line"><span class="attribute">line-height</span>: <span class="number">1.5</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* ❌ 不推薦：固定高度可能造成問題 */</span></span><br><span class="line"><span class="attribute">line-height</span>: <span class="number">24px</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="完整的-CSS-Reset-與-Base-Style"><a href="#完整的-CSS-Reset-與-Base-Style" class="headerlink" title="完整的 CSS Reset 與 Base Style"></a>完整的 CSS Reset 與 Base Style</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* ========== Reset &amp; Base ========== */</span></span><br><span class="line">*, *<span class="selector-pseudo">::before</span>, *<span class="selector-pseudo">::after</span> &#123;</span><br><span class="line">    <span class="attribute">box-sizing</span>: border-box;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">html</span> &#123;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">16px</span>; <span class="comment">/* 設定 rem 基準 */</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">    <span class="attribute">font-family</span>: <span class="string">&quot;Noto Sans TC&quot;</span>, <span class="string">&quot;Microsoft JhengHei&quot;</span>, sans-serif;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">1rem</span>;</span><br><span class="line">    <span class="attribute">line-height</span>: <span class="number">1.5</span>;</span><br><span class="line">    <span class="attribute">font-weight</span>: <span class="number">400</span>;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#333</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#fff</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">img</span> &#123;</span><br><span class="line">    <span class="attribute">max-width</span>: <span class="number">100%</span>;</span><br><span class="line">    <span class="attribute">height</span>: auto;</span><br><span class="line">    <span class="attribute">display</span>: block;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">a</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: inherit;</span><br><span class="line">    <span class="attribute">text-decoration</span>: none;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">ul</span>, <span class="selector-tag">ol</span> &#123;</span><br><span class="line">    <span class="attribute">list-style</span>: none;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">button</span> &#123;</span><br><span class="line">    <span class="attribute">font-family</span>: inherit;</span><br><span class="line">    <span class="attribute">cursor</span>: pointer;</span><br><span class="line">    <span class="attribute">border</span>: none;</span><br><span class="line">    <span class="attribute">background</span>: none;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="通用觀念補充"><a href="#通用觀念補充" class="headerlink" title="通用觀念補充"></a>通用觀念補充</h3><h4 id="Opacity-屬性"><a href="#Opacity-屬性" class="headerlink" title="Opacity 屬性"></a>Opacity 屬性</h4><p><code>opacity</code> 值範圍是 0 到 1：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* ✅ 正確 */</span></span><br><span class="line"><span class="selector-class">.element</span> &#123;</span><br><span class="line">    <span class="attribute">opacity</span>: <span class="number">0.5</span>; <span class="comment">/* 50% 透明度 */</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* ❌ 錯誤 */</span></span><br><span class="line"><span class="selector-class">.element</span> &#123;</span><br><span class="line">    <span class="attribute">opacity</span>: <span class="number">0px</span>; <span class="comment">/* 不需要單位 */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>參考資料：</strong></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/opacity">MDN - opacity</a></li>
+</ul>
+<h4 id="為什麼要設定-font-size-16px？"><a href="#為什麼要設定-font-size-16px？" class="headerlink" title="為什麼要設定 font-size: 16px？"></a>為什麼要設定 font-size: 16px？</h4><p>明確設定 <code>font-size: 16px</code> 主要是為了建立一致的 rem 計算基準，也能避免不同專案設定造成的差異：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">16px</span>; <span class="comment">/* 1rem = 16px */</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">h1</span> &#123;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">2rem</span>; <span class="comment">/* 32px */</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">small &#123;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">0.875rem</span>; <span class="comment">/* 14px */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h2><p>當專案開始變大後，CSS 就不只是「把畫面做出來」而已，而是如何讓樣式更容易維護、擴展與協作。善用 CSS Variables、容器設計與基礎 reset，可以讓整體架構更穩定，也能減少後期維護成本。</p>
+<h3 id="延伸學習資源"><a href="#延伸學習資源" class="headerlink" title="延伸學習資源"></a>延伸學習資源</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/CSS/--*">MDN - CSS Custom Properties</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/CSS/CSS_Flexible_Box_Layout">MDN - Flexbox</a></li>
+<li><a target="_blank" rel="noopener" href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/">CSS Tricks - A Complete Guide to Flexbox</a></li>
+<li><a target="_blank" rel="noopener" href="https://getbootstrap.com/docs/5.3/customize/css-variables/">Bootstrap CSS Variables</a></li>
+</ul>
+<hr>
+<p>希望這篇文章能幫助你建立更專業、更易維護的 CSS 程式碼！</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+  
+  <section class="related-cards">
+    <h3 class="related-cards__title">
+      <i class="fa-solid fa-square-poll-horizontal"></i>相關文章
+    </h3>
+    <div class="related-cards__grid">
+      
+        
+      
+        
+          
+          
+            
+              
+            
+          
+          
+            
+            <a class="related-cards__item" href="/2026/05/24/CSS%20%E5%8B%95%E7%95%AB%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97%EF%BD%9C@keyframes%E3%80%81transform%E3%80%813D%20%E5%8B%95%E7%95%AB%E8%88%87%20JS%20%E4%BA%92%E5%8B%95/">
+              <span class="related-cards__item-title">CSS 動畫完整指南｜@keyframes、transform、3D 動畫與 JS 互動</span>
+              <span class="related-cards__item-date">
+                <i class="far fa-calendar-alt"></i>
+                2026-05-24
+              </span>
+            </a>
+          
+        
+      
+        
+          
+          
+            
+              
+            
+          
+          
+            
+            <a class="related-cards__item" href="/2026/05/11/CSS%20%E5%AE%B9%E5%99%A8%E8%88%87%E5%85%A7%E5%AE%B9%E5%88%86%E9%9B%A2%EF%BC%9AFlexbox%20%E5%A4%9A%E6%AC%84%E6%8E%92%E7%89%88%E8%88%87%20gutter%20%E9%96%93%E8%B7%9D%E5%AF%A6%E4%BD%9C/">
+              <span class="related-cards__item-title">CSS 容器與內容分離：Flexbox 多欄排版與 gutter 間距實作</span>
+              <span class="related-cards__item-date">
+                <i class="far fa-calendar-alt"></i>
+                2026-05-11
+              </span>
+            </a>
+          
+        
+      
+        
+          
+          
+            
+              
+            
+          
+          
+            
+            <a class="related-cards__item" href="/2026/05/13/HTML%20Form%20%E8%A1%A8%E5%96%AE%E5%AE%8C%E6%95%B4%E6%95%99%E5%AD%B8%EF%BC%9AInput%E3%80%81Label%E3%80%81Button%20%E8%88%87%20CSS%20%E6%A8%A3%E5%BC%8F%E6%95%B4%E7%90%86/">
+              <span class="related-cards__item-title">HTML Form 表單完整教學：Input、Label、Button 與 CSS 樣式整理</span>
+              <span class="related-cards__item-date">
+                <i class="far fa-calendar-alt"></i>
+                2026-05-13
+              </span>
+            </a>
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+              
+            
+          
+          
+            
+            <a class="related-cards__item" href="/2026/05/02/HTML%20%E8%AA%9E%E6%84%8F%E5%8C%96%E6%A8%99%E7%B1%A4%E6%80%8E%E9%BA%BC%E7%94%A8%EF%BC%9F%E6%96%B0%E6%89%8B%E6%9C%80%E5%B8%B8%E6%90%9E%E9%8C%AF%E7%9A%84%205%20%E5%80%8B%E5%9C%B0%E6%96%B9/">
+              <span class="related-cards__item-title">HTML 語意化標籤怎麼用？新手最常搞錯的 5 個地方</span>
+              <span class="related-cards__item-date">
+                <i class="far fa-calendar-alt"></i>
+                2026-05-02
+              </span>
+            </a>
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="share-article-section">
+      <div class="share-article-heading">
+        <i class="fa-solid fa-share-nodes share-article-icon" aria-hidden="true"></i>
+        <span>分享這篇文章</span>
+      </div>
+      <div class="share-article-buttons"
+           data-share-url="https://hailey.tw/2026/05/25/CSS%20%E9%80%B2%E9%9A%8E%E5%AF%A6%E6%88%B0%E6%8C%87%E5%8D%97%EF%BC%9A%E8%AE%8A%E6%95%B8%E3%80%81%E5%AE%B9%E5%99%A8%E8%A8%AD%E8%A8%88%E8%88%87%E6%A8%A3%E5%BC%8F%E9%87%8D%E7%BD%AE/"
+           data-share-title="CSS 進階實戰指南：變數、容器設計與樣式重置">
+        <a href="#"
+           role="button"
+           class="share-article-btn"
+           data-platform="twitter">
+          <i class="fab fa-twitter"></i><span>Twitter</span>
+        </a>
+        <a href="#"
+           role="button"
+           class="share-article-btn"
+           data-platform="facebook">
+          <i class="fab fa-facebook"></i><span>Facebook</span>
+        </a>
+        <a href="#"
+           role="button"
+           class="share-article-btn"
+           data-platform="linkedin">
+          <i class="fab fa-linkedin"></i><span>LinkedIn</span>
+        </a>
+        <button type="button" class="share-article-btn" data-copy>
+          <i class="fa-regular fa-copy"></i><span>複製連結</span>
+        </button>
+      </div>
+    </div>
+  </section>
+  <style>
+    /* 讓 post-footer 變成可排序容器 */
+    .post-footer {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* 上一篇/下一篇 */
+    .post-footer .post-nav {
+      order: 20;
+    }
+
+    /* 你的相關文章區塊 */
+    .post-footer .related-cards {
+      order: 30;
+    }
+
+    /* 你的分享區塊（如果也要在 related 下方） */
+    .post-footer .share-article-section {
+      order: 40;
+    }
+    .related-cards {
+      margin: 2.25rem 0 1rem;
+    }
+
+    .related-cards__title {
+      margin-bottom: 12px;
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+
+    .related-cards__title i {
+        color: #22d3ee;
+        margin-right: 6px;
+    }
+
+    .related-cards__grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .related-cards__item {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 16px;
+      --tw-border-opacity: 1;
+      border: 1px solid rgb(82 82 91 / var(--tw-border-opacity, 1));
+      border-radius: 12px;
+      background: #4c4c5180;
+      color: #f5f7fa;
+      text-decoration: none;
+      transition: transform .18s ease, border-color .18s ease;
+    }
+
+    .related-cards__item:hover {
+      transform: translateY(-2px);
+      border-color: #22d3ee;
+      color: #22d3ee;
+    }
+
+    .related-cards__item-title {
+      font-size: 1rem;
+      line-height: 1.35;
+      font-weight: 600;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+
+    .related-cards__item-date {
+      margin-top: 10px;
+      font-size: .88rem;
+      color: #c5cad3;
+    }
+
+    @media (max-width: 1100px) {
+      .related-cards__grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .related-cards__grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* AddToAny */
+
+    /* 第一顆 AddToAny 主按鈕常太醜，直接隱藏 */
+    .post-footer .social-like .a2a_dd {
+    display: none;
+    }
+
+    .share-article-section { 
+      margin: 2rem 0 1rem; 
+      padding-top: 1.25rem; 
+    }
+    .share-article-heading { 
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .share-article-icon { 
+      color: #2dd4bf;
+      font-size: 1.25rem;
+    }
+    .share-article-buttons { 
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .share-article-btn {
+        display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px;
+        border: 1px solid rgb(82 82 91 / var(--tw-border-opacity, 1));
+        border-radius: 10px;
+        background: #4c4c5180;
+        color: inherit;
+        cursor: pointer;
+        text-decoration: none;
+        font: inherit;
+        transition: transform .18s ease, border-color .18s ease;
+    }
+    .share-article-btn:hover { border-color: #22d3ee;
+        transform: translateY(-2px); 
+    }
+  </style>
+  <script>
+  (function () {
+    var root = document.querySelector('.share-article-buttons');
+    if (!root || root.dataset.bound) return;
+    root.dataset.bound = '1';
+    var url = root.dataset.shareUrl || '';
+    var title = root.dataset.shareTitle || '';
+    var encUrl = encodeURIComponent(url);
+    var encTitle = encodeURIComponent(title);
+    var urls = {
+      twitter: 'https://twitter.com/intent/tweet?url=' + encUrl + '&text=' + encTitle,
+      facebook: 'https://www.facebook.com/sharer/sharer.php?u=' + encUrl,
+      linkedin: 'https://www.linkedin.com/sharing/share-offsite/?url=' + encUrl
+    };
+    root.querySelectorAll('[data-platform]').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        var p = btn.dataset.platform;
+        window.open(urls[p], '_blank', 'noopener,noreferrer');
+      });
+    });
+    var btnCopy = root.querySelector('[data-copy]');
+    if (btnCopy) {
+      btnCopy.addEventListener('click', function () {
+        navigator.clipboard.writeText(url).then(function () {
+          btnCopy.querySelector('span').textContent = '已複製';
+          setTimeout(function () { btnCopy.querySelector('span').textContent = '複製連結'; }, 2000);
+        });
+      });
+    }
+  })();
+  </script>
+
+
+          <div class="post-tags">
+              <a href="/tags/HTML-CSS/" rel="tag"># HTML/CSS</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/05/24/CSS%20%E5%8B%95%E7%95%AB%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97%EF%BD%9C@keyframes%E3%80%81transform%E3%80%813D%20%E5%8B%95%E7%95%AB%E8%88%87%20JS%20%E4%BA%92%E5%8B%95/" rel="prev" title="CSS 動畫完整指南｜@keyframes、transform、3D 動畫與 JS 互動">
+                  <i class="fa fa-angle-left"></i> CSS 動畫完整指南｜@keyframes、transform、3D 動畫與 JS 互動
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div><aside class="column-recent-posts" aria-label="最新文章">
+  <div class="recent-rail-inner">
+    <h3 class="recent-rail-title">
+      <i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i>
+      <span>最新文章</span>
+    </h3>
+    <ol class="recent-rail-list">
+      
+        <li class="recent-rail-item">
+          <a class="recent-rail-link" href="/2026/05/25/CSS%20%E9%80%B2%E9%9A%8E%E5%AF%A6%E6%88%B0%E6%8C%87%E5%8D%97%EF%BC%9A%E8%AE%8A%E6%95%B8%E3%80%81%E5%AE%B9%E5%99%A8%E8%A8%AD%E8%A8%88%E8%88%87%E6%A8%A3%E5%BC%8F%E9%87%8D%E7%BD%AE/">
+            <span class="recent-rail-item-title">CSS 進階實戰指南：變數、容器設計與樣式重置</span>
+            <span class="recent-rail-item-date">05/25</span>
+          </a>
+        </li>
+      
+        <li class="recent-rail-item">
+          <a class="recent-rail-link" href="/2026/05/24/CSS%20%E5%8B%95%E7%95%AB%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97%EF%BD%9C@keyframes%E3%80%81transform%E3%80%813D%20%E5%8B%95%E7%95%AB%E8%88%87%20JS%20%E4%BA%92%E5%8B%95/">
+            <span class="recent-rail-item-title">CSS 動畫完整指南｜@keyframes、transform、3D 動畫與 JS 互動</span>
+            <span class="recent-rail-item-date">05/24</span>
+          </a>
+        </li>
+      
+        <li class="recent-rail-item">
+          <a class="recent-rail-link" href="/2026/05/23/JavaScript%20Expression%20vs%20Statement%20%E6%98%AF%E4%BB%80%E9%BA%BC%EF%BC%9F%E5%87%BD%E5%BC%8F%E9%99%B3%E8%BF%B0%E5%BC%8F%E8%88%87%E5%87%BD%E5%BC%8F%E8%A1%A8%E9%81%94%E5%BC%8F%E5%AE%8C%E6%95%B4%E8%A7%A3%E6%9E%90/">
+            <span class="recent-rail-item-title">JavaScript Expression vs Statement 是什麼？函式陳述式與函式表達式完整解析</span>
+            <span class="recent-rail-item-date">05/23</span>
+          </a>
+        </li>
+      
+        <li class="recent-rail-item">
+          <a class="recent-rail-link" href="/2026/05/22/JavaScript%20%E6%AF%94%E8%BC%83%E8%88%87%E9%82%8F%E8%BC%AF%E9%81%8B%E7%AE%97%E5%AD%90%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97%EF%BD%9Cif%20else%20%E8%88%87%E4%B8%89%E5%85%83%E9%81%8B%E7%AE%97%E5%AD%90%E4%B8%80%E6%AC%A1%E6%90%9E%E6%87%82/">
+            <span class="recent-rail-item-title">JavaScript 比較與邏輯運算子完整指南｜if else 與三元運算子一次搞懂</span>
+            <span class="recent-rail-item-date">05/22</span>
+          </a>
+        </li>
+      
+        <li class="recent-rail-item">
+          <a class="recent-rail-link" href="/2026/05/21/JavaScript%20%E5%9F%BA%E7%A4%8E%E5%9E%8B%E5%88%A5%E5%85%A8%E6%94%BB%E7%95%A5%EF%BD%9C%E6%95%B8%E5%AD%97%E3%80%81%E5%AD%97%E4%B8%B2%E3%80%81%E9%99%A3%E5%88%97%E3%80%81%E7%89%A9%E4%BB%B6%E3%80%81%E4%BD%9C%E7%94%A8%E5%9F%9F%E8%88%87%E6%8F%90%E5%8D%87%E4%B8%80%E6%AC%A1%E6%90%9E%E6%87%82/">
+            <span class="recent-rail-item-title">JavaScript 基礎型別全攻略｜數字、字串、陣列、物件、作用域與提升一次搞懂</span>
+            <span class="recent-rail-item-date">05/21</span>
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</aside>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class=""></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Hailey. All rights reserved.<br>Built with Hexo & Theme NexT</span>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"Hailey-1025/blog-comments","issue_term":"pathname","label":"comment","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js" defer></script>
+
+<script>
+(function () {
+  var mq = window.matchMedia('(max-width: 991px)');
+  var btn = document.querySelector('.site-nav-toggle .toggle');
+  var sidebarBtn = document.querySelector('.sidebar-toggle');
+  var siteNav = document.querySelector('.header .site-nav');
+  if (!btn || !sidebarBtn) return;
+
+  function collapseHeaderNavDropdown() {
+    document.body.classList.remove('site-nav-on');
+    if (siteNav) siteNav.style.removeProperty('--scroll-height');
+  }
+
+  btn.addEventListener('click', function (e) {
+    if (!mq.matches) return;
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    collapseHeaderNavDropdown();
+    sidebarBtn.click();
+  }, true);
+
+  new MutationObserver(function () {
+    if (!mq.matches) return;
+    var open = document.body.classList.contains('sidebar-active');
+    btn.classList.toggle('toggle-close', open);
+  }).observe(document.body, { attributes: true, attributeFilter: ['class'] });
+
+  mq.addEventListener('change', function () {
+    if (!mq.matches) {
+      btn.classList.remove('toggle-close');
+      collapseHeaderNavDropdown();
+      document.body.classList.remove('mobile-header-scrolled-down');
+    }
+  });
+
+  var lastY = window.scrollY || 0;
+  var ticking = false;
+
+  function updateMobileHeaderOnScroll() {
+    ticking = false;
+    if (!mq.matches) return;
+    var currentY = window.scrollY || 0;
+    var scrollingDown = currentY > lastY;
+    var passedTop = currentY > 10;
+    document.body.classList.toggle('mobile-header-scrolled-down', scrollingDown && passedTop);
+    lastY = currentY;
+  }
+
+  window.addEventListener('scroll', function () {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(updateMobileHeaderOnScroll);
+  }, { passive: true });
+})();
+</script>
+
+</body>
+</html>
