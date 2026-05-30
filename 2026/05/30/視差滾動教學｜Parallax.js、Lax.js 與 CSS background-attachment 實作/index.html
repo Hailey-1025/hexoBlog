@@ -20,27 +20,29 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"hailey.tw","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":true,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"找到 ${hits} 個搜索結果（用時 ${time} 毫秒）","hits":"找到 ${hits} 個搜索結果"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
 
-    <meta name="description" content="介紹 CSS 容器與內容分離的設計概念，透過 Flexbox 實作多欄卡片佈局，包含 container、row、column 的職責劃分與 gutter 間距控制技巧。">
+    <meta name="description" content="視差滾動實作教學介紹 Parallax.js、Lax.js 套件與 CSS background-attachment 三種方法，附實際範例與程式碼。讓網頁動起來就是這麼簡單！">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CSS 容器與內容分離：Flexbox 多欄排版與 gutter 間距實作">
-<meta property="og:url" content="https://hailey.tw/2026/05/11/CSS%20%E5%AE%B9%E5%99%A8%E8%88%87%E5%85%A7%E5%AE%B9%E5%88%86%E9%9B%A2%EF%BC%9AFlexbox%20%E5%A4%9A%E6%AC%84%E6%8E%92%E7%89%88%E8%88%87%20gutter%20%E9%96%93%E8%B7%9D%E5%AF%A6%E4%BD%9C/index.html">
+<meta property="og:title" content="視差滾動教學｜Parallax.js、Lax.js 與 CSS background-attachment 實作">
+<meta property="og:url" content="https://hailey.tw/2026/05/30/%E8%A6%96%E5%B7%AE%E6%BB%BE%E5%8B%95%E6%95%99%E5%AD%B8%EF%BD%9CParallax.js%E3%80%81Lax.js%20%E8%88%87%20CSS%20background-attachment%20%E5%AF%A6%E4%BD%9C/index.html">
 <meta property="og:site_name" content="Hailey&#39;s Blog">
-<meta property="og:description" content="介紹 CSS 容器與內容分離的設計概念，透過 Flexbox 實作多欄卡片佈局，包含 container、row、column 的職責劃分與 gutter 間距控制技巧。">
+<meta property="og:description" content="視差滾動實作教學介紹 Parallax.js、Lax.js 套件與 CSS background-attachment 三種方法，附實際範例與程式碼。讓網頁動起來就是這麼簡單！">
 <meta property="og:locale" content="zh_TW">
-<meta property="article:published_time" content="2026-05-11T12:07:49.000Z">
-<meta property="article:modified_time" content="2026-05-11T12:51:56.096Z">
+<meta property="og:image" content="https://i.postimg.cc/BZFXkqFD/css-parallax-scrolling-demo.gif">
+<meta property="article:published_time" content="2026-05-30T00:53:50.000Z">
+<meta property="article:modified_time" content="2026-05-30T13:25:53.383Z">
 <meta property="article:author" content="Hailey">
 <meta property="article:tag" content="HTML&#x2F;CSS">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.postimg.cc/BZFXkqFD/css-parallax-scrolling-demo.gif">
 
 
-<link rel="canonical" href="https://hailey.tw/2026/05/11/CSS%20%E5%AE%B9%E5%99%A8%E8%88%87%E5%85%A7%E5%AE%B9%E5%88%86%E9%9B%A2%EF%BC%9AFlexbox%20%E5%A4%9A%E6%AC%84%E6%8E%92%E7%89%88%E8%88%87%20gutter%20%E9%96%93%E8%B7%9D%E5%AF%A6%E4%BD%9C/">
+<link rel="canonical" href="https://hailey.tw/2026/05/30/%E8%A6%96%E5%B7%AE%E6%BB%BE%E5%8B%95%E6%95%99%E5%AD%B8%EF%BD%9CParallax.js%E3%80%81Lax.js%20%E8%88%87%20CSS%20background-attachment%20%E5%AF%A6%E4%BD%9C/">
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://hailey.tw/2026/05/11/CSS%20%E5%AE%B9%E5%99%A8%E8%88%87%E5%85%A7%E5%AE%B9%E5%88%86%E9%9B%A2%EF%BC%9AFlexbox%20%E5%A4%9A%E6%AC%84%E6%8E%92%E7%89%88%E8%88%87%20gutter%20%E9%96%93%E8%B7%9D%E5%AF%A6%E4%BD%9C/","path":"2026/05/11/CSS 容器與內容分離：Flexbox 多欄排版與 gutter 間距實作/","title":"CSS 容器與內容分離：Flexbox 多欄排版與 gutter 間距實作"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://hailey.tw/2026/05/30/%E8%A6%96%E5%B7%AE%E6%BB%BE%E5%8B%95%E6%95%99%E5%AD%B8%EF%BD%9CParallax.js%E3%80%81Lax.js%20%E8%88%87%20CSS%20background-attachment%20%E5%AF%A6%E4%BD%9C/","path":"2026/05/30/視差滾動教學｜Parallax.js、Lax.js 與 CSS background-attachment 實作/","title":"視差滾動教學｜Parallax.js、Lax.js 與 CSS background-attachment 實作"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>CSS 容器與內容分離：Flexbox 多欄排版與 gutter 間距實作 | Hailey's Blog</title>
+<title>視差滾動教學｜Parallax.js、Lax.js 與 CSS background-attachment 實作 | Hailey's Blog</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-8W8PTGBYMG"></script>
   <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-8W8PTGBYMG","only_pageview":false,"measure_protocol_api_secret":null}</script>
@@ -185,7 +187,7 @@
         <div class="sidebar-panel-container">
           <!--noindex-->
           <div class="post-toc-wrap sidebar-panel">
-              <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E9%BA%BC%E6%98%AF%E5%AE%B9%E5%99%A8%E8%88%87%E5%85%A7%E5%AE%B9%E5%88%86%E9%9B%A2%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">什麼是容器與內容分離？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTML-%E7%B5%90%E6%A7%8B%E7%AF%84%E4%BE%8B"><span class="nav-number">2.</span> <span class="nav-text">HTML 結構範例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSS-%E5%AF%A6%E4%BD%9C%E8%88%87%E6%A6%82%E5%BF%B5%E8%AA%AA%E6%98%8E"><span class="nav-number">3.</span> <span class="nav-text">CSS 實作與概念說明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%9C%E9%8D%B5%E6%8A%80%E5%B7%A7%EF%BC%9A%E8%B2%A0-margin-%E8%88%87-padding-%E9%85%8D%E5%90%88%E5%AF%A6%E7%8F%BE-gutter"><span class="nav-number">3.1.</span> <span class="nav-text">關鍵技巧：負 margin 與 padding 配合實現 gutter</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%82%BA%E4%BB%80%E9%BA%BC%E4%B8%8D%E8%A6%81%E8%AE%93-card-%E6%8E%A7%E5%88%B6%E6%AC%84%E5%AF%AC%EF%BC%9F"><span class="nav-number">4.</span> <span class="nav-text">為什麼不要讓 .card 控制欄寬？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RWD-%E9%9F%BF%E6%87%89%E5%BC%8F%E6%8E%92%E7%89%88"><span class="nav-number">5.</span> <span class="nav-text">RWD 響應式排版</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%84%E5%B1%A4%E8%81%B7%E8%B2%AC%E5%B0%8D%E7%85%A7%E8%A1%A8"><span class="nav-number">6.</span> <span class="nav-text">各層職責對照表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A6%8B%E6%AC%84%E5%AF%AC%E6%AF%94%E4%BE%8B%E9%80%9F%E6%9F%A5"><span class="nav-number">7.</span> <span class="nav-text">常見欄寬比例速查</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8F%BE%E4%BB%A3%E5%81%9A%E6%B3%95%EF%BC%9A%E4%BD%BF%E7%94%A8-gap-%E5%8F%96%E4%BB%A3%E8%B2%A0-margin"><span class="nav-number">8.</span> <span class="nav-text">現代做法：使用 gap 取代負 margin</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8F%E7%B5%90"><span class="nav-number">9.</span> <span class="nav-text">小結</span></a></li></ol></div>
+              <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Parallax-js"><span class="nav-number">2.</span> <span class="nav-text">Parallax.js</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%93%A6-%E8%B3%87%E6%BA%90%E9%80%A3%E7%B5%90"><span class="nav-number">2.1.</span> <span class="nav-text">📦 資源連結</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9A%99%EF%B8%8F-%E6%A0%B8%E5%BF%83%E5%B1%AC%E6%80%A7%E8%AA%AA%E6%98%8E"><span class="nav-number">2.2.</span> <span class="nav-text">⚙️ 核心屬性說明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%93%9D-%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F"><span class="nav-number">2.3.</span> <span class="nav-text">📝 使用方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF%E5%9C%96%E8%A6%96%E5%B7%AE%E6%BB%BE%E5%8B%95"><span class="nav-number">3.</span> <span class="nav-text">背景圖視差滾動</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%8E%A8-%E7%B4%94-CSS-%E5%AF%A6%E4%BD%9C"><span class="nav-number">3.1.</span> <span class="nav-text">🎨 純 CSS 實作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%93%9A-%E5%AD%B8%E7%BF%92%E8%B3%87%E6%BA%90"><span class="nav-number">3.2.</span> <span class="nav-text">📚 學習資源</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Lax-js"><span class="nav-number">4.</span> <span class="nav-text">Lax.js</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%93%A6-%E5%BF%AB%E9%80%9F%E9%96%8B%E5%A7%8B"><span class="nav-number">4.1.</span> <span class="nav-text">📦 快速開始</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%92%BB-%E4%BD%BF%E7%94%A8%E7%AF%84%E4%BE%8B"><span class="nav-number">4.2.</span> <span class="nav-text">💻 使用範例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E6%8E%A8%E8%96%A6%E5%A5%97%E4%BB%B6"><span class="nav-number">5.</span> <span class="nav-text">其他推薦套件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%81%B8%E6%93%87%E5%BB%BA%E8%AD%B0"><span class="nav-number">6.</span> <span class="nav-text">選擇建議</span></a></li></ol></div>
           </div>
           <!--/noindex-->
 
@@ -238,7 +240,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
-    <link itemprop="mainEntityOfPage" href="https://hailey.tw/2026/05/11/CSS%20%E5%AE%B9%E5%99%A8%E8%88%87%E5%85%A7%E5%AE%B9%E5%88%86%E9%9B%A2%EF%BC%9AFlexbox%20%E5%A4%9A%E6%AC%84%E6%8E%92%E7%89%88%E8%88%87%20gutter%20%E9%96%93%E8%B7%9D%E5%AF%A6%E4%BD%9C/">
+    <link itemprop="mainEntityOfPage" href="https://hailey.tw/2026/05/30/%E8%A6%96%E5%B7%AE%E6%BB%BE%E5%8B%95%E6%95%99%E5%AD%B8%EF%BD%9CParallax.js%E3%80%81Lax.js%20%E8%88%87%20CSS%20background-attachment%20%E5%AF%A6%E4%BD%9C/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://i.postimg.cc/d1YJx7jW/site-author-image.png">
@@ -251,12 +253,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="CSS 容器與內容分離：Flexbox 多欄排版與 gutter 間距實作 | Hailey's Blog">
-      <meta itemprop="description" content="介紹 CSS 容器與內容分離的設計概念，透過 Flexbox 實作多欄卡片佈局，包含 container、row、column 的職責劃分與 gutter 間距控制技巧。">
+      <meta itemprop="name" content="視差滾動教學｜Parallax.js、Lax.js 與 CSS background-attachment 實作 | Hailey's Blog">
+      <meta itemprop="description" content="視差滾動實作教學介紹 Parallax.js、Lax.js 套件與 CSS background-attachment 三種方法，附實際範例與程式碼。讓網頁動起來就是這麼簡單！">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          CSS 容器與內容分離：Flexbox 多欄排版與 gutter 間距實作
+          視差滾動教學｜Parallax.js、Lax.js 與 CSS background-attachment 實作
         </h1>
 
         <div class="post-meta-container">
@@ -268,7 +270,7 @@
       <span class="post-meta-item-text">發表於</span>
       
 
-      <time title="創建時間：2026-05-11 20:07:49 / 修改時間：20:51:56" itemprop="dateCreated datePublished" datetime="2026-05-11T20:07:49+08:00">2026-05-11</time>
+      <time title="創建時間：2026-05-30 08:53:50 / 修改時間：21:25:53" itemprop="dateCreated datePublished" datetime="2026-05-30T08:53:50+08:00">2026-05-30</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -283,92 +285,111 @@
   
 </div>
 
-            <div class="post-description">介紹 CSS 容器與內容分離的設計概念，透過 Flexbox 實作多欄卡片佈局，包含 container、row、column 的職責劃分與 gutter 間距控制技巧。</div>
+            <div class="post-description">視差滾動實作教學介紹 Parallax.js、Lax.js 套件與 CSS background-attachment 三種方法，附實際範例與程式碼。讓網頁動起來就是這麼簡單！</div>
         </div>
       </header>
 
     
     
     
-    <div class="post-body" itemprop="articleBody"><h2 id="什麼是容器與內容分離？"><a href="#什麼是容器與內容分離？" class="headerlink" title="什麼是容器與內容分離？"></a>什麼是容器與內容分離？</h2><p>許多前端新手在切版時，常會把「排版定位」與「內容樣式」全部寫在同一層元素上，導致元件難以重複使用，也容易在修改版型時互相影響。</p>
-<p>因此在實務開發中，通常會將「容器」、「欄位」與「內容」拆分成不同層級，這就是所謂的容器與內容分離。</p>
-<p>這種拆分方式能避免樣式互相耦合，提升版型的可維護性與元件重用性。</p>
-<p>結構上通常分為三層：</p>
-<ul>
-<li><strong>容器（Container）</strong>：限制最大寬度、水平置中</li>
-<li><strong>欄（Column）</strong>：控制寬度比例與欄間距（gutter）</li>
-<li><strong>內容（Card &#x2F; Content）</strong>：純粹負責內容樣式，不處理定位</li>
+    <div class="post-body" itemprop="articleBody"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>視差效果（Parallax）是網頁設計中常見的視覺技巧，透過讓不同圖層以不同速度移動，創造出立體感與空間感。</p>
+<p>雖然常見於滾動動畫（Parallax Scrolling），但也能搭配滑鼠移動或裝置感應來實現互動效果。</p>
+<p>本文將介紹三種實作方式：適合滑鼠互動的 <strong>Parallax.js</strong>、純 CSS 的 <strong>background-attachment</strong> 技巧，以及功能強大的 <strong>Lax.js</strong> 滾動動畫庫。無論你是初學者還是想精進技術，都能找到適合的解決方案。</p>
+<h2 id="Parallax-js"><a href="#Parallax-js" class="headerlink" title="Parallax.js"></a><a target="_blank" rel="noopener" href="http://matthew.wagerfield.com/parallax/">Parallax.js</a></h2><h3 id="📦-資源連結"><a href="#📦-資源連結" class="headerlink" title="📦 資源連結"></a>📦 資源連結</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/wagerfield/parallax">GitHub 下載</a></li>
+<li><a target="_blank" rel="noopener" href="https://codepen.io/AliceChiang/pen/oNbBwbM">Codepen 實作範例</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/github_36534129/article/details/72673585">中文參考文章</a></li>
 </ul>
-<hr>
-<h2 id="HTML-結構範例"><a href="#HTML-結構範例" class="headerlink" title="HTML 結構範例"></a>HTML 結構範例</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;container&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;row&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;column&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;card&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;images/Rectangle 29.png&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;卡片圖片&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">h2</span>&gt;</span>標題<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>卡片描述文字內容。<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;column&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;card&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;images/Rectangle 29.png&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;卡片圖片&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">h2</span>&gt;</span>標題<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>卡片描述文字內容。<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;column&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;card&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;images/Rectangle 29.png&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;卡片圖片&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">h2</span>&gt;</span>標題<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>卡片描述文字內容。<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="CSS-實作與概念說明"><a href="#CSS-實作與概念說明" class="headerlink" title="CSS 實作與概念說明"></a>CSS 實作與概念說明</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 容器：限制最大寬度並水平置中 */</span></span><br><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">  <span class="attribute">max-width</span>: <span class="number">1320px</span>;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">0</span> auto;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">0</span> <span class="number">12px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 列：Flex 排列並補正 gutter */</span></span><br><span class="line"><span class="selector-class">.row</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">  <span class="attribute">flex-wrap</span>: wrap;</span><br><span class="line">  <span class="attribute">margin-left</span>: -<span class="number">12px</span>;</span><br><span class="line">  <span class="attribute">margin-right</span>: -<span class="number">12px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 欄：控制寬度比例與 gutter 間距 */</span></span><br><span class="line"><span class="selector-class">.column</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">33.33%</span>; <span class="comment">/* 三欄等寬 */</span></span><br><span class="line">  <span class="attribute">padding-left</span>: <span class="number">12px</span>;</span><br><span class="line">  <span class="attribute">padding-right</span>: <span class="number">12px</span>;</span><br><span class="line">  <span class="attribute">box-sizing</span>: border-box; <span class="comment">/* 確保 padding 不撐開欄寬 */</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 卡片：純內容樣式，不處理定位 */</span></span><br><span class="line"><span class="selector-class">.card</span> &#123;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">10px</span>;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#000</span>;</span><br><span class="line">  <span class="attribute">margin-bottom</span>: <span class="number">24px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="關鍵技巧：負-margin-與-padding-配合實現-gutter"><a href="#關鍵技巧：負-margin-與-padding-配合實現-gutter" class="headerlink" title="關鍵技巧：負 margin 與 padding 配合實現 gutter"></a>關鍵技巧：負 margin 與 padding 配合實現 gutter</h3><p><code>.row</code> 使用負 margin 抵消 <code>.column</code> 的左右 padding，讓第一欄與最後一欄能重新貼齊 <code>.container</code> 的內容邊界，同時維持欄與欄之間固定的 gutter 間距。</p>
-<blockquote>
-<p><strong>補充：</strong> <code>.column</code> 加上 <code>box-sizing: border-box</code> 是必要的實務細節。若未設定，<code>padding</code> 會額外增加欄的實際寬度，可能導致換行或 overflow 的問題，這也是許多新手切版時，明明設定三欄卻意外換行的常見原因。。</p>
-</blockquote>
-<hr>
-<h2 id="為什麼不要讓-card-控制欄寬？"><a href="#為什麼不要讓-card-控制欄寬？" class="headerlink" title="為什麼不要讓 .card 控制欄寬？"></a>為什麼不要讓 <code>.card</code> 控制欄寬？</h2><p>如果直接在 <code>.card</code> 上設定寬度，例如：</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* ❌ 不建議這樣做 */</span></span><br><span class="line"><span class="selector-class">.card</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">33.33%</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>這會讓內容元件與版型耦合，代表同一個 <code>.card</code> 元件無法輕易重用到：</p>
-<ul>
-<li>四欄版型</li>
-<li>側邊欄</li>
-<li>輪播元件</li>
-<li>RWD 單欄排版</li>
-</ul>
-<p>因此在實務上，<strong>由 <code>.column</code> 負責版型寬度，<code>.card</code> 只專注於內容樣式</strong>，兩者職責清晰，元件才能真正做到可重用。</p>
-<hr>
-<h2 id="RWD-響應式排版"><a href="#RWD-響應式排版" class="headerlink" title="RWD 響應式排版"></a>RWD 響應式排版</h2><p>單純三欄在手機畫面會過度擁擠，通常在小螢幕時切換為單欄排列：</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@media</span> (<span class="attribute">max-width</span>: <span class="number">768px</span>) &#123;</span><br><span class="line">  <span class="selector-class">.column</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在手機版時，欄位改為單欄排列，讓使用者能舒適瀏覽每張卡片內容。</p>
-<hr>
-<h2 id="各層職責對照表"><a href="#各層職責對照表" class="headerlink" title="各層職責對照表"></a>各層職責對照表</h2><table>
+<h3 id="⚙️-核心屬性說明"><a href="#⚙️-核心屬性說明" class="headerlink" title="⚙️ 核心屬性說明"></a>⚙️ 核心屬性說明</h3><table>
 <thead>
 <tr>
-<th>層級</th>
-<th>元素</th>
-<th>職責</th>
+<th>屬性</th>
+<th>功能說明</th>
+<th>範例值</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>容器</td>
-<td><code>.container</code></td>
-<td>最大寬度、水平置中</td>
+<td>data-calibrate</td>
+<td>是否根據初始 x 軸位置計算運動量</td>
+<td>true&#x2F;false</td>
 </tr>
 <tr>
-<td>佈局</td>
-<td><code>.row</code></td>
-<td>Flex 排列、gutter 補正</td>
+<td>data-invert</td>
+<td>是否反向運動</td>
+<td>true&#x2F;false</td>
 </tr>
 <tr>
-<td>欄</td>
-<td><code>.column</code></td>
-<td>寬度比例、欄間距、<code>box-sizing</code></td>
+<td>data-limit</td>
+<td>限制 x 或 y 方向的最大運動範圍</td>
+<td>10, 50 等數字</td>
 </tr>
 <tr>
-<td>內容</td>
-<td><code>.card</code></td>
-<td>外觀、樣式</td>
+<td>data-scalar</td>
+<td>運動靈敏度(數值越大越靈敏)</td>
+<td>2, 8, 20 等</td>
+</tr>
+<tr>
+<td>data-friction</td>
+<td>運動摩擦力(0-1 之間)</td>
+<td>0.2, 0.8 等</td>
 </tr>
 </tbody></table>
-<hr>
-<h2 id="常見欄寬比例速查"><a href="#常見欄寬比例速查" class="headerlink" title="常見欄寬比例速查"></a>常見欄寬比例速查</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.col-1-2</span> &#123; <span class="attribute">width</span>: <span class="number">50%</span>; &#125;       <span class="comment">/* 二欄 */</span></span><br><span class="line"><span class="selector-class">.col-1-3</span> &#123; <span class="attribute">width</span>: <span class="number">33.33%</span>; &#125;    <span class="comment">/* 三欄 */</span></span><br><span class="line"><span class="selector-class">.col-1-4</span> &#123; <span class="attribute">width</span>: <span class="number">25%</span>; &#125;       <span class="comment">/* 四欄 */</span></span><br><span class="line"><span class="selector-class">.col-2-3</span> &#123; <span class="attribute">width</span>: <span class="number">66.66%</span>; &#125;    <span class="comment">/* 主內容區 */</span></span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="現代做法：使用-gap-取代負-margin"><a href="#現代做法：使用-gap-取代負-margin" class="headerlink" title="現代做法：使用 gap 取代負 margin"></a>現代做法：使用 <code>gap</code> 取代負 margin</h2><p>以上介紹的是傳統 Flexbox 搭配負 margin 的 gutter 技巧。現代瀏覽器已廣泛支援 <code>gap</code> 屬性，可以更直覺地控制欄間距，不需要負 margin：</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.row</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">  <span class="attribute">flex-wrap</span>: wrap;</span><br><span class="line">  <span class="attribute">gap</span>: <span class="number">24px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.column</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="built_in">calc</span>((<span class="number">100%</span> - <span class="number">48px</span>) / <span class="number">3</span>); <span class="comment">/* 需扣除 gap 對寬度的影響 */</span></span><br><span class="line">  <span class="attribute">box-sizing</span>: border-box;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="📝-使用方式"><a href="#📝-使用方式" class="headerlink" title="📝 使用方式"></a>📝 使用方式</h3><p><strong>方法一：HTML data 屬性設定(最簡單)</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;scene&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">data-depth</span>=<span class="string">&quot;0.2&quot;</span>&gt;</span>My first Layer！<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">data-depth</span>=<span class="string">&quot;0.6&quot;</span>&gt;</span>My second Layer！<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<p><strong>何時用哪種？</strong> 若需要相容較舊瀏覽器，或與 Bootstrap 等框架整合，使用負 margin 方案；新專案建議優先使用 <code>gap</code>，語義更清晰、程式碼更簡潔。</p>
+<p>data-depth 屬性：深度值介於 0-1，數值越大移動越明顯，0 代表完全不動。</p>
 </blockquote>
+<p><strong>方法二：JavaScript 初始化設定</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> scene = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;scene&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> parallax = <span class="keyword">new</span> <span class="title class_">Parallax</span>(scene, &#123; </span><br><span class="line">    <span class="attr">calibrateX</span>: <span class="literal">false</span>,  <span class="comment">// 不校準 X 軸</span></span><br><span class="line">    <span class="attr">calibrateY</span>: <span class="literal">true</span>,   <span class="comment">// 校準 Y 軸</span></span><br><span class="line">    <span class="attr">invertX</span>: <span class="literal">false</span>,     <span class="comment">// X 軸不反轉</span></span><br><span class="line">    <span class="attr">invertY</span>: <span class="literal">true</span>,      <span class="comment">// Y 軸反轉</span></span><br><span class="line">    <span class="attr">limitX</span>: <span class="literal">false</span>,      <span class="comment">// X 軸不限制</span></span><br><span class="line">    <span class="attr">limitY</span>: <span class="number">10</span>,         <span class="comment">// Y 軸最大移動 10px</span></span><br><span class="line">    <span class="attr">scalarX</span>: <span class="number">2</span>,         <span class="comment">// X 軸靈敏度</span></span><br><span class="line">    <span class="attr">scalarY</span>: <span class="number">8</span>,         <span class="comment">// Y 軸靈敏度  </span></span><br><span class="line">    <span class="attr">frictionX</span>: <span class="number">0.2</span>,     <span class="comment">// X 軸摩擦力</span></span><br><span class="line">    <span class="attr">frictionY</span>: <span class="number">0.8</span>      <span class="comment">// Y 軸摩擦力</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p><strong>方法三：動態控制 API</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> scene = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;scene&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> parallax = <span class="keyword">new</span> <span class="title class_">Parallax</span>(scene);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 啟用/停用</span></span><br><span class="line">parallax.<span class="title function_">enable</span>();</span><br><span class="line">parallax.<span class="title function_">disable</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 動態調整參數</span></span><br><span class="line">parallax.<span class="title function_">calibrate</span>(<span class="literal">false</span>, <span class="literal">true</span>);</span><br><span class="line">parallax.<span class="title function_">invert</span>(<span class="literal">false</span>, <span class="literal">true</span>);</span><br><span class="line">parallax.<span class="title function_">limit</span>(<span class="literal">false</span>, <span class="number">10</span>);</span><br><span class="line">parallax.<span class="title function_">scalar</span>(<span class="number">2</span>, <span class="number">8</span>);</span><br><span class="line">parallax.<span class="title function_">friction</span>(<span class="number">0.2</span>, <span class="number">0.8</span>);</span><br></pre></td></tr></table></figure>
+
+<p><strong>jQuery 版本</strong></p>
+<p>如果專案使用 jQuery，可以用更簡潔的語法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 初始化</span></span><br><span class="line">$(<span class="string">&#x27;#scene&#x27;</span>).<span class="title function_">parallax</span>(&#123; </span><br><span class="line">    <span class="attr">calibrateX</span>: <span class="literal">false</span>, </span><br><span class="line">    <span class="attr">calibrateY</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="comment">// ... 其他參數同上</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 動態控制</span></span><br><span class="line"><span class="keyword">var</span> $scene = $(<span class="string">&#x27;#scene&#x27;</span>).<span class="title function_">parallax</span>();</span><br><span class="line">$scene.<span class="title function_">parallax</span>(<span class="string">&#x27;enable&#x27;</span>);</span><br><span class="line">$scene.<span class="title function_">parallax</span>(<span class="string">&#x27;scalar&#x27;</span>, <span class="number">2</span>, <span class="number">8</span>);</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Parallax.js 雖然是經典套件，但目前更新頻率較低，較適合用於簡單互動或舊專案維護。</p>
+</blockquote>
+<h2 id="背景圖視差滾動"><a href="#背景圖視差滾動" class="headerlink" title="背景圖視差滾動"></a>背景圖視差滾動</h2><h3 id="🎨-純-CSS-實作"><a href="#🎨-純-CSS-實作" class="headerlink" title="🎨 純 CSS 實作"></a>🎨 純 CSS 實作</h3><p><img src="https://i.postimg.cc/BZFXkqFD/css-parallax-scrolling-demo.gif" alt="css-parallax-scrolling-demo"></p>
+<p>使用 CSS 的 <code>background-attachment: fixed</code> 屬性就能實現簡單的背景視差效果，完全不需要 JavaScript！</p>
+<p><strong>優點：</strong> 效能好、程式碼簡潔、容易維護<br><strong>缺點：</strong> 在 iOS Safari 有已知支援問題，行動裝置體驗較差</p>
+<h3 id="📚-學習資源"><a href="#📚-學習資源" class="headerlink" title="📚 學習資源"></a>📚 學習資源</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://www.w3schools.com/howto/howto_css_parallax.asp">W3Schools 完整範例</a></li>
+<li><a target="_blank" rel="noopener" href="https://wcc723.github.io/css/2013/09/25/background-att/">卡斯伯老師深入講解 background-attachment</a></li>
+</ul>
+<p><strong>基本語法：</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.parallax-section</span> &#123;</span><br><span class="line">    <span class="attribute">background-image</span>: <span class="built_in">url</span>(<span class="string">&#x27;background.jpg&#x27;</span>);</span><br><span class="line">    <span class="attribute">background-attachment</span>: fixed;  <span class="comment">/* 關鍵屬性 */</span></span><br><span class="line">    <span class="attribute">background-position</span>: center;</span><br><span class="line">    <span class="attribute">background-repeat</span>: no-repeat;</span><br><span class="line">    <span class="attribute">background-size</span>: cover;</span><br><span class="line">    <span class="attribute">min-height</span>: <span class="number">500px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Lax-js"><a href="#Lax-js" class="headerlink" title="Lax.js"></a><a target="_blank" rel="noopener" href="https://alexfox.dev/lax.js/">Lax.js</a></h2><p>Lax.js 是功能更強大的滾動動畫庫，支援各種預設動畫效果，適合需要複雜滾動互動的專案。</p>
+<h3 id="📦-快速開始"><a href="#📦-快速開始" class="headerlink" title="📦 快速開始"></a>📦 快速開始</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/alexfoxy/lax.js">GitHub 專案</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=jaVy3SCibJw">影片教學</a></li>
+<li><a target="_blank" rel="noopener" href="https://cdn.jsdelivr.net/npm/lax.js">CDN</a></li>
+<li><a target="_blank" rel="noopener" href="https://codepen.io/AliceChiang/pen/OJMWjxg">CodePen 實作範例</a></li>
+</ul>
+<h3 id="💻-使用範例"><a href="#💻-使用範例" class="headerlink" title="💻 使用範例"></a>💻 使用範例</h3><p><strong>HTML 設定(使用預設動畫)</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">class</span>=<span class="string">&quot;lax&quot;</span> <span class="attr">data-lax-preset</span>=<span class="string">&quot;rightToLeft-.1 fadeInOut&quot;</span>&gt;</span></span><br><span class="line">    從右淡入的標題</span><br><span class="line"><span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;lax&quot;</span> <span class="attr">data-lax-preset</span>=<span class="string">&quot;spin-180&quot;</span>&gt;</span></span><br><span class="line">    旋轉效果文字</span><br><span class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>JavaScript 初始化</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">document</span>.<span class="title function_">addEventListener</span>(<span class="string">&#x27;DOMContentLoaded&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    lax.<span class="title function_">setup</span>(); <span class="comment">// 初始化 Lax.js</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">const</span> <span class="title function_">updateLax</span> = (<span class="params"></span>) =&gt; &#123; </span><br><span class="line">        lax.<span class="title function_">update</span>(<span class="variable language_">window</span>.<span class="property">scrollY</span>);  <span class="comment">// 更新滾動位置</span></span><br><span class="line">        <span class="title function_">requestAnimationFrame</span>(updateLax);  <span class="comment">// 流暢動畫循環</span></span><br><span class="line">    &#125;;</span><br><span class="line">    </span><br><span class="line">    <span class="title function_">requestAnimationFrame</span>(updateLax);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>💡 <strong>提示：</strong> Lax.js 提供豐富的 <code>data-lax-preset</code> 預設效果，可直接套用無需複雜設定！</p>
+<h2 id="其他推薦套件"><a href="#其他推薦套件" class="headerlink" title="其他推薦套件"></a>其他推薦套件</h2><p>如果上述方案不符合需求，還有這些選擇：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://scrollme.nckprsn.com/">ScrollMe</a> - 輕量級滾動動畫</li>
+<li><a target="_blank" rel="noopener" href="https://jqueryhouse.com/12-jquery-parallax-plugins/">jQuery Parallax Plugins 合集</a> - 12 種不同風格的視差套件</li>
+</ul>
 <hr>
-<h2 id="小結"><a href="#小結" class="headerlink" title="小結"></a>小結</h2><p>容器與內容分離的核心概念是<strong>讓佈局邏輯不入侵內容樣式</strong>。<code>.card</code> 不需要知道自己被放在幾欄的格線中，<code>.column</code> 也不需要知道內部放的是卡片還是其他元件。</p>
-<p>Bootstrap 的 Grid System 也是基於類似概念設計：由 <code>container</code> 控制版面範圍、<code>row</code> 負責排列、<code>column</code> 控制欄寬，而內容元件則獨立存在。掌握這個分層思維，是前端切版從「能用」走向「好維護」的關鍵一步。</p>
+<h2 id="選擇建議"><a href="#選擇建議" class="headerlink" title="選擇建議"></a>選擇建議</h2><ul>
+<li><strong>初學者&#x2F;簡單需求：</strong> 使用純 CSS <code>background-attachment: fixed</code></li>
+<li><strong>需要滑鼠互動：</strong> 選擇 Parallax.js</li>
+<li><strong>複雜滾動動畫：</strong> Lax.js 最適合</li>
+<li><strong>專案已使用 jQuery：</strong> jQuery 版本整合更順暢</li>
+</ul>
+<p>⚠️ <strong>效能提醒</strong>：行動裝置要特別注意視差效果的流暢度，建議使用 <code>will-change</code> 或考慮在小螢幕停用視差效果。</p>
 
     </div>
 
@@ -442,40 +463,6 @@
         
       
         
-      
-        
-          
-          
-            
-          
-          
-        
-      
-        
-          
-          
-            
-          
-          
-        
-      
-        
-          
-          
-            
-          
-          
-        
-      
-        
-          
-          
-            
-          
-          
-        
-      
-        
           
           
             
@@ -484,14 +471,24 @@
           
           
             
-            <a class="related-cards__item" href="/2026/05/02/HTML%20%E8%AA%9E%E6%84%8F%E5%8C%96%E6%A8%99%E7%B1%A4%E6%80%8E%E9%BA%BC%E7%94%A8%EF%BC%9F%E6%96%B0%E6%89%8B%E6%9C%80%E5%B8%B8%E6%90%9E%E9%8C%AF%E7%9A%84%205%20%E5%80%8B%E5%9C%B0%E6%96%B9/">
-              <span class="related-cards__item-title">HTML 語意化標籤怎麼用？新手最常搞錯的 5 個地方</span>
+            <a class="related-cards__item" href="/2026/05/11/CSS%20%E5%AE%B9%E5%99%A8%E8%88%87%E5%85%A7%E5%AE%B9%E5%88%86%E9%9B%A2%EF%BC%9AFlexbox%20%E5%A4%9A%E6%AC%84%E6%8E%92%E7%89%88%E8%88%87%20gutter%20%E9%96%93%E8%B7%9D%E5%AF%A6%E4%BD%9C/">
+              <span class="related-cards__item-title">CSS 容器與內容分離：Flexbox 多欄排版與 gutter 間距實作</span>
               <span class="related-cards__item-date">
                 <i class="far fa-calendar-alt"></i>
-                2026-05-02
+                2026-05-11
               </span>
             </a>
           
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
         
       
         
@@ -529,8 +526,8 @@
         <span>分享這篇文章</span>
       </div>
       <div class="share-article-buttons"
-           data-share-url="https://hailey.tw/2026/05/11/CSS%20%E5%AE%B9%E5%99%A8%E8%88%87%E5%85%A7%E5%AE%B9%E5%88%86%E9%9B%A2%EF%BC%9AFlexbox%20%E5%A4%9A%E6%AC%84%E6%8E%92%E7%89%88%E8%88%87%20gutter%20%E9%96%93%E8%B7%9D%E5%AF%A6%E4%BD%9C/"
-           data-share-title="CSS 容器與內容分離：Flexbox 多欄排版與 gutter 間距實作">
+           data-share-url="https://hailey.tw/2026/05/30/%E8%A6%96%E5%B7%AE%E6%BB%BE%E5%8B%95%E6%95%99%E5%AD%B8%EF%BD%9CParallax.js%E3%80%81Lax.js%20%E8%88%87%20CSS%20background-attachment%20%E5%AF%A6%E4%BD%9C/"
+           data-share-title="視差滾動教學｜Parallax.js、Lax.js 與 CSS background-attachment 實作">
         <a href="#"
            role="button"
            class="share-article-btn"
@@ -731,14 +728,11 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2026/05/10/Codewars%20%E6%96%B0%E6%89%8B%E6%95%99%E5%AD%B8%EF%BC%9AJavaScript%20%E5%88%B7%E9%A1%8C%E6%B5%81%E7%A8%8B%E8%88%87%E8%A7%A3%E9%A1%8C%E6%8A%80%E5%B7%A7%E5%AE%8C%E6%95%B4%E8%A7%A3%E6%9E%90/" rel="prev" title="Codewars 新手教學：JavaScript 刷題流程與解題技巧完整解析">
-                  <i class="fa fa-angle-left"></i> Codewars 新手教學：JavaScript 刷題流程與解題技巧完整解析
+                <a href="/2026/05/27/%E6%90%9E%E6%87%82%20CSS%20Transition%E3%80%81Transform%20%E8%88%87%20Animation%20%E5%B7%AE%E7%95%B0%EF%BD%9C%E7%B6%B2%E9%A0%81%E5%8B%95%E6%85%8B%E6%95%88%E6%9E%9C%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97/" rel="prev" title="搞懂 CSS Transition、Transform 與 Animation 差異｜網頁動態效果完整指南">
+                  <i class="fa fa-angle-left"></i> 搞懂 CSS Transition、Transform 與 Animation 差異｜網頁動態效果完整指南
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2026/05/12/JavaScript%20%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%E6%95%B4%E7%90%86%EF%BC%9A%E7%89%A9%E4%BB%B6%E3%80%81%E8%BF%B4%E5%9C%88%E3%80%81%E5%87%BD%E5%BC%8F%E8%88%87%E8%A8%98%E6%86%B6%E9%AB%94/" rel="next" title="JavaScript 核心概念整理：物件、迴圈、函式、拷貝與記憶體">
-                  JavaScript 核心概念整理：物件、迴圈、函式、拷貝與記憶體 <i class="fa fa-angle-right"></i>
-                </a>
             </div>
           </div>
     </footer>
