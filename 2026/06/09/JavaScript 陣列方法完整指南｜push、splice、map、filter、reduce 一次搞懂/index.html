@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"hailey.tw","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":true,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"找到 ${hits} 個搜索結果（用時 ${time} 毫秒）","hits":"找到 ${hits} 個搜索結果"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="完整介紹 JavaScript 最常用的陣列操作方法，包含 push、pop、splice、map、filter、reduce 等，並附上實際情境範例與速查表，新手入門必讀！">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript 陣列方法完整指南｜push、splice、map、filter、reduce 一次搞懂">
+<meta property="og:url" content="https://hailey.tw/2026/06/09/JavaScript%20%E9%99%A3%E5%88%97%E6%96%B9%E6%B3%95%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97%EF%BD%9Cpush%E3%80%81splice%E3%80%81map%E3%80%81filter%E3%80%81reduce%20%E4%B8%80%E6%AC%A1%E6%90%9E%E6%87%82/index.html">
+<meta property="og:site_name" content="Hailey&#39;s Blog">
+<meta property="og:description" content="完整介紹 JavaScript 最常用的陣列操作方法，包含 push、pop、splice、map、filter、reduce 等，並附上實際情境範例與速查表，新手入門必讀！">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2026-06-09T05:55:52.000Z">
+<meta property="article:modified_time" content="2026-06-09T06:06:25.722Z">
+<meta property="article:author" content="Hailey">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://hailey.tw/2026/06/09/JavaScript%20%E9%99%A3%E5%88%97%E6%96%B9%E6%B3%95%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97%EF%BD%9Cpush%E3%80%81splice%E3%80%81map%E3%80%81filter%E3%80%81reduce%20%E4%B8%80%E6%AC%A1%E6%90%9E%E6%87%82/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://hailey.tw/2026/06/09/JavaScript%20%E9%99%A3%E5%88%97%E6%96%B9%E6%B3%95%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97%EF%BD%9Cpush%E3%80%81splice%E3%80%81map%E3%80%81filter%E3%80%81reduce%20%E4%B8%80%E6%AC%A1%E6%90%9E%E6%87%82/","path":"2026/06/09/JavaScript 陣列方法完整指南｜push、splice、map、filter、reduce 一次搞懂/","title":"JavaScript 陣列方法完整指南｜push、splice、map、filter、reduce 一次搞懂"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>JavaScript 陣列方法完整指南｜push、splice、map、filter、reduce 一次搞懂 | Hailey's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8W8PTGBYMG"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-8W8PTGBYMG","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js" defer></script>
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="Hailey's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main main--recent-rail">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hailey's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Stressed spelled backwards is desserts.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜尋" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>關於</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜尋..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+    <div class="sidebar-mobile-focus">
+      <div class="site-meta site-meta--drawer">
+
+        <a href="/" class="brand" rel="start">
+          <i class="logo-line"></i>
+          <p class="site-title">Hailey's Blog</p>
+          <i class="logo-line"></i>
+        </a>
+          <p class="site-subtitle" itemprop="description">Stressed spelled backwards is desserts.</p>
+      </div>
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>關於</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+    </div>
+
+    <div class="sidebar-desktop-stack">
+
+      <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+        <ul class="sidebar-nav">
+          <li class="sidebar-nav-toc">
+            文章目錄
+          </li>
+          <li class="sidebar-nav-overview">
+            本站概要
+          </li>
+        </ul>
+
+        <div class="sidebar-panel-container">
+          <!--noindex-->
+          <div class="post-toc-wrap sidebar-panel">
+              <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%88%E6%90%9E%E6%87%82%E4%B8%80%E4%BB%B6%E4%BA%8B%EF%BC%9A%E6%9C%83%E4%B8%8D%E6%9C%83%E5%8B%95%E5%88%B0%E5%8E%9F%E9%99%A3%E5%88%97%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">先搞懂一件事：會不會動到原陣列？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%83%E6%94%B9%E8%AE%8A%E5%8E%9F%E9%99%A3%E5%88%97%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">會改變原陣列的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#push-pop%EF%BC%9A%E5%B0%8D%E3%80%8C%E5%B0%BE%E5%B7%B4%E3%80%8D%E6%93%8D%E4%BD%9C"><span class="nav-number">2.1.</span> <span class="nav-text">push &#x2F; pop：對「尾巴」操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#unshift-shift%EF%BC%9A%E5%B0%8D%E3%80%8C%E9%A0%AD%E9%83%A8%E3%80%8D%E6%93%8D%E4%BD%9C"><span class="nav-number">2.2.</span> <span class="nav-text">unshift &#x2F; shift：對「頭部」操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#splice%EF%BC%9A%E7%B2%BE%E6%BA%96%E5%88%AA%E9%99%A4%E6%88%96%E6%8F%92%E5%85%A5%E6%8C%87%E5%AE%9A%E4%BD%8D%E7%BD%AE"><span class="nav-number">2.3.</span> <span class="nav-text">splice：精準刪除或插入指定位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sort%EF%BC%9A%E6%8E%92%E5%BA%8F"><span class="nav-number">2.4.</span> <span class="nav-text">sort：排序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reverse%EF%BC%9A%E5%8F%8D%E8%BD%89%E9%99%A3%E5%88%97"><span class="nav-number">2.5.</span> <span class="nav-text">reverse：反轉陣列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#forEach%EF%BC%9A%E9%81%8D%E6%AD%B7%E9%99%A3%E5%88%97"><span class="nav-number">2.6.</span> <span class="nav-text">forEach：遍歷陣列</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8D%E6%9C%83%E7%9B%B4%E6%8E%A5%E6%94%B9%E8%AE%8A%E5%8E%9F%E9%99%A3%E5%88%97%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">不會直接改變原陣列的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#map%EF%BC%9A%E8%BD%89%E6%8F%9B%E6%AF%8F%E5%80%8B%E5%85%83%E7%B4%A0%EF%BC%8C%E5%9B%9E%E5%82%B3%E6%96%B0%E9%99%A3%E5%88%97"><span class="nav-number">3.1.</span> <span class="nav-text">map：轉換每個元素，回傳新陣列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#filter%EF%BC%9A%E7%AF%A9%E9%81%B8%E7%AC%A6%E5%90%88%E6%A2%9D%E4%BB%B6%E7%9A%84%E5%85%83%E7%B4%A0"><span class="nav-number">3.2.</span> <span class="nav-text">filter：篩選符合條件的元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reduce%EF%BC%9A%E7%B4%AF%E7%A9%8D%E6%88%90%E5%96%AE%E4%B8%80%E7%B5%90%E6%9E%9C"><span class="nav-number">3.3.</span> <span class="nav-text">reduce：累積成單一結果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#slice%EF%BC%9A%E5%8F%96%E5%87%BA%E7%89%B9%E5%AE%9A%E7%AF%84%E5%9C%8D%EF%BC%88%E4%B8%8D%E5%8B%95%E5%8E%9F%E9%99%A3%E5%88%97%EF%BC%89"><span class="nav-number">3.4.</span> <span class="nav-text">slice：取出特定範圍（不動原陣列）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#concat%EF%BC%9A%E5%90%88%E4%BD%B5%E9%99%A3%E5%88%97"><span class="nav-number">3.5.</span> <span class="nav-text">concat：合併陣列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#indexOf-lastIndexOf%EF%BC%9A%E6%89%BE%E5%80%BC%E7%9A%84%E7%B4%A2%E5%BC%95%E4%BD%8D%E7%BD%AE"><span class="nav-number">3.6.</span> <span class="nav-text">indexOf &#x2F; lastIndexOf：找值的索引位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#find-findIndex%EF%BC%9A%E6%89%BE%E7%AC%AC%E4%B8%80%E5%80%8B%E7%AC%A6%E5%90%88%E6%A2%9D%E4%BB%B6%E7%9A%84%E5%80%BC"><span class="nav-number">3.7.</span> <span class="nav-text">find &#x2F; findIndex：找第一個符合條件的值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#some-every%EF%BC%9A%E6%A2%9D%E4%BB%B6%E6%AA%A2%E6%9F%A5"><span class="nav-number">3.8.</span> <span class="nav-text">some &#x2F; every：條件檢查</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#join%EF%BC%9A%E9%99%A3%E5%88%97%E8%BD%89%E5%AD%97%E4%B8%B2"><span class="nav-number">3.9.</span> <span class="nav-text">join：陣列轉字串</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E5%B8%B8%E7%94%A8%E6%8A%80%E5%B7%A7"><span class="nav-number">4.</span> <span class="nav-text">其他常用技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%96%E5%BE%97%E9%99%A3%E5%88%97%E6%9C%80%E5%BE%8C%E4%B8%80%E5%80%8B%E5%80%BC"><span class="nav-number">4.1.</span> <span class="nav-text">取得陣列最後一個值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%88%E4%BD%B5%E3%80%81%E5%8E%BB%E9%87%8D%E3%80%81%E7%AF%A9%E9%81%B8%E3%80%81%E6%8E%92%E5%BA%8F%E4%B8%80%E6%A2%9D%E9%BE%8D"><span class="nav-number">4.2.</span> <span class="nav-text">合併、去重、篩選、排序一條龍</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9F%E6%9F%A5%E8%A1%A8"><span class="nav-number">5.</span> <span class="nav-text">速查表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BB%B6%E4%BC%B8%E5%AD%B8%E7%BF%92%E8%B3%87%E6%BA%90"><span class="nav-number">6.</span> <span class="nav-text">延伸學習資源</span></a></li></ol></div>
+          </div>
+          <!--/noindex-->
+
+          <div class="site-overview-wrap sidebar-panel">
+            <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hailey"
+      src="https://i.postimg.cc/d1YJx7jW/site-author-image.png">
+  <p class="site-author-name" itemprop="name">Hailey</p>
+  <div class="site-description" itemprop="description">專注前端開發，記錄 JavaScript 與 Vite 的實戰筆記，以及從非本科轉職工程師的成長之路。</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">標籤</span>
+      </div>
+  </nav>
+</div>
+
+          </div>
+        </div>
+      </div>
+
+      
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://hailey.tw/2026/06/09/JavaScript%20%E9%99%A3%E5%88%97%E6%96%B9%E6%B3%95%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97%EF%BD%9Cpush%E3%80%81splice%E3%80%81map%E3%80%81filter%E3%80%81reduce%20%E4%B8%80%E6%AC%A1%E6%90%9E%E6%87%82/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://i.postimg.cc/d1YJx7jW/site-author-image.png">
+      <meta itemprop="name" content="Hailey">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hailey's Blog">
+      <meta itemprop="description" content="專注前端開發，記錄 JavaScript 與 Vite 的實戰筆記，以及從非本科轉職工程師的成長之路。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="JavaScript 陣列方法完整指南｜push、splice、map、filter、reduce 一次搞懂 | Hailey's Blog">
+      <meta itemprop="description" content="完整介紹 JavaScript 最常用的陣列操作方法，包含 push、pop、splice、map、filter、reduce 等，並附上實際情境範例與速查表，新手入門必讀！">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JavaScript 陣列方法完整指南｜push、splice、map、filter、reduce 一次搞懂
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+      
+
+      <time title="創建時間：2026-06-09 13:55:52 / 修改時間：14:06:25" itemprop="dateCreated datePublished" datetime="2026-06-09T13:55:52+08:00">2026-06-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+            <div class="post-description">完整介紹 JavaScript 最常用的陣列操作方法，包含 push、pop、splice、map、filter、reduce 等，並附上實際情境範例與速查表，新手入門必讀！</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><blockquote>
+<p>陣列是 JavaScript 裡最常用的資料結構，幾乎每個功能都會碰到它。這篇文章把常用的陣列操作方法整理在一起，書籤起來當參考手冊就對了 📌</p>
+</blockquote>
+<hr>
+<h2 id="先搞懂一件事：會不會動到原陣列？"><a href="#先搞懂一件事：會不會動到原陣列？" class="headerlink" title="先搞懂一件事：會不會動到原陣列？"></a>先搞懂一件事：會不會動到原陣列？</h2><p>陣列方法可以分成兩大類，搞清楚這件事能避免很多意料外的 bug：</p>
+<ul>
+<li>🔧 <strong>會改變原陣列</strong>（mutating）：<code>push</code>、<code>pop</code>、<code>splice</code>、<code>sort</code>、<code>reverse</code>…</li>
+<li>✨ <strong>不會直接改變原陣列</strong>（non-mutating，回傳新陣列）：<code>map</code>、<code>filter</code>、<code>reduce</code>、<code>slice</code>、<code>concat</code>…</li>
+</ul>
+<p>後者會回傳一個全新的陣列，原始資料完全不受影響。</p>
+<blockquote>
+<p>💡 注意：JavaScript 本身並沒有真正「不可變的陣列」，除非你使用 <code>Object.freeze()</code> 或 Immutable.js 等工具。這裡說的「不改變原陣列」，指的是這些方法不會 mutate 原始資料。</p>
+</blockquote>
+<hr>
+<h2 id="會改變原陣列的方法"><a href="#會改變原陣列的方法" class="headerlink" title="會改變原陣列的方法"></a>會改變原陣列的方法</h2><h3 id="push-pop：對「尾巴」操作"><a href="#push-pop：對「尾巴」操作" class="headerlink" title="push &#x2F; pop：對「尾巴」操作"></a>push &#x2F; pop：對「尾巴」操作</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> colors = [<span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>, <span class="string">&#x27;green&#x27;</span>];</span><br><span class="line"></span><br><span class="line">colors.<span class="title function_">push</span>(<span class="string">&#x27;pink&#x27;</span>);  <span class="comment">// 加到最後面 → [&#x27;red&#x27;, &#x27;blue&#x27;, &#x27;green&#x27;, &#x27;pink&#x27;]</span></span><br><span class="line">colors.<span class="title function_">pop</span>();         <span class="comment">// 移除最後一個，並回傳被移除的值 &#x27;pink&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(colors);  <span class="comment">// [&#x27;red&#x27;, &#x27;blue&#x27;, &#x27;green&#x27;]</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="unshift-shift：對「頭部」操作"><a href="#unshift-shift：對「頭部」操作" class="headerlink" title="unshift &#x2F; shift：對「頭部」操作"></a>unshift &#x2F; shift：對「頭部」操作</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">colors.<span class="title function_">unshift</span>(<span class="string">&#x27;white&#x27;</span>); <span class="comment">// 加到最前面 → [&#x27;white&#x27;, &#x27;red&#x27;, &#x27;blue&#x27;, &#x27;green&#x27;]</span></span><br><span class="line">colors.<span class="title function_">shift</span>();          <span class="comment">// 移除第一個，並回傳被移除的值 &#x27;white&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>記憶技巧 🧠</strong></p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>位置</th>
+<th>動作</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>push</code></td>
+<td>尾巴</td>
+<td>加入</td>
+</tr>
+<tr>
+<td><code>pop</code></td>
+<td>尾巴</td>
+<td>移除</td>
+</tr>
+<tr>
+<td><code>unshift</code></td>
+<td>頭部</td>
+<td>加入</td>
+</tr>
+<tr>
+<td><code>shift</code></td>
+<td>頭部</td>
+<td>移除</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="splice：精準刪除或插入指定位置"><a href="#splice：精準刪除或插入指定位置" class="headerlink" title="splice：精準刪除或插入指定位置"></a>splice：精準刪除或插入指定位置</h3><p><code>splice</code> 是最靈活的陣列方法，可以刪除、新增、甚至替換，全靠參數控制。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 語法：splice(起始索引, 刪除幾筆, 插入的值...)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> colors = [<span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>, <span class="string">&#x27;green&#x27;</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 刪除：從索引 1 開始，刪除 1 筆</span></span><br><span class="line">colors.<span class="title function_">splice</span>(<span class="number">1</span>, <span class="number">1</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(colors); <span class="comment">// [&#x27;red&#x27;, &#x27;green&#x27;]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 插入：從索引 1 開始，刪除 0 筆，插入 &#x27;blue&#x27;</span></span><br><span class="line">colors.<span class="title function_">splice</span>(<span class="number">1</span>, <span class="number">0</span>, <span class="string">&#x27;blue&#x27;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(colors); <span class="comment">// [&#x27;red&#x27;, &#x27;blue&#x27;, &#x27;green&#x27;]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 替換：從索引 1 開始，刪除 1 筆，插入 &#x27;yellow&#x27;</span></span><br><span class="line">colors.<span class="title function_">splice</span>(<span class="number">1</span>, <span class="number">1</span>, <span class="string">&#x27;yellow&#x27;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(colors); <span class="comment">// [&#x27;red&#x27;, &#x27;yellow&#x27;, &#x27;green&#x27;]</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>⚠️ 第二個參數如果不填，會從起始位置一路刪到最後。常見 bug：第二個參數沒控制好，會導致大量資料意外被刪除，務必小心！</p>
+</blockquote>
+<hr>
+<h3 id="sort：排序"><a href="#sort：排序" class="headerlink" title="sort：排序"></a>sort：排序</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> nums = [<span class="number">10</span>, <span class="number">2</span>, <span class="number">8</span>, <span class="number">1</span>, <span class="number">5</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">// ❌ 預設是「字串」排序，數字排出來會不對</span></span><br><span class="line">nums.<span class="title function_">sort</span>();                <span class="comment">// [1, 10, 2, 5, 8]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// ✅ 數字排序要帶比較函式</span></span><br><span class="line">nums.<span class="title function_">sort</span>(<span class="function">(<span class="params">a, b</span>) =&gt;</span> a - b); <span class="comment">// [1, 2, 5, 8, 10]（從小到大）</span></span><br><span class="line">nums.<span class="title function_">sort</span>(<span class="function">(<span class="params">a, b</span>) =&gt;</span> b - a); <span class="comment">// [10, 8, 5, 2, 1]（從大到小）</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>⚠️ <code>sort()</code> 是「就地排序」（in-place），會直接修改原陣列。如果要保留原始順序，記得先複製一份：<code>[...nums].sort((a, b) =&gt; a - b)</code>。這也是面試和實務都很常考的坑。</p>
+</blockquote>
+<p>字串排序可以用 <code>localeCompare</code>，對中文或多語系也友善：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> books = [</span><br><span class="line">  &#123; <span class="attr">title</span>: <span class="string">&#x27;To Kill a Mockingbird&#x27;</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">title</span>: <span class="string">&#x27;1984&#x27;</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">title</span>: <span class="string">&#x27;The Great Gatsby&#x27;</span> &#125;</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line">books.<span class="title function_">sort</span>(<span class="function">(<span class="params">a, b</span>) =&gt;</span> a.<span class="property">title</span>.<span class="title function_">localeCompare</span>(b.<span class="property">title</span>));</span><br><span class="line"><span class="comment">// 結果：1984 → The Great Gatsby → To Kill a Mockingbird</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="reverse：反轉陣列"><a href="#reverse：反轉陣列" class="headerlink" title="reverse：反轉陣列"></a>reverse：反轉陣列</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line">arr.<span class="title function_">reverse</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(arr); <span class="comment">// [5, 4, 3, 2, 1]</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="forEach：遍歷陣列"><a href="#forEach：遍歷陣列" class="headerlink" title="forEach：遍歷陣列"></a>forEach：遍歷陣列</h3><p><code>forEach</code> 是 <code>for</code> 迴圈的簡化版，讓你不用手動管理索引：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> colors = [<span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>, <span class="string">&#x27;green&#x27;</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 舊寫法</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; colors.<span class="property">length</span>; i++) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(i, colors[i]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// forEach（推薦）</span></span><br><span class="line">colors.<span class="title function_">forEach</span>(<span class="function">(<span class="params">item, index</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(index, item);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 0 red / 1 blue / 2 green</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>💡 <code>forEach</code> 提供三個參數：<code>(item, index, arr)</code>，大多數情況只需要前兩個就夠用。</p>
+</blockquote>
+<hr>
+<h2 id="不會直接改變原陣列的方法"><a href="#不會直接改變原陣列的方法" class="headerlink" title="不會直接改變原陣列的方法"></a>不會直接改變原陣列的方法</h2><h3 id="map：轉換每個元素，回傳新陣列"><a href="#map：轉換每個元素，回傳新陣列" class="headerlink" title="map：轉換每個元素，回傳新陣列"></a>map：轉換每個元素，回傳新陣列</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> prices = [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> discounted = prices.<span class="title function_">map</span>(<span class="function"><span class="params">price</span> =&gt;</span> price * <span class="number">0.8</span>); <span class="comment">// 每個打八折</span></span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(discounted); <span class="comment">// [80, 160, 240]</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(prices);     <span class="comment">// [100, 200, 300]（原陣列沒變）</span></span><br></pre></td></tr></table></figure>
+
+<p><strong><code>forEach</code> vs <code>map</code> 的關鍵差異：</strong></p>
+<ul>
+<li><code>map</code> 會回傳新陣列，可以繼續鏈式處理（chain）</li>
+<li><code>forEach</code> 不回傳任何值，也無法鏈式處理</li>
+</ul>
+<p>需要「轉換資料」就用 <code>map</code>，只是「執行動作（如印出、更新 DOM）」就用 <code>forEach</code>。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// map 可以鏈式處理</span></span><br><span class="line"><span class="keyword">let</span> result = prices</span><br><span class="line">  .<span class="title function_">map</span>(<span class="function"><span class="params">price</span> =&gt;</span> price * <span class="number">0.8</span>)   <span class="comment">// 打八折</span></span><br><span class="line">  .<span class="title function_">filter</span>(<span class="function"><span class="params">price</span> =&gt;</span> price &gt; <span class="number">100</span>); <span class="comment">// 再篩選大於 100 的</span></span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(result); <span class="comment">// [160, 240]</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="filter：篩選符合條件的元素"><a href="#filter：篩選符合條件的元素" class="headerlink" title="filter：篩選符合條件的元素"></a>filter：篩選符合條件的元素</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> nums = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> evens = nums.<span class="title function_">filter</span>(<span class="function"><span class="params">n</span> =&gt;</span> n % <span class="number">2</span> === <span class="number">0</span>); <span class="comment">// 篩選偶數</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(evens); <span class="comment">// [2, 4, 6, 8]</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>實際應用：</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 只顯示有庫存的商品</span></span><br><span class="line"><span class="keyword">let</span> products = [</span><br><span class="line">  &#123; <span class="attr">name</span>: <span class="string">&#x27;手機殼&#x27;</span>, <span class="attr">stock</span>: <span class="number">0</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">name</span>: <span class="string">&#x27;充電線&#x27;</span>, <span class="attr">stock</span>: <span class="number">5</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">name</span>: <span class="string">&#x27;耳機&#x27;</span>, <span class="attr">stock</span>: <span class="number">2</span> &#125;</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> available = products.<span class="title function_">filter</span>(<span class="function"><span class="params">p</span> =&gt;</span> p.<span class="property">stock</span> &gt; <span class="number">0</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(available);</span><br><span class="line"><span class="comment">// [&#123; name: &#x27;充電線&#x27;, stock: 5 &#125;, &#123; name: &#x27;耳機&#x27;, stock: 2 &#125;]</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="reduce：累積成單一結果"><a href="#reduce：累積成單一結果" class="headerlink" title="reduce：累積成單一結果"></a>reduce：累積成單一結果</h3><p><code>reduce</code> 是最強大也最容易讓新手看不懂的方法，但概念不難：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 語法：reduce(callback, 初始值)</span></span><br><span class="line"><span class="keyword">let</span> nums = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> total = nums.<span class="title function_">reduce</span>(<span class="function">(<span class="params">prev, next</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> prev + next;</span><br><span class="line">&#125;, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(total); <span class="comment">// 15</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>執行過程：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">初始值 0</span><br><span class="line">第1次：prev=0,  next=1 → 回傳 1</span><br><span class="line">第2次：prev=1,  next=2 → 回傳 3</span><br><span class="line">第3次：prev=3,  next=3 → 回傳 6</span><br><span class="line">第4次：prev=6,  next=4 → 回傳 10</span><br><span class="line">第5次：prev=10, next=5 → 回傳 15</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>⚠️ callback <strong>必須回傳累積值</strong>，否則 <code>prev</code> 會在下一次迭代變成 <code>undefined</code>，整個結果就爛掉了。</p>
+</blockquote>
+<p><strong>reduce 四種常見用途：</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> nums = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 1. 加總（sum）</span></span><br><span class="line">nums.<span class="title function_">reduce</span>(<span class="function">(<span class="params">acc, n</span>) =&gt;</span> acc + n, <span class="number">0</span>); <span class="comment">// 12</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 計數（count）</span></span><br><span class="line">nums.<span class="title function_">reduce</span>(<span class="function">(<span class="params">acc, n</span>) =&gt;</span> &#123;</span><br><span class="line">  acc[n] = (acc[n] || <span class="number">0</span>) + <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">return</span> acc;</span><br><span class="line">&#125;, &#123;&#125;); <span class="comment">// &#123; &#x27;1&#x27;: 1, &#x27;2&#x27;: 2, &#x27;3&#x27;: 1, &#x27;4&#x27;: 1 &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 分組（groupBy）</span></span><br><span class="line"><span class="keyword">const</span> people = [</span><br><span class="line">  &#123; <span class="attr">name</span>: <span class="string">&#x27;Alice&#x27;</span>, <span class="attr">dept</span>: <span class="string">&#x27;eng&#x27;</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">name</span>: <span class="string">&#x27;Bob&#x27;</span>,   <span class="attr">dept</span>: <span class="string">&#x27;design&#x27;</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">name</span>: <span class="string">&#x27;Carol&#x27;</span>, <span class="attr">dept</span>: <span class="string">&#x27;eng&#x27;</span> &#125;</span><br><span class="line">];</span><br><span class="line">people.<span class="title function_">reduce</span>(<span class="function">(<span class="params">acc, p</span>) =&gt;</span> &#123;</span><br><span class="line">  (acc[p.<span class="property">dept</span>] = acc[p.<span class="property">dept</span>] || []).<span class="title function_">push</span>(p);</span><br><span class="line">  <span class="keyword">return</span> acc;</span><br><span class="line">&#125;, &#123;&#125;); <span class="comment">// &#123; eng: [...], design: [...] &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 4. 扁平化（flatten）</span></span><br><span class="line">[[<span class="number">1</span>, <span class="number">2</span>], [<span class="number">3</span>, <span class="number">4</span>], [<span class="number">5</span>]].<span class="title function_">reduce</span>(<span class="function">(<span class="params">acc, arr</span>) =&gt;</span> acc.<span class="title function_">concat</span>(arr), []);</span><br><span class="line"><span class="comment">// [1, 2, 3, 4, 5]</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="slice：取出特定範圍（不動原陣列）"><a href="#slice：取出特定範圍（不動原陣列）" class="headerlink" title="slice：取出特定範圍（不動原陣列）"></a>slice：取出特定範圍（不動原陣列）</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> nums = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">10</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> part = nums.<span class="title function_">slice</span>(<span class="number">2</span>, <span class="number">5</span>);  <span class="comment">// 取索引 2 到 4（不包含 5）</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(part);  <span class="comment">// [3, 4, 5]</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(nums);  <span class="comment">// 原陣列不變</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> last3 = nums.<span class="title function_">slice</span>(-<span class="number">3</span>);   <span class="comment">// 取最後三個</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(last3); <span class="comment">// [8, 9, 10]</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>💡 <code>slice</code> vs <code>splice</code>：名字像但完全不同！<code>slice</code> 不動原陣列，<code>splice</code> 會。</p>
+</blockquote>
+<hr>
+<h3 id="concat：合併陣列"><a href="#concat：合併陣列" class="headerlink" title="concat：合併陣列"></a>concat：合併陣列</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr1 = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line"><span class="keyword">let</span> arr2 = [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> merged = arr1.<span class="title function_">concat</span>(arr2);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(merged); <span class="comment">// [1, 2, 3, 4, 5, 6]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 現代寫法：展開運算子（更推薦）</span></span><br><span class="line"><span class="keyword">let</span> merged2 = [...arr1, ...arr2];</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>💡 現代開發幾乎都用 spread（<code>...</code>），<code>concat</code> 多半是舊 code 才會看到。兩者效果相同，但 spread 更簡潔、也更容易組合其他操作。</p>
+</blockquote>
+<hr>
+<h3 id="indexOf-lastIndexOf：找值的索引位置"><a href="#indexOf-lastIndexOf：找值的索引位置" class="headerlink" title="indexOf &#x2F; lastIndexOf：找值的索引位置"></a>indexOf &#x2F; lastIndexOf：找值的索引位置</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="string">&#x27;A&#x27;</span>, <span class="string">&#x27;B&#x27;</span>, <span class="string">&#x27;C&#x27;</span>, <span class="string">&#x27;A&#x27;</span>, <span class="string">&#x27;B&#x27;</span>];</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(arr.<span class="title function_">indexOf</span>(<span class="string">&#x27;A&#x27;</span>));     <span class="comment">// 0（找到第一個就停）</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(arr.<span class="title function_">lastIndexOf</span>(<span class="string">&#x27;A&#x27;</span>)); <span class="comment">// 3（找最後一個）</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(arr.<span class="title function_">indexOf</span>(<span class="string">&#x27;Z&#x27;</span>));     <span class="comment">// -1（找不到回傳 -1）</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="find-findIndex：找第一個符合條件的值"><a href="#find-findIndex：找第一個符合條件的值" class="headerlink" title="find &#x2F; findIndex：找第一個符合條件的值"></a>find &#x2F; findIndex：找第一個符合條件的值</h3><p><code>indexOf</code> 只能找「完全相等」的值，<code>find</code> &#x2F; <code>findIndex</code> 則可以帶入條件判斷，更靈活：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> nums = [<span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">8</span>, <span class="number">12</span>];</span><br><span class="line"></span><br><span class="line">nums.<span class="title function_">find</span>(<span class="function"><span class="params">n</span> =&gt;</span> n &gt; <span class="number">4</span>);       <span class="comment">// 5（回傳第一個符合條件的值）</span></span><br><span class="line">nums.<span class="title function_">findIndex</span>(<span class="function"><span class="params">n</span> =&gt;</span> n &gt; <span class="number">4</span>);  <span class="comment">// 2（回傳第一個符合條件的索引）</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 找不到時：</span></span><br><span class="line">nums.<span class="title function_">find</span>(<span class="function"><span class="params">n</span> =&gt;</span> n &gt; <span class="number">100</span>);      <span class="comment">// undefined</span></span><br><span class="line">nums.<span class="title function_">findIndex</span>(<span class="function"><span class="params">n</span> =&gt;</span> n &gt; <span class="number">100</span>); <span class="comment">// -1</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>實際應用（找物件陣列中的特定項目）：</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> users = [</span><br><span class="line">  &#123; <span class="attr">id</span>: <span class="number">1</span>, <span class="attr">name</span>: <span class="string">&#x27;Alice&#x27;</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">id</span>: <span class="number">2</span>, <span class="attr">name</span>: <span class="string">&#x27;Bob&#x27;</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">id</span>: <span class="number">3</span>, <span class="attr">name</span>: <span class="string">&#x27;Carol&#x27;</span> &#125;</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line">users.<span class="title function_">find</span>(<span class="function"><span class="params">u</span> =&gt;</span> u.<span class="property">id</span> === <span class="number">2</span>);      <span class="comment">// &#123; id: 2, name: &#x27;Bob&#x27; &#125;</span></span><br><span class="line">users.<span class="title function_">findIndex</span>(<span class="function"><span class="params">u</span> =&gt;</span> u.<span class="property">id</span> === <span class="number">2</span>); <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="some-every：條件檢查"><a href="#some-every：條件檢查" class="headerlink" title="some &#x2F; every：條件檢查"></a>some &#x2F; every：條件檢查</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> ages = [<span class="number">15</span>, <span class="number">22</span>, <span class="number">18</span>, <span class="number">30</span>, <span class="number">14</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> hasAdult = ages.<span class="title function_">some</span>(<span class="function"><span class="params">age</span> =&gt;</span> age &gt;= <span class="number">18</span>);  <span class="comment">// 有「一個以上」符合</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(hasAdult); <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> allAdult = ages.<span class="title function_">every</span>(<span class="function"><span class="params">age</span> =&gt;</span> age &gt;= <span class="number">18</span>); <span class="comment">// 「全部」符合</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(allAdult); <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>實際應用：</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 驗證表單：所有欄位都不能是空字串</span></span><br><span class="line"><span class="keyword">let</span> fields = [<span class="string">&#x27;Alice&#x27;</span>, <span class="string">&#x27;alice@email.com&#x27;</span>, <span class="string">&#x27;0912345678&#x27;</span>];</span><br><span class="line"><span class="keyword">let</span> isFormValid = fields.<span class="title function_">every</span>(<span class="function"><span class="params">field</span> =&gt;</span> field !== <span class="string">&#x27;&#x27;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(isFormValid); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="join：陣列轉字串"><a href="#join：陣列轉字串" class="headerlink" title="join：陣列轉字串"></a>join：陣列轉字串</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> colors = [<span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>, <span class="string">&#x27;green&#x27;</span>];</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(colors.<span class="title function_">join</span>());      <span class="comment">// &#x27;red,blue,green&#x27;（預設逗號）</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(colors.<span class="title function_">join</span>(<span class="string">&#x27; / &#x27;</span>)); <span class="comment">// &#x27;red / blue / green&#x27;</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(colors.<span class="title function_">join</span>(<span class="string">&#x27;&#x27;</span>));    <span class="comment">// &#x27;redbluegreen&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="其他常用技巧"><a href="#其他常用技巧" class="headerlink" title="其他常用技巧"></a>其他常用技巧</h2><h3 id="取得陣列最後一個值"><a href="#取得陣列最後一個值" class="headerlink" title="取得陣列最後一個值"></a>取得陣列最後一個值</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> colors = [<span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>, <span class="string">&#x27;green&#x27;</span>];</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(colors[colors.<span class="property">length</span> - <span class="number">1</span>]); <span class="comment">// &#x27;green&#x27;（傳統寫法）</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(colors.<span class="title function_">at</span>(-<span class="number">1</span>));             <span class="comment">// &#x27;green&#x27;（ES2022 新語法，更直覺）</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="合併、去重、篩選、排序一條龍"><a href="#合併、去重、篩選、排序一條龍" class="headerlink" title="合併、去重、篩選、排序一條龍"></a>合併、去重、篩選、排序一條龍</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> arr1 = [<span class="number">1</span>, <span class="number">5</span>, <span class="number">8</span>, <span class="number">12</span>, <span class="number">15</span>];</span><br><span class="line"><span class="keyword">const</span> arr2 = [<span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">14</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> result = [...<span class="keyword">new</span> <span class="title class_">Set</span>([...arr1, ...arr2])] <span class="comment">// 合併並去重</span></span><br><span class="line">  .<span class="title function_">filter</span>(<span class="function"><span class="params">num</span> =&gt;</span> num &gt; <span class="number">7</span>)                        <span class="comment">// 篩選大於 7</span></span><br><span class="line">  .<span class="title function_">sort</span>(<span class="function">(<span class="params">a, b</span>) =&gt;</span> a - b);                        <span class="comment">// 從小到大排序</span></span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(result); <span class="comment">// [8, 12, 14, 15]</span></span><br></pre></td></tr></table></figure>
+
+<p><code>Set</code> 是 JS 內建的集合，特性是<strong>不允許重複值</strong>，配合展開運算子可以快速去重。</p>
+<hr>
+<h2 id="速查表"><a href="#速查表" class="headerlink" title="速查表"></a>速查表</h2><table>
+<thead>
+<tr>
+<th>方法</th>
+<th align="center">改變原陣列？</th>
+<th align="center">類型</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>push</code></td>
+<td align="center">✅</td>
+<td align="center">新增</td>
+<td>加到尾巴</td>
+</tr>
+<tr>
+<td><code>pop</code></td>
+<td align="center">✅</td>
+<td align="center">移除</td>
+<td>移除尾巴</td>
+</tr>
+<tr>
+<td><code>unshift</code></td>
+<td align="center">✅</td>
+<td align="center">新增</td>
+<td>加到頭部</td>
+</tr>
+<tr>
+<td><code>shift</code></td>
+<td align="center">✅</td>
+<td align="center">移除</td>
+<td>移除頭部</td>
+</tr>
+<tr>
+<td><code>splice</code></td>
+<td align="center">✅</td>
+<td align="center">增刪</td>
+<td>刪除／插入指定位置</td>
+</tr>
+<tr>
+<td><code>sort</code></td>
+<td align="center">✅</td>
+<td align="center">排序</td>
+<td>就地排序（注意！）</td>
+</tr>
+<tr>
+<td><code>reverse</code></td>
+<td align="center">✅</td>
+<td align="center">排序</td>
+<td>就地反轉</td>
+</tr>
+<tr>
+<td><code>forEach</code></td>
+<td align="center">❌</td>
+<td align="center">遍歷</td>
+<td>遍歷，無回傳值，不可鏈式</td>
+</tr>
+<tr>
+<td><code>map</code></td>
+<td align="center">❌</td>
+<td align="center">transform</td>
+<td>遍歷，回傳新陣列，可鏈式</td>
+</tr>
+<tr>
+<td><code>filter</code></td>
+<td align="center">❌</td>
+<td align="center">filter</td>
+<td>篩選，回傳新陣列</td>
+</tr>
+<tr>
+<td><code>reduce</code></td>
+<td align="center">❌</td>
+<td align="center">accumulate</td>
+<td>累積，回傳單一值</td>
+</tr>
+<tr>
+<td><code>slice</code></td>
+<td align="center">❌</td>
+<td align="center">取範圍</td>
+<td>取範圍，回傳新陣列</td>
+</tr>
+<tr>
+<td><code>concat</code></td>
+<td align="center">❌</td>
+<td align="center">合併</td>
+<td>合併，回傳新陣列</td>
+</tr>
+<tr>
+<td><code>indexOf</code></td>
+<td align="center">❌</td>
+<td align="center">搜尋</td>
+<td>找第一個符合的索引（完全相等）</td>
+</tr>
+<tr>
+<td><code>lastIndexOf</code></td>
+<td align="center">❌</td>
+<td align="center">搜尋</td>
+<td>找最後一個符合的索引</td>
+</tr>
+<tr>
+<td><code>find</code></td>
+<td align="center">❌</td>
+<td align="center">搜尋</td>
+<td>找第一個符合條件的值</td>
+</tr>
+<tr>
+<td><code>findIndex</code></td>
+<td align="center">❌</td>
+<td align="center">搜尋</td>
+<td>找第一個符合條件的索引</td>
+</tr>
+<tr>
+<td><code>some</code></td>
+<td align="center">❌</td>
+<td align="center">判斷</td>
+<td>有一個符合就回傳 true</td>
+</tr>
+<tr>
+<td><code>every</code></td>
+<td align="center">❌</td>
+<td align="center">判斷</td>
+<td>全部符合才回傳 true</td>
+</tr>
+<tr>
+<td><code>join</code></td>
+<td align="center">❌</td>
+<td align="center">轉換</td>
+<td>陣列轉字串</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="延伸學習資源"><a href="#延伸學習資源" class="headerlink" title="延伸學習資源"></a>延伸學習資源</h2><ul>
+<li>📖 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Array">MDN：Array 方法一覽</a></li>
+<li>🎓 <a target="_blank" rel="noopener" href="https://javascript.info/array-methods">JavaScript.info：陣列方法</a></li>
+</ul>
+<hr>
+<p>陣列方法很多，但日常開發最常用的其實就是 <code>map</code>、<code>filter</code>、<code>forEach</code>、<code>reduce</code> 這四個，先把它們搞熟，剩下的遇到再查就好 😄</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+  
+  <section class="related-cards">
+    <h3 class="related-cards__title">
+      <i class="fa-solid fa-square-poll-horizontal"></i>相關文章
+    </h3>
+    <div class="related-cards__grid">
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+              
+            
+          
+          
+            
+            <a class="related-cards__item" href="/2026/05/18/JavaScript%20DOM%20%E4%BA%8B%E4%BB%B6%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97%EF%BC%9AaddEventListener%E3%80%81%E4%BA%8B%E4%BB%B6%E5%86%92%E6%B3%A1%E8%88%87%E4%BA%8B%E4%BB%B6%E5%A7%94%E6%B4%BE/">
+              <span class="related-cards__item-title">JavaScript DOM 事件完整指南：addEventListener、事件冒泡與事件委派</span>
+              <span class="related-cards__item-date">
+                <i class="far fa-calendar-alt"></i>
+                2026-05-18
+              </span>
+            </a>
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+              
+            
+          
+          
+            
+            <a class="related-cards__item" href="/2026/05/23/JavaScript%20Expression%20vs%20Statement%20%E6%98%AF%E4%BB%80%E9%BA%BC%EF%BC%9F%E5%87%BD%E5%BC%8F%E9%99%B3%E8%BF%B0%E5%BC%8F%E8%88%87%E5%87%BD%E5%BC%8F%E8%A1%A8%E9%81%94%E5%BC%8F%E5%AE%8C%E6%95%B4%E8%A7%A3%E6%9E%90/">
+              <span class="related-cards__item-title">JavaScript Expression vs Statement 是什麼？函式陳述式與函式表達式完整解析</span>
+              <span class="related-cards__item-date">
+                <i class="far fa-calendar-alt"></i>
+                2026-05-23
+              </span>
+            </a>
+          
+        
+      
+        
+          
+          
+            
+              
+            
+          
+          
+            
+            <a class="related-cards__item" href="/2026/05/17/JavaScript%20DOM%20%E6%93%8D%E4%BD%9C%E5%AE%8C%E6%95%B4%E6%95%99%E5%AD%B8%EF%BC%9AquerySelector%E3%80%81innerHTML%E3%80%81dataset%20%E4%B8%80%E6%AC%A1%E6%90%9E%E6%87%82/">
+              <span class="related-cards__item-title">JavaScript DOM 操作完整教學：querySelector、innerHTML、dataset 一次搞懂</span>
+              <span class="related-cards__item-date">
+                <i class="far fa-calendar-alt"></i>
+                2026-05-17
+              </span>
+            </a>
+          
+        
+      
+        
+          
+          
+            
+              
+            
+          
+          
+            
+            <a class="related-cards__item" href="/2026/05/08/JavaScript%20while%20%E8%BF%B4%E5%9C%88%E6%80%8E%E9%BA%BC%E7%94%A8%EF%BC%9F%E5%BE%9E%200%20%E5%88%B0%E7%90%86%E8%A7%A3%EF%BC%88%E9%99%84%E5%B8%B8%E8%A6%8B%E9%8C%AF%E8%AA%A4%E8%88%87%E5%AF%A6%E4%BE%8B%EF%BC%89/">
+              <span class="related-cards__item-title">JavaScript while 迴圈怎麼用？從 0 到理解（附常見錯誤與實例）</span>
+              <span class="related-cards__item-date">
+                <i class="far fa-calendar-alt"></i>
+                2026-05-08
+              </span>
+            </a>
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="share-article-section">
+      <div class="share-article-heading">
+        <i class="fa-solid fa-share-nodes share-article-icon" aria-hidden="true"></i>
+        <span>分享這篇文章</span>
+      </div>
+      <div class="share-article-buttons"
+           data-share-url="https://hailey.tw/2026/06/09/JavaScript%20%E9%99%A3%E5%88%97%E6%96%B9%E6%B3%95%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97%EF%BD%9Cpush%E3%80%81splice%E3%80%81map%E3%80%81filter%E3%80%81reduce%20%E4%B8%80%E6%AC%A1%E6%90%9E%E6%87%82/"
+           data-share-title="JavaScript 陣列方法完整指南｜push、splice、map、filter、reduce 一次搞懂">
+        <a href="#"
+           role="button"
+           class="share-article-btn"
+           data-platform="twitter">
+          <i class="fab fa-twitter"></i><span>Twitter</span>
+        </a>
+        <a href="#"
+           role="button"
+           class="share-article-btn"
+           data-platform="facebook">
+          <i class="fab fa-facebook"></i><span>Facebook</span>
+        </a>
+        <a href="#"
+           role="button"
+           class="share-article-btn"
+           data-platform="linkedin">
+          <i class="fab fa-linkedin"></i><span>LinkedIn</span>
+        </a>
+        <button type="button" class="share-article-btn" data-copy>
+          <i class="fa-regular fa-copy"></i><span>複製連結</span>
+        </button>
+      </div>
+    </div>
+  </section>
+  <style>
+    /* 讓 post-footer 變成可排序容器 */
+    .post-footer {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* 上一篇/下一篇 */
+    .post-footer .post-nav {
+      order: 20;
+    }
+
+    /* 你的相關文章區塊 */
+    .post-footer .related-cards {
+      order: 30;
+    }
+
+    /* 你的分享區塊（如果也要在 related 下方） */
+    .post-footer .share-article-section {
+      order: 40;
+    }
+    .related-cards {
+      margin: 2.25rem 0 1rem;
+    }
+
+    .related-cards__title {
+      margin-bottom: 12px;
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+
+    .related-cards__title i {
+        color: #22d3ee;
+        margin-right: 6px;
+    }
+
+    .related-cards__grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .related-cards__item {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 16px;
+      --tw-border-opacity: 1;
+      border: 1px solid rgb(82 82 91 / var(--tw-border-opacity, 1));
+      border-radius: 12px;
+      background: #4c4c5180;
+      color: #f5f7fa;
+      text-decoration: none;
+      transition: transform .18s ease, border-color .18s ease;
+    }
+
+    .related-cards__item:hover {
+      transform: translateY(-2px);
+      border-color: #22d3ee;
+      color: #22d3ee;
+    }
+
+    .related-cards__item-title {
+      font-size: 1rem;
+      line-height: 1.35;
+      font-weight: 600;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+
+    .related-cards__item-date {
+      margin-top: 10px;
+      font-size: .88rem;
+      color: #c5cad3;
+    }
+
+    @media (max-width: 1100px) {
+      .related-cards__grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .related-cards__grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* AddToAny */
+
+    /* 第一顆 AddToAny 主按鈕常太醜，直接隱藏 */
+    .post-footer .social-like .a2a_dd {
+    display: none;
+    }
+
+    .share-article-section { 
+      margin: 2rem 0 1rem; 
+      padding-top: 1.25rem; 
+    }
+    .share-article-heading { 
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .share-article-icon { 
+      color: #2dd4bf;
+      font-size: 1.25rem;
+    }
+    .share-article-buttons { 
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .share-article-btn {
+        display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px;
+        border: 1px solid rgb(82 82 91 / var(--tw-border-opacity, 1));
+        border-radius: 10px;
+        background: #4c4c5180;
+        color: inherit;
+        cursor: pointer;
+        text-decoration: none;
+        font: inherit;
+        transition: transform .18s ease, border-color .18s ease;
+    }
+    .share-article-btn:hover { border-color: #22d3ee;
+        transform: translateY(-2px); 
+    }
+  </style>
+  <script>
+  (function () {
+    var root = document.querySelector('.share-article-buttons');
+    if (!root || root.dataset.bound) return;
+    root.dataset.bound = '1';
+    var url = root.dataset.shareUrl || '';
+    var title = root.dataset.shareTitle || '';
+    var encUrl = encodeURIComponent(url);
+    var encTitle = encodeURIComponent(title);
+    var urls = {
+      twitter: 'https://twitter.com/intent/tweet?url=' + encUrl + '&text=' + encTitle,
+      facebook: 'https://www.facebook.com/sharer/sharer.php?u=' + encUrl,
+      linkedin: 'https://www.linkedin.com/sharing/share-offsite/?url=' + encUrl
+    };
+    root.querySelectorAll('[data-platform]').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        var p = btn.dataset.platform;
+        window.open(urls[p], '_blank', 'noopener,noreferrer');
+      });
+    });
+    var btnCopy = root.querySelector('[data-copy]');
+    if (btnCopy) {
+      btnCopy.addEventListener('click', function () {
+        navigator.clipboard.writeText(url).then(function () {
+          btnCopy.querySelector('span').textContent = '已複製';
+          setTimeout(function () { btnCopy.querySelector('span').textContent = '複製連結'; }, 2000);
+        });
+      });
+    }
+  })();
+  </script>
+
+
+          <div class="post-tags">
+              <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/05/30/%E8%A6%96%E5%B7%AE%E6%BB%BE%E5%8B%95%E6%95%99%E5%AD%B8%EF%BD%9CParallax.js%E3%80%81Lax.js%20%E8%88%87%20CSS%20background-attachment%20%E5%AF%A6%E4%BD%9C/" rel="prev" title="視差滾動教學｜Parallax.js、Lax.js 與 CSS background-attachment 實作">
+                  <i class="fa fa-angle-left"></i> 視差滾動教學｜Parallax.js、Lax.js 與 CSS background-attachment 實作
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div><aside class="column-recent-posts" aria-label="最新文章">
+  <div class="recent-rail-inner">
+    <h3 class="recent-rail-title">
+      <i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i>
+      <span>最新文章</span>
+    </h3>
+    <ol class="recent-rail-list">
+      
+        <li class="recent-rail-item">
+          <a class="recent-rail-link" href="/2026/06/09/JavaScript%20%E9%99%A3%E5%88%97%E6%96%B9%E6%B3%95%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97%EF%BD%9Cpush%E3%80%81splice%E3%80%81map%E3%80%81filter%E3%80%81reduce%20%E4%B8%80%E6%AC%A1%E6%90%9E%E6%87%82/">
+            <span class="recent-rail-item-title">JavaScript 陣列方法完整指南｜push、splice、map、filter、reduce 一次搞懂</span>
+            <span class="recent-rail-item-date">06/09</span>
+          </a>
+        </li>
+      
+        <li class="recent-rail-item">
+          <a class="recent-rail-link" href="/2026/05/30/%E8%A6%96%E5%B7%AE%E6%BB%BE%E5%8B%95%E6%95%99%E5%AD%B8%EF%BD%9CParallax.js%E3%80%81Lax.js%20%E8%88%87%20CSS%20background-attachment%20%E5%AF%A6%E4%BD%9C/">
+            <span class="recent-rail-item-title">視差滾動教學｜Parallax.js、Lax.js 與 CSS background-attachment 實作</span>
+            <span class="recent-rail-item-date">05/30</span>
+          </a>
+        </li>
+      
+        <li class="recent-rail-item">
+          <a class="recent-rail-link" href="/2026/05/27/%E6%90%9E%E6%87%82%20CSS%20Transition%E3%80%81Transform%20%E8%88%87%20Animation%20%E5%B7%AE%E7%95%B0%EF%BD%9C%E7%B6%B2%E9%A0%81%E5%8B%95%E6%85%8B%E6%95%88%E6%9E%9C%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97/">
+            <span class="recent-rail-item-title">搞懂 CSS Transition、Transform 與 Animation 差異｜網頁動態效果完整指南</span>
+            <span class="recent-rail-item-date">05/27</span>
+          </a>
+        </li>
+      
+        <li class="recent-rail-item">
+          <a class="recent-rail-link" href="/2026/05/25/CSS%20%E9%80%B2%E9%9A%8E%E5%AF%A6%E6%88%B0%E6%8C%87%E5%8D%97%EF%BC%9A%E8%AE%8A%E6%95%B8%E3%80%81%E5%AE%B9%E5%99%A8%E8%A8%AD%E8%A8%88%E8%88%87%E6%A8%A3%E5%BC%8F%E9%87%8D%E7%BD%AE/">
+            <span class="recent-rail-item-title">CSS 進階實戰指南：變數、容器設計與樣式重置</span>
+            <span class="recent-rail-item-date">05/25</span>
+          </a>
+        </li>
+      
+        <li class="recent-rail-item">
+          <a class="recent-rail-link" href="/2026/05/24/CSS%20%E5%8B%95%E7%95%AB%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97%EF%BD%9C@keyframes%E3%80%81transform%E3%80%813D%20%E5%8B%95%E7%95%AB%E8%88%87%20JS%20%E4%BA%92%E5%8B%95/">
+            <span class="recent-rail-item-title">CSS 動畫完整指南｜@keyframes、transform、3D 動畫與 JS 互動</span>
+            <span class="recent-rail-item-date">05/24</span>
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</aside>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class=""></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Hailey. All rights reserved.<br>Built with Hexo & Theme NexT</span>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"Hailey-1025/blog-comments","issue_term":"pathname","label":"comment","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js" defer></script>
+
+<script>
+(function () {
+  var mq = window.matchMedia('(max-width: 991px)');
+  var btn = document.querySelector('.site-nav-toggle .toggle');
+  var sidebarBtn = document.querySelector('.sidebar-toggle');
+  var siteNav = document.querySelector('.header .site-nav');
+  if (!btn || !sidebarBtn) return;
+
+  function collapseHeaderNavDropdown() {
+    document.body.classList.remove('site-nav-on');
+    if (siteNav) siteNav.style.removeProperty('--scroll-height');
+  }
+
+  btn.addEventListener('click', function (e) {
+    if (!mq.matches) return;
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    collapseHeaderNavDropdown();
+    sidebarBtn.click();
+  }, true);
+
+  new MutationObserver(function () {
+    if (!mq.matches) return;
+    var open = document.body.classList.contains('sidebar-active');
+    btn.classList.toggle('toggle-close', open);
+  }).observe(document.body, { attributes: true, attributeFilter: ['class'] });
+
+  mq.addEventListener('change', function () {
+    if (!mq.matches) {
+      btn.classList.remove('toggle-close');
+      collapseHeaderNavDropdown();
+      document.body.classList.remove('mobile-header-scrolled-down');
+    }
+  });
+
+  var lastY = window.scrollY || 0;
+  var ticking = false;
+
+  function updateMobileHeaderOnScroll() {
+    ticking = false;
+    if (!mq.matches) return;
+    var currentY = window.scrollY || 0;
+    var scrollingDown = currentY > lastY;
+    var passedTop = currentY > 10;
+    document.body.classList.toggle('mobile-header-scrolled-down', scrollingDown && passedTop);
+    lastY = currentY;
+  }
+
+  window.addEventListener('scroll', function () {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(updateMobileHeaderOnScroll);
+  }, { passive: true });
+})();
+</script>
+
+</body>
+</html>
