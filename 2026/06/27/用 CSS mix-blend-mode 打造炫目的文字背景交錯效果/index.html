@@ -20,33 +20,32 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"hailey.tw","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":true,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"找到 ${hits} 個搜索結果（用時 ${time} 毫秒）","hits":"找到 ${hits} 個搜索結果"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
 
-    <meta name="description" content="學會 CSS 背景圖片完整控制！從基礎 background-image 到 cover&#x2F;contain 差異解析，並掌握漸層效果與 SEO 圖片取代文字技巧，讓你不再為背景跑版困擾。">
+    <meta name="description" content="深入解析 CSS mix-blend-mode 混合模式原理，透過實際範例手把手教你製作文字與背景交錯的視覺特效，讓你的網頁設計脫穎而出">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CSS 背景圖片完整指南：background-image 屬性詳解">
-<meta property="og:url" content="https://hailey.tw/2026/06/13/CSS%20%E8%83%8C%E6%99%AF%E5%9C%96%E7%89%87%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97%EF%BC%9Abackground-image%20%E5%B1%AC%E6%80%A7%E8%A9%B3%E8%A7%A3/index.html">
+<meta property="og:title" content="用 CSS mix-blend-mode 打造炫目的文字背景交錯效果">
+<meta property="og:url" content="https://hailey.tw/2026/06/27/%E7%94%A8%20CSS%20mix-blend-mode%20%E6%89%93%E9%80%A0%E7%82%AB%E7%9B%AE%E7%9A%84%E6%96%87%E5%AD%97%E8%83%8C%E6%99%AF%E4%BA%A4%E9%8C%AF%E6%95%88%E6%9E%9C/index.html">
 <meta property="og:site_name" content="Hailey&#39;s Blog">
-<meta property="og:description" content="學會 CSS 背景圖片完整控制！從基礎 background-image 到 cover&#x2F;contain 差異解析，並掌握漸層效果與 SEO 圖片取代文字技巧，讓你不再為背景跑版困擾。">
+<meta property="og:description" content="深入解析 CSS mix-blend-mode 混合模式原理，透過實際範例手把手教你製作文字與背景交錯的視覺特效，讓你的網頁設計脫穎而出">
 <meta property="og:locale" content="zh_TW">
-<meta property="og:image" content="https://i.postimg.cc/LnwTYyqr/background-image1.png">
-<meta property="og:image" content="https://i.postimg.cc/rK3J0h0X/background-image2.png">
-<meta property="og:image" content="https://i.postimg.cc/FYSxjjcP/background-image3.png">
-<meta property="og:image" content="https://i.postimg.cc/v4nvWW90/background-image4.png">
-<meta property="og:image" content="https://i.postimg.cc/dhC988rF/background-image5.png">
-<meta property="article:published_time" content="2026-06-13T10:48:50.000Z">
-<meta property="article:modified_time" content="2026-06-13T12:11:38.425Z">
+<meta property="og:image" content="https://i.postimg.cc/T3FfPQkv/img-01-hero-blend-effect.png">
+<meta property="og:image" content="https://i.postimg.cc/X7rPvWt8/img-04-modes-comparison.png">
+<meta property="og:image" content="https://i.postimg.cc/N0XY2TV0/img-bamboo-blend.png">
+<meta property="og:image" content="https://i.postimg.cc/vZkbmXPs/img-05-isolation.png">
+<meta property="article:published_time" content="2026-06-27T10:03:37.000Z">
+<meta property="article:modified_time" content="2026-06-27T10:10:41.909Z">
 <meta property="article:author" content="Hailey">
 <meta property="article:tag" content="HTML&#x2F;CSS">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://i.postimg.cc/LnwTYyqr/background-image1.png">
+<meta name="twitter:image" content="https://i.postimg.cc/T3FfPQkv/img-01-hero-blend-effect.png">
 
 
-<link rel="canonical" href="https://hailey.tw/2026/06/13/CSS%20%E8%83%8C%E6%99%AF%E5%9C%96%E7%89%87%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97%EF%BC%9Abackground-image%20%E5%B1%AC%E6%80%A7%E8%A9%B3%E8%A7%A3/">
+<link rel="canonical" href="https://hailey.tw/2026/06/27/%E7%94%A8%20CSS%20mix-blend-mode%20%E6%89%93%E9%80%A0%E7%82%AB%E7%9B%AE%E7%9A%84%E6%96%87%E5%AD%97%E8%83%8C%E6%99%AF%E4%BA%A4%E9%8C%AF%E6%95%88%E6%9E%9C/">
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://hailey.tw/2026/06/13/CSS%20%E8%83%8C%E6%99%AF%E5%9C%96%E7%89%87%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97%EF%BC%9Abackground-image%20%E5%B1%AC%E6%80%A7%E8%A9%B3%E8%A7%A3/","path":"2026/06/13/CSS 背景圖片完整指南：background-image 屬性詳解/","title":"CSS 背景圖片完整指南：background-image 屬性詳解"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://hailey.tw/2026/06/27/%E7%94%A8%20CSS%20mix-blend-mode%20%E6%89%93%E9%80%A0%E7%82%AB%E7%9B%AE%E7%9A%84%E6%96%87%E5%AD%97%E8%83%8C%E6%99%AF%E4%BA%A4%E9%8C%AF%E6%95%88%E6%9E%9C/","path":"2026/06/27/用 CSS mix-blend-mode 打造炫目的文字背景交錯效果/","title":"用 CSS mix-blend-mode 打造炫目的文字背景交錯效果"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>CSS 背景圖片完整指南：background-image 屬性詳解 | Hailey's Blog</title>
+<title>用 CSS mix-blend-mode 打造炫目的文字背景交錯效果 | Hailey's Blog</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-8W8PTGBYMG"></script>
   <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-8W8PTGBYMG","only_pageview":false,"measure_protocol_api_secret":null}</script>
@@ -191,7 +190,7 @@
         <div class="sidebar-panel-container">
           <!--noindex-->
           <div class="post-toc-wrap sidebar-panel">
-              <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AA%8D%E8%AD%98-background-image"><span class="nav-number">1.</span> <span class="nav-text">認識 background-image</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#background-position"><span class="nav-number">1.1.</span> <span class="nav-text">background-position</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#background-size"><span class="nav-number">1.2.</span> <span class="nav-text">background-size</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#background-repeat"><span class="nav-number">1.3.</span> <span class="nav-text">background-repeat</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#size-position-repeat-%E6%AF%94%E8%BC%83"><span class="nav-number">1.4.</span> <span class="nav-text">size&#x2F;position&#x2F;repeat 比較</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF%E9%80%B2%E9%9A%8E%E6%87%89%E7%94%A8%E8%88%87%E5%AF%A6%E5%8B%99%E6%8A%80%E5%B7%A7"><span class="nav-number">2.</span> <span class="nav-text">背景進階應用與實務技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%BC%B8%E5%B1%A4"><span class="nav-number">2.1.</span> <span class="nav-text">漸層</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#background-%E7%B0%A1%E5%AF%AB"><span class="nav-number">2.2.</span> <span class="nav-text">background 簡寫</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%96%E7%89%87%E5%8F%96%E4%BB%A3%E6%96%87%E5%AD%97%E5%85%A7%E5%AE%B9"><span class="nav-number">2.3.</span> <span class="nav-text">圖片取代文字內容</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A3%9C%E5%85%85%EF%BC%88%E8%B7%AF%E5%BE%91%E3%80%81%E5%A4%9A%E9%87%8D%E8%83%8C%E6%99%AF%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">補充（路徑、多重背景）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#background-image-%E5%B8%B8%E8%A6%8B%E5%95%8F%E9%A1%8C"><span class="nav-number">4.</span> <span class="nav-text">background-image 常見問題</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%82%BA%E4%BB%80%E9%BA%BC%E5%9C%96%E7%89%87%E4%B8%8D%E9%A1%AF%E7%A4%BA%EF%BC%9F"><span class="nav-number">4.1.</span> <span class="nav-text">為什麼圖片不顯示？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cover-%E5%92%8C-contain-%E6%80%8E%E9%BA%BC%E9%81%B8%EF%BC%9F"><span class="nav-number">4.2.</span> <span class="nav-text">cover 和 contain 怎麼選？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%83%8C%E6%99%AF%E5%9C%96%E7%89%87%E5%8F%AF%E4%BB%A5%E8%A8%AD%E5%AE%9A%E5%A4%9A%E5%BC%B5%E5%97%8E%EF%BC%9F"><span class="nav-number">4.3.</span> <span class="nav-text">背景圖片可以設定多張嗎？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#background-image-%E5%92%8C-img-%E6%9C%89%E4%BB%80%E9%BA%BC%E5%B7%AE%E5%88%A5%EF%BC%9F"><span class="nav-number">4.4.</span> <span class="nav-text">background-image 和 img 有什麼差別？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="nav-number">5.</span> <span class="nav-text">參考資料</span></a></li></ol></div>
+              <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E9%BA%BC%E6%98%AF-mix-blend-mode%EF%BC%9F"><span class="nav-number">2.</span> <span class="nav-text">什麼是 mix-blend-mode？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86"><span class="nav-number">2.1.</span> <span class="nav-text">基本原理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%A6%E4%BD%9C%E6%AD%A5%E9%A9%9F"><span class="nav-number">3.</span> <span class="nav-text">實作步驟</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HTML-%E7%B5%90%E6%A7%8B"><span class="nav-number">3.1.</span> <span class="nav-text">HTML 結構</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSS-%E6%A8%A3%E5%BC%8F"><span class="nav-number">3.2.</span> <span class="nav-text">CSS 樣式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%82%BA%E4%BB%80%E9%BA%BC%E6%96%87%E5%AD%97%E9%A1%8F%E8%89%B2%E8%A6%81%E8%A8%AD%E7%99%BD%E8%89%B2%EF%BC%9F"><span class="nav-number">3.3.</span> <span class="nav-text">為什麼文字顏色要設白色？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%B2%E9%9A%8E%E8%AE%8A%E5%8C%96%EF%BC%9A%E6%BB%BE%E5%8B%95%E4%BA%A4%E9%8C%AF%E6%95%88%E6%9E%9C"><span class="nav-number">3.4.</span> <span class="nav-text">進階變化：滾動交錯效果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%B2%E9%9A%8E%E8%AE%8A%E5%8C%96%EF%BC%9A%E6%BC%B8%E5%B1%A4%E8%83%8C%E6%99%AF-%E6%B7%B7%E5%90%88%E6%A8%A1%E5%BC%8F"><span class="nav-number">3.5.</span> <span class="nav-text">進階變化：漸層背景 + 混合模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#isolation-%E5%B1%AC%E6%80%A7%EF%BC%9A%E6%8E%A7%E5%88%B6%E6%B7%B7%E5%90%88%E7%AF%84%E5%9C%8D"><span class="nav-number">3.6.</span> <span class="nav-text">isolation 屬性：控制混合範圍</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A6%8B%E5%95%8F%E9%A1%8C"><span class="nav-number">4.</span> <span class="nav-text">常見問題</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%80%8F%E8%A6%BD%E5%99%A8%E6%94%AF%E6%8F%B4"><span class="nav-number">4.1.</span> <span class="nav-text">瀏覽器支援</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8F%E7%B5%90"><span class="nav-number">5.</span> <span class="nav-text">小結</span></a></li></ol></div>
           </div>
           <!--/noindex-->
 
@@ -244,7 +243,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
-    <link itemprop="mainEntityOfPage" href="https://hailey.tw/2026/06/13/CSS%20%E8%83%8C%E6%99%AF%E5%9C%96%E7%89%87%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97%EF%BC%9Abackground-image%20%E5%B1%AC%E6%80%A7%E8%A9%B3%E8%A7%A3/">
+    <link itemprop="mainEntityOfPage" href="https://hailey.tw/2026/06/27/%E7%94%A8%20CSS%20mix-blend-mode%20%E6%89%93%E9%80%A0%E7%82%AB%E7%9B%AE%E7%9A%84%E6%96%87%E5%AD%97%E8%83%8C%E6%99%AF%E4%BA%A4%E9%8C%AF%E6%95%88%E6%9E%9C/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://i.postimg.cc/d1YJx7jW/site-author-image.png">
@@ -257,12 +256,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="CSS 背景圖片完整指南：background-image 屬性詳解 | Hailey's Blog">
-      <meta itemprop="description" content="學會 CSS 背景圖片完整控制！從基礎 background-image 到 cover&#x2F;contain 差異解析，並掌握漸層效果與 SEO 圖片取代文字技巧，讓你不再為背景跑版困擾。">
+      <meta itemprop="name" content="用 CSS mix-blend-mode 打造炫目的文字背景交錯效果 | Hailey's Blog">
+      <meta itemprop="description" content="深入解析 CSS mix-blend-mode 混合模式原理，透過實際範例手把手教你製作文字與背景交錯的視覺特效，讓你的網頁設計脫穎而出">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          CSS 背景圖片完整指南：background-image 屬性詳解
+          用 CSS mix-blend-mode 打造炫目的文字背景交錯效果
         </h1>
 
         <div class="post-meta-container">
@@ -274,7 +273,7 @@
       <span class="post-meta-item-text">發表於</span>
       
 
-      <time title="創建時間：2026-06-13 18:48:50 / 修改時間：20:11:38" itemprop="dateCreated datePublished" datetime="2026-06-13T18:48:50+08:00">2026-06-13</time>
+      <time title="創建時間：2026-06-27 18:03:37 / 修改時間：18:10:41" itemprop="dateCreated datePublished" datetime="2026-06-27T18:03:37+08:00">2026-06-27</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -289,129 +288,106 @@
   
 </div>
 
-            <div class="post-description">學會 CSS 背景圖片完整控制！從基礎 background-image 到 cover/contain 差異解析，並掌握漸層效果與 SEO 圖片取代文字技巧，讓你不再為背景跑版困擾。</div>
+            <div class="post-description">深入解析 CSS mix-blend-mode 混合模式原理，透過實際範例手把手教你製作文字與背景交錯的視覺特效，讓你的網頁設計脫穎而出</div>
         </div>
       </header>
 
     
     
     
-    <div class="post-body" itemprop="articleBody"><p>在網頁開發中，背景圖片是營造視覺效果的重要元素。本文將帶你深入了解 CSS 的 <code>background-image</code> 屬性，以及相關的背景控制屬性，讓你能靈活運用背景圖片打造精美的網頁設計。</p>
-<h2 id="認識-background-image"><a href="#認識-background-image" class="headerlink" title="認識 background-image"></a>認識 background-image</h2><p>通常會用來設定背景圖片，用法如下：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;image&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.image</span>&#123;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">300px</span>;</span><br><span class="line">  <span class="attribute">background-image</span>: <span class="built_in">url</span>(<span class="string">&quot;https://images...&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>開發時可以使用相對路徑或絕對路徑，不過因為 Codepen 無法載入本地圖片，需透過圖片位址（絕對路徑）</p>
-</blockquote>
-<h3 id="background-position"><a href="#background-position" class="headerlink" title="background-position"></a><strong>background-position</strong></h3><p>如果圖片尺寸比容器大，則只會顯示部分區域。</p>
-<p><img src="https://i.postimg.cc/LnwTYyqr/background-image1.png" alt="background-image"></p>
-<p>要調整他的位置可以使用 <code>background-position</code>，下面圖片範例是使用 center。</p>
-<blockquote>
-<p>top ｜ bottom ｜ left ｜ right ｜ center</p>
-</blockquote>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">background-position</span>: center;</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://i.postimg.cc/rK3J0h0X/background-image2.png" alt="background-position"></p>
-<h3 id="background-size"><a href="#background-size" class="headerlink" title="background-size"></a><strong>background-size</strong></h3><p>但是原圖並沒有這麼大，所以使用 <code>background-size</code> 調整，使其能符合容器需求。</p>
-<blockquote>
-<p>auto ｜ contain ｜ cover</p>
-</blockquote>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">background-size</span>: contain;</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://i.postimg.cc/FYSxjjcP/background-image3.png" alt="contain"></p>
-<p><code>background-size</code> 改用 cover 查看兩者的差別。</p>
-<blockquote>
-<p>contain 會在維持圖片比例的前提下縮放圖片，並確保整張圖片完整顯示於容器中，因此容器可能出現留白；cover 則會維持比例縮放並填滿整個容器，部分圖片可能被裁切。</p>
-</blockquote>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">background-size</span>: cover;</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://i.postimg.cc/v4nvWW90/background-image4.png" alt="cover"></p>
-<h3 id="background-repeat"><a href="#background-repeat" class="headerlink" title="background-repeat"></a><strong>background-repeat</strong></h3><p><code>background-image</code> 預設會重複平鋪（repeat），若只希望顯示一次，可透過 <code>background-repeat</code> 設定。</p>
-<blockquote>
-<p>repeat(預設值)｜ repeat-x ｜ repeat-y ｜ no-repeat</p>
-</blockquote>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">background-repeat</span>: no-repeat;</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://i.postimg.cc/dhC988rF/background-image5.png" alt="background-repeat"></p>
-<h3 id="size-position-repeat-比較"><a href="#size-position-repeat-比較" class="headerlink" title="size&#x2F;position&#x2F;repeat 比較"></a>size&#x2F;position&#x2F;repeat 比較</h3><table>
+    <div class="post-body" itemprop="articleBody"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在現代網頁設計中，視覺上的層次感往往是吸引使用者目光的關鍵。今天要介紹一個純 CSS 就能實現的酷炫效果——<strong>文字與背景交錯混合</strong>，核心技術是 <code>mix-blend-mode</code> 屬性。這個技巧不需要任何 JavaScript，卻能產生令人驚艷的視覺衝擊。</p>
+<p><img src="https://i.postimg.cc/T3FfPQkv/img-01-hero-blend-effect.png" alt="mix-blend-mode"></p>
+<hr>
+<h2 id="什麼是-mix-blend-mode？"><a href="#什麼是-mix-blend-mode？" class="headerlink" title="什麼是 mix-blend-mode？"></a>什麼是 mix-blend-mode？</h2><p><code>mix-blend-mode</code> 是 CSS 的混合模式屬性，概念來自 Photoshop 的圖層混合模式。它定義了一個元素的內容如何與其<strong>背後的內容</strong>進行顏色混合。</p>
+<p>常見的混合模式值包括：</p>
+<table>
 <thead>
 <tr>
-<th>屬性</th>
-<th>常用值</th>
+<th>值</th>
 <th>效果說明</th>
-<th>建議使用情境</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>background-size</td>
-<td>cover</td>
-<td>等比例縮放圖片，直到填滿容器（邊緣可能會被裁切）</td>
-<td>全螢幕 Banner、大標題背景</td>
+<td><code>normal</code></td>
+<td>預設，無混合</td>
 </tr>
 <tr>
-<td>–</td>
-<td>contain</td>
-<td>等比例縮放圖片，確保完整顯示（容器可能會有留白）</td>
-<td>顯示完整 Logo、產品插圖</td>
+<td><code>multiply</code></td>
+<td>正片疊底，顏色相乘變暗</td>
 </tr>
 <tr>
-<td>background-position</td>
-<td>center</td>
-<td>將圖片對齊容器的中心點</td>
-<td>讓背景主題維持在視覺中央</td>
+<td><code>screen</code></td>
+<td>濾色，顏色相加變亮</td>
 </tr>
 <tr>
-<td>–</td>
-<td>top &#x2F; bottom</td>
-<td>將圖片對齊容器的頂部或底部</td>
-<td>保留人物頭部或特定的底部裝飾</td>
+<td><code>overlay</code></td>
+<td>覆蓋，加強對比</td>
 </tr>
 <tr>
-<td>background-repeat</td>
-<td>no-repeat</td>
-<td>圖片只顯示一次，不重複</td>
-<td>單一背景大圖的首選</td>
+<td><code>difference</code></td>
+<td>差異，顏色相減產生反差</td>
 </tr>
 <tr>
-<td>–</td>
-<td>repeat-x &#x2F; y</td>
-<td>僅在水平或垂直方向重複圖片</td>
-<td>條紋底紋、重複性背景圖案</td>
+<td><code>exclusion</code></td>
+<td>排除，類似 difference 但對比較低</td>
 </tr>
 </tbody></table>
-<h2 id="背景進階應用與實務技巧"><a href="#背景進階應用與實務技巧" class="headerlink" title="背景進階應用與實務技巧"></a>背景進階應用與實務技巧</h2><h3 id="漸層"><a href="#漸層" class="headerlink" title="漸層"></a>漸層</h3><ul>
-<li><p>使用 <code>background</code> 或 <code>background-image</code> 屬性設定</p>
-  <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 基本設定：指定兩種以上顏色 */</span></span><br><span class="line"><span class="comment">/* 漸層方向預設是由上到下 */</span></span><br><span class="line"><span class="attribute">background</span>: <span class="built_in">linear-gradient</span>(<span class="number">#000</span>, <span class="number">#fff</span>);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>參考文章：<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_images/Using_CSS_gradients">MDN - 使用 CSS 漸變</a></p>
-</li>
-</ul>
-<h3 id="background-簡寫"><a href="#background-簡寫" class="headerlink" title="background 簡寫"></a>background 簡寫</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 背景顏色 URL 背景圖片 position 位置 / size repeat 是否重複 */</span></span><br><span class="line"></span><br><span class="line"><span class="attribute">background</span>: red <span class="built_in">url</span>(<span class="string">...</span>) center / cover no-repeat;</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.postimg.cc/X7rPvWt8/img-04-modes-comparison.png" alt="modes-comparison"></p>
+<p>今天的主角是 <strong><code>difference</code></strong>，它會讓覆蓋的元素顏色與底層顏色相減，當底色是白色（#fff）時，文字顏色會反相，產生天然的「交錯」視覺效果。</p>
+<hr>
+<h3 id="基本原理"><a href="#基本原理" class="headerlink" title="基本原理"></a>基本原理</h3><p><code>difference</code> 模式的計算公式是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">結果色 = |上層顏色 - 下層顏色|</span><br></pre></td></tr></table></figure>
 
-<h3 id="圖片取代文字內容"><a href="#圖片取代文字內容" class="headerlink" title="圖片取代文字內容"></a>圖片取代文字內容</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;header&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>網站LOGO<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.header</span> <span class="selector-tag">h1</span> &#123;</span><br><span class="line">    <span class="attribute">float</span>: left; <span class="comment">/* 靠左 */</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.header</span> <span class="selector-tag">h1</span> <span class="selector-tag">a</span> &#123;</span><br><span class="line">    <span class="attribute">background-image</span>: <span class="built_in">url</span>(<span class="string">...</span>);</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">200px</span>; <span class="comment">/* 圖片寬 */</span></span><br><span class="line">    <span class="attribute">height</span>: <span class="number">60px</span>; <span class="comment">/* 圖片高 */</span></span><br><span class="line">    <span class="attribute">display</span>: block;</span><br><span class="line">    <span class="attribute">text-indent</span>: <span class="number">101%</span>; <span class="comment">/* 首行縮排 */</span></span><br><span class="line">    <span class="attribute">overflow</span>: hidden; <span class="comment">/* 超出div距離則隱藏 */</span></span><br><span class="line">    <span class="attribute">white-space</span>: nowrap; <span class="comment">/* 不斷行 */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<p>以白色文字（<code>#ffffff</code>）為例：</p>
 <ul>
-<li>搜尋引擎認識 h1 與內容，但不認識圖片，故文字仍保留，於 CSS 隱藏，使頁面只呈現 image，但搜尋仍找的到 h1 內容，不然搜尋引擎會以為你的 h1 是空的</li>
+<li>蓋在<strong>黑色背景</strong>上：<code>|255 - 0| = 255</code> → 白色，文字清晰可見</li>
+<li>蓋在<strong>白色背景</strong>上：<code>|255 - 255| = 0</code> → 黑色，文字自動變成黑色</li>
 </ul>
-<blockquote>
-<p>此技巧早期常用於網站 Logo，但現代網頁多半直接使用 <code>&lt;img&gt;</code> 搭配 <code>alt</code> 屬性即可，只有在特定版型需求下才會使用圖片取代文字（Image Replacement）技巧。</p>
-</blockquote>
-<h2 id="補充（路徑、多重背景）"><a href="#補充（路徑、多重背景）" class="headerlink" title="補充（路徑、多重背景）"></a>補充（路徑、多重背景）</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 先寫的圖片會疊在最上面 */</span></span><br><span class="line"><span class="attribute">background-image</span>: <span class="built_in">url</span>(<span class="string">top-layer.png</span>), <span class="built_in">url</span>(<span class="string">bottom-layer.jpg</span>);</span><br></pre></td></tr></table></figure>
+<p>這個特性讓文字天然地在任何背景上保持對比，不需要手動調整顏色。</p>
+<hr>
+<h2 id="實作步驟"><a href="#實作步驟" class="headerlink" title="實作步驟"></a>實作步驟</h2><h3 id="HTML-結構"><a href="#HTML-結構" class="headerlink" title="HTML 結構"></a>HTML 結構</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;container&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;bg-left&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;bg-right&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">h1</span> <span class="attr">class</span>=<span class="string">&quot;blend-text&quot;</span>&gt;</span>CREATIVE DESIGN<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<h2 id="background-image-常見問題"><a href="#background-image-常見問題" class="headerlink" title="background-image 常見問題"></a>background-image 常見問題</h2><h3 id="為什麼圖片不顯示？"><a href="#為什麼圖片不顯示？" class="headerlink" title="為什麼圖片不顯示？"></a>為什麼圖片不顯示？</h3><p>最常見的原因是路徑錯誤，或容器沒有設定高度（<code>height</code>）。<code>background-image</code> 不會撐開元素高度，務必確保容器有明確的尺寸。</p>
-<h3 id="cover-和-contain-怎麼選？"><a href="#cover-和-contain-怎麼選？" class="headerlink" title="cover 和 contain 怎麼選？"></a>cover 和 contain 怎麼選？</h3><p>想讓背景填滿整個區塊（例如 Banner）就用 <code>cover</code>；想完整顯示圖片內容（例如 Logo）就用 <code>contain</code>。</p>
-<h3 id="背景圖片可以設定多張嗎？"><a href="#背景圖片可以設定多張嗎？" class="headerlink" title="背景圖片可以設定多張嗎？"></a>背景圖片可以設定多張嗎？</h3><p>可以。用逗號分隔多個 <code>url()</code>，先寫的圖片會疊在最上面：</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">background-image</span>: <span class="built_in">url</span>(<span class="string">top-layer.png</span>), <span class="built_in">url</span>(<span class="string">bottom-layer.jpg</span>);</span><br></pre></td></tr></table></figure>
+<p>結構很簡單：兩個背景色塊 + 一個絕對定位的標題文字。</p>
+<h3 id="CSS-樣式"><a href="#CSS-樣式" class="headerlink" title="CSS 樣式"></a>CSS 樣式</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 外層容器 */</span></span><br><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: relative;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">300px</span>;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">  <span class="attribute">overflow</span>: hidden;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 左側深色區塊 */</span></span><br><span class="line"><span class="selector-class">.bg-left</span> &#123;</span><br><span class="line">  <span class="attribute">flex</span>: <span class="number">1</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: <span class="number">#1a1a2e</span>; <span class="comment">/* 深藍黑 */</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 右側淺色區塊 */</span></span><br><span class="line"><span class="selector-class">.bg-right</span> &#123;</span><br><span class="line">  <span class="attribute">flex</span>: <span class="number">1</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: <span class="number">#f0f0f0</span>; <span class="comment">/* 淺灰白 */</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 混合模式文字 */</span></span><br><span class="line"><span class="selector-class">.blend-text</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: absolute;</span><br><span class="line">  <span class="attribute">top</span>: <span class="number">50%</span>;</span><br><span class="line">  <span class="attribute">left</span>: <span class="number">50%</span>;</span><br><span class="line">  <span class="attribute">transform</span>: <span class="built_in">translate</span>(-<span class="number">50%</span>, -<span class="number">50%</span>);</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">5rem</span>;</span><br><span class="line">  <span class="attribute">font-weight</span>: <span class="number">900</span>;</span><br><span class="line">  <span class="attribute">color</span>: <span class="number">#ffffff</span>; <span class="comment">/* 白色是關鍵 */</span></span><br><span class="line">  <span class="attribute">mix-blend-mode</span>: difference;</span><br><span class="line">  <span class="attribute">white-space</span>: nowrap;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">letter-spacing</span>: <span class="number">0.05em</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="background-image-和-img-有什麼差別？"><a href="#background-image-和-img-有什麼差別？" class="headerlink" title="background-image 和 img 有什麼差別？"></a>background-image 和 img 有什麼差別？</h3><p><code>&lt;img&gt;</code> 是內容的一部分，有語意、可被搜尋引擎索引，適合用於產品圖、說明圖等。<code>background-image</code> 屬於裝飾性背景，沒有 <code>alt</code> 屬性，不建議用來呈現重要內容。</p>
-<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ul>
-<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_images/Using_CSS_gradients">MDN - 使用 CSS 漸變</a></li>
-<li><a target="_blank" rel="noopener" href="https://ithelp.ithome.com.tw/articles/10247622">iT 邦幫忙：CSS Background Image 教學</a></li>
+<h3 id="為什麼文字顏色要設白色？"><a href="#為什麼文字顏色要設白色？" class="headerlink" title="為什麼文字顏色要設白色？"></a>為什麼文字顏色要設白色？</h3><p><code>difference</code> 模式下，白色（RGB 255,255,255）會讓計算結果完全反相底色，產生最強的對比效果。若使用其他顏色，效果會不那麼乾淨，但也可以創造不同風格。</p>
+<hr>
+<h3 id="進階變化：滾動交錯效果"><a href="#進階變化：滾動交錯效果" class="headerlink" title="進階變化：滾動交錯效果"></a>進階變化：滾動交錯效果</h3><p>搭配 CSS 動畫或 scroll，可以讓背景移動而文字固定，強化交錯感。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@keyframes</span> slide-bg &#123;</span><br><span class="line">  <span class="number">0%</span>   &#123; <span class="attribute">transform</span>: <span class="built_in">translateX</span>(<span class="number">0</span>); &#125;</span><br><span class="line">  <span class="number">50%</span>  &#123; <span class="attribute">transform</span>: <span class="built_in">translateX</span>(-<span class="number">50%</span>); &#125;</span><br><span class="line">  <span class="number">100%</span> &#123; <span class="attribute">transform</span>: <span class="built_in">translateX</span>(<span class="number">0</span>); &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.bg-container</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">200%</span>; <span class="comment">/* 讓背景加倍寬度 */</span></span><br><span class="line">  <span class="attribute">animation</span>: slide-bg <span class="number">4s</span> ease-in-out infinite;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>文字保持 <code>position: fixed</code> 或 <code>sticky</code>，背景在後方滑動，視覺上就像文字穿越兩個世界。</p>
+<hr>
+<h3 id="進階變化：漸層背景-混合模式"><a href="#進階變化：漸層背景-混合模式" class="headerlink" title="進階變化：漸層背景 + 混合模式"></a>進階變化：漸層背景 + 混合模式</h3><p>背景不一定要是純色，換成漸層效果更豐富：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.bg-gradient</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: <span class="built_in">linear-gradient</span>(</span><br><span class="line">    <span class="number">135deg</span>,</span><br><span class="line">    <span class="number">#0f0c29</span>,</span><br><span class="line">    <span class="number">#302b63</span>,</span><br><span class="line">    <span class="number">#24243e</span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.blend-text</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: <span class="number">#ffffff</span>;</span><br><span class="line">  <span class="attribute">mix-blend-mode</span>: difference;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>漸層搭配 difference 模式，文字顏色會跟著背景漸層的深淺而連續變化，甚至可以使用照片來達到不同效果。</p>
+<p><img src="https://i.postimg.cc/N0XY2TV0/img-bamboo-blend.png" alt="img-bamboo-blend"></p>
+<hr>
+<h3 id="isolation-屬性：控制混合範圍"><a href="#isolation-屬性：控制混合範圍" class="headerlink" title="isolation 屬性：控制混合範圍"></a>isolation 屬性：控制混合範圍</h3><p>有時候你不希望混合模式影響到更外層的元素，這時候可以使用 <code>isolation: isolate</code>：</p>
+<p><img src="https://i.postimg.cc/vZkbmXPs/img-05-isolation.png" alt="isolation"></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">  <span class="attribute">isolation</span>: isolate; <span class="comment">/* 建立獨立的混合上下文 */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>加上這個屬性後，混合效果只會在 <code>.container</code> 內部發生，不會往上影響到 <code>&lt;body&gt;</code> 或其他元素。這在頁面有複雜層疊結構時非常重要。</p>
+<hr>
+<h2 id="常見問題"><a href="#常見問題" class="headerlink" title="常見問題"></a>常見問題</h2><p><strong>Q：為什麼我的 mix-blend-mode 沒有效果？</strong></p>
+<p>確認以下幾點：</p>
+<ol>
+<li>父元素不能設定 <code>isolation: isolate</code>（除非是刻意限制範圍）</li>
+<li>文字元素必須與背景元素有真實的層疊關係，不能在完全獨立的 stacking context 中</li>
+<li>某些 CSS 屬性（如 <code>will-change</code>, <code>transform</code>, <code>opacity &lt; 1</code>）會自動建立新的 stacking context，可能影響混合效果</li>
+</ol>
+<p><strong>Q：mix-blend-mode 和 background-blend-mode 有何不同？</strong></p>
+<ul>
+<li><code>mix-blend-mode</code>：元素與其<strong>下方的所有內容</strong>混合（跨元素）</li>
+<li><code>background-blend-mode</code>：元素自身的<strong>多個背景圖層</strong>之間互相混合（單一元素內）</li>
 </ul>
+<hr>
+<h3 id="瀏覽器支援"><a href="#瀏覽器支援" class="headerlink" title="瀏覽器支援"></a>瀏覽器支援</h3><p><code>mix-blend-mode</code> 現代瀏覽器（Chrome、Firefox、Safari、Edge）均已完整支援，IE 不支援。若需要顧及舊版瀏覽器，可用 <code>@supports</code> 做漸進增強：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 預設樣式（無混合效果） */</span></span><br><span class="line"><span class="selector-class">.blend-text</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: <span class="number">#ffffff</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 支援 mix-blend-mode 時才套用 */</span></span><br><span class="line"><span class="keyword">@supports</span> (<span class="attribute">mix-blend-mode</span>: difference) &#123;</span><br><span class="line">  <span class="selector-class">.blend-text</span> &#123;</span><br><span class="line">    <span class="attribute">mix-blend-mode</span>: difference;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="小結"><a href="#小結" class="headerlink" title="小結"></a>小結</h2><p><code>mix-blend-mode: difference</code> 是一個優雅且高效的 CSS 技巧，只需幾行樣式就能實現讓人印象深刻的視覺效果。它的核心概念不難，但組合運用的空間非常大——從靜態的雙色分割版面，到動態滾動、漸層背景，甚至是互動式游標跟隨特效，都能以此為基礎延伸。</p>
+<p>下次設計 Landing Page 的 Hero 區塊時，不妨試試這個技巧，讓你的標題文字從頁面中跳出來！</p>
 
     </div>
 
@@ -558,8 +534,8 @@
         <span>分享這篇文章</span>
       </div>
       <div class="share-article-buttons"
-           data-share-url="https://hailey.tw/2026/06/13/CSS%20%E8%83%8C%E6%99%AF%E5%9C%96%E7%89%87%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97%EF%BC%9Abackground-image%20%E5%B1%AC%E6%80%A7%E8%A9%B3%E8%A7%A3/"
-           data-share-title="CSS 背景圖片完整指南：background-image 屬性詳解">
+           data-share-url="https://hailey.tw/2026/06/27/%E7%94%A8%20CSS%20mix-blend-mode%20%E6%89%93%E9%80%A0%E7%82%AB%E7%9B%AE%E7%9A%84%E6%96%87%E5%AD%97%E8%83%8C%E6%99%AF%E4%BA%A4%E9%8C%AF%E6%95%88%E6%9E%9C/"
+           data-share-title="用 CSS mix-blend-mode 打造炫目的文字背景交錯效果">
         <a href="#"
            role="button"
            class="share-article-btn"
@@ -760,13 +736,13 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2026/06/09/JavaScript%20%E9%99%A3%E5%88%97%E6%96%B9%E6%B3%95%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97%EF%BD%9Cpush%E3%80%81splice%E3%80%81map%E3%80%81filter%E3%80%81reduce%20%E4%B8%80%E6%AC%A1%E6%90%9E%E6%87%82/" rel="prev" title="JavaScript 陣列方法完整指南｜push、splice、map、filter、reduce 一次搞懂">
-                  <i class="fa fa-angle-left"></i> JavaScript 陣列方法完整指南｜push、splice、map、filter、reduce 一次搞懂
+                <a href="/2026/06/22/%E4%B8%80%E6%AC%A1%E6%89%93%E5%8C%85%204%20%E5%80%8B%E6%9C%80%E5%B8%B8%E7%94%A8%E7%9A%84%20CSS%20%E8%A6%96%E8%A6%BA%E8%88%87%E5%AE%9A%E4%BD%8D%E5%B1%AC%E6%80%A7/" rel="prev" title="一次打包 4 個最常用的 CSS 視覺與定位屬性">
+                  <i class="fa fa-angle-left"></i> 一次打包 4 個最常用的 CSS 視覺與定位屬性
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2026/06/22/%E4%B8%80%E6%AC%A1%E6%89%93%E5%8C%85%204%20%E5%80%8B%E6%9C%80%E5%B8%B8%E7%94%A8%E7%9A%84%20CSS%20%E8%A6%96%E8%A6%BA%E8%88%87%E5%AE%9A%E4%BD%8D%E5%B1%AC%E6%80%A7/" rel="next" title="一次打包 4 個最常用的 CSS 視覺與定位屬性">
-                  一次打包 4 個最常用的 CSS 視覺與定位屬性 <i class="fa fa-angle-right"></i>
+                <a href="/2026/07/12/CSS%20Display%20%E5%B1%AC%E6%80%A7%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97%EF%BC%9ABlock%E3%80%81Inline%E3%80%81Flex%20%E6%8E%92%E7%89%88%E8%A9%B3%E8%A7%A3/" rel="next" title="CSS Display 屬性完全指南：Block、Inline、Flex 排版詳解">
+                  CSS Display 屬性完全指南：Block、Inline、Flex 排版詳解 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>
