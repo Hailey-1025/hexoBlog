@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"hailey.tw","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":true,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"找到 ${hits} 個搜索結果（用時 ${time} 毫秒）","hits":"找到 ${hits} 個搜索結果"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="透過一個表格加總的實作範例，說明 for...of 迴圈的語法、運作原理、與傳統 for 迴圈的差異，並補充 break 中斷迴圈的用法與常見 FAQ。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript for…of 完整教學：語法、範例、break 與 forEach 差異">
+<meta property="og:url" content="https://hailey.tw/2026/07/20/JavaScript%20for%E2%80%A6of%20%E5%AE%8C%E6%95%B4%E6%95%99%E5%AD%B8%EF%BC%9A%E8%AA%9E%E6%B3%95%E3%80%81%E7%AF%84%E4%BE%8B%E3%80%81break%20%E8%88%87%20forEach%20%E5%B7%AE%E7%95%B0/index.html">
+<meta property="og:site_name" content="Hailey&#39;s Blog">
+<meta property="og:description" content="透過一個表格加總的實作範例，說明 for...of 迴圈的語法、運作原理、與傳統 for 迴圈的差異，並補充 break 中斷迴圈的用法與常見 FAQ。">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2026-07-20T01:13:28.000Z">
+<meta property="article:modified_time" content="2026-07-20T01:52:04.305Z">
+<meta property="article:author" content="Hailey">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://hailey.tw/2026/07/20/JavaScript%20for%E2%80%A6of%20%E5%AE%8C%E6%95%B4%E6%95%99%E5%AD%B8%EF%BC%9A%E8%AA%9E%E6%B3%95%E3%80%81%E7%AF%84%E4%BE%8B%E3%80%81break%20%E8%88%87%20forEach%20%E5%B7%AE%E7%95%B0/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://hailey.tw/2026/07/20/JavaScript%20for%E2%80%A6of%20%E5%AE%8C%E6%95%B4%E6%95%99%E5%AD%B8%EF%BC%9A%E8%AA%9E%E6%B3%95%E3%80%81%E7%AF%84%E4%BE%8B%E3%80%81break%20%E8%88%87%20forEach%20%E5%B7%AE%E7%95%B0/","path":"2026/07/20/JavaScript for…of 完整教學：語法、範例、break 與 forEach 差異/","title":"JavaScript for…of 完整教學：語法、範例、break 與 forEach 差異"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>JavaScript for…of 完整教學：語法、範例、break 與 forEach 差異 | Hailey's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8W8PTGBYMG"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-8W8PTGBYMG","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js" defer></script>
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="Hailey's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main main--recent-rail">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hailey's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Stressed spelled backwards is desserts.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜尋" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>關於</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜尋..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+    <div class="sidebar-mobile-focus">
+      <div class="site-meta site-meta--drawer">
+
+        <a href="/" class="brand" rel="start">
+          <i class="logo-line"></i>
+          <p class="site-title">Hailey's Blog</p>
+          <i class="logo-line"></i>
+        </a>
+          <p class="site-subtitle" itemprop="description">Stressed spelled backwards is desserts.</p>
+      </div>
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>關於</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+    </div>
+
+    <div class="sidebar-desktop-stack">
+
+      <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+        <ul class="sidebar-nav">
+          <li class="sidebar-nav-toc">
+            文章目錄
+          </li>
+          <li class="sidebar-nav-overview">
+            本站概要
+          </li>
+        </ul>
+
+        <div class="sidebar-panel-container">
+          <!--noindex-->
+          <div class="post-toc-wrap sidebar-panel">
+              <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AF%84%E4%BE%8B%E6%83%85%E5%A2%83%EF%BC%9A%E8%A1%A8%E6%A0%BC%E5%8A%A0%E7%B8%BD"><span class="nav-number">2.</span> <span class="nav-text">範例情境：表格加總</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E8%AA%9E%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">基本語法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8B%86%E8%A7%A3-for-const-cell-of-cells"><span class="nav-number">4.</span> <span class="nav-text">拆解 for (const cell of cells)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-cells-%E6%98%AF%E4%BB%80%E9%BA%BC%EF%BC%9F"><span class="nav-number">4.1.</span> <span class="nav-text">1. cells 是什麼？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-const-cell-of-cells-%E7%9A%84%E6%84%8F%E7%BE%A9"><span class="nav-number">4.2.</span> <span class="nav-text">2. const cell of cells 的意義</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%B7%E8%A1%8C%E6%B5%81%E7%A8%8B%E9%80%90%E6%AD%A5%E8%AA%AA%E6%98%8E"><span class="nav-number">5.</span> <span class="nav-text">執行流程逐步說明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%88%87%E5%82%B3%E7%B5%B1-for-%E8%BF%B4%E5%9C%88%E6%AF%94%E8%BC%83"><span class="nav-number">6.</span> <span class="nav-text">與傳統 for 迴圈比較</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%82%BA%E4%BB%80%E9%BA%BC%E9%81%B8%E6%93%87-for-of%EF%BC%9F"><span class="nav-number">6.1.</span> <span class="nav-text">為什麼選擇 for...of？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#break-%E7%9A%84%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F"><span class="nav-number">7.</span> <span class="nav-text">break 的使用方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A6%8B%E5%95%8F%E9%A1%8C-FAQ"><span class="nav-number">8.</span> <span class="nav-text">常見問題 FAQ</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#for-of-%E5%8F%AF%E4%BB%A5%E5%8F%96%E5%BE%97%E7%B4%A2%E5%BC%95%E5%97%8E%EF%BC%9F"><span class="nav-number">8.1.</span> <span class="nav-text">for...of 可以取得索引嗎？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#for-of-%E5%8F%AF%E4%BB%A5%E7%94%A8%E5%9C%A8%E7%89%A9%E4%BB%B6%EF%BC%88Object%EF%BC%89%E5%97%8E%EF%BC%9F"><span class="nav-number">8.2.</span> <span class="nav-text">for...of 可以用在物件（Object）嗎？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#for-of-%E8%B7%9F-forEach-%E5%B7%AE%E5%9C%A8%E5%93%AA%EF%BC%9F"><span class="nav-number">8.3.</span> <span class="nav-text">for...of 跟 forEach() 差在哪？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B8%BD%E7%B5%90"><span class="nav-number">9.</span> <span class="nav-text">總結</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="nav-number">10.</span> <span class="nav-text">延伸閱讀</span></a></li></ol></div>
+          </div>
+          <!--/noindex-->
+
+          <div class="site-overview-wrap sidebar-panel">
+            <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hailey"
+      src="https://i.postimg.cc/d1YJx7jW/site-author-image.png">
+  <p class="site-author-name" itemprop="name">Hailey</p>
+  <div class="site-description" itemprop="description">專注前端開發，記錄 JavaScript 與 Vite 的實戰筆記，以及從非本科轉職工程師的成長之路。</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">標籤</span>
+      </div>
+  </nav>
+</div>
+
+          </div>
+        </div>
+      </div>
+
+      
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://hailey.tw/2026/07/20/JavaScript%20for%E2%80%A6of%20%E5%AE%8C%E6%95%B4%E6%95%99%E5%AD%B8%EF%BC%9A%E8%AA%9E%E6%B3%95%E3%80%81%E7%AF%84%E4%BE%8B%E3%80%81break%20%E8%88%87%20forEach%20%E5%B7%AE%E7%95%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://i.postimg.cc/d1YJx7jW/site-author-image.png">
+      <meta itemprop="name" content="Hailey">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hailey's Blog">
+      <meta itemprop="description" content="專注前端開發，記錄 JavaScript 與 Vite 的實戰筆記，以及從非本科轉職工程師的成長之路。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="JavaScript for…of 完整教學：語法、範例、break 與 forEach 差異 | Hailey's Blog">
+      <meta itemprop="description" content="透過一個表格加總的實作範例，說明 for...of 迴圈的語法、運作原理、與傳統 for 迴圈的差異，並補充 break 中斷迴圈的用法與常見 FAQ。">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JavaScript for…of 完整教學：語法、範例、break 與 forEach 差異
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+      
+
+      <time title="創建時間：2026-07-20 09:13:28 / 修改時間：09:52:04" itemprop="dateCreated datePublished" datetime="2026-07-20T09:13:28+08:00">2026-07-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+            <div class="post-description">透過一個表格加總的實作範例，說明 for...of 迴圈的語法、運作原理、與傳統 for 迴圈的差異，並補充 break 中斷迴圈的用法與常見 FAQ。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><code>for...of</code> 是 JavaScript 常用的迴圈語法之一，可以用來依序走訪可迭代物件（Iterable），例如陣列、字串、<code>NodeList</code> 或 <code>HTMLCollection</code>。在操作 DOM 時，也經常會搭配它來走訪一群元素。這篇文章會透過一個簡單的「表格加總」範例，帶你了解 <code>for...of</code> 的語法與使用方式，並比較它跟傳統 <code>for</code> 迴圈的差異。</p>
+<h2 id="範例情境：表格加總"><a href="#範例情境：表格加總" class="headerlink" title="範例情境：表格加總"></a>範例情境：表格加總</h2><p>先準備一個簡單的表格：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">table</span> <span class="attr">id</span>=<span class="string">&quot;data&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">td</span>&gt;</span>10<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">td</span>&gt;</span>20<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">td</span>&gt;</span>30<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">td</span>&gt;</span>40<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">td</span>&gt;</span>50<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">td</span>&gt;</span>60<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">&quot;calculate&quot;</span>&gt;</span>計算總和<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">&quot;result&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>接著撰寫邏輯，讓使用者點擊按鈕後，計算所有 <code>&lt;td&gt;</code> 內數字的總和：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> data = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;#data&#x27;</span>)</span><br><span class="line"><span class="keyword">const</span> calculate = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;#calculate&#x27;</span>)</span><br><span class="line"><span class="keyword">const</span> result = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;#result&#x27;</span>)</span><br><span class="line"></span><br><span class="line">calculate.<span class="title function_">addEventListener</span>(<span class="string">&#x27;click&#x27;</span>, <span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> total = <span class="number">0</span></span><br><span class="line">    <span class="keyword">const</span> cells = data.<span class="title function_">getElementsByTagName</span>(<span class="string">&#x27;td&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">const</span> cell <span class="keyword">of</span> cells) &#123;</span><br><span class="line">        total += <span class="built_in">parseInt</span>(cell.<span class="property">textContent</span>, <span class="number">10</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    result.<span class="property">textContent</span> = <span class="string">`總和：<span class="subst">$&#123;total&#125;</span>`</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>小提醒：<code>parseInt</code> 建議加上第二個參數（基數，radix），例如 <code>parseInt(cell.textContent, 10)</code>，可以避免字串在某些情況下被誤判成八進位或十六進位。</p>
+</blockquote>
+<h2 id="基本語法"><a href="#基本語法" class="headerlink" title="基本語法"></a>基本語法</h2><p>在拆解範例之前，先看 <code>for...of</code> 最基本的寫法：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (變數 <span class="keyword">of</span> 可迭代物件) &#123;</span><br><span class="line">  <span class="comment">// 每次迴圈會取得可迭代物件中的一個元素</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>變數</strong>：用來接住當前迭代到的元素，通常會使用 <code>const</code> 宣告；如果需要重新賦值，再使用 <code>let</code>。</li>
+<li><strong>of</strong>：關鍵字，表示後面接的是「要迭代的對象」。</li>
+<li><strong>可迭代物件（Iterable）</strong>：常見的有陣列、字串、<code>Map</code>、<code>Set</code>，以及類陣列物件如 <code>NodeList</code>、<code>HTMLCollection</code>。</li>
+</ul>
+<p>有了這個基本結構，再回頭看範例中的寫法就會清楚很多。</p>
+<h2 id="拆解-for-const-cell-of-cells"><a href="#拆解-for-const-cell-of-cells" class="headerlink" title="拆解 for (const cell of cells)"></a>拆解 <code>for (const cell of cells)</code></h2><h3 id="1-cells-是什麼？"><a href="#1-cells-是什麼？" class="headerlink" title="1. cells 是什麼？"></a>1. <code>cells</code> 是什麼？</h3><p><code>cells</code> 是透過 <code>data.getElementsByTagName(&#39;td&#39;)</code> 取得的 <strong>HTMLCollection</strong>，是一種「類陣列物件」，裡面裝著表格中所有的 <code>&lt;td&gt;</code> 元素。在現代瀏覽器中，<code>HTMLCollection</code> 與 <code>NodeList</code> 都可以搭配 <code>for...of</code> 使用。</p>
+<h3 id="2-const-cell-of-cells-的意義"><a href="#2-const-cell-of-cells-的意義" class="headerlink" title="2. const cell of cells 的意義"></a>2. <code>const cell of cells</code> 的意義</h3><ul>
+<li><code>cell</code>：區域變數，代表當前迭代到的元素（也就是某一個 <code>&lt;td&gt;</code>）。</li>
+<li><code>of</code>：關鍵字，表示接下來要迭代的對象是 <code>cells</code>。</li>
+</ul>
+<p>每次迴圈執行時，<code>for...of</code> 會自動依序取出 <code>cells</code> 中的下一個元素，指派給 <code>cell</code>。</p>
+<h2 id="執行流程逐步說明"><a href="#執行流程逐步說明" class="headerlink" title="執行流程逐步說明"></a>執行流程逐步說明</h2><p>以上面的表格為例，<code>cells</code> 依序包含 <code>10、20、30、40、50、60</code> 這六個 <code>&lt;td&gt;</code> 元素：</p>
+<ol>
+<li><strong>第一圈</strong>：<code>cell</code> 為第一個 <code>&lt;td&gt;</code>（內容 <code>&quot;10&quot;</code>）→ <code>parseInt</code> 轉為數字 <code>10</code> → <code>total</code> 累加為 <code>10</code>。</li>
+<li><strong>第二圈</strong>：<code>cell</code> 為第二個 <code>&lt;td&gt;</code>（內容 <code>&quot;20&quot;</code>）→ <code>total</code> 累加為 <code>30</code>。</li>
+<li><strong>依此類推</strong>，直到走訪完所有 <code>&lt;td&gt;</code>，最終 <code>total</code> 為 <code>210</code>。</li>
+</ol>
+<h2 id="與傳統-for-迴圈比較"><a href="#與傳統-for-迴圈比較" class="headerlink" title="與傳統 for 迴圈比較"></a>與傳統 <code>for</code> 迴圈比較</h2><p>如果不用 <code>for...of</code>，也可以用傳統索引式的 <code>for</code> 迴圈達到同樣效果：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; cells.<span class="property">length</span>; i++) &#123;</span><br><span class="line">    <span class="keyword">let</span> cell = cells[i]</span><br><span class="line">    total += <span class="built_in">parseInt</span>(cell.<span class="property">textContent</span>, <span class="number">10</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>兩者的差異：</p>
+<table>
+<thead>
+<tr>
+<th>比較項目</th>
+<th><code>for...of</code></th>
+<th>傳統 <code>for</code></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>語法</td>
+<td>簡潔，直接拿到元素本身</td>
+<td>需要透過索引 <code>i</code> 存取元素</td>
+</tr>
+<tr>
+<td>可讀性</td>
+<td>較高，聚焦在「元素」而非「位置」</td>
+<td>需額外理解索引與長度</td>
+</tr>
+<tr>
+<td>取得索引</td>
+<td>預設拿不到索引（需搭配 <code>entries()</code>）</td>
+<td>天生就有索引 <code>i</code></td>
+</tr>
+<tr>
+<td>支援 <code>break</code> &#x2F; <code>continue</code></td>
+<td>支援</td>
+<td>支援</td>
+</tr>
+</tbody></table>
+<h3 id="為什麼選擇-for-of？"><a href="#為什麼選擇-for-of？" class="headerlink" title="為什麼選擇 for...of？"></a>為什麼選擇 <code>for...of</code>？</h3><ul>
+<li><strong>語意清楚</strong>：直接針對「每一個元素」操作，不必自己管理索引。</li>
+<li><strong>適合類陣列物件</strong>：像 <code>HTMLCollection</code>、<code>NodeList</code> 這類物件，用 <code>for...of</code> 走訪起來特別自然。</li>
+</ul>
+<h2 id="break-的使用方式"><a href="#break-的使用方式" class="headerlink" title="break 的使用方式"></a>break 的使用方式</h2><p><code>break</code> 可以用來中斷迴圈，一旦符合條件就會立刻跳出，不會再執行後續的迴圈內容。</p>
+<p>例如以下範例，只要找到第一筆「雞隻數量超過 50」的農場，就停止尋找（也就是只會印出一筆資料）：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> farmsTotal = farms.<span class="property">length</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; farmsTotal; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (farms[i].<span class="property">chick</span> &gt; <span class="number">50</span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(farms[i].<span class="property">farmer</span> + <span class="string">&#x27;的小雞剛好夠&#x27;</span>)</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>break</code> 同樣可以用在 <code>for...of</code> 裡：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">const</span> cell <span class="keyword">of</span> cells) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">parseInt</span>(cell.<span class="property">textContent</span>, <span class="number">10</span>) &gt; <span class="number">50</span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;找到第一個超過 50 的數字&#x27;</span>)</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="常見問題-FAQ"><a href="#常見問題-FAQ" class="headerlink" title="常見問題 FAQ"></a>常見問題 FAQ</h2><h3 id="for-of-可以取得索引嗎？"><a href="#for-of-可以取得索引嗎？" class="headerlink" title="for...of 可以取得索引嗎？"></a><code>for...of</code> 可以取得索引嗎？</h3><p>可以，需要搭配 <code>entries()</code>：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">const</span> [index, item] <span class="keyword">of</span> array.<span class="title function_">entries</span>()) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(index, item)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="for-of-可以用在物件（Object）嗎？"><a href="#for-of-可以用在物件（Object）嗎？" class="headerlink" title="for...of 可以用在物件（Object）嗎？"></a><code>for...of</code> 可以用在物件（Object）嗎？</h3><p>不行。一般物件（Plain Object）預設不是可迭代物件，直接對它使用 <code>for...of</code> 會噴錯：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">  <span class="attr">a</span>: <span class="number">1</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">const</span> item <span class="keyword">of</span> obj) &#123;</span><br><span class="line">  <span class="comment">// TypeError: obj is not iterable</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果要走訪物件，可以先轉換成陣列，再用 <code>for...of</code> 或其他方法處理：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Object</span>.<span class="title function_">keys</span>(obj)    <span class="comment">// 取得所有 key</span></span><br><span class="line"><span class="title class_">Object</span>.<span class="title function_">values</span>(obj)  <span class="comment">// 取得所有 value</span></span><br><span class="line"><span class="title class_">Object</span>.<span class="title function_">entries</span>(obj) <span class="comment">// 取得 [key, value] 陣列</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="for-of-跟-forEach-差在哪？"><a href="#for-of-跟-forEach-差在哪？" class="headerlink" title="for...of 跟 forEach() 差在哪？"></a><code>for...of</code> 跟 <code>forEach()</code> 差在哪？</h3><p><code>forEach()</code> 是 Array 提供的方法，而 <code>for...of</code> 是 JavaScript 的迴圈語法。兩者都可以用來走訪陣列，但 <code>for...of</code> 還能用於其他可迭代物件（如字串、<code>Map</code>、<code>Set</code>、<code>NodeList</code> 等），且支援 <code>break</code> 中斷迴圈。</p>
+<h2 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h2><ul>
+<li><code>for...of</code> 是用來迭代「可迭代物件」的語法，語意清楚、易讀性高，特別適合操作 <code>HTMLCollection</code>、<code>NodeList</code> 這類 DOM 集合。</li>
+<li>若需要索引值，可改用傳統 <code>for</code> 迴圈，或搭配 <code>entries()</code>。</li>
+<li><code>break</code> 可以立即中斷迴圈，不論是 <code>for</code> 或 <code>for...of</code> 都能使用，適合「找到就停」的情境。</li>
+<li>如果只是需要依序取得每個元素，通常會優先選擇 <code>for...of</code>；若需要索引值，再考慮使用傳統 <code>for</code> 迴圈。</li>
+</ul>
+<h2 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h2><ul>
+<li><a href="https://hailey.tw/2026/07/19/JavaScript%20forEach()%20%E5%AE%8C%E6%95%B4%E6%95%99%E5%AD%B8:%E5%BE%9E%E5%9F%BA%E7%A4%8E%E5%88%B0%E9%99%A3%E5%88%97%E7%89%A9%E4%BB%B6%E5%AF%A6%E6%88%B0/">JavaScript forEach() 完整教學：從基礎到陣列物件實戰</a></li>
+<li><a href="https://hailey.tw/2026/05/08/JavaScript%20while%20%E8%BF%B4%E5%9C%88%E6%80%8E%E9%BA%BC%E7%94%A8%EF%BC%9F%E5%BE%9E%200%20%E5%88%B0%E7%90%86%E8%A7%A3%EF%BC%88%E9%99%84%E5%B8%B8%E8%A6%8B%E9%8C%AF%E8%AA%A4%E8%88%87%E5%AF%A6%E4%BE%8B%EF%BC%89/?highlight=while">JavaScript while 迴圈怎麼用？從 0 到理解（附常見錯誤與實例）</a></li>
+<li><a href="https://hailey.tw/2026/05/09/%E9%AB%98%E9%9A%8E%E5%87%BD%E5%BC%8F%E6%98%AF%E4%BB%80%E9%BA%BC%EF%BC%9FJavaScript%20map%E3%80%81filter%E3%80%81reduce%20%E5%AE%8C%E6%95%B4%E6%95%99%E5%AD%B8/?highlight=%E9%AB%98%E9%9A%8E">高階函式是什麼？JavaScript map、filter、reduce 完整教學</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+  
+  <section class="related-cards">
+    <h3 class="related-cards__title">
+      <i class="fa-solid fa-square-poll-horizontal"></i>相關文章
+    </h3>
+    <div class="related-cards__grid">
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+              
+            
+          
+          
+            
+            <a class="related-cards__item" href="/2026/05/18/JavaScript%20DOM%20%E4%BA%8B%E4%BB%B6%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97%EF%BC%9AaddEventListener%E3%80%81%E4%BA%8B%E4%BB%B6%E5%86%92%E6%B3%A1%E8%88%87%E4%BA%8B%E4%BB%B6%E5%A7%94%E6%B4%BE/">
+              <span class="related-cards__item-title">JavaScript DOM 事件完整指南：addEventListener、事件冒泡與事件委派</span>
+              <span class="related-cards__item-date">
+                <i class="far fa-calendar-alt"></i>
+                2026-05-18
+              </span>
+            </a>
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+              
+            
+          
+          
+            
+            <a class="related-cards__item" href="/2026/05/23/JavaScript%20Expression%20vs%20Statement%20%E6%98%AF%E4%BB%80%E9%BA%BC%EF%BC%9F%E5%87%BD%E5%BC%8F%E9%99%B3%E8%BF%B0%E5%BC%8F%E8%88%87%E5%87%BD%E5%BC%8F%E8%A1%A8%E9%81%94%E5%BC%8F%E5%AE%8C%E6%95%B4%E8%A7%A3%E6%9E%90/">
+              <span class="related-cards__item-title">JavaScript Expression vs Statement 是什麼？函式陳述式與函式表達式完整解析</span>
+              <span class="related-cards__item-date">
+                <i class="far fa-calendar-alt"></i>
+                2026-05-23
+              </span>
+            </a>
+          
+        
+      
+        
+          
+          
+            
+              
+            
+          
+          
+            
+            <a class="related-cards__item" href="/2026/05/17/JavaScript%20DOM%20%E6%93%8D%E4%BD%9C%E5%AE%8C%E6%95%B4%E6%95%99%E5%AD%B8%EF%BC%9AquerySelector%E3%80%81innerHTML%E3%80%81dataset%20%E4%B8%80%E6%AC%A1%E6%90%9E%E6%87%82/">
+              <span class="related-cards__item-title">JavaScript DOM 操作完整教學：querySelector、innerHTML、dataset 一次搞懂</span>
+              <span class="related-cards__item-date">
+                <i class="far fa-calendar-alt"></i>
+                2026-05-17
+              </span>
+            </a>
+          
+        
+      
+        
+          
+          
+            
+              
+            
+          
+          
+            
+            <a class="related-cards__item" href="/2026/07/19/JavaScript%20forEach()%20%E5%AE%8C%E6%95%B4%E6%95%99%E5%AD%B8:%E5%BE%9E%E5%9F%BA%E7%A4%8E%E5%88%B0%E9%99%A3%E5%88%97%E7%89%A9%E4%BB%B6%E5%AF%A6%E6%88%B0/">
+              <span class="related-cards__item-title">JavaScript forEach() 完整教學：從基礎到陣列物件實戰</span>
+              <span class="related-cards__item-date">
+                <i class="far fa-calendar-alt"></i>
+                2026-07-19
+              </span>
+            </a>
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="share-article-section">
+      <div class="share-article-heading">
+        <i class="fa-solid fa-share-nodes share-article-icon" aria-hidden="true"></i>
+        <span>分享這篇文章</span>
+      </div>
+      <div class="share-article-buttons"
+           data-share-url="https://hailey.tw/2026/07/20/JavaScript%20for%E2%80%A6of%20%E5%AE%8C%E6%95%B4%E6%95%99%E5%AD%B8%EF%BC%9A%E8%AA%9E%E6%B3%95%E3%80%81%E7%AF%84%E4%BE%8B%E3%80%81break%20%E8%88%87%20forEach%20%E5%B7%AE%E7%95%B0/"
+           data-share-title="JavaScript for…of 完整教學：語法、範例、break 與 forEach 差異">
+        <a href="#"
+           role="button"
+           class="share-article-btn"
+           data-platform="twitter">
+          <i class="fab fa-twitter"></i><span>Twitter</span>
+        </a>
+        <a href="#"
+           role="button"
+           class="share-article-btn"
+           data-platform="facebook">
+          <i class="fab fa-facebook"></i><span>Facebook</span>
+        </a>
+        <a href="#"
+           role="button"
+           class="share-article-btn"
+           data-platform="linkedin">
+          <i class="fab fa-linkedin"></i><span>LinkedIn</span>
+        </a>
+        <button type="button" class="share-article-btn" data-copy>
+          <i class="fa-regular fa-copy"></i><span>複製連結</span>
+        </button>
+      </div>
+    </div>
+  </section>
+  <style>
+    /* 讓 post-footer 變成可排序容器 */
+    .post-footer {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* 上一篇/下一篇 */
+    .post-footer .post-nav {
+      order: 20;
+    }
+
+    /* 你的相關文章區塊 */
+    .post-footer .related-cards {
+      order: 30;
+    }
+
+    /* 你的分享區塊（如果也要在 related 下方） */
+    .post-footer .share-article-section {
+      order: 40;
+    }
+    .related-cards {
+      margin: 2.25rem 0 1rem;
+    }
+
+    .related-cards__title {
+      margin-bottom: 12px;
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+
+    .related-cards__title i {
+        color: #22d3ee;
+        margin-right: 6px;
+    }
+
+    .related-cards__grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .related-cards__item {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 16px;
+      --tw-border-opacity: 1;
+      border: 1px solid rgb(82 82 91 / var(--tw-border-opacity, 1));
+      border-radius: 12px;
+      background: #4c4c5180;
+      color: #f5f7fa;
+      text-decoration: none;
+      transition: transform .18s ease, border-color .18s ease;
+    }
+
+    .related-cards__item:hover {
+      transform: translateY(-2px);
+      border-color: #22d3ee;
+      color: #22d3ee;
+    }
+
+    .related-cards__item-title {
+      font-size: 1rem;
+      line-height: 1.35;
+      font-weight: 600;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+
+    .related-cards__item-date {
+      margin-top: 10px;
+      font-size: .88rem;
+      color: #c5cad3;
+    }
+
+    @media (max-width: 1100px) {
+      .related-cards__grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .related-cards__grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* AddToAny */
+
+    /* 第一顆 AddToAny 主按鈕常太醜，直接隱藏 */
+    .post-footer .social-like .a2a_dd {
+    display: none;
+    }
+
+    .share-article-section { 
+      margin: 2rem 0 1rem; 
+      padding-top: 1.25rem; 
+    }
+    .share-article-heading { 
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .share-article-icon { 
+      color: #2dd4bf;
+      font-size: 1.25rem;
+    }
+    .share-article-buttons { 
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .share-article-btn {
+        display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px;
+        border: 1px solid rgb(82 82 91 / var(--tw-border-opacity, 1));
+        border-radius: 10px;
+        background: #4c4c5180;
+        color: inherit;
+        cursor: pointer;
+        text-decoration: none;
+        font: inherit;
+        transition: transform .18s ease, border-color .18s ease;
+    }
+    .share-article-btn:hover { border-color: #22d3ee;
+        transform: translateY(-2px); 
+    }
+  </style>
+  <script>
+  (function () {
+    var root = document.querySelector('.share-article-buttons');
+    if (!root || root.dataset.bound) return;
+    root.dataset.bound = '1';
+    var url = root.dataset.shareUrl || '';
+    var title = root.dataset.shareTitle || '';
+    var encUrl = encodeURIComponent(url);
+    var encTitle = encodeURIComponent(title);
+    var urls = {
+      twitter: 'https://twitter.com/intent/tweet?url=' + encUrl + '&text=' + encTitle,
+      facebook: 'https://www.facebook.com/sharer/sharer.php?u=' + encUrl,
+      linkedin: 'https://www.linkedin.com/sharing/share-offsite/?url=' + encUrl
+    };
+    root.querySelectorAll('[data-platform]').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        var p = btn.dataset.platform;
+        window.open(urls[p], '_blank', 'noopener,noreferrer');
+      });
+    });
+    var btnCopy = root.querySelector('[data-copy]');
+    if (btnCopy) {
+      btnCopy.addEventListener('click', function () {
+        navigator.clipboard.writeText(url).then(function () {
+          btnCopy.querySelector('span').textContent = '已複製';
+          setTimeout(function () { btnCopy.querySelector('span').textContent = '複製連結'; }, 2000);
+        });
+      });
+    }
+  })();
+  </script>
+
+
+          <div class="post-tags">
+              <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/07/19/JavaScript%20forEach()%20%E5%AE%8C%E6%95%B4%E6%95%99%E5%AD%B8:%E5%BE%9E%E5%9F%BA%E7%A4%8E%E5%88%B0%E9%99%A3%E5%88%97%E7%89%A9%E4%BB%B6%E5%AF%A6%E6%88%B0/" rel="prev" title="JavaScript forEach() 完整教學：從基礎到陣列物件實戰">
+                  <i class="fa fa-angle-left"></i> JavaScript forEach() 完整教學：從基礎到陣列物件實戰
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div><aside class="column-recent-posts" aria-label="最新文章">
+  <div class="recent-rail-inner">
+    <h3 class="recent-rail-title">
+      <i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i>
+      <span>最新文章</span>
+    </h3>
+    <ol class="recent-rail-list">
+      
+        <li class="recent-rail-item">
+          <a class="recent-rail-link" href="/2026/07/20/JavaScript%20for%E2%80%A6of%20%E5%AE%8C%E6%95%B4%E6%95%99%E5%AD%B8%EF%BC%9A%E8%AA%9E%E6%B3%95%E3%80%81%E7%AF%84%E4%BE%8B%E3%80%81break%20%E8%88%87%20forEach%20%E5%B7%AE%E7%95%B0/">
+            <span class="recent-rail-item-title">JavaScript for…of 完整教學：語法、範例、break 與 forEach 差異</span>
+            <span class="recent-rail-item-date">07/20</span>
+          </a>
+        </li>
+      
+        <li class="recent-rail-item">
+          <a class="recent-rail-link" href="/2026/07/19/JavaScript%20forEach()%20%E5%AE%8C%E6%95%B4%E6%95%99%E5%AD%B8:%E5%BE%9E%E5%9F%BA%E7%A4%8E%E5%88%B0%E9%99%A3%E5%88%97%E7%89%A9%E4%BB%B6%E5%AF%A6%E6%88%B0/">
+            <span class="recent-rail-item-title">JavaScript forEach() 完整教學：從基礎到陣列物件實戰</span>
+            <span class="recent-rail-item-date">07/19</span>
+          </a>
+        </li>
+      
+        <li class="recent-rail-item">
+          <a class="recent-rail-link" href="/2026/07/12/CSS%20Display%20%E5%B1%AC%E6%80%A7%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97%EF%BC%9ABlock%E3%80%81Inline%E3%80%81Flex%20%E6%8E%92%E7%89%88%E8%A9%B3%E8%A7%A3/">
+            <span class="recent-rail-item-title">CSS Display 屬性完全指南：Block、Inline、Flex 排版詳解</span>
+            <span class="recent-rail-item-date">07/12</span>
+          </a>
+        </li>
+      
+        <li class="recent-rail-item">
+          <a class="recent-rail-link" href="/2026/06/27/%E7%94%A8%20CSS%20mix-blend-mode%20%E6%89%93%E9%80%A0%E7%82%AB%E7%9B%AE%E7%9A%84%E6%96%87%E5%AD%97%E8%83%8C%E6%99%AF%E4%BA%A4%E9%8C%AF%E6%95%88%E6%9E%9C/">
+            <span class="recent-rail-item-title">用 CSS mix-blend-mode 打造炫目的文字背景交錯效果</span>
+            <span class="recent-rail-item-date">06/27</span>
+          </a>
+        </li>
+      
+        <li class="recent-rail-item">
+          <a class="recent-rail-link" href="/2026/06/22/%E4%B8%80%E6%AC%A1%E6%89%93%E5%8C%85%204%20%E5%80%8B%E6%9C%80%E5%B8%B8%E7%94%A8%E7%9A%84%20CSS%20%E8%A6%96%E8%A6%BA%E8%88%87%E5%AE%9A%E4%BD%8D%E5%B1%AC%E6%80%A7/">
+            <span class="recent-rail-item-title">一次打包 4 個最常用的 CSS 視覺與定位屬性</span>
+            <span class="recent-rail-item-date">06/22</span>
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</aside>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class=""></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Hailey. All rights reserved.<br>Built with Hexo & Theme NexT</span>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"Hailey-1025/blog-comments","issue_term":"pathname","label":"comment","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js" defer></script>
+
+<script>
+(function () {
+  var mq = window.matchMedia('(max-width: 991px)');
+  var btn = document.querySelector('.site-nav-toggle .toggle');
+  var sidebarBtn = document.querySelector('.sidebar-toggle');
+  var siteNav = document.querySelector('.header .site-nav');
+  if (!btn || !sidebarBtn) return;
+
+  function collapseHeaderNavDropdown() {
+    document.body.classList.remove('site-nav-on');
+    if (siteNav) siteNav.style.removeProperty('--scroll-height');
+  }
+
+  btn.addEventListener('click', function (e) {
+    if (!mq.matches) return;
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    collapseHeaderNavDropdown();
+    sidebarBtn.click();
+  }, true);
+
+  new MutationObserver(function () {
+    if (!mq.matches) return;
+    var open = document.body.classList.contains('sidebar-active');
+    btn.classList.toggle('toggle-close', open);
+  }).observe(document.body, { attributes: true, attributeFilter: ['class'] });
+
+  mq.addEventListener('change', function () {
+    if (!mq.matches) {
+      btn.classList.remove('toggle-close');
+      collapseHeaderNavDropdown();
+      document.body.classList.remove('mobile-header-scrolled-down');
+    }
+  });
+
+  var lastY = window.scrollY || 0;
+  var ticking = false;
+
+  function updateMobileHeaderOnScroll() {
+    ticking = false;
+    if (!mq.matches) return;
+    var currentY = window.scrollY || 0;
+    var scrollingDown = currentY > lastY;
+    var passedTop = currentY > 10;
+    document.body.classList.toggle('mobile-header-scrolled-down', scrollingDown && passedTop);
+    lastY = currentY;
+  }
+
+  window.addEventListener('scroll', function () {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(updateMobileHeaderOnScroll);
+  }, { passive: true });
+})();
+</script>
+
+</body>
+</html>
