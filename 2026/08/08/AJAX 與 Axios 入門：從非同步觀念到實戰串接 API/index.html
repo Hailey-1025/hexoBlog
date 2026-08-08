@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"hailey.tw","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":true,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"找到 ${hits} 個搜索結果（用時 ${time} 毫秒）","hits":"找到 ${hits} 個搜索結果"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="完整介紹 AJAX 的概念、Axios 的安裝與使用、非同步程式設計（callback、Promise、async&#x2F;await）、常見 HTTP 方法與狀態碼，並附上實戰範例。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AJAX 與 Axios 入門：從非同步觀念到實戰串接 API">
+<meta property="og:url" content="https://hailey.tw/2026/08/08/AJAX%20%E8%88%87%20Axios%20%E5%85%A5%E9%96%80%EF%BC%9A%E5%BE%9E%E9%9D%9E%E5%90%8C%E6%AD%A5%E8%A7%80%E5%BF%B5%E5%88%B0%E5%AF%A6%E6%88%B0%E4%B8%B2%E6%8E%A5%20API/index.html">
+<meta property="og:site_name" content="Hailey&#39;s Blog">
+<meta property="og:description" content="完整介紹 AJAX 的概念、Axios 的安裝與使用、非同步程式設計（callback、Promise、async&#x2F;await）、常見 HTTP 方法與狀態碼，並附上實戰範例。">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2026-08-08T14:03:39.000Z">
+<meta property="article:modified_time" content="2026-08-08T14:32:36.782Z">
+<meta property="article:author" content="Hailey">
+<meta property="article:tag" content="AJAX, Axios, Promise, async await, HTTP Method">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://hailey.tw/2026/08/08/AJAX%20%E8%88%87%20Axios%20%E5%85%A5%E9%96%80%EF%BC%9A%E5%BE%9E%E9%9D%9E%E5%90%8C%E6%AD%A5%E8%A7%80%E5%BF%B5%E5%88%B0%E5%AF%A6%E6%88%B0%E4%B8%B2%E6%8E%A5%20API/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://hailey.tw/2026/08/08/AJAX%20%E8%88%87%20Axios%20%E5%85%A5%E9%96%80%EF%BC%9A%E5%BE%9E%E9%9D%9E%E5%90%8C%E6%AD%A5%E8%A7%80%E5%BF%B5%E5%88%B0%E5%AF%A6%E6%88%B0%E4%B8%B2%E6%8E%A5%20API/","path":"2026/08/08/AJAX 與 Axios 入門：從非同步觀念到實戰串接 API/","title":"AJAX 與 Axios 入門：從非同步觀念到實戰串接 API"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>AJAX 與 Axios 入門：從非同步觀念到實戰串接 API | Hailey's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8W8PTGBYMG"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-8W8PTGBYMG","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js" defer></script>
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="Hailey's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main main--recent-rail">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hailey's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Stressed spelled backwards is desserts.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜尋" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>關於</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜尋..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+    <div class="sidebar-mobile-focus">
+      <div class="site-meta site-meta--drawer">
+
+        <a href="/" class="brand" rel="start">
+          <i class="logo-line"></i>
+          <p class="site-title">Hailey's Blog</p>
+          <i class="logo-line"></i>
+        </a>
+          <p class="site-subtitle" itemprop="description">Stressed spelled backwards is desserts.</p>
+      </div>
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>關於</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+    </div>
+
+    <div class="sidebar-desktop-stack">
+
+      <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+        <ul class="sidebar-nav">
+          <li class="sidebar-nav-toc">
+            文章目錄
+          </li>
+          <li class="sidebar-nav-overview">
+            本站概要
+          </li>
+        </ul>
+
+        <div class="sidebar-panel-container">
+          <!--noindex-->
+          <div class="post-toc-wrap sidebar-panel">
+              <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#AJAX-%E8%88%87-Axios-%E5%85%A5%E9%96%80%EF%BC%9A%E5%BE%9E%E9%9D%9E%E5%90%8C%E6%AD%A5%E8%A7%80%E5%BF%B5%E5%88%B0%E5%AF%A6%E6%88%B0%E4%B8%B2%E6%8E%A5-API"><span class="nav-number">1.</span> <span class="nav-text">AJAX 與 Axios 入門：從非同步觀念到實戰串接 API</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E9%BA%BC%E6%98%AF-AJAX%EF%BC%9F"><span class="nav-number">2.</span> <span class="nav-text">什麼是 AJAX？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Axios-%E6%98%AF%E4%BB%80%E9%BA%BC%EF%BC%9F"><span class="nav-number">3.</span> <span class="nav-text">Axios 是什麼？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%9D-Axios"><span class="nav-number">4.</span> <span class="nav-text">安裝 Axios</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-Axios-%E7%99%BC%E9%80%81-GET-%E8%AB%8B%E6%B1%82"><span class="nav-number">5.</span> <span class="nav-text">使用 Axios 發送 GET 請求</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#then-catch-finally-%E7%9A%84%E9%8F%88%E5%BC%8F%E5%AF%AB%E6%B3%95"><span class="nav-number">5.1.</span> <span class="nav-text">.then &#x2F; .catch &#x2F; .finally 的鏈式寫法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP-%E8%AB%8B%E6%B1%82%E6%96%B9%E6%B3%95%EF%BC%88HTTP-Method%EF%BC%89"><span class="nav-number">6.</span> <span class="nav-text">HTTP 請求方法（HTTP Method）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP-%E7%8B%80%E6%85%8B%E7%A2%BC%EF%BC%88Status-Code%EF%BC%89"><span class="nav-number">7.</span> <span class="nav-text">HTTP 狀態碼（Status Code）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%87%E5%A4%96%E9%83%A8%E8%B3%87%E6%96%99%E5%AF%AB%E5%85%A5%E7%B6%B2%E9%A0%81"><span class="nav-number">8.</span> <span class="nav-text">將外部資料寫入網頁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%9E%E5%90%8C%E6%AD%A5%E5%88%B0%E5%BA%95%E6%98%AF%E4%BB%80%E9%BA%BC%EF%BC%9F"><span class="nav-number">9.</span> <span class="nav-text">非同步到底是什麼？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8%E5%87%BD%E5%BC%8F%E8%A8%AD%E8%A8%88%E4%BE%86%E8%99%95%E7%90%86%E9%9D%9E%E5%90%8C%E6%AD%A5"><span class="nav-number">10.</span> <span class="nav-text">用函式設計來處理非同步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A7%E5%88%B6%E9%9D%9E%E5%90%8C%E6%AD%A5%E7%A8%8B%E5%BC%8F%E7%A2%BC%E7%9A%84%E5%9F%B7%E8%A1%8C%E9%A0%86%E5%BA%8F"><span class="nav-number">11.</span> <span class="nav-text">控制非同步程式碼的執行順序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Callback%EF%BC%88%E5%9B%9E%E5%91%BC%E5%87%BD%E5%BC%8F%EF%BC%89"><span class="nav-number">11.1.</span> <span class="nav-text">1. Callback（回呼函式）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Promise"><span class="nav-number">11.2.</span> <span class="nav-text">2. Promise</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-async-await"><span class="nav-number">11.3.</span> <span class="nav-text">3. async&#x2F;await</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Axios-POST-%E5%AF%A6%E6%88%B0"><span class="nav-number">12.</span> <span class="nav-text">Axios POST 實戰</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%83%E5%93%A1%E8%A8%BB%E5%86%8A%E5%AE%8C%E6%95%B4%E7%AF%84%E4%BE%8B"><span class="nav-number">12.1.</span> <span class="nav-text">會員註冊完整範例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8-async-await-%E6%94%B9%E5%AF%AB"><span class="nav-number">12.2.</span> <span class="nav-text">用 async&#x2F;await 改寫</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8F%E7%B5%90"><span class="nav-number">13.</span> <span class="nav-text">小結</span></a></li></ol></div>
+          </div>
+          <!--/noindex-->
+
+          <div class="site-overview-wrap sidebar-panel">
+            <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hailey"
+      src="https://i.postimg.cc/d1YJx7jW/site-author-image.png">
+  <p class="site-author-name" itemprop="name">Hailey</p>
+  <div class="site-description" itemprop="description">專注前端開發，記錄 JavaScript 與 Vite 的實戰筆記，以及從非本科轉職工程師的成長之路。</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">32</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">標籤</span>
+      </div>
+  </nav>
+</div>
+
+          </div>
+        </div>
+      </div>
+
+      
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://hailey.tw/2026/08/08/AJAX%20%E8%88%87%20Axios%20%E5%85%A5%E9%96%80%EF%BC%9A%E5%BE%9E%E9%9D%9E%E5%90%8C%E6%AD%A5%E8%A7%80%E5%BF%B5%E5%88%B0%E5%AF%A6%E6%88%B0%E4%B8%B2%E6%8E%A5%20API/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://i.postimg.cc/d1YJx7jW/site-author-image.png">
+      <meta itemprop="name" content="Hailey">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hailey's Blog">
+      <meta itemprop="description" content="專注前端開發，記錄 JavaScript 與 Vite 的實戰筆記，以及從非本科轉職工程師的成長之路。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="AJAX 與 Axios 入門：從非同步觀念到實戰串接 API | Hailey's Blog">
+      <meta itemprop="description" content="完整介紹 AJAX 的概念、Axios 的安裝與使用、非同步程式設計（callback、Promise、async&#x2F;await）、常見 HTTP 方法與狀態碼，並附上實戰範例。">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          AJAX 與 Axios 入門：從非同步觀念到實戰串接 API
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+      
+
+      <time title="創建時間：2026-08-08 22:03:39 / 修改時間：22:32:36" itemprop="dateCreated datePublished" datetime="2026-08-08T22:03:39+08:00">2026-08-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+            <div class="post-description">完整介紹 AJAX 的概念、Axios 的安裝與使用、非同步程式設計（callback、Promise、async/await）、常見 HTTP 方法與狀態碼，並附上實戰範例。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="AJAX-與-Axios-入門：從非同步觀念到實戰串接-API"><a href="#AJAX-與-Axios-入門：從非同步觀念到實戰串接-API" class="headerlink" title="AJAX 與 Axios 入門：從非同步觀念到實戰串接 API"></a>AJAX 與 Axios 入門：從非同步觀念到實戰串接 API</h2><p>在現代網頁開發中，前端經常需要與後端伺服器交換資料，卻不希望因為等待資料而讓整個網頁「卡住」。這正是 <strong>AJAX</strong> 技術存在的意義。這篇文章會從 AJAX 的基本觀念出發，介紹如何使用 Axios 套件串接 API，並深入理解 JavaScript 的非同步程式設計方式。</p>
+<h2 id="什麼是-AJAX？"><a href="#什麼是-AJAX？" class="headerlink" title="什麼是 AJAX？"></a>什麼是 AJAX？</h2><p><strong>AJAX</strong> 全名為 <strong>Asynchronous JavaScript and XML</strong>，是一種讓網頁能夠在不重新載入整個頁面的情況下，透過 JavaScript 與伺服器進行非同步資料交換的技術。</p>
+<p>「非同步程式設計」則是更廣泛的程式設計概念，不只 AJAX 才會使用，例如計時器、檔案讀取等操作也都屬於非同步的範疇。</p>
+<p>雖然 AJAX 名稱裡有 XML，但現今大多數的請求傳輸的資料格式都是 <strong>JSON</strong>，XML 已經較少被使用。</p>
+<h2 id="Axios-是什麼？"><a href="#Axios-是什麼？" class="headerlink" title="Axios 是什麼？"></a>Axios 是什麼？</h2><p>Axios 是一個以 Promise 為基礎的 HTTP 用戶端函式庫，可以在瀏覽器或 Node.js 環境中發送 HTTP 請求。它提供較方便的 API，並支援攔截器、自動處理 JSON 等功能。</p>
+<p>官方 GitHub 頁面：👉 <a target="_blank" rel="noopener" href="https://github.com/axios/axios">axios GitHub</a></p>
+<h2 id="安裝-Axios"><a href="#安裝-Axios" class="headerlink" title="安裝 Axios"></a>安裝 Axios</h2><p>如果是使用 Vite、Vue、React 等前端專案，通常會透過 npm 安裝 Axios：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install axios</span><br></pre></td></tr></table></figure>
+
+<p>安裝完成後即可在檔案中引入使用：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">&#x27;axios&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>如果只是單純的 HTML、CSS、JavaScript 練習，也可以透過 CDN 引入 Axios 的 <code>&lt;script&gt;</code> 標籤。這種情況下要記得<strong>先載入 Axios 套件，再載入自己撰寫的 JS 檔案</strong>，這樣才能確保自己的程式碼可以正確使用到 <code>axios</code>。</p>
+<p>不論用哪種方式安裝，都可以在 Console 輸入以下指令來確認是否載入成功：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(axios)</span><br></pre></td></tr></table></figure>
+
+<p>如果 Console 能正常印出 <code>axios</code>，代表 Axios 已經成功載入。</p>
+<h2 id="使用-Axios-發送-GET-請求"><a href="#使用-Axios-發送-GET-請求" class="headerlink" title="使用 Axios 發送 GET 請求"></a>使用 Axios 發送 GET 請求</h2><p>Axios 最基本的用法，是透過 <code>get</code> 方法向指定網址發送請求，取得資料：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">axios.<span class="title function_">get</span>(<span class="string">&#x27;https://hexschool.github.io/ajaxHomework/data.json&#x27;</span>)</span><br><span class="line">  .<span class="title function_">then</span>(<span class="keyword">function</span> (<span class="params">response</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(response.<span class="property">data</span>);       <span class="comment">// 伺服器回傳的 JSON 資料</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(response.<span class="property">status</span>);     <span class="comment">// 網路請求狀態碼</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(response.<span class="property">statusText</span>); <span class="comment">// 狀態文字</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(response.<span class="property">headers</span>);    <span class="comment">// 回應標頭</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(response.<span class="property">config</span>);     <span class="comment">// 請求設定</span></span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+
+<p>這段程式碼的運作邏輯是：</p>
+<ul>
+<li><strong>Client 端</strong>（前端、瀏覽器）向 <strong>Server 端</strong>（後端伺服器）發送請求</li>
+<li>使用 <code>get</code> 方法取得資料，網址可以直接當作參數傳入</li>
+<li>當伺服器成功回傳資料後，會觸發 <code>.then()</code> 裡面的函式（在請求完成前，這段函式並不會被執行）</li>
+</ul>
+<h3 id="then-catch-finally-的鏈式寫法"><a href="#then-catch-finally-的鏈式寫法" class="headerlink" title=".then &#x2F; .catch &#x2F; .finally 的鏈式寫法"></a>.then &#x2F; .catch &#x2F; .finally 的鏈式寫法</h3><p>Axios 是基於 Promise 設計的，因此可以用「鏈式寫法」（chaining）串接多個處理步驟：</p>
+<ul>
+<li><code>.then()</code> 代表「接著執行」，可以連續加上多個 <code>.then()</code></li>
+<li>實務上通常需要處理請求失敗的情況，可以使用 <code>.catch()</code> 捕捉 Promise 的 rejection；有些專案也會改用 <code>async/await</code> 搭配 <code>try/catch</code> 統一處理錯誤</li>
+<li><code>.finally()</code> 會在 Promise settled（不論成功或失敗）後執行，通常適合用來處理必要的收尾工作，例如關閉 loading 狀態</li>
+</ul>
+<p>執行順序整理如下：</p>
+<table>
+<thead>
+<tr>
+<th>情境</th>
+<th>執行順序</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>請求成功</td>
+<td><code>.then</code> → <code>.finally</code></td>
+</tr>
+<tr>
+<td>請求失敗</td>
+<td><code>.catch</code> → <code>.finally</code></td>
+</tr>
+</tbody></table>
+<h2 id="HTTP-請求方法（HTTP-Method）"><a href="#HTTP-請求方法（HTTP-Method）" class="headerlink" title="HTTP 請求方法（HTTP Method）"></a>HTTP 請求方法（HTTP Method）</h2><p>AJAX 發送請求時會依賴不同的 HTTP 方法，每種方法代表對伺服器資料不同的操作意圖：</p>
+<ul>
+<li><strong>GET（獲取）</strong>：從後端取得資料，通常用於請求資源，不會更動伺服器上的資料，適合查詢或讀取資訊。</li>
+<li><strong>POST（新增）</strong>：提交資料到後端，通常用於建立新資源或送出表單，資料會放在請求的 body 裡。</li>
+<li><strong>PUT（更新）</strong>：修改後端資料，用於更新整筆資料的內容。</li>
+<li><strong>PATCH（局部修改）</strong>：修改後端資料的部分內容，只更新資料中特定欄位，而非整筆覆蓋。</li>
+<li><strong>DELETE（刪除）</strong>：刪除後端指定的資源。</li>
+</ul>
+<p>更完整的方法說明可以參考 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/HTTP/Methods">MDN - HTTP 請求方法</a>。</p>
+<h2 id="HTTP-狀態碼（Status-Code）"><a href="#HTTP-狀態碼（Status-Code）" class="headerlink" title="HTTP 狀態碼（Status Code）"></a>HTTP 狀態碼（Status Code）</h2><p>狀態碼是用來判斷前後端在傳遞資料的過程中，請求是否成功的代碼：</p>
+<ul>
+<li><strong>2XX 系列</strong>：請求成功<ul>
+<li><code>200 OK</code>：請求成功</li>
+<li><code>201 Created</code>：請求成功，並且建立了新的資源，常見於 <code>POST</code> 請求成功建立資料時</li>
+</ul>
+</li>
+<li><strong>3XX 系列</strong>：重新導向</li>
+<li><strong>4XX 系列</strong>：Client 端發生錯誤<ul>
+<li><code>401 Unauthorized</code>：未通過身分驗證，例如 Token 過期或沒有提供有效的登入憑證</li>
+<li><code>403 Forbidden</code>：已通過身分驗證，但沒有權限存取該資源</li>
+<li><code>404 Not Found</code>：伺服器找不到所請求的資源，路徑寫錯是常見原因之一，但不是唯一原因</li>
+</ul>
+</li>
+<li><strong>5XX 系列</strong>：Server 端發生錯誤</li>
+</ul>
+<h2 id="將外部資料寫入網頁"><a href="#將外部資料寫入網頁" class="headerlink" title="將外部資料寫入網頁"></a>將外部資料寫入網頁</h2><p>取得資料後，通常會將資料渲染到畫面上。例如取得資料陣列中第一筆項目的名稱，並顯示在畫面上：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">axios.<span class="title function_">get</span>(<span class="string">&#x27;https://hexschool.github.io/ajaxHomework/data.json&#x27;</span>)</span><br><span class="line">  .<span class="title function_">then</span>(<span class="keyword">function</span> (<span class="params">response</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> data = response.<span class="property">data</span></span><br><span class="line">    <span class="keyword">const</span> title = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;.title&#x27;</span>)</span><br><span class="line">    title.<span class="property">textContent</span> = response.<span class="property">data</span>[<span class="number">0</span>].<span class="property">name</span></span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="非同步到底是什麼？"><a href="#非同步到底是什麼？" class="headerlink" title="非同步到底是什麼？"></a>非同步到底是什麼？</h2><p>初學者最容易搞混的地方，就是「非同步」到底代表什麼。來看看這個例子：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> data = []</span><br><span class="line"></span><br><span class="line">axios.<span class="title function_">get</span>(<span class="string">&#x27;https://hexschool.github.io/ajaxHomework/data.json&#x27;</span>)</span><br><span class="line">    .<span class="title function_">then</span>(<span class="keyword">function</span> (<span class="params">response</span>) &#123;</span><br><span class="line">        data = response.<span class="property">data</span></span><br><span class="line">    &#125;)</span><br><span class="line">    .<span class="title function_">catch</span>(<span class="keyword">function</span> (<span class="params">error</span>)&#123; <span class="comment">// 用來處理請求失敗的情況</span></span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(error)</span><br><span class="line">    &#125;)</span><br><span class="line">    .<span class="title function_">finally</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123; <span class="comment">// 不論成功或失敗，settled 後都會執行</span></span><br><span class="line">        <span class="comment">// 常用於關閉 loading 狀態等收尾工作</span></span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(data)</span><br></pre></td></tr></table></figure>
+
+<p>執行結果會發現，最後一行 <code>console.log(data)</code> 印出的是<strong>空陣列</strong>。發送非同步請求後，JavaScript 不會因為等待伺服器回應而阻塞後續程式碼的執行；等伺服器回應完成後，Promise 才會進入對應的狀態，<code>.then()</code> 中的內容也才會在後續的執行流程中被處理。</p>
+<p>簡單來說，就是「先把請求送出去，其他程式碼繼續執行；等資料回來後，再處理回傳結果」。所以 <code>console.log(data)</code> 會比 <code>.then()</code> 裡面的賦值更早執行，自然就印出空陣列。</p>
+<p>常見的非同步操作情境包括：</p>
+<ul>
+<li>網路請求</li>
+<li>計時器（如 <code>setTimeout</code>）</li>
+<li>檔案讀取</li>
+</ul>
+<h2 id="用函式設計來處理非同步"><a href="#用函式設計來處理非同步" class="headerlink" title="用函式設計來處理非同步"></a>用函式設計來處理非同步</h2><p>既然直接在外部讀取非同步資料會拿到「還沒更新」的結果，一個常見的解法是：把需要用到資料的邏輯，包成一個函式，並在資料回傳成功後再呼叫它：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> data = []</span><br><span class="line"></span><br><span class="line">axios.<span class="title function_">get</span>(<span class="string">&#x27;https://hexschool.github.io/ajaxHomework/data.json&#x27;</span>)</span><br><span class="line">    .<span class="title function_">then</span>(<span class="keyword">function</span> (<span class="params">response</span>) &#123;</span><br><span class="line">        data = response.<span class="property">data</span></span><br><span class="line">        <span class="title function_">renderData</span>()</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 渲染網頁的邏輯，另外包成一個函式</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">renderData</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">const</span> title = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;.title&#x27;</span>)</span><br><span class="line">    title.<span class="property">textContent</span> = data[<span class="number">0</span>].<span class="property">name</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>這樣可以確保 <code>renderData()</code> 一定是在資料成功取得之後才會被執行。</p>
+<h2 id="控制非同步程式碼的執行順序"><a href="#控制非同步程式碼的執行順序" class="headerlink" title="控制非同步程式碼的執行順序"></a>控制非同步程式碼的執行順序</h2><p>當專案中有多個非同步操作，而且彼此有先後順序關係時，就需要更完整的方式來控制流程。以下介紹三種常見寫法。</p>
+<h3 id="1-Callback（回呼函式）"><a href="#1-Callback（回呼函式）" class="headerlink" title="1. Callback（回呼函式）"></a>1. Callback（回呼函式）</h3><p>最原始的做法，是把「下一步要做的事」當作參數（函式）傳入，等目前的非同步操作完成後再呼叫它：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">oneFunction</span>(<span class="params">callback</span>) &#123;</span><br><span class="line">  <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;順序1&quot;</span>);</span><br><span class="line">    <span class="title function_">callback</span>(); <span class="comment">// 完成後調用下一個函數</span></span><br><span class="line">  &#125;, <span class="title class_">Math</span>.<span class="title function_">random</span>() * <span class="number">2000</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">twoFunction</span>(<span class="params">callback</span>) &#123;</span><br><span class="line">  <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;順序2&quot;</span>);</span><br><span class="line">    <span class="title function_">callback</span>();</span><br><span class="line">  &#125;, <span class="title class_">Math</span>.<span class="title function_">random</span>() * <span class="number">2000</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">threeFunction</span>(<span class="params">callback</span>) &#123;</span><br><span class="line">  <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;順序3&quot;</span>);</span><br><span class="line">    <span class="title function_">callback</span>();</span><br><span class="line">  &#125;, <span class="title class_">Math</span>.<span class="title function_">random</span>() * <span class="number">2000</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">oneFunction</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="title function_">twoFunction</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="title function_">threeFunction</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;所有函數執行完畢&quot;</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>這種寫法雖然可行，但如果非同步操作一多，就會出現層層嵌套的情況，也就是俗稱的 <strong>回呼地獄（callback hell）</strong>，程式碼會變得難以閱讀與維護。</p>
+<h3 id="2-Promise"><a href="#2-Promise" class="headerlink" title="2. Promise"></a>2. Promise</h3><p>Promise 改善了 callback 的可讀性問題，透過 <code>.then()</code> 與 <code>.catch()</code> 來處理非同步操作的結果，並可以用鏈式呼叫來管理多層非同步流程。Promise 有三種狀態：<code>pending</code>、<code>fulfilled</code>、<code>rejected</code>。執行非同步操作時，可以透過 <code>resolve()</code> 表示成功，或透過 <code>reject()</code> 表示失敗。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">oneFunction</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> success = <span class="literal">true</span>;</span><br><span class="line">      <span class="keyword">if</span> (success) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;順序1&quot;</span>);</span><br><span class="line">        <span class="title function_">resolve</span>();</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="title function_">reject</span>(<span class="string">&quot;順序1執行失敗&quot;</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;, <span class="title class_">Math</span>.<span class="title function_">random</span>() * <span class="number">2000</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">twoFunction</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;順序2&quot;</span>);</span><br><span class="line">      <span class="title function_">resolve</span>();</span><br><span class="line">    &#125;, <span class="title class_">Math</span>.<span class="title function_">random</span>() * <span class="number">2000</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">threeFunction</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;順序3&quot;</span>);</span><br><span class="line">      <span class="title function_">resolve</span>();</span><br><span class="line">    &#125;, <span class="title class_">Math</span>.<span class="title function_">random</span>() * <span class="number">2000</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>呼叫方式如下，程式碼結構明顯比 callback 寫法更扁平、易讀：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">oneFunction</span>()</span><br><span class="line">  .<span class="title function_">then</span>(twoFunction)</span><br><span class="line">  .<span class="title function_">then</span>(threeFunction)</span><br><span class="line">  .<span class="title function_">then</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;所有函數執行完畢&quot;</span>);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-async-await"><a href="#3-async-await" class="headerlink" title="3. async&#x2F;await"></a>3. async&#x2F;await</h3><p><code>async/await</code> 是基於 Promise 的語法糖，可以讓非同步程式碼寫起來、讀起來都更像是「同步」的流程，是現代 JavaScript 中非常常見、也通常較容易閱讀與維護的寫法：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">executeInOrder</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">await</span> <span class="title function_">oneFunction</span>();</span><br><span class="line">  <span class="keyword">await</span> <span class="title function_">twoFunction</span>();</span><br><span class="line">  <span class="keyword">await</span> <span class="title function_">threeFunction</span>();</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;所有函數執行完畢&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">executeInOrder</span>();</span><br></pre></td></tr></table></figure>
+
+<p>不過這不代表 Promise chaining 就是過時的寫法，在某些情境（例如直接回傳一串請求鏈）用 <code>.then()</code> 串接反而更簡潔：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> axios.<span class="title function_">get</span>(<span class="string">&#x27;/api/user&#x27;</span>)</span><br><span class="line">  .<span class="title function_">then</span>(<span class="function"><span class="params">res</span> =&gt;</span> axios.<span class="title function_">get</span>(<span class="string">`/api/orders/<span class="subst">$&#123;res.data.id&#125;</span>`</span>))</span><br><span class="line">  .<span class="title function_">then</span>(<span class="function"><span class="params">res</span> =&gt;</span> res.<span class="property">data</span>);</span><br></pre></td></tr></table></figure>
+
+<p>三種寫法的比較整理如下：</p>
+<table>
+<thead>
+<tr>
+<th>寫法</th>
+<th>優點</th>
+<th>缺點</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Callback</td>
+<td>概念簡單、直接</td>
+<td>多層嵌套時難以閱讀（回呼地獄）</td>
+</tr>
+<tr>
+<td>Promise</td>
+<td>可鏈式呼叫，結構清楚</td>
+<td>多個 <code>.then()</code> 仍稍嫌冗長</td>
+</tr>
+<tr>
+<td>async&#x2F;await</td>
+<td>程式碼最接近同步寫法，易讀好維護</td>
+<td>需搭配 <code>try/catch</code> 處理錯誤</td>
+</tr>
+</tbody></table>
+<h2 id="Axios-POST-實戰"><a href="#Axios-POST-實戰" class="headerlink" title="Axios POST 實戰"></a>Axios POST 實戰</h2><p>除了 <code>get</code>，Axios 也支援 <code>post</code> 方法，用於將資料送到伺服器，例如登入、註冊等表單提交情境：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">axios.<span class="title function_">post</span>(<span class="string">&#x27;/api/user/signup&#x27;</span>, &#123;</span><br><span class="line">  <span class="attr">email</span>: <span class="string">&#x27;abcd@gmail.com&#x27;</span>,</span><br><span class="line">  <span class="attr">password</span>: <span class="string">&#x27;1234&#x27;</span></span><br><span class="line">&#125;)</span><br><span class="line">  .<span class="title function_">then</span>(<span class="keyword">function</span> (<span class="params">response</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(response.<span class="property">data</span>);</span><br><span class="line">  &#125;)</span><br><span class="line">  .<span class="title function_">catch</span>(<span class="keyword">function</span> (<span class="params">error</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(error);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="會員註冊完整範例"><a href="#會員註冊完整範例" class="headerlink" title="會員註冊完整範例"></a>會員註冊完整範例</h3><p>以下是一個較完整的實戰範例，示範點擊「送出」按鈕後，如何驗證表單、發送註冊請求，並依結果顯示對應訊息：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 建立一個函式，當點擊送出按鈕時，會執行此函式</span></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">callSignUp</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">  <span class="comment">// 將輸入的資料存成物件</span></span><br><span class="line">  <span class="keyword">const</span> data = &#123;</span><br><span class="line">    <span class="attr">email</span>: accountElement.<span class="property">value</span>,</span><br><span class="line">    <span class="attr">password</span>: passwordElement.<span class="property">value</span>,</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> result = <span class="title function_">validate</span>(data);</span><br><span class="line">  <span class="comment">// validate() 回傳 true 代表資料驗證失敗。</span></span><br><span class="line">  <span class="keyword">if</span> (result) &#123;</span><br><span class="line">    <span class="title function_">alert</span>(<span class="string">&#x27;請填寫正確資料&#x27;</span>);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  axios.<span class="title function_">post</span>(<span class="string">`<span class="subst">$&#123;apiUrl&#125;</span>/api/user/signup`</span>, data)</span><br><span class="line">    .<span class="title function_">then</span>(<span class="function">(<span class="params">response</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="comment">// 成功後：顯示訊息並清空欄位</span></span><br><span class="line">      <span class="title function_">alert</span>(response.<span class="property">data</span>.<span class="property">message</span>);</span><br><span class="line">      accountElement.<span class="property">value</span> = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">      passwordElement.<span class="property">value</span> = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">    &#125;)</span><br><span class="line">    .<span class="title function_">catch</span>(<span class="function">(<span class="params">error</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="comment">// 失敗時：顯示錯誤訊息（做好防呆，避免 response 不存在時報錯）</span></span><br><span class="line">      <span class="keyword">const</span> message = error.<span class="property">response</span>?.<span class="property">data</span>?.<span class="property">message</span> || <span class="string">&#x27;發生錯誤，請稍後再試&#x27;</span>;</span><br><span class="line">      <span class="title function_">alert</span>(message);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 取得元素</span></span><br><span class="line"><span class="keyword">const</span> sendButton = <span class="title function_">getElement</span>(<span class="string">&#x27;.send&#x27;</span>);</span><br><span class="line"><span class="comment">// 設定一個監聽事件，當點擊 .send 時，會執行 callSignUp 函式</span></span><br><span class="line">sendButton.<span class="title function_">addEventListener</span>(<span class="string">&#x27;click&#x27;</span>, callSignUp)</span><br></pre></td></tr></table></figure>
+
+<p>這個範例展示了實務上常見的完整流程：<strong>表單驗證 → 發送請求 → 處理成功結果 → 清空欄位 → 錯誤處理</strong>，是很值得參考的寫法模式。</p>
+<h3 id="用-async-await-改寫"><a href="#用-async-await-改寫" class="headerlink" title="用 async&#x2F;await 改寫"></a>用 async&#x2F;await 改寫</h3><p>搭配前面介紹的 <code>async/await</code>，可以把上面的範例改寫得更貼近同步邏輯、更容易閱讀：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">callSignUp</span> = <span class="keyword">async</span> (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> data = &#123;</span><br><span class="line">    <span class="attr">email</span>: accountElement.<span class="property">value</span>,</span><br><span class="line">    <span class="attr">password</span>: passwordElement.<span class="property">value</span>,</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> result = <span class="title function_">validate</span>(data);</span><br><span class="line">  <span class="keyword">if</span> (result) &#123;</span><br><span class="line">    <span class="title function_">alert</span>(<span class="string">&#x27;請填寫正確資料&#x27;</span>);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> response = <span class="keyword">await</span> axios.<span class="title function_">post</span>(<span class="string">`<span class="subst">$&#123;apiUrl&#125;</span>/api/user/signup`</span>, data);</span><br><span class="line">    <span class="title function_">alert</span>(response.<span class="property">data</span>.<span class="property">message</span>);</span><br><span class="line">    accountElement.<span class="property">value</span> = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">    passwordElement.<span class="property">value</span> = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">  &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">    <span class="keyword">const</span> message = error.<span class="property">response</span>?.<span class="property">data</span>?.<span class="property">message</span> || <span class="string">&#x27;發生錯誤，請稍後再試&#x27;</span>;</span><br><span class="line">    <span class="title function_">alert</span>(message);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，使用 <code>async/await</code> 後，程式碼會更接近一般由上到下的閱讀方式，也比較容易同時處理成功與失敗的流程。</p>
+<p>await 等待的 Promise 如果 rejected，會直接進入 catch 區塊，因此可以用類似同步程式碼的方式集中處理錯誤。</p>
+<h2 id="小結"><a href="#小結" class="headerlink" title="小結"></a>小結</h2><p>這篇文章從 AJAX 的基本概念出發，介紹了：</p>
+<ol>
+<li>什麼是 AJAX，以及為什麼需要非同步的資料交換方式</li>
+<li>Axios 是什麼、如何安裝，以及如何發送 <code>GET</code>、<code>POST</code> 請求</li>
+<li>HTTP 請求方法與狀態碼的意義</li>
+<li>JavaScript 非同步程式設計的三種寫法：Callback、Promise、async&#x2F;await，以及各自的優缺點</li>
+<li>一個完整的會員註冊實戰範例，並用 <code>async/await</code> 改寫</li>
+</ol>
+<p>熟悉這些觀念後，就能更有信心地在專案中串接各種後端 API，並寫出結構清楚、易於維護的非同步程式碼。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+  
+  <section class="related-cards">
+    <h3 class="related-cards__title">
+      <i class="fa-solid fa-square-poll-horizontal"></i>相關文章
+    </h3>
+    <div class="related-cards__grid">
+      
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+    </div>
+    <div class="share-article-section">
+      <div class="share-article-heading">
+        <i class="fa-solid fa-share-nodes share-article-icon" aria-hidden="true"></i>
+        <span>分享這篇文章</span>
+      </div>
+      <div class="share-article-buttons"
+           data-share-url="https://hailey.tw/2026/08/08/AJAX%20%E8%88%87%20Axios%20%E5%85%A5%E9%96%80%EF%BC%9A%E5%BE%9E%E9%9D%9E%E5%90%8C%E6%AD%A5%E8%A7%80%E5%BF%B5%E5%88%B0%E5%AF%A6%E6%88%B0%E4%B8%B2%E6%8E%A5%20API/"
+           data-share-title="AJAX 與 Axios 入門：從非同步觀念到實戰串接 API">
+        <a href="#"
+           role="button"
+           class="share-article-btn"
+           data-platform="twitter">
+          <i class="fab fa-twitter"></i><span>Twitter</span>
+        </a>
+        <a href="#"
+           role="button"
+           class="share-article-btn"
+           data-platform="facebook">
+          <i class="fab fa-facebook"></i><span>Facebook</span>
+        </a>
+        <a href="#"
+           role="button"
+           class="share-article-btn"
+           data-platform="linkedin">
+          <i class="fab fa-linkedin"></i><span>LinkedIn</span>
+        </a>
+        <button type="button" class="share-article-btn" data-copy>
+          <i class="fa-regular fa-copy"></i><span>複製連結</span>
+        </button>
+      </div>
+    </div>
+  </section>
+  <style>
+    /* 讓 post-footer 變成可排序容器 */
+    .post-footer {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* 上一篇/下一篇 */
+    .post-footer .post-nav {
+      order: 20;
+    }
+
+    /* 你的相關文章區塊 */
+    .post-footer .related-cards {
+      order: 30;
+    }
+
+    /* 你的分享區塊（如果也要在 related 下方） */
+    .post-footer .share-article-section {
+      order: 40;
+    }
+    .related-cards {
+      margin: 2.25rem 0 1rem;
+    }
+
+    .related-cards__title {
+      margin-bottom: 12px;
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+
+    .related-cards__title i {
+        color: #22d3ee;
+        margin-right: 6px;
+    }
+
+    .related-cards__grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .related-cards__item {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 16px;
+      --tw-border-opacity: 1;
+      border: 1px solid rgb(82 82 91 / var(--tw-border-opacity, 1));
+      border-radius: 12px;
+      background: #4c4c5180;
+      color: #f5f7fa;
+      text-decoration: none;
+      transition: transform .18s ease, border-color .18s ease;
+    }
+
+    .related-cards__item:hover {
+      transform: translateY(-2px);
+      border-color: #22d3ee;
+      color: #22d3ee;
+    }
+
+    .related-cards__item-title {
+      font-size: 1rem;
+      line-height: 1.35;
+      font-weight: 600;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+
+    .related-cards__item-date {
+      margin-top: 10px;
+      font-size: .88rem;
+      color: #c5cad3;
+    }
+
+    @media (max-width: 1100px) {
+      .related-cards__grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .related-cards__grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* AddToAny */
+
+    /* 第一顆 AddToAny 主按鈕常太醜，直接隱藏 */
+    .post-footer .social-like .a2a_dd {
+    display: none;
+    }
+
+    .share-article-section { 
+      margin: 2rem 0 1rem; 
+      padding-top: 1.25rem; 
+    }
+    .share-article-heading { 
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .share-article-icon { 
+      color: #2dd4bf;
+      font-size: 1.25rem;
+    }
+    .share-article-buttons { 
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .share-article-btn {
+        display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px;
+        border: 1px solid rgb(82 82 91 / var(--tw-border-opacity, 1));
+        border-radius: 10px;
+        background: #4c4c5180;
+        color: inherit;
+        cursor: pointer;
+        text-decoration: none;
+        font: inherit;
+        transition: transform .18s ease, border-color .18s ease;
+    }
+    .share-article-btn:hover { border-color: #22d3ee;
+        transform: translateY(-2px); 
+    }
+  </style>
+  <script>
+  (function () {
+    var root = document.querySelector('.share-article-buttons');
+    if (!root || root.dataset.bound) return;
+    root.dataset.bound = '1';
+    var url = root.dataset.shareUrl || '';
+    var title = root.dataset.shareTitle || '';
+    var encUrl = encodeURIComponent(url);
+    var encTitle = encodeURIComponent(title);
+    var urls = {
+      twitter: 'https://twitter.com/intent/tweet?url=' + encUrl + '&text=' + encTitle,
+      facebook: 'https://www.facebook.com/sharer/sharer.php?u=' + encUrl,
+      linkedin: 'https://www.linkedin.com/sharing/share-offsite/?url=' + encUrl
+    };
+    root.querySelectorAll('[data-platform]').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        var p = btn.dataset.platform;
+        window.open(urls[p], '_blank', 'noopener,noreferrer');
+      });
+    });
+    var btnCopy = root.querySelector('[data-copy]');
+    if (btnCopy) {
+      btnCopy.addEventListener('click', function () {
+        navigator.clipboard.writeText(url).then(function () {
+          btnCopy.querySelector('span').textContent = '已複製';
+          setTimeout(function () { btnCopy.querySelector('span').textContent = '複製連結'; }, 2000);
+        });
+      });
+    }
+  })();
+  </script>
+
+
+          <div class="post-tags">
+              <a href="/tags/AJAX-Axios-Promise-async-await-HTTP-Method/" rel="tag"># AJAX, Axios, Promise, async await, HTTP Method</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/07/27/JavaScript%20%E7%B7%B4%E7%BF%92%E9%A1%8C%EF%BC%9A%E9%87%8D%E6%A7%8B%E5%85%85%E9%9B%BB%E7%AB%99%E6%B8%85%E5%96%AE%EF%BC%8C%E5%AD%B8%E6%9C%83%20DOM%20%E8%88%87%20filter/" rel="prev" title="JavaScript 練習題：重構充電站清單，學會 DOM 與 filter">
+                  <i class="fa fa-angle-left"></i> JavaScript 練習題：重構充電站清單，學會 DOM 與 filter
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div><aside class="column-recent-posts" aria-label="最新文章">
+  <div class="recent-rail-inner">
+    <h3 class="recent-rail-title">
+      <i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i>
+      <span>最新文章</span>
+    </h3>
+    <ol class="recent-rail-list">
+      
+        <li class="recent-rail-item">
+          <a class="recent-rail-link" href="/2026/08/08/AJAX%20%E8%88%87%20Axios%20%E5%85%A5%E9%96%80%EF%BC%9A%E5%BE%9E%E9%9D%9E%E5%90%8C%E6%AD%A5%E8%A7%80%E5%BF%B5%E5%88%B0%E5%AF%A6%E6%88%B0%E4%B8%B2%E6%8E%A5%20API/">
+            <span class="recent-rail-item-title">AJAX 與 Axios 入門：從非同步觀念到實戰串接 API</span>
+            <span class="recent-rail-item-date">08/08</span>
+          </a>
+        </li>
+      
+        <li class="recent-rail-item">
+          <a class="recent-rail-link" href="/2026/07/27/JavaScript%20%E7%B7%B4%E7%BF%92%E9%A1%8C%EF%BC%9A%E9%87%8D%E6%A7%8B%E5%85%85%E9%9B%BB%E7%AB%99%E6%B8%85%E5%96%AE%EF%BC%8C%E5%AD%B8%E6%9C%83%20DOM%20%E8%88%87%20filter/">
+            <span class="recent-rail-item-title">JavaScript 練習題：重構充電站清單，學會 DOM 與 filter</span>
+            <span class="recent-rail-item-date">07/27</span>
+          </a>
+        </li>
+      
+        <li class="recent-rail-item">
+          <a class="recent-rail-link" href="/2026/07/20/JavaScript%20for%E2%80%A6of%20%E5%AE%8C%E6%95%B4%E6%95%99%E5%AD%B8%EF%BC%9A%E8%AA%9E%E6%B3%95%E3%80%81%E7%AF%84%E4%BE%8B%E3%80%81break%20%E8%88%87%20forEach%20%E5%B7%AE%E7%95%B0/">
+            <span class="recent-rail-item-title">JavaScript for…of 完整教學：語法、範例、break 與 forEach 差異</span>
+            <span class="recent-rail-item-date">07/20</span>
+          </a>
+        </li>
+      
+        <li class="recent-rail-item">
+          <a class="recent-rail-link" href="/2026/07/19/JavaScript%20forEach()%20%E5%AE%8C%E6%95%B4%E6%95%99%E5%AD%B8:%E5%BE%9E%E5%9F%BA%E7%A4%8E%E5%88%B0%E9%99%A3%E5%88%97%E7%89%A9%E4%BB%B6%E5%AF%A6%E6%88%B0/">
+            <span class="recent-rail-item-title">JavaScript forEach() 完整教學：從基礎到陣列物件實戰</span>
+            <span class="recent-rail-item-date">07/19</span>
+          </a>
+        </li>
+      
+        <li class="recent-rail-item">
+          <a class="recent-rail-link" href="/2026/07/12/CSS%20Display%20%E5%B1%AC%E6%80%A7%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97%EF%BC%9ABlock%E3%80%81Inline%E3%80%81Flex%20%E6%8E%92%E7%89%88%E8%A9%B3%E8%A7%A3/">
+            <span class="recent-rail-item-title">CSS Display 屬性完全指南：Block、Inline、Flex 排版詳解</span>
+            <span class="recent-rail-item-date">07/12</span>
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</aside>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class=""></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Hailey. All rights reserved.<br>Built with Hexo & Theme NexT</span>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"Hailey-1025/blog-comments","issue_term":"pathname","label":"comment","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js" defer></script>
+
+<script>
+(function () {
+  var mq = window.matchMedia('(max-width: 991px)');
+  var btn = document.querySelector('.site-nav-toggle .toggle');
+  var sidebarBtn = document.querySelector('.sidebar-toggle');
+  var siteNav = document.querySelector('.header .site-nav');
+  if (!btn || !sidebarBtn) return;
+
+  function collapseHeaderNavDropdown() {
+    document.body.classList.remove('site-nav-on');
+    if (siteNav) siteNav.style.removeProperty('--scroll-height');
+  }
+
+  btn.addEventListener('click', function (e) {
+    if (!mq.matches) return;
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    collapseHeaderNavDropdown();
+    sidebarBtn.click();
+  }, true);
+
+  new MutationObserver(function () {
+    if (!mq.matches) return;
+    var open = document.body.classList.contains('sidebar-active');
+    btn.classList.toggle('toggle-close', open);
+  }).observe(document.body, { attributes: true, attributeFilter: ['class'] });
+
+  mq.addEventListener('change', function () {
+    if (!mq.matches) {
+      btn.classList.remove('toggle-close');
+      collapseHeaderNavDropdown();
+      document.body.classList.remove('mobile-header-scrolled-down');
+    }
+  });
+
+  var lastY = window.scrollY || 0;
+  var ticking = false;
+
+  function updateMobileHeaderOnScroll() {
+    ticking = false;
+    if (!mq.matches) return;
+    var currentY = window.scrollY || 0;
+    var scrollingDown = currentY > lastY;
+    var passedTop = currentY > 10;
+    document.body.classList.toggle('mobile-header-scrolled-down', scrollingDown && passedTop);
+    lastY = currentY;
+  }
+
+  window.addEventListener('scroll', function () {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(updateMobileHeaderOnScroll);
+  }, { passive: true });
+})();
+</script>
+
+</body>
+</html>
