@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"hailey.tw","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":true,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"找到 ${hits} 個搜索結果（用時 ${time} 毫秒）","hits":"找到 ${hits} 個搜索結果"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="完整介紹 JavaScript classList 的用法，包含 add、remove、toggle、contains、replace 等方法，以及 length、value 等屬性，並附上實戰應用範例。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript classList 完整教學：新增、移除、切換 CSS 類別">
+<meta property="og:url" content="https://hailey.tw/2026/08/16/JavaScript%20classList%20%E5%AE%8C%E6%95%B4%E6%95%99%E5%AD%B8%EF%BC%9A%E6%96%B0%E5%A2%9E%E3%80%81%E7%A7%BB%E9%99%A4%E3%80%81%E5%88%87%E6%8F%9B%20CSS%20%E9%A1%9E%E5%88%A5/index.html">
+<meta property="og:site_name" content="Hailey&#39;s Blog">
+<meta property="og:description" content="完整介紹 JavaScript classList 的用法，包含 add、remove、toggle、contains、replace 等方法，以及 length、value 等屬性，並附上實戰應用範例。">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2026-08-16T08:53:11.000Z">
+<meta property="article:modified_time" content="2026-08-16T12:28:12.289Z">
+<meta property="article:author" content="Hailey">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://hailey.tw/2026/08/16/JavaScript%20classList%20%E5%AE%8C%E6%95%B4%E6%95%99%E5%AD%B8%EF%BC%9A%E6%96%B0%E5%A2%9E%E3%80%81%E7%A7%BB%E9%99%A4%E3%80%81%E5%88%87%E6%8F%9B%20CSS%20%E9%A1%9E%E5%88%A5/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://hailey.tw/2026/08/16/JavaScript%20classList%20%E5%AE%8C%E6%95%B4%E6%95%99%E5%AD%B8%EF%BC%9A%E6%96%B0%E5%A2%9E%E3%80%81%E7%A7%BB%E9%99%A4%E3%80%81%E5%88%87%E6%8F%9B%20CSS%20%E9%A1%9E%E5%88%A5/","path":"2026/08/16/JavaScript classList 完整教學：新增、移除、切換 CSS 類別/","title":"JavaScript classList 完整教學：新增、移除、切換 CSS 類別"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>JavaScript classList 完整教學：新增、移除、切換 CSS 類別 | Hailey's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8W8PTGBYMG"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-8W8PTGBYMG","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js" defer></script>
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="Hailey's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main main--recent-rail">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hailey's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Stressed spelled backwards is desserts.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜尋" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜尋..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+    <div class="sidebar-mobile-focus">
+      <div class="site-meta site-meta--drawer">
+
+        <a href="/" class="brand" rel="start">
+          <i class="logo-line"></i>
+          <p class="site-title">Hailey's Blog</p>
+          <i class="logo-line"></i>
+        </a>
+          <p class="site-subtitle" itemprop="description">Stressed spelled backwards is desserts.</p>
+      </div>
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+    </div>
+
+    <div class="sidebar-desktop-stack">
+
+      <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+        <ul class="sidebar-nav">
+          <li class="sidebar-nav-toc">
+            文章目錄
+          </li>
+          <li class="sidebar-nav-overview">
+            本站概要
+          </li>
+        </ul>
+
+        <div class="sidebar-panel-container">
+          <!--noindex-->
+          <div class="post-toc-wrap sidebar-panel">
+              <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#JavaScript-classList-%E5%AE%8C%E6%95%B4%E6%95%99%E5%AD%B8%EF%BC%9A%E6%96%B0%E5%A2%9E%E3%80%81%E7%A7%BB%E9%99%A4%E3%80%81%E5%88%87%E6%8F%9B-CSS-%E9%A1%9E%E5%88%A5"><span class="nav-number">1.</span> <span class="nav-text">JavaScript classList 完整教學：新增、移除、切換 CSS 類別</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#classList-%E6%98%AF%E4%BB%80%E9%BA%BC%EF%BC%9F"><span class="nav-number">2.</span> <span class="nav-text">classList 是什麼？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#classList-%E8%88%87-className-%E7%9A%84%E5%B7%AE%E7%95%B0"><span class="nav-number">2.1.</span> <span class="nav-text">classList 與 className 的差異</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#classList-add-%EF%BC%9A%E6%96%B0%E5%A2%9E%E9%A1%9E%E5%88%A5"><span class="nav-number">3.</span> <span class="nav-text">classList.add()：新增類別</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#classList-%E6%8F%90%E4%BE%9B%E7%9A%84%E5%85%B6%E4%BB%96%E6%96%B9%E6%B3%95"><span class="nav-number">4.</span> <span class="nav-text">classList 提供的其他方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#classList-remove-%EF%BC%9A%E7%A7%BB%E9%99%A4%E9%A1%9E%E5%88%A5"><span class="nav-number">4.1.</span> <span class="nav-text">classList.remove()：移除類別</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#classList-toggle-%EF%BC%9A%E5%88%87%E6%8F%9B%E9%A1%9E%E5%88%A5"><span class="nav-number">4.2.</span> <span class="nav-text">classList.toggle()：切換類別</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#classList-contains-%EF%BC%9A%E6%AA%A2%E6%9F%A5%E9%A1%9E%E5%88%A5%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8"><span class="nav-number">4.3.</span> <span class="nav-text">classList.contains()：檢查類別是否存在</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#classList-replace-%EF%BC%9A%E6%9B%BF%E6%8F%9B%E9%A1%9E%E5%88%A5"><span class="nav-number">4.4.</span> <span class="nav-text">classList.replace()：替換類別</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#classList-%E7%9A%84%E5%B1%AC%E6%80%A7%EF%BC%9Alength-%E8%88%87-value"><span class="nav-number">5.</span> <span class="nav-text">classList 的屬性：length 與 value</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#classList-length"><span class="nav-number">5.1.</span> <span class="nav-text">classList.length</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#classList-value"><span class="nav-number">5.2.</span> <span class="nav-text">classList.value</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A6%8B%E6%87%89%E7%94%A8%E5%A0%B4%E6%99%AF"><span class="nav-number">6.</span> <span class="nav-text">常見應用場景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B6%9C%E5%90%88%E6%87%89%E7%94%A8%E7%AF%84%E4%BE%8B"><span class="nav-number">7.</span> <span class="nav-text">綜合應用範例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8F%E7%B5%90"><span class="nav-number">8.</span> <span class="nav-text">小結</span></a></li></ol></div>
+          </div>
+          <!--/noindex-->
+
+          <div class="site-overview-wrap sidebar-panel">
+            <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hailey"
+      src="https://i.postimg.cc/d1YJx7jW/site-author-image.png">
+  <p class="site-author-name" itemprop="name">Hailey</p>
+  <div class="site-description" itemprop="description">專注前端開發，記錄 JavaScript 與 Vite 的實戰筆記，以及從非本科轉職工程師的成長之路。</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">標籤</span>
+      </div>
+  </nav>
+</div>
+
+          </div>
+        </div>
+      </div>
+
+      
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://hailey.tw/2026/08/16/JavaScript%20classList%20%E5%AE%8C%E6%95%B4%E6%95%99%E5%AD%B8%EF%BC%9A%E6%96%B0%E5%A2%9E%E3%80%81%E7%A7%BB%E9%99%A4%E3%80%81%E5%88%87%E6%8F%9B%20CSS%20%E9%A1%9E%E5%88%A5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://i.postimg.cc/d1YJx7jW/site-author-image.png">
+      <meta itemprop="name" content="Hailey">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hailey's Blog">
+      <meta itemprop="description" content="專注前端開發，記錄 JavaScript 與 Vite 的實戰筆記，以及從非本科轉職工程師的成長之路。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="JavaScript classList 完整教學：新增、移除、切換 CSS 類別 | Hailey's Blog">
+      <meta itemprop="description" content="完整介紹 JavaScript classList 的用法，包含 add、remove、toggle、contains、replace 等方法，以及 length、value 等屬性，並附上實戰應用範例。">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JavaScript classList 完整教學：新增、移除、切換 CSS 類別
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+      
+
+      <time title="創建時間：2026-08-16 16:53:11 / 修改時間：20:28:12" itemprop="dateCreated datePublished" datetime="2026-08-16T16:53:11+08:00">2026-08-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+            <div class="post-description">完整介紹 JavaScript classList 的用法，包含 add、remove、toggle、contains、replace 等方法，以及 length、value 等屬性，並附上實戰應用範例。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="JavaScript-classList-完整教學：新增、移除、切換-CSS-類別"><a href="#JavaScript-classList-完整教學：新增、移除、切換-CSS-類別" class="headerlink" title="JavaScript classList 完整教學：新增、移除、切換 CSS 類別"></a>JavaScript classList 完整教學：新增、移除、切換 CSS 類別</h2><p>在操作網頁互動效果時，經常需要動態地為某個元素加上或移除 CSS 類別，例如切換按鈕的啟用狀態、標示表單輸入錯誤、觸發 CSS 動畫等。這篇文章會完整介紹 <code>classList</code> 這個屬性提供的各種方法，並搭配實際範例說明如何使用。</p>
+<h2 id="classList-是什麼？"><a href="#classList-是什麼？" class="headerlink" title="classList 是什麼？"></a>classList 是什麼？</h2><p><code>classList</code> 是 HTML 元素的一個屬性，它提供了操作元素 CSS 類別（<code>class</code>）的方法與屬性，方便進行新增、移除、切換等操作。這比直接操作 <code>className</code> 更直觀、更方便，因為 <code>classList</code> 是針對「個別類別」進行操作，不需要自己處理字串的拆解、拼接、空格或重複等問題。</p>
+<h3 id="classList-與-className-的差異"><a href="#classList-與-className-的差異" class="headerlink" title="classList 與 className 的差異"></a>classList 與 className 的差異</h3><ul>
+<li><strong><code>className</code></strong>：操作的是整串 class 字串，賦值時會直接覆蓋原本所有的類別。</li>
+<li><strong><code>classList</code></strong>：針對個別類別進行操作，不需要自己處理空格、重複等問題。</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用 className：容易不小心覆蓋掉原本所有的類別</span></span><br><span class="line">div.<span class="property">className</span> = <span class="string">&#x27;box highlight&#x27;</span>;  <span class="comment">// box 以外的其他類別都會消失</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用 classList：只針對指定的類別操作，不影響其他類別</span></span><br><span class="line">div.<span class="property">classList</span>.<span class="title function_">add</span>(<span class="string">&#x27;highlight&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="classList-add-：新增類別"><a href="#classList-add-：新增類別" class="headerlink" title="classList.add()：新增類別"></a>classList.add()：新增類別</h2><p><code>classList.add()</code> 用來為元素添加一個或多個 CSS 類別。如果類別已經存在，就不會重複添加。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;myDiv&quot;</span> <span class="attr">class</span>=<span class="string">&quot;box&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">const</span> div = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;myDiv&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">  div.<span class="property">classList</span>.<span class="title function_">add</span>(<span class="string">&#x27;highlight&#x27;</span>);  <span class="comment">// 為 div 添加 highlight 類別</span></span></span><br><span class="line"><span class="language-javascript">  <span class="variable language_">console</span>.<span class="title function_">log</span>(div.<span class="property">className</span>);      <span class="comment">// &quot;box highlight&quot;</span></span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>也可以一次傳入多個參數，新增多個類別：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">div.<span class="property">classList</span>.<span class="title function_">add</span>(<span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;border&#x27;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(div.<span class="property">className</span>);  <span class="comment">// &quot;box highlight red border&quot;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>注意事項</strong>：<code>add()</code> 的每個參數都必須是單一類別名稱，不能在同一個參數中包含空白。例如 <code>div.classList.add(&#39;red border&#39;)</code> 並不會新增 <code>red</code> 與 <code>border</code> 兩個類別，而是會直接拋出錯誤。如果要一次新增多個類別，必須寫成 <code>div.classList.add(&#39;red&#39;, &#39;border&#39;)</code>。</p>
+</blockquote>
+<h2 id="classList-提供的其他方法"><a href="#classList-提供的其他方法" class="headerlink" title="classList 提供的其他方法"></a>classList 提供的其他方法</h2><p>除了 <code>add()</code> 之外，<code>classList</code> 還提供了許多方法，可以更靈活地管理元素的類別。</p>
+<h3 id="classList-remove-：移除類別"><a href="#classList-remove-：移除類別" class="headerlink" title="classList.remove()：移除類別"></a>classList.remove()：移除類別</h3><p>用來移除一個或多個類別，如果指定的類別本來就不存在，也不會報錯。</p>
+<p><strong>語法：</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">element.<span class="property">classList</span>.<span class="title function_">remove</span>(<span class="string">&#x27;class1&#x27;</span>, <span class="string">&#x27;class2&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p><strong>範例：</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;myDiv&quot;</span> <span class="attr">class</span>=<span class="string">&quot;box highlight&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">const</span> div = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;myDiv&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">  div.<span class="property">classList</span>.<span class="title function_">remove</span>(<span class="string">&#x27;highlight&#x27;</span>);  <span class="comment">// 移除 highlight 類別</span></span></span><br><span class="line"><span class="language-javascript">  <span class="variable language_">console</span>.<span class="title function_">log</span>(div.<span class="property">className</span>);         <span class="comment">// &quot;box&quot;</span></span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="classList-toggle-：切換類別"><a href="#classList-toggle-：切換類別" class="headerlink" title="classList.toggle()：切換類別"></a>classList.toggle()：切換類別</h3><p>切換類別的存在狀態：如果類別已存在就移除，不存在就新增。</p>
+<p><strong>語法：</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">element.<span class="property">classList</span>.<span class="title function_">toggle</span>(<span class="string">&#x27;className&#x27;</span>);        <span class="comment">// 預設：存在則移除、不存在則新增</span></span><br><span class="line">element.<span class="property">classList</span>.<span class="title function_">toggle</span>(<span class="string">&#x27;className&#x27;</span>, <span class="literal">true</span>);  <span class="comment">// 強制新增</span></span><br><span class="line">element.<span class="property">classList</span>.<span class="title function_">toggle</span>(<span class="string">&#x27;className&#x27;</span>, <span class="literal">false</span>); <span class="comment">// 強制移除</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>基本範例：</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">&quot;toggleButton&quot;</span>&gt;</span>Toggle<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;myDiv&quot;</span> <span class="attr">class</span>=<span class="string">&quot;box&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">const</span> button = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;toggleButton&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">const</span> div = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;myDiv&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  button.<span class="title function_">addEventListener</span>(<span class="string">&#x27;click&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-javascript">    div.<span class="property">classList</span>.<span class="title function_">toggle</span>(<span class="string">&#x27;highlight&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">    <span class="variable language_">console</span>.<span class="title function_">log</span>(div.<span class="property">className</span>);  <span class="comment">// 會在 &quot;box&quot; 和 &quot;box highlight&quot; 之間切換</span></span></span><br><span class="line"><span class="language-javascript">  &#125;);</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>toggle()</code> 真正好用的地方，是第二個參數可以直接傳入一個布林值，讓 class 的存在狀態直接由這個布林值決定，而不需要自己寫 <code>if / else</code> 判斷。例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 不需要這樣寫</span></span><br><span class="line"><span class="keyword">if</span> (isActive) &#123;</span><br><span class="line">  button.<span class="property">classList</span>.<span class="title function_">add</span>(<span class="string">&#x27;active&#x27;</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  button.<span class="property">classList</span>.<span class="title function_">remove</span>(<span class="string">&#x27;active&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 用 toggle() 的第二個參數就能一行搞定</span></span><br><span class="line">button.<span class="property">classList</span>.<span class="title function_">toggle</span>(<span class="string">&#x27;active&#x27;</span>, isActive);</span><br></pre></td></tr></table></figure>
+
+<p>這種寫法在「依照某個狀態決定 class 是否存在」的情境下非常實用，例如依照元件的開關狀態、選取狀態來決定是否要套用某個樣式。</p>
+<h3 id="classList-contains-：檢查類別是否存在"><a href="#classList-contains-：檢查類別是否存在" class="headerlink" title="classList.contains()：檢查類別是否存在"></a>classList.contains()：檢查類別是否存在</h3><p>用來檢查元素是否擁有某個類別，回傳布林值（<code>true</code> &#x2F; <code>false</code>）。</p>
+<p><strong>語法：</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">element.<span class="property">classList</span>.<span class="title function_">contains</span>(<span class="string">&#x27;className&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p><strong>範例：</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;myDiv&quot;</span> <span class="attr">class</span>=<span class="string">&quot;box highlight&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">const</span> div = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;myDiv&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">  <span class="variable language_">console</span>.<span class="title function_">log</span>(div.<span class="property">classList</span>.<span class="title function_">contains</span>(<span class="string">&#x27;highlight&#x27;</span>));  <span class="comment">// true</span></span></span><br><span class="line"><span class="language-javascript">  <span class="variable language_">console</span>.<span class="title function_">log</span>(div.<span class="property">classList</span>.<span class="title function_">contains</span>(<span class="string">&#x27;red&#x27;</span>));         <span class="comment">// false</span></span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="classList-replace-：替換類別"><a href="#classList-replace-：替換類別" class="headerlink" title="classList.replace()：替換類別"></a>classList.replace()：替換類別</h3><p>將一個既有的類別替換為另一個新的類別。如果要被替換的舊類別不存在，則不會執行任何操作。</p>
+<p><strong>語法：</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">element.<span class="property">classList</span>.<span class="title function_">replace</span>(<span class="string">&#x27;oldClass&#x27;</span>, <span class="string">&#x27;newClass&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p><strong>範例：</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;myDiv&quot;</span> <span class="attr">class</span>=<span class="string">&quot;box old&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">const</span> div = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;myDiv&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">  div.<span class="property">classList</span>.<span class="title function_">replace</span>(<span class="string">&#x27;old&#x27;</span>, <span class="string">&#x27;new&#x27;</span>);  <span class="comment">// 將 old 類別替換為 new</span></span></span><br><span class="line"><span class="language-javascript">  <span class="variable language_">console</span>.<span class="title function_">log</span>(div.<span class="property">className</span>);           <span class="comment">// &quot;box new&quot;</span></span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>replace()</code> 還會回傳一個布林值：替換成功回傳 <code>true</code>，如果舊類別不存在（代表沒有實際替換到任何東西）則回傳 <code>false</code>。如果需要確認替換是否真的發生，可以這樣寫：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> success = div.<span class="property">classList</span>.<span class="title function_">replace</span>(<span class="string">&#x27;old&#x27;</span>, <span class="string">&#x27;new&#x27;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(success);  <span class="comment">// true 或 false</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="classList-的屬性：length-與-value"><a href="#classList-的屬性：length-與-value" class="headerlink" title="classList 的屬性：length 與 value"></a>classList 的屬性：length 與 value</h2><p>除了上述方法之外，<code>classList</code> 也提供了兩個屬性（不是方法），可以用來讀取目前的類別資訊。</p>
+<h3 id="classList-length"><a href="#classList-length" class="headerlink" title="classList.length"></a>classList.length</h3><p>回傳元素目前擁有的類別數量。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">element.<span class="property">classList</span>.<span class="property">length</span>;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;myDiv&quot;</span> <span class="attr">class</span>=<span class="string">&quot;box highlight red&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">const</span> div = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;myDiv&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">  <span class="variable language_">console</span>.<span class="title function_">log</span>(div.<span class="property">classList</span>.<span class="property">length</span>);  <span class="comment">// 3</span></span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="classList-value"><a href="#classList-value" class="headerlink" title="classList.value"></a>classList.value</h3><p>回傳目前所有類別組成的字串，對 HTML 元素而言，內容通常與 <code>className</code> 相同。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">element.<span class="property">classList</span>.<span class="property">value</span>;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;myDiv&quot;</span> <span class="attr">class</span>=<span class="string">&quot;box highlight&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">const</span> div = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;myDiv&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">  <span class="variable language_">console</span>.<span class="title function_">log</span>(div.<span class="property">classList</span>.<span class="property">value</span>);  <span class="comment">// &quot;box highlight&quot;</span></span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="常見應用場景"><a href="#常見應用場景" class="headerlink" title="常見應用場景"></a>常見應用場景</h2><p><code>classList</code> 在實務開發中非常常用，以下是幾個常見的實際應用情境：</p>
+<ul>
+<li><strong>按鈕啟用狀態</strong>：搭配 <code>toggle(className, isActive)</code>，讓按鈕的樣式直接由狀態變數決定。</li>
+<li><strong>表單驗證提示</strong>：驗證失敗時用 <code>add(&#39;error&#39;)</code> 加上錯誤樣式，驗證通過後再用 <code>remove(&#39;error&#39;)</code> 移除。</li>
+<li><strong>Modal（彈窗）開關</strong>：用 <code>toggle(&#39;is-open&#39;)</code> 切換彈窗的顯示與隱藏。</li>
+<li><strong>深色模式（Dark mode）</strong>：用 <code>toggle(&#39;dark-mode&#39;)</code> 切換整個頁面或某個容器的主題樣式。</li>
+<li><strong>動畫效果觸發</strong>：用 <code>add(&#39;fade-in&#39;)</code> 加上動畫類別，觸發對應的 CSS 動畫效果。</li>
+</ul>
+<h2 id="綜合應用範例"><a href="#綜合應用範例" class="headerlink" title="綜合應用範例"></a>綜合應用範例</h2><p>以下範例示範一個比較貼近實務的情境：點擊按鈕切換某個區塊的啟用狀態，同時利用 <code>toggle()</code> 的回傳值來判斷目前是否為啟用狀態：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;myDiv&quot;</span> <span class="attr">class</span>=<span class="string">&quot;box&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">&quot;btn&quot;</span>&gt;</span>切換啟用狀態<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">const</span> div = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;myDiv&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">const</span> button = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;btn&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  button.<span class="title function_">addEventListener</span>(<span class="string">&#x27;click&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">const</span> isActive = div.<span class="property">classList</span>.<span class="title function_">toggle</span>(<span class="string">&#x27;active&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">    <span class="variable language_">console</span>.<span class="title function_">log</span>(div.<span class="property">classList</span>.<span class="property">value</span>);  <span class="comment">// 查看目前完整的類別字串</span></span></span><br><span class="line"><span class="language-javascript">    <span class="variable language_">console</span>.<span class="title function_">log</span>(isActive);             <span class="comment">// true：目前已啟用；false：目前已取消啟用</span></span></span><br><span class="line"><span class="language-javascript">  &#125;);</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>toggle()</code> 本身就會回傳「切換後該類別是否存在」的布林值，因此不需要再額外呼叫 <code>contains()</code> 來判斷目前狀態，程式碼可以寫得更簡潔。</p>
+<h2 id="小結"><a href="#小結" class="headerlink" title="小結"></a>小結</h2><p>這篇文章介紹了 <code>classList</code> 的常用方法與屬性：</p>
+<table>
+<thead>
+<tr>
+<th>方法 &#x2F; 屬性</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>add()</code></td>
+<td>新增一個或多個類別</td>
+</tr>
+<tr>
+<td><code>remove()</code></td>
+<td>移除一個或多個類別</td>
+</tr>
+<tr>
+<td><code>toggle()</code></td>
+<td>切換類別的存在狀態，可搭配第二個參數讓類別狀態由布林值決定</td>
+</tr>
+<tr>
+<td><code>contains()</code></td>
+<td>檢查是否擁有某個類別</td>
+</tr>
+<tr>
+<td><code>replace()</code></td>
+<td>將某個類別替換為另一個類別，並回傳是否替換成功</td>
+</tr>
+<tr>
+<td><code>length</code></td>
+<td>取得類別數量（屬性，非方法）</td>
+</tr>
+<tr>
+<td><code>value</code></td>
+<td>取得所有類別組成的字串（屬性，非方法）</td>
+</tr>
+</tbody></table>
+<p>比起直接操作 <code>className</code> 字串，<code>classList</code> 提供了更語意化、更不容易出錯的方式來管理元素的 CSS 類別，是開發互動效果、表單驗證、Modal、Dark mode 等功能時非常實用的工具。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+  
+  <section class="related-cards">
+    <h3 class="related-cards__title">
+      <i class="fa-solid fa-square-poll-horizontal"></i>相關文章
+    </h3>
+    <div class="related-cards__grid">
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+          
+          
+        
+      
+        
+          
+          
+            
+              
+            
+          
+          
+            
+            <a class="related-cards__item" href="/2026/05/17/JavaScript%20DOM%20%E6%93%8D%E4%BD%9C%E5%AE%8C%E6%95%B4%E6%95%99%E5%AD%B8%EF%BC%9AquerySelector%E3%80%81innerHTML%E3%80%81dataset%20%E4%B8%80%E6%AC%A1%E6%90%9E%E6%87%82/">
+              <span class="related-cards__item-title">JavaScript DOM 操作完整教學：querySelector、innerHTML、dataset 一次搞懂</span>
+              <span class="related-cards__item-date">
+                <i class="far fa-calendar-alt"></i>
+                2026-05-17
+              </span>
+            </a>
+          
+        
+      
+        
+          
+          
+            
+              
+            
+          
+          
+            
+            <a class="related-cards__item" href="/2026/05/18/JavaScript%20DOM%20%E4%BA%8B%E4%BB%B6%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97%EF%BC%9AaddEventListener%E3%80%81%E4%BA%8B%E4%BB%B6%E5%86%92%E6%B3%A1%E8%88%87%E4%BA%8B%E4%BB%B6%E5%A7%94%E6%B4%BE/">
+              <span class="related-cards__item-title">JavaScript DOM 事件完整指南：addEventListener、事件冒泡與事件委派</span>
+              <span class="related-cards__item-date">
+                <i class="far fa-calendar-alt"></i>
+                2026-05-18
+              </span>
+            </a>
+          
+        
+      
+        
+          
+          
+            
+              
+            
+          
+          
+            
+            <a class="related-cards__item" href="/2026/05/23/JavaScript%20Expression%20vs%20Statement%20%E6%98%AF%E4%BB%80%E9%BA%BC%EF%BC%9F%E5%87%BD%E5%BC%8F%E9%99%B3%E8%BF%B0%E5%BC%8F%E8%88%87%E5%87%BD%E5%BC%8F%E8%A1%A8%E9%81%94%E5%BC%8F%E5%AE%8C%E6%95%B4%E8%A7%A3%E6%9E%90/">
+              <span class="related-cards__item-title">JavaScript Expression vs Statement 是什麼？函式陳述式與函式表達式完整解析</span>
+              <span class="related-cards__item-date">
+                <i class="far fa-calendar-alt"></i>
+                2026-05-23
+              </span>
+            </a>
+          
+        
+      
+        
+      
+        
+          
+          
+            
+              
+            
+          
+          
+            
+            <a class="related-cards__item" href="/2026/07/19/JavaScript%20forEach()%20%E5%AE%8C%E6%95%B4%E6%95%99%E5%AD%B8:%E5%BE%9E%E5%9F%BA%E7%A4%8E%E5%88%B0%E9%99%A3%E5%88%97%E7%89%A9%E4%BB%B6%E5%AF%A6%E6%88%B0/">
+              <span class="related-cards__item-title">JavaScript forEach() 完整教學：從基礎到陣列物件實戰</span>
+              <span class="related-cards__item-date">
+                <i class="far fa-calendar-alt"></i>
+                2026-07-19
+              </span>
+            </a>
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="share-article-section">
+      <div class="share-article-heading">
+        <i class="fa-solid fa-share-nodes share-article-icon" aria-hidden="true"></i>
+        <span>分享這篇文章</span>
+      </div>
+      <div class="share-article-buttons"
+           data-share-url="https://hailey.tw/2026/08/16/JavaScript%20classList%20%E5%AE%8C%E6%95%B4%E6%95%99%E5%AD%B8%EF%BC%9A%E6%96%B0%E5%A2%9E%E3%80%81%E7%A7%BB%E9%99%A4%E3%80%81%E5%88%87%E6%8F%9B%20CSS%20%E9%A1%9E%E5%88%A5/"
+           data-share-title="JavaScript classList 完整教學：新增、移除、切換 CSS 類別">
+        <a href="#"
+           role="button"
+           class="share-article-btn"
+           data-platform="twitter">
+          <i class="fab fa-twitter"></i><span>Twitter</span>
+        </a>
+        <a href="#"
+           role="button"
+           class="share-article-btn"
+           data-platform="facebook">
+          <i class="fab fa-facebook"></i><span>Facebook</span>
+        </a>
+        <a href="#"
+           role="button"
+           class="share-article-btn"
+           data-platform="linkedin">
+          <i class="fab fa-linkedin"></i><span>LinkedIn</span>
+        </a>
+        <button type="button" class="share-article-btn" data-copy>
+          <i class="fa-regular fa-copy"></i><span>複製連結</span>
+        </button>
+      </div>
+    </div>
+  </section>
+  <style>
+    /* 讓 post-footer 變成可排序容器 */
+    .post-footer {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* 上一篇/下一篇 */
+    .post-footer .post-nav {
+      order: 20;
+    }
+
+    /* 你的相關文章區塊 */
+    .post-footer .related-cards {
+      order: 30;
+    }
+
+    /* 你的分享區塊（如果也要在 related 下方） */
+    .post-footer .share-article-section {
+      order: 40;
+    }
+    .related-cards {
+      margin: 2.25rem 0 1rem;
+    }
+
+    .related-cards__title {
+      margin-bottom: 12px;
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+
+    .related-cards__title i {
+        color: #22d3ee;
+        margin-right: 6px;
+    }
+
+    .related-cards__grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .related-cards__item {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 16px;
+      --tw-border-opacity: 1;
+      border: 1px solid rgb(82 82 91 / var(--tw-border-opacity, 1));
+      border-radius: 12px;
+      background: #4c4c5180;
+      color: #f5f7fa;
+      text-decoration: none;
+      transition: transform .18s ease, border-color .18s ease;
+    }
+
+    .related-cards__item:hover {
+      transform: translateY(-2px);
+      border-color: #22d3ee;
+      color: #22d3ee;
+    }
+
+    .related-cards__item-title {
+      font-size: 1rem;
+      line-height: 1.35;
+      font-weight: 600;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+
+    .related-cards__item-date {
+      margin-top: 10px;
+      font-size: .88rem;
+      color: #c5cad3;
+    }
+
+    @media (max-width: 1100px) {
+      .related-cards__grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .related-cards__grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* AddToAny */
+
+    /* 第一顆 AddToAny 主按鈕常太醜，直接隱藏 */
+    .post-footer .social-like .a2a_dd {
+    display: none;
+    }
+
+    .share-article-section { 
+      margin: 2rem 0 1rem; 
+      padding-top: 1.25rem; 
+    }
+    .share-article-heading { 
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .share-article-icon { 
+      color: #2dd4bf;
+      font-size: 1.25rem;
+    }
+    .share-article-buttons { 
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .share-article-btn {
+        display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px;
+        border: 1px solid rgb(82 82 91 / var(--tw-border-opacity, 1));
+        border-radius: 10px;
+        background: #4c4c5180;
+        color: inherit;
+        cursor: pointer;
+        text-decoration: none;
+        font: inherit;
+        transition: transform .18s ease, border-color .18s ease;
+    }
+    .share-article-btn:hover { border-color: #22d3ee;
+        transform: translateY(-2px); 
+    }
+  </style>
+  <script>
+  (function () {
+    var root = document.querySelector('.share-article-buttons');
+    if (!root || root.dataset.bound) return;
+    root.dataset.bound = '1';
+    var url = root.dataset.shareUrl || '';
+    var title = root.dataset.shareTitle || '';
+    var encUrl = encodeURIComponent(url);
+    var encTitle = encodeURIComponent(title);
+    var urls = {
+      twitter: 'https://twitter.com/intent/tweet?url=' + encUrl + '&text=' + encTitle,
+      facebook: 'https://www.facebook.com/sharer/sharer.php?u=' + encUrl,
+      linkedin: 'https://www.linkedin.com/sharing/share-offsite/?url=' + encUrl
+    };
+    root.querySelectorAll('[data-platform]').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        var p = btn.dataset.platform;
+        window.open(urls[p], '_blank', 'noopener,noreferrer');
+      });
+    });
+    var btnCopy = root.querySelector('[data-copy]');
+    if (btnCopy) {
+      btnCopy.addEventListener('click', function () {
+        navigator.clipboard.writeText(url).then(function () {
+          btnCopy.querySelector('span').textContent = '已複製';
+          setTimeout(function () { btnCopy.querySelector('span').textContent = '複製連結'; }, 2000);
+        });
+      });
+    }
+  })();
+  </script>
+
+
+          <div class="post-tags">
+              <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/08/08/AJAX%20%E8%88%87%20Axios%20%E5%85%A5%E9%96%80%EF%BC%9A%E5%BE%9E%E9%9D%9E%E5%90%8C%E6%AD%A5%E8%A7%80%E5%BF%B5%E5%88%B0%E5%AF%A6%E6%88%B0%E4%B8%B2%E6%8E%A5%20API/" rel="prev" title="AJAX 與 Axios 入門：從非同步觀念到實戰串接 API">
+                  <i class="fa fa-angle-left"></i> AJAX 與 Axios 入門：從非同步觀念到實戰串接 API
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div><aside class="column-recent-posts" aria-label="最新文章">
+  <div class="recent-rail-inner">
+    <h3 class="recent-rail-title">
+      <i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i>
+      <span>最新文章</span>
+    </h3>
+    <ol class="recent-rail-list">
+      
+        <li class="recent-rail-item">
+          <a class="recent-rail-link" href="/2026/08/16/JavaScript%20classList%20%E5%AE%8C%E6%95%B4%E6%95%99%E5%AD%B8%EF%BC%9A%E6%96%B0%E5%A2%9E%E3%80%81%E7%A7%BB%E9%99%A4%E3%80%81%E5%88%87%E6%8F%9B%20CSS%20%E9%A1%9E%E5%88%A5/">
+            <span class="recent-rail-item-title">JavaScript classList 完整教學：新增、移除、切換 CSS 類別</span>
+            <span class="recent-rail-item-date">08/16</span>
+          </a>
+        </li>
+      
+        <li class="recent-rail-item">
+          <a class="recent-rail-link" href="/2026/08/08/AJAX%20%E8%88%87%20Axios%20%E5%85%A5%E9%96%80%EF%BC%9A%E5%BE%9E%E9%9D%9E%E5%90%8C%E6%AD%A5%E8%A7%80%E5%BF%B5%E5%88%B0%E5%AF%A6%E6%88%B0%E4%B8%B2%E6%8E%A5%20API/">
+            <span class="recent-rail-item-title">AJAX 與 Axios 入門：從非同步觀念到實戰串接 API</span>
+            <span class="recent-rail-item-date">08/08</span>
+          </a>
+        </li>
+      
+        <li class="recent-rail-item">
+          <a class="recent-rail-link" href="/2026/07/27/JavaScript%20%E7%B7%B4%E7%BF%92%E9%A1%8C%EF%BC%9A%E9%87%8D%E6%A7%8B%E5%85%85%E9%9B%BB%E7%AB%99%E6%B8%85%E5%96%AE%EF%BC%8C%E5%AD%B8%E6%9C%83%20DOM%20%E8%88%87%20filter/">
+            <span class="recent-rail-item-title">JavaScript 練習題：重構充電站清單，學會 DOM 與 filter</span>
+            <span class="recent-rail-item-date">07/27</span>
+          </a>
+        </li>
+      
+        <li class="recent-rail-item">
+          <a class="recent-rail-link" href="/2026/07/20/JavaScript%20for%E2%80%A6of%20%E5%AE%8C%E6%95%B4%E6%95%99%E5%AD%B8%EF%BC%9A%E8%AA%9E%E6%B3%95%E3%80%81%E7%AF%84%E4%BE%8B%E3%80%81break%20%E8%88%87%20forEach%20%E5%B7%AE%E7%95%B0/">
+            <span class="recent-rail-item-title">JavaScript for…of 完整教學：語法、範例、break 與 forEach 差異</span>
+            <span class="recent-rail-item-date">07/20</span>
+          </a>
+        </li>
+      
+        <li class="recent-rail-item">
+          <a class="recent-rail-link" href="/2026/07/19/JavaScript%20forEach()%20%E5%AE%8C%E6%95%B4%E6%95%99%E5%AD%B8:%E5%BE%9E%E5%9F%BA%E7%A4%8E%E5%88%B0%E9%99%A3%E5%88%97%E7%89%A9%E4%BB%B6%E5%AF%A6%E6%88%B0/">
+            <span class="recent-rail-item-title">JavaScript forEach() 完整教學：從基礎到陣列物件實戰</span>
+            <span class="recent-rail-item-date">07/19</span>
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</aside>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class=""></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Hailey. All rights reserved.<br>Built with Hexo & Theme NexT</span>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"Hailey-1025/blog-comments","issue_term":"pathname","label":"comment","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js" defer></script>
+
+<script>
+(function () {
+  var mq = window.matchMedia('(max-width: 991px)');
+  var btn = document.querySelector('.site-nav-toggle .toggle');
+  var sidebarBtn = document.querySelector('.sidebar-toggle');
+  var siteNav = document.querySelector('.header .site-nav');
+  if (!btn || !sidebarBtn) return;
+
+  function collapseHeaderNavDropdown() {
+    document.body.classList.remove('site-nav-on');
+    if (siteNav) siteNav.style.removeProperty('--scroll-height');
+  }
+
+  btn.addEventListener('click', function (e) {
+    if (!mq.matches) return;
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    collapseHeaderNavDropdown();
+    sidebarBtn.click();
+  }, true);
+
+  new MutationObserver(function () {
+    if (!mq.matches) return;
+    var open = document.body.classList.contains('sidebar-active');
+    btn.classList.toggle('toggle-close', open);
+  }).observe(document.body, { attributes: true, attributeFilter: ['class'] });
+
+  mq.addEventListener('change', function () {
+    if (!mq.matches) {
+      btn.classList.remove('toggle-close');
+      collapseHeaderNavDropdown();
+      document.body.classList.remove('mobile-header-scrolled-down');
+    }
+  });
+
+  var lastY = window.scrollY || 0;
+  var ticking = false;
+
+  function updateMobileHeaderOnScroll() {
+    ticking = false;
+    if (!mq.matches) return;
+    var currentY = window.scrollY || 0;
+    var scrollingDown = currentY > lastY;
+    var passedTop = currentY > 10;
+    document.body.classList.toggle('mobile-header-scrolled-down', scrollingDown && passedTop);
+    lastY = currentY;
+  }
+
+  window.addEventListener('scroll', function () {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(updateMobileHeaderOnScroll);
+  }, { passive: true });
+})();
+</script>
+
+</body>
+</html>
